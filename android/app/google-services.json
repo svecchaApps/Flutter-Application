@@ -1,0 +1,114 @@
+{
+  "project_info": {
+    "project_number": "904787268928",
+    "project_id": "sveccha-11c31",
+    "storage_bucket": "sveccha-11c31.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:904787268928:android:0cb3fce80af151162456a5",
+        "android_client_info": {
+          "package_name": "com.mycompany.lsdapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "904787268928-5060j64nagn1ld62h6103dg1qrhgoh2q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mycompany.lsdapp",
+            "certificate_hash": "af57521ed378a09cda60953091874094d97c0994"
+          }
+        },
+        {
+          "client_id": "904787268928-cg73o9f2g9jr3luj5bgkbk3igbln66c9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mycompany.lsdapp",
+            "certificate_hash": "9bbb3186b2189ef16d8f272bdab59362c395cbb4"
+          }
+        },
+        {
+          "client_id": "904787268928-n4r1a328rue9ko07s4t389qonf7rfdi4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mycompany.lsdapp",
+            "certificate_hash": "4ef4b6e80e1eff17f2cea03783b7fc7b6f739123"
+          }
+        },
+        {
+          "client_id": "904787268928-fs2lpcvovmq5k5sf8v9ft05e4evt9he2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBCXckgGdEG3Gak0y2uqyBqNmcup1ZO03Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "904787268928-fs2lpcvovmq5k5sf8v9ft05e4evt9he2.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "904787268928-fbolg2hrn6n9uq9je0nlkjo7se7n28mr.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.mycompany.svecchaadminlogin"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:904787268928:android:053995750f6ab46c2456a5",
+        "android_client_info": {
+          "package_name": "com.mycompany.svecchaadminlogin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "904787268928-1n1efsphqubob114e9sjar04u48jabgs.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mycompany.svecchaadminlogin",
+            "certificate_hash": "9bbb3186b2189ef16d8f272bdab59362c395cbb4"
+          }
+        },
+        {
+          "client_id": "904787268928-fs2lpcvovmq5k5sf8v9ft05e4evt9he2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBCXckgGdEG3Gak0y2uqyBqNmcup1ZO03Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "904787268928-fs2lpcvovmq5k5sf8v9ft05e4evt9he2.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "904787268928-fbolg2hrn6n9uq9je0nlkjo7se7n28mr.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.mycompany.svecchaadminlogin"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
