@@ -10,6 +10,9 @@ export 'create_an_account_model.dart';
 class CreateAnAccountWidget extends StatefulWidget {
   const CreateAnAccountWidget({super.key});
 
+  static String routeName = 'CreateAnAccount';
+  static String routePath = '/createAnAccount';
+
   @override
   State<CreateAnAccountWidget> createState() => _CreateAnAccountWidgetState();
 }
@@ -69,8 +72,8 @@ class _CreateAnAccountWidgetState extends State<CreateAnAccountWidget> {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Padding(
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(20.0, 45.0, 0.0, 0.0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(
+                        20.0, 45.0, 0.0, 0.0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -106,8 +109,8 @@ class _CreateAnAccountWidgetState extends State<CreateAnAccountWidget> {
                   Container(
                     decoration: const BoxDecoration(),
                     child: Padding(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 0.0),
+                      padding: const EdgeInsetsDirectional.fromSTEB(
+                          20.0, 0.0, 20.0, 0.0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
@@ -135,8 +138,8 @@ class _CreateAnAccountWidgetState extends State<CreateAnAccountWidget> {
                     ),
                   ),
                   Padding(
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(20.0, 5.0, 20.0, 0.0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(
+                        20.0, 5.0, 20.0, 0.0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       children: [
@@ -161,8 +164,8 @@ class _CreateAnAccountWidgetState extends State<CreateAnAccountWidget> {
                     ),
                   ),
                   Padding(
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(20.0, 25.0, 20.0, 10.0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(
+                        20.0, 25.0, 20.0, 10.0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       children: [
@@ -183,8 +186,8 @@ class _CreateAnAccountWidgetState extends State<CreateAnAccountWidget> {
                     ),
                   ),
                   Padding(
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(20.0, 10.0, 20.0, 0.0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(
+                        20.0, 10.0, 20.0, 0.0),
                     child: SizedBox(
                       width: MediaQuery.sizeOf(context).width * 1.0,
                       child: TextFormField(
@@ -264,8 +267,8 @@ class _CreateAnAccountWidgetState extends State<CreateAnAccountWidget> {
                     ),
                   ),
                   Padding(
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(20.0, 15.0, 20.0, 0.0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(
+                        20.0, 15.0, 20.0, 0.0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       children: [
@@ -286,8 +289,8 @@ class _CreateAnAccountWidgetState extends State<CreateAnAccountWidget> {
                     ),
                   ),
                   Padding(
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(20.0, 14.0, 20.0, 0.0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(
+                        20.0, 14.0, 20.0, 0.0),
                     child: SizedBox(
                       width: MediaQuery.sizeOf(context).width * 1.0,
                       child: TextFormField(
@@ -368,8 +371,8 @@ class _CreateAnAccountWidgetState extends State<CreateAnAccountWidget> {
                     ),
                   ),
                   Padding(
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(20.0, 15.0, 20.0, 0.0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(
+                        20.0, 15.0, 20.0, 0.0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       children: [
@@ -390,8 +393,8 @@ class _CreateAnAccountWidgetState extends State<CreateAnAccountWidget> {
                     ),
                   ),
                   Padding(
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(20.0, 14.0, 20.0, 0.0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(
+                        20.0, 14.0, 20.0, 0.0),
                     child: SizedBox(
                       width: MediaQuery.sizeOf(context).width * 1.0,
                       child: TextFormField(
@@ -479,8 +482,8 @@ class _CreateAnAccountWidgetState extends State<CreateAnAccountWidget> {
                     ),
                   ),
                   Padding(
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(20.0, 15.0, 20.0, 0.0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(
+                        20.0, 15.0, 20.0, 0.0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       children: [
@@ -501,8 +504,8 @@ class _CreateAnAccountWidgetState extends State<CreateAnAccountWidget> {
                     ),
                   ),
                   Padding(
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(20.0, 10.0, 20.0, 0.0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(
+                        20.0, 10.0, 20.0, 0.0),
                     child: SizedBox(
                       width: MediaQuery.sizeOf(context).width * 1.0,
                       child: TextFormField(
@@ -599,8 +602,8 @@ class _CreateAnAccountWidgetState extends State<CreateAnAccountWidget> {
                   Align(
                     alignment: const AlignmentDirectional(-1.0, 0.0),
                     child: Padding(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(20.0, 15.0, 20.0, 0.0),
+                      padding: const EdgeInsetsDirectional.fromSTEB(
+                          20.0, 15.0, 20.0, 0.0),
                       child: Text(
                         'Confirm Password',
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -615,8 +618,8 @@ class _CreateAnAccountWidgetState extends State<CreateAnAccountWidget> {
                     ),
                   ),
                   Padding(
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(20.0, 10.0, 20.0, 0.0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(
+                        20.0, 10.0, 20.0, 0.0),
                     child: SizedBox(
                       width: MediaQuery.sizeOf(context).width * 1.0,
                       child: TextFormField(
@@ -711,8 +714,8 @@ class _CreateAnAccountWidgetState extends State<CreateAnAccountWidget> {
                     ),
                   ),
                   Padding(
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(20.0, 25.0, 20.0, 30.0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(
+                        20.0, 25.0, 20.0, 30.0),
                     child: FFButtonWidget(
                       onPressed: () async {
                         if (_model.formKey.currentState == null ||
@@ -802,8 +805,8 @@ class _CreateAnAccountWidgetState extends State<CreateAnAccountWidget> {
                         height: MediaQuery.sizeOf(context).height * 0.065,
                         padding: const EdgeInsetsDirectional.fromSTEB(
                             24.0, 0.0, 24.0, 0.0),
-                        iconPadding:
-                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                        iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                            0.0, 0.0, 0.0, 0.0),
                         color: FlutterFlowTheme.of(context).primary,
                         textStyle:
                             FlutterFlowTheme.of(context).titleSmall.override(
@@ -825,8 +828,8 @@ class _CreateAnAccountWidgetState extends State<CreateAnAccountWidget> {
                     ),
                   ),
                   Padding(
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 20.0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(
+                        0.0, 0.0, 0.0, 20.0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,

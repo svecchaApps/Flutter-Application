@@ -3,14 +3,23 @@ import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'dart:math';
+import 'dart:ui';
+import '/index.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+
 import 'login_mobile_screen_model.dart';
 export 'login_mobile_screen_model.dart';
 
 class LoginMobileScreenWidget extends StatefulWidget {
   const LoginMobileScreenWidget({super.key});
+
+  static String routeName = 'LoginMobileScreen';
+  static String routePath = '/loginMobileScreen';
 
   @override
   State<LoginMobileScreenWidget> createState() =>
@@ -42,8 +51,8 @@ class _LoginMobileScreenWidgetState extends State<LoginMobileScreenWidget>
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 180.0.ms,
-            begin: const Offset(1.0, 1.0),
-            end: const Offset(1.0, 1.0),
+            begin: Offset(1.0, 1.0),
+            end: Offset(1.0, 1.0),
           ),
         ],
       ),
@@ -70,9 +79,9 @@ class _LoginMobileScreenWidgetState extends State<LoginMobileScreenWidget>
         appBar: AppBar(
           backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
           automaticallyImplyLeading: true,
-          actions: const [],
+          actions: [],
           centerTitle: true,
-          elevation: 0.0,
+          elevation: 0,
         ),
         body: SafeArea(
           top: true,
@@ -80,7 +89,7 @@ class _LoginMobileScreenWidgetState extends State<LoginMobileScreenWidget>
             mainAxisSize: MainAxisSize.max,
             children: [
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(20.0, 30.0, 20.0, 0.0),
+                padding: EdgeInsetsDirectional.fromSTEB(20, 30, 20, 0),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   children: [
@@ -88,7 +97,7 @@ class _LoginMobileScreenWidgetState extends State<LoginMobileScreenWidget>
                       'Login ',
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                             fontFamily: 'Inter',
-                            fontSize: 16.0,
+                            fontSize: 16,
                             letterSpacing: 0.0,
                             fontWeight: FontWeight.bold,
                             useGoogleFonts:
@@ -99,7 +108,7 @@ class _LoginMobileScreenWidgetState extends State<LoginMobileScreenWidget>
                 ),
               ),
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(20.0, 10.0, 25.0, 0.0),
+                padding: EdgeInsetsDirectional.fromSTEB(20, 10, 25, 0),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   children: [
@@ -108,7 +117,7 @@ class _LoginMobileScreenWidgetState extends State<LoginMobileScreenWidget>
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                             fontFamily: 'Inter',
                             color: FlutterFlowTheme.of(context).secondaryText,
-                            fontSize: 14.0,
+                            fontSize: 14,
                             letterSpacing: 0.0,
                             fontWeight: FontWeight.normal,
                             useGoogleFonts:
@@ -119,7 +128,7 @@ class _LoginMobileScreenWidgetState extends State<LoginMobileScreenWidget>
                 ),
               ),
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(20.0, 60.0, 25.0, 0.0),
+                padding: EdgeInsetsDirectional.fromSTEB(20, 60, 25, 0),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   children: [
@@ -127,8 +136,8 @@ class _LoginMobileScreenWidgetState extends State<LoginMobileScreenWidget>
                       'Mobile Number ',
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                             fontFamily: 'Inter',
-                            color: const Color(0xFF232323),
-                            fontSize: 14.0,
+                            color: Color(0xFF232323),
+                            fontSize: 14,
                             letterSpacing: 0.0,
                             fontWeight: FontWeight.w500,
                             useGoogleFonts:
@@ -139,7 +148,7 @@ class _LoginMobileScreenWidgetState extends State<LoginMobileScreenWidget>
                 ),
               ),
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(20.0, 20.0, 20.0, 0.0),
+                padding: EdgeInsetsDirectional.fromSTEB(20, 20, 20, 0),
                 child: TextFormField(
                   controller: _model.emailTextController,
                   focusNode: _model.emailFocusNode,
@@ -152,7 +161,7 @@ class _LoginMobileScreenWidgetState extends State<LoginMobileScreenWidget>
                           fontFamily:
                               FlutterFlowTheme.of(context).labelMediumFamily,
                           color: FlutterFlowTheme.of(context).primaryText,
-                          fontSize: 14.0,
+                          fontSize: 14,
                           letterSpacing: 0.0,
                           useGoogleFonts: GoogleFonts.asMap().containsKey(
                               FlutterFlowTheme.of(context).labelMediumFamily),
@@ -164,7 +173,7 @@ class _LoginMobileScreenWidgetState extends State<LoginMobileScreenWidget>
                           fontFamily:
                               FlutterFlowTheme.of(context).labelMediumFamily,
                           color: FlutterFlowTheme.of(context).secondaryText,
-                          fontSize: 14.0,
+                          fontSize: 14,
                           letterSpacing: 0.0,
                           useGoogleFonts: GoogleFonts.asMap().containsKey(
                               FlutterFlowTheme.of(context).labelMediumFamily),
@@ -174,38 +183,38 @@ class _LoginMobileScreenWidgetState extends State<LoginMobileScreenWidget>
                         color: FlutterFlowTheme.of(context).secondaryText,
                         width: 0.5,
                       ),
-                      borderRadius: BorderRadius.circular(5.0),
+                      borderRadius: BorderRadius.circular(5),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(
                         color: FlutterFlowTheme.of(context).primaryText,
                         width: 0.5,
                       ),
-                      borderRadius: BorderRadius.circular(5.0),
+                      borderRadius: BorderRadius.circular(5),
                     ),
                     errorBorder: OutlineInputBorder(
                       borderSide: BorderSide(
                         color: FlutterFlowTheme.of(context).error,
                         width: 0.5,
                       ),
-                      borderRadius: BorderRadius.circular(5.0),
+                      borderRadius: BorderRadius.circular(5),
                     ),
                     focusedErrorBorder: OutlineInputBorder(
                       borderSide: BorderSide(
                         color: FlutterFlowTheme.of(context).error,
                         width: 0.5,
                       ),
-                      borderRadius: BorderRadius.circular(5.0),
+                      borderRadius: BorderRadius.circular(5),
                     ),
                     prefixIcon: Icon(
                       Icons.phone_sharp,
                       color: FlutterFlowTheme.of(context).secondaryText,
-                      size: 20.0,
+                      size: 20,
                     ),
-                    suffixIcon: const Icon(
+                    suffixIcon: Icon(
                       Icons.check_circle_sharp,
                       color: Color(0xFF323FA4),
-                      size: 20.0,
+                      size: 20,
                     ),
                   ),
                   style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -222,17 +231,17 @@ class _LoginMobileScreenWidgetState extends State<LoginMobileScreenWidget>
                 ),
               ),
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(20.0, 20.0, 20.0, 0.0),
+                padding: EdgeInsetsDirectional.fromSTEB(20, 20, 20, 0),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Text(
-                      'Already have a account?',
+                      'Don\'t have an account? ',
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                             fontFamily:
                                 FlutterFlowTheme.of(context).bodyMediumFamily,
-                            fontSize: 12.0,
+                            fontSize: 12,
                             letterSpacing: 0.0,
                             useGoogleFonts: GoogleFonts.asMap().containsKey(
                                 FlutterFlowTheme.of(context).bodyMediumFamily),
@@ -244,7 +253,7 @@ class _LoginMobileScreenWidgetState extends State<LoginMobileScreenWidget>
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () async {
-                        context.pushNamed('CreateAnAccount');
+                        context.pushNamed(CreateAnAccountWidget.routeName);
                       },
                       child: Text(
                         'Sign up',
@@ -263,17 +272,18 @@ class _LoginMobileScreenWidgetState extends State<LoginMobileScreenWidget>
                   ],
                 ),
               ),
-              const Spacer(),
+              Spacer(),
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(20.0, 10.0, 20.0, 30.0),
+                padding: EdgeInsetsDirectional.fromSTEB(20, 10, 20, 30),
                 child: FFButtonWidget(
                   onPressed: () async {
                     final phoneNumberVal =
                         '+91${_model.emailTextController.text}';
-                    if (phoneNumberVal.isEmpty ||
+                    if (phoneNumberVal == null ||
+                        phoneNumberVal.isEmpty ||
                         !phoneNumberVal.startsWith('+')) {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
+                        SnackBar(
                           content: Text('Incorrect Phone Number'),
                         ),
                       );
@@ -284,7 +294,7 @@ class _LoginMobileScreenWidgetState extends State<LoginMobileScreenWidget>
                       phoneNumber: phoneNumberVal,
                       onCodeSent: (context) async {
                         context.goNamedAuth(
-                          'OtpLogin',
+                          OtpLoginWidget.routeName,
                           context.mounted,
                           queryParameters: {
                             'email': serializeParam(
@@ -301,25 +311,23 @@ class _LoginMobileScreenWidgetState extends State<LoginMobileScreenWidget>
                   options: FFButtonOptions(
                     width: double.infinity,
                     height: MediaQuery.sizeOf(context).height * 0.065,
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(21.0, 0.0, 21.0, 0.0),
-                    iconPadding:
-                        const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                    padding: EdgeInsetsDirectional.fromSTEB(21, 0, 21, 0),
+                    iconPadding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
                     color: FlutterFlowTheme.of(context).primary,
                     textStyle: FlutterFlowTheme.of(context).titleSmall.override(
                           fontFamily: 'Inter',
-                          color: const Color(0xFFFDFDFD),
-                          fontSize: 12.0,
+                          color: Color(0xFFFDFDFD),
+                          fontSize: 12,
                           letterSpacing: 0.0,
                           useGoogleFonts:
                               GoogleFonts.asMap().containsKey('Inter'),
                         ),
-                    elevation: 3.0,
-                    borderSide: const BorderSide(
+                    elevation: 3,
+                    borderSide: BorderSide(
                       color: Colors.transparent,
-                      width: 1.0,
+                      width: 1,
                     ),
-                    borderRadius: BorderRadius.circular(20.0),
+                    borderRadius: BorderRadius.circular(20),
                   ),
                 ).animateOnPageLoad(
                     animationsMap['buttonOnPageLoadAnimation']!),

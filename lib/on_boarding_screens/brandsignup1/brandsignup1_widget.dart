@@ -88,6 +88,9 @@ class _Brandsignup1WidgetState extends State<Brandsignup1Widget> {
     _model.pinTextController ??= TextEditingController();
     _model.pinFocusNode ??= FocusNode();
 
+    _model.pincodeTextController ??= TextEditingController();
+    _model.pincodeFocusNode ??= FocusNode();
+
     _model.aboutTextController ??= TextEditingController();
     _model.aboutFocusNode ??= FocusNode();
 
@@ -1335,23 +1338,7 @@ class _Brandsignup1WidgetState extends State<Brandsignup1Widget> {
                             !_model.formKey.currentState!.validate()) {
                           return;
                         }
-                        if (_model.dropDownValue == null) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text(
-                                'Please select state',
-                                style: TextStyle(
-                                  color:
-                                      FlutterFlowTheme.of(context).primaryText,
-                                ),
-                              ),
-                              duration: const Duration(milliseconds: 4000),
-                              backgroundColor:
-                                  FlutterFlowTheme.of(context).secondary,
-                            ),
-                          );
-                          return;
-                        }
+
                         if (_model.uploadedFileUrl1.isEmpty) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
@@ -1386,14 +1373,37 @@ class _Brandsignup1WidgetState extends State<Brandsignup1Widget> {
                           );
                           return;
                         }
+
                         if (_model.passwordTextController.text ==
                             _model.conpassTextController.text) {
+                          var requestBody = {
+                            'email': _model.emailTextController.text,
+                            'password': _model.passwordTextController.text,
+                            'displayName': _model.nameTextController.text,
+                            'nickName': "Work",
+                            'phoneNumber':
+                                '+91${_model.phoneTextController.text}',
+                            'role': 'Designer',
+                            'address': _model.streetTextController.text,
+                            'city': _model.cityTextController.text,
+                            'state': _model.stateTextController.text,
+                            'pincode': _model.pincodeTextController.text,
+                            'shortDescription': _model.aboutTextController.text,
+                            'about': _model.descriptionTextController.text,
+                            'logoUrl': _model.uploadedFileUrl1,
+                            'groundImageUrl': _model.uploadedFileUrl2,
+                          };
+
+                          // Print the request body in the console
+                          print("Request Body: $requestBody");
+
                           _model.createDesigner = await BackendAPIGroup
                               .createDesigneranduserCall
                               .call(
                             email: _model.emailTextController.text,
                             password: _model.passwordTextController.text,
                             displayName: _model.nameTextController.text,
+                            nickName: "Work",
                             phoneNumber:
                                 '+91${_model.phoneTextController.text}',
                             role: 'Designer',
@@ -1407,11 +1417,13 @@ class _Brandsignup1WidgetState extends State<Brandsignup1Widget> {
                             groundImageUrl: _model.uploadedFileUrl2,
                           );
 
+                          print(_model.createDesigner?.jsonBody);
+
                           if ((_model.createDesigner?.succeeded ?? true)) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
                                 content: Text(
-                                  'Profile Created SuccessFully',
+                                  'Profile Created Successfully',
                                   style: TextStyle(
                                     color: FlutterFlowTheme.of(context)
                                         .primaryBackground,

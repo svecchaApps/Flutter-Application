@@ -1,20 +1,23 @@
+import '/auth/firebase_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
-import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_expanded_image_view.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'dart:ui';
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'dart:async';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart'
     as smooth_page_indicator;
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
+
 import 'product_description_copy_model.dart';
 export 'product_description_copy_model.dart';
 
@@ -34,39 +37,15 @@ class ProductDescriptionCopyWidget extends StatefulWidget {
 }
 
 class _ProductDescriptionCopyWidgetState
-    extends State<ProductDescriptionCopyWidget> with TickerProviderStateMixin {
+    extends State<ProductDescriptionCopyWidget> {
   late ProductDescriptionCopyModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
-
-  final animationsMap = <String, AnimationInfo>{};
 
   @override
   void initState() {
     super.initState();
     _model = createModel(context, () => ProductDescriptionCopyModel());
-
-    animationsMap.addAll({
-      'iconOnActionTriggerAnimation': AnimationInfo(
-        trigger: AnimationTrigger.onActionTrigger,
-        applyInitialState: true,
-        effectsBuilder: () => [
-          FlipEffect(
-            curve: Curves.easeInOut,
-            delay: 0.0.ms,
-            duration: 600.0.ms,
-            begin: 0.0,
-            end: 2.0,
-          ),
-        ],
-      ),
-    });
-    setupAnimations(
-      animationsMap.values.where((anim) =>
-          anim.trigger == AnimationTrigger.onActionTrigger ||
-          !anim.applyInitialState),
-      this,
-    );
   }
 
   @override
@@ -83,8 +62,8 @@ class _ProductDescriptionCopyWidgetState
     return FutureBuilder<ApiCallResponse>(
       future: (_model.apiRequestCompleter ??= Completer<ApiCallResponse>()
             ..complete(BackendAPIGroup.getProductBycolorCall.call(
-              productId: widget.productId,
-              color: widget.colorId,
+              productId: widget!.productId,
+              color: widget!.colorId,
             )))
           .future,
       builder: (context, snapshot) {
@@ -94,8 +73,8 @@ class _ProductDescriptionCopyWidgetState
             backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
             body: Center(
               child: SizedBox(
-                width: 50.0,
-                height: 50.0,
+                width: 50,
+                height: 50,
                 child: CircularProgressIndicator(
                   valueColor: AlwaysStoppedAnimation<Color>(
                     FlutterFlowTheme.of(context).primary,
@@ -122,7 +101,7 @@ class _ProductDescriptionCopyWidgetState
                 backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
                 automaticallyImplyLeading: false,
                 leading: Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(15.0, 0.0, 0.0, 0.0),
+                  padding: EdgeInsetsDirectional.fromSTEB(15, 0, 0, 0),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     children: [
@@ -137,17 +116,16 @@ class _ProductDescriptionCopyWidgetState
                         child: Icon(
                           Icons.arrow_back,
                           color: FlutterFlowTheme.of(context).primaryText,
-                          size: 24.0,
+                          size: 24,
                         ),
                       ),
                     ],
                   ),
                 ),
                 title: Align(
-                  alignment: const AlignmentDirectional(0.0, -0.85),
+                  alignment: AlignmentDirectional(0, -0.85),
                   child: Padding(
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 10.0, 0.0),
+                    padding: EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.end,
@@ -155,13 +133,13 @@ class _ProductDescriptionCopyWidgetState
                         Stack(
                           children: [
                             FlutterFlowIconButton(
-                              borderRadius: 30.0,
-                              buttonSize: 40.0,
-                              fillColor: const Color(0x00E0E6ED),
+                              borderRadius: 30,
+                              buttonSize: 40,
+                              fillColor: Color(0x00E0E6ED),
                               icon: Icon(
                                 FFIcons.kshoppingBag,
                                 color: FlutterFlowTheme.of(context).primaryText,
-                                size: 24.0,
+                                size: 24,
                               ),
                               onPressed: () async {
                                 context.pushNamed('CartPagenewCopy');
@@ -173,9 +151,9 @@ class _ProductDescriptionCopyWidgetState
                     ),
                   ),
                 ),
-                actions: const [],
+                actions: [],
                 centerTitle: false,
-                elevation: 0.0,
+                elevation: 0,
               ),
             ),
             body: Column(
@@ -185,7 +163,7 @@ class _ProductDescriptionCopyWidgetState
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Container(
-                      width: MediaQuery.sizeOf(context).width * 1.0,
+                      width: MediaQuery.sizeOf(context).width,
                       height: MediaQuery.sizeOf(context).height * 0.78,
                       decoration: BoxDecoration(
                         color: FlutterFlowTheme.of(context).primaryBackground,
@@ -196,14 +174,14 @@ class _ProductDescriptionCopyWidgetState
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Container(
-                              width: MediaQuery.sizeOf(context).width * 1.0,
+                              width: MediaQuery.sizeOf(context).width,
                               height: MediaQuery.sizeOf(context).height * 0.52,
                               decoration: BoxDecoration(
                                 color: FlutterFlowTheme.of(context)
                                     .primaryBackground,
                               ),
                               child: Align(
-                                alignment: const AlignmentDirectional(0.0, 0.0),
+                                alignment: AlignmentDirectional(0, 0),
                                 child: Builder(
                                   builder: (context) {
                                     final data =
@@ -215,9 +193,8 @@ class _ProductDescriptionCopyWidgetState
                                                 ?.toList() ??
                                             [];
 
-                                    return SizedBox(
-                                      width: MediaQuery.sizeOf(context).width *
-                                          1.0,
+                                    return Container(
+                                      width: MediaQuery.sizeOf(context).width,
                                       height:
                                           MediaQuery.sizeOf(context).height *
                                               0.52,
@@ -267,11 +244,11 @@ class _ProductDescriptionCopyWidgetState
                                                   child: ClipRRect(
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            20.0),
+                                                            20),
                                                     child: Image.network(
                                                       dataItem,
-                                                      width: 300.0,
-                                                      height: 200.0,
+                                                      width: 300,
+                                                      height: 200,
                                                       fit: BoxFit.cover,
                                                     ),
                                                   ),
@@ -281,11 +258,10 @@ class _ProductDescriptionCopyWidgetState
                                           ),
                                           Align(
                                             alignment:
-                                                const AlignmentDirectional(0.0, 1.0),
+                                                AlignmentDirectional(0, 1),
                                             child: Padding(
-                                              padding: const EdgeInsetsDirectional
-                                                  .fromSTEB(
-                                                      16.0, 0.0, 0.0, 16.0),
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(16, 0, 0, 16),
                                               child: smooth_page_indicator
                                                   .SmoothPageIndicator(
                                                 controller: _model
@@ -304,7 +280,7 @@ class _ProductDescriptionCopyWidgetState
                                                       .pageViewController!
                                                       .animateToPage(
                                                     i,
-                                                    duration: const Duration(
+                                                    duration: Duration(
                                                         milliseconds: 500),
                                                     curve: Curves.ease,
                                                   );
@@ -312,12 +288,12 @@ class _ProductDescriptionCopyWidgetState
                                                 },
                                                 effect: smooth_page_indicator
                                                     .ExpandingDotsEffect(
-                                                  expansionFactor: 2.0,
-                                                  spacing: 8.0,
-                                                  radius: 16.0,
-                                                  dotWidth: 8.0,
-                                                  dotHeight: 8.0,
-                                                  dotColor: const Color(0xFFC6C7C7),
+                                                  expansionFactor: 2,
+                                                  spacing: 8,
+                                                  radius: 16,
+                                                  dotWidth: 8,
+                                                  dotHeight: 8,
+                                                  dotColor: Color(0xFFC6C7C7),
                                                   activeDotColor:
                                                       FlutterFlowTheme.of(
                                                               context)
@@ -339,8 +315,8 @@ class _ProductDescriptionCopyWidgetState
                               mainAxisSize: MainAxisSize.max,
                               children: [
                                 Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
-                                      10.0, 0.0, 20.0, 0.0),
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      10, 0, 20, 0),
                                   child: Text(
                                     valueOrDefault<String>(
                                       BackendAPIGroup.getProductBycolorCall
@@ -354,8 +330,8 @@ class _ProductDescriptionCopyWidgetState
                                         .bodyMedium
                                         .override(
                                           fontFamily: 'Inter',
-                                          color: const Color(0xFF232323),
-                                          fontSize: 16.0,
+                                          color: Color(0xFF232323),
+                                          fontSize: 16,
                                           letterSpacing: 0.0,
                                           fontWeight: FontWeight.w600,
                                           useGoogleFonts: GoogleFonts.asMap()
@@ -363,240 +339,27 @@ class _ProductDescriptionCopyWidgetState
                                         ),
                                   ),
                                 ),
-                                Stack(
-                                  children: [
-                                    if (!functions.newCustomFunction4(
-                                        BackendAPIGroup.getProductBycolorCall
-                                            .wishListedBy(
-                                              productDescriptionCopyGetProductBycolorResponse
-                                                  .jsonBody,
-                                            )
-                                            ?.toList(),
-                                        FFAppState().userId)!)
-                                      Align(
-                                        alignment:
-                                            const AlignmentDirectional(0.0, 0.0),
-                                        child: InkWell(
-                                          splashColor: Colors.transparent,
-                                          focusColor: Colors.transparent,
-                                          hoverColor: Colors.transparent,
-                                          highlightColor: Colors.transparent,
-                                          onTap: () async {
-                                            _model.colorWishlist =
-                                                await BackendAPIGroup
-                                                    .createWishListCall
-                                                    .call(
-                                              userId: FFAppState().userId,
-                                              productId: BackendAPIGroup
-                                                  .getProductBycolorCall
-                                                  .productId(
-                                                productDescriptionCopyGetProductBycolorResponse
-                                                    .jsonBody,
-                                              ),
-                                            );
-
-                                            if ((_model
-                                                    .colorWishlist?.succeeded ??
-                                                true)) {
-                                              ScaffoldMessenger.of(context)
-                                                  .showSnackBar(
-                                                SnackBar(
-                                                  content: Text(
-                                                    getJsonField(
-                                                      (_model.colorWishlist
-                                                              ?.jsonBody ??
-                                                          ''),
-                                                      r'''$.message''',
-                                                    ).toString(),
-                                                    style: TextStyle(
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primaryText,
-                                                    ),
-                                                  ),
-                                                  duration: const Duration(
-                                                      milliseconds: 4000),
-                                                  backgroundColor:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .secondary,
-                                                ),
-                                              );
-                                              safeSetState(() => _model
-                                                  .apiRequestCompleter = null);
-                                              await _model
-                                                  .waitForApiRequestCompleted();
-                                            } else {
-                                              ScaffoldMessenger.of(context)
-                                                  .showSnackBar(
-                                                SnackBar(
-                                                  content: Text(
-                                                    getJsonField(
-                                                      (_model.colorWishlist
-                                                              ?.jsonBody ??
-                                                          ''),
-                                                      r'''$.message''',
-                                                    ).toString(),
-                                                    style: TextStyle(
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primaryText,
-                                                    ),
-                                                  ),
-                                                  duration: const Duration(
-                                                      milliseconds: 4000),
-                                                  backgroundColor:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .secondary,
-                                                ),
-                                              );
-                                            }
-
-                                            safeSetState(() {});
-                                          },
-                                          child: Icon(
-                                            Icons.favorite,
-                                            color: FlutterFlowTheme.of(context)
-                                                .alternate,
-                                            size: 18.0,
-                                          ),
-                                        ),
-                                      ),
-                                    if (functions.newCustomFunction4(
-                                            BackendAPIGroup
-                                                .getProductBycolorCall
-                                                .wishListedBy(
-                                                  productDescriptionCopyGetProductBycolorResponse
-                                                      .jsonBody,
-                                                )
-                                                ?.toList(),
-                                            FFAppState().userId) ??
-                                        true)
-                                      Align(
-                                        alignment:
-                                            const AlignmentDirectional(0.0, 0.0),
-                                        child: InkWell(
-                                          splashColor: Colors.transparent,
-                                          focusColor: Colors.transparent,
-                                          hoverColor: Colors.transparent,
-                                          highlightColor: Colors.transparent,
-                                          onTap: () async {
-                                            _model.apiResultdshcopy =
-                                                await BackendAPIGroup
-                                                    .createWishListCall
-                                                    .call(
-                                              userId: FFAppState().userId,
-                                              productId: widget.productId,
-                                            );
-
-                                            if ((_model.apiResultdshcopy
-                                                    ?.succeeded ??
-                                                true)) {
-                                              ScaffoldMessenger.of(context)
-                                                  .showSnackBar(
-                                                SnackBar(
-                                                  content: Text(
-                                                    getJsonField(
-                                                      (_model.apiResultdshcopy
-                                                              ?.jsonBody ??
-                                                          ''),
-                                                      r'''$.message''',
-                                                    ).toString(),
-                                                    style: TextStyle(
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primaryText,
-                                                    ),
-                                                  ),
-                                                  duration: const Duration(
-                                                      milliseconds: 4000),
-                                                  backgroundColor:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .secondary,
-                                                ),
-                                              );
-                                              safeSetState(() => _model
-                                                  .apiRequestCompleter = null);
-                                              await _model
-                                                  .waitForApiRequestCompleted();
-                                              if (animationsMap[
-                                                      'iconOnActionTriggerAnimation'] !=
-                                                  null) {
-                                                await animationsMap[
-                                                        'iconOnActionTriggerAnimation']!
-                                                    .controller
-                                                    .forward(from: 0.0);
-                                              }
-                                              HapticFeedback.mediumImpact();
-                                            } else {
-                                              ScaffoldMessenger.of(context)
-                                                  .showSnackBar(
-                                                SnackBar(
-                                                  content: Text(
-                                                    getJsonField(
-                                                      (_model.apiResultdshcopy
-                                                              ?.jsonBody ??
-                                                          ''),
-                                                      r'''$.message''',
-                                                    ).toString(),
-                                                    style: TextStyle(
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primaryText,
-                                                    ),
-                                                  ),
-                                                  duration: const Duration(
-                                                      milliseconds: 4000),
-                                                  backgroundColor:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .secondary,
-                                                ),
-                                              );
-                                            }
-
-                                            safeSetState(() {});
-                                          },
-                                          child: Icon(
-                                            Icons.favorite,
-                                            color: FlutterFlowTheme.of(context)
-                                                .error,
-                                            size: 18.0,
-                                          ),
-                                        ).animateOnActionTrigger(
-                                          animationsMap[
-                                              'iconOnActionTriggerAnimation']!,
-                                        ),
-                                      ),
-                                  ],
-                                ),
                               ],
                             ),
                             Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  20.0, 15.0, 20.0, 0.0),
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(20, 15, 20, 0),
                               child: Container(
-                                width: MediaQuery.sizeOf(context).width * 1.0,
-                                decoration: const BoxDecoration(),
+                                width: MediaQuery.sizeOf(context).width,
+                                decoration: BoxDecoration(),
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  10.0, 20.0, 20.0, 0.0),
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(10, 20, 20, 0),
                               child: Text(
                                 'Select size',
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
                                       fontFamily: 'Inter',
-                                      color: const Color(0xFF232323),
-                                      fontSize: 16.0,
+                                      color: Color(0xFF232323),
+                                      fontSize: 16,
                                       letterSpacing: 0.0,
                                       fontWeight: FontWeight.w600,
                                       useGoogleFonts: GoogleFonts.asMap()
@@ -605,8 +368,8 @@ class _ProductDescriptionCopyWidgetState
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  10.0, 10.0, 10.0, 0.0),
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(10, 10, 10, 0),
                               child: Builder(
                                 builder: (context) {
                                   final sizes =
@@ -626,12 +389,11 @@ class _ProductDescriptionCopyWidgetState
                                           (sizesIndex) {
                                         final sizesItem = sizes[sizesIndex];
                                         return Align(
-                                          alignment:
-                                              const AlignmentDirectional(0.0, 0.0),
+                                          alignment: AlignmentDirectional(0, 0),
                                           child: Padding(
                                             padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 8.0, 0.0),
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0, 0, 8, 0),
                                             child: InkWell(
                                               splashColor: Colors.transparent,
                                               focusColor: Colors.transparent,
@@ -665,8 +427,7 @@ class _ProductDescriptionCopyWidgetState
                                                               context)
                                                           .accent4,
                                                   borderRadius:
-                                                      BorderRadius.circular(
-                                                          10.0),
+                                                      BorderRadius.circular(10),
                                                   border: Border.all(
                                                     color: FlutterFlowTheme.of(
                                                             context)
@@ -679,50 +440,47 @@ class _ProductDescriptionCopyWidgetState
                                                   children: [
                                                     Align(
                                                       alignment:
-                                                          const AlignmentDirectional(
-                                                              0.0, 0.0),
+                                                          AlignmentDirectional(
+                                                              0, 0),
                                                       child: Text(
                                                         getJsonField(
                                                           sizesItem,
                                                           r'''$.size''',
                                                         ).toString(),
-                                                        style: FlutterFlowTheme
-                                                                .of(context)
-                                                            .bodyMedium
-                                                            .override(
-                                                              fontFamily:
-                                                                  'Inter',
-                                                              color: _model
-                                                                          .pageindex ==
-                                                                      sizesIndex
-                                                                  ? FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .secondaryBackground
-                                                                  : FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primaryText,
-                                                              fontSize: 10.0,
-                                                              letterSpacing:
-                                                                  0.0,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w500,
-                                                              useGoogleFonts:
-                                                                  GoogleFonts
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Inter',
+                                                                  color: _model
+                                                                              .pageindex ==
+                                                                          sizesIndex
+                                                                      ? FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .secondaryBackground
+                                                                      : FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .primaryText,
+                                                                  fontSize: 10,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                  useGoogleFonts: GoogleFonts
                                                                           .asMap()
                                                                       .containsKey(
                                                                           'Inter'),
-                                                            ),
+                                                                ),
                                                       ),
                                                     ),
                                                     Padding(
                                                       padding:
-                                                          const EdgeInsetsDirectional
+                                                          EdgeInsetsDirectional
                                                               .fromSTEB(
-                                                                  0.0,
-                                                                  5.0,
-                                                                  0.0,
-                                                                  0.0),
+                                                                  0, 5, 0, 0),
                                                       child: Text(
                                                         '₹${getJsonField(
                                                           sizesItem,
@@ -745,8 +503,7 @@ class _ProductDescriptionCopyWidgetState
                                                                       : FlutterFlowTheme.of(
                                                                               context)
                                                                           .primaryText,
-                                                                  fontSize:
-                                                                      12.0,
+                                                                  fontSize: 12,
                                                                   letterSpacing:
                                                                       0.0,
                                                                   useGoogleFonts: GoogleFonts
@@ -770,22 +527,22 @@ class _ProductDescriptionCopyWidgetState
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  10.0, 20.0, 20.0, 10.0),
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  10, 20, 20, 10),
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 20.0, 0.0),
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0, 0, 20, 0),
                                     child: Text(
                                       'Description',
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
                                             fontFamily: 'Inter',
-                                            color: const Color(0xFF232323),
-                                            fontSize: 16.0,
+                                            color: Color(0xFF232323),
+                                            fontSize: 16,
                                             letterSpacing: 0.0,
                                             fontWeight: FontWeight.w600,
                                             useGoogleFonts: GoogleFonts.asMap()
@@ -797,11 +554,11 @@ class _ProductDescriptionCopyWidgetState
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  10.0, 0.0, 10.0, 0.0),
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
                               child: Container(
-                                width: MediaQuery.sizeOf(context).width * 1.0,
-                                decoration: const BoxDecoration(),
+                                width: MediaQuery.sizeOf(context).width,
+                                decoration: BoxDecoration(),
                                 child: Text(
                                   valueOrDefault<String>(
                                     BackendAPIGroup.getProductBycolorCall
@@ -816,7 +573,7 @@ class _ProductDescriptionCopyWidgetState
                                       .override(
                                         fontFamily: FlutterFlowTheme.of(context)
                                             .bodyMediumFamily,
-                                        fontSize: 12.0,
+                                        fontSize: 12,
                                         letterSpacing: 0.0,
                                         useGoogleFonts: GoogleFonts.asMap()
                                             .containsKey(
@@ -827,8 +584,8 @@ class _ProductDescriptionCopyWidgetState
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  10.0, 10.0, 10.0, 0.0),
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(10, 10, 10, 0),
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
@@ -840,7 +597,7 @@ class _ProductDescriptionCopyWidgetState
                                           fontFamily: 'Poppins',
                                           color: FlutterFlowTheme.of(context)
                                               .secondaryText,
-                                          fontSize: 14.0,
+                                          fontSize: 14,
                                           letterSpacing: 0.0,
                                           fontWeight: FontWeight.w600,
                                           useGoogleFonts: GoogleFonts.asMap()
@@ -851,11 +608,11 @@ class _ProductDescriptionCopyWidgetState
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  10.0, 0.0, 10.0, 0.0),
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
                               child: Container(
-                                width: MediaQuery.sizeOf(context).width * 1.0,
-                                decoration: const BoxDecoration(),
+                                width: MediaQuery.sizeOf(context).width,
+                                decoration: BoxDecoration(),
                                 child: Text(
                                   valueOrDefault<String>(
                                     BackendAPIGroup.getProductBycolorCall
@@ -870,7 +627,7 @@ class _ProductDescriptionCopyWidgetState
                                       .override(
                                         fontFamily: FlutterFlowTheme.of(context)
                                             .bodyMediumFamily,
-                                        fontSize: 12.0,
+                                        fontSize: 12,
                                         letterSpacing: 0.0,
                                         useGoogleFonts: GoogleFonts.asMap()
                                             .containsKey(
@@ -881,16 +638,16 @@ class _ProductDescriptionCopyWidgetState
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  10.0, 0.0, 10.0, 0.0),
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
                               child: Container(
-                                width: MediaQuery.sizeOf(context).width * 1.0,
-                                decoration: const BoxDecoration(),
+                                width: MediaQuery.sizeOf(context).width,
+                                decoration: BoxDecoration(),
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  10.0, 20.0, 10.0, 0.0),
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(10, 20, 10, 0),
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
@@ -902,7 +659,7 @@ class _ProductDescriptionCopyWidgetState
                                           fontFamily: 'Poppins',
                                           color: FlutterFlowTheme.of(context)
                                               .secondaryText,
-                                          fontSize: 14.0,
+                                          fontSize: 14,
                                           letterSpacing: 0.0,
                                           fontWeight: FontWeight.w600,
                                           useGoogleFonts: GoogleFonts.asMap()
@@ -913,11 +670,11 @@ class _ProductDescriptionCopyWidgetState
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  10.0, 0.0, 10.0, 0.0),
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
                               child: Container(
-                                width: MediaQuery.sizeOf(context).width * 1.0,
-                                decoration: const BoxDecoration(),
+                                width: MediaQuery.sizeOf(context).width,
+                                decoration: BoxDecoration(),
                                 child: Text(
                                   valueOrDefault<String>(
                                     BackendAPIGroup.getProductBycolorCall.fit(
@@ -941,8 +698,8 @@ class _ProductDescriptionCopyWidgetState
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  10.0, 20.0, 10.0, 0.0),
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(10, 20, 10, 0),
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
@@ -954,7 +711,7 @@ class _ProductDescriptionCopyWidgetState
                                           fontFamily: 'Poppins',
                                           color: FlutterFlowTheme.of(context)
                                               .secondaryText,
-                                          fontSize: 14.0,
+                                          fontSize: 14,
                                           letterSpacing: 0.0,
                                           fontWeight: FontWeight.w600,
                                           useGoogleFonts: GoogleFonts.asMap()
@@ -965,14 +722,14 @@ class _ProductDescriptionCopyWidgetState
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  10.0, 0.0, 10.0, 0.0),
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
                               child: Container(
-                                width: MediaQuery.sizeOf(context).width * 1.0,
-                                decoration: const BoxDecoration(),
+                                width: MediaQuery.sizeOf(context).width,
+                                decoration: BoxDecoration(),
                                 child: Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 2.0, 0.0, 0.0),
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0, 2, 0, 0),
                                   child: Text(
                                     valueOrDefault<String>(
                                       BackendAPIGroup.getProductBycolorCall
@@ -988,7 +745,7 @@ class _ProductDescriptionCopyWidgetState
                                           fontFamily:
                                               FlutterFlowTheme.of(context)
                                                   .bodyMediumFamily,
-                                          fontSize: 12.0,
+                                          fontSize: 12,
                                           letterSpacing: 0.0,
                                           useGoogleFonts: GoogleFonts.asMap()
                                               .containsKey(
@@ -1000,19 +757,19 @@ class _ProductDescriptionCopyWidgetState
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  10.0, 0.0, 10.0, 0.0),
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
                               child: Container(
-                                width: MediaQuery.sizeOf(context).width * 1.0,
-                                decoration: const BoxDecoration(),
+                                width: MediaQuery.sizeOf(context).width,
+                                decoration: BoxDecoration(),
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  10.0, 0.0, 10.0, 0.0),
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
                               child: Container(
-                                width: MediaQuery.sizeOf(context).width * 1.0,
-                                decoration: const BoxDecoration(),
+                                width: MediaQuery.sizeOf(context).width,
+                                decoration: BoxDecoration(),
                               ),
                             ),
                             SingleChildScrollView(
@@ -1020,21 +777,19 @@ class _ProductDescriptionCopyWidgetState
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
-                                        10.0, 5.0, 10.0, 0.0),
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        10, 5, 10, 0),
                                     child: Container(
-                                      width: MediaQuery.sizeOf(context).width *
-                                          1.0,
-                                      decoration: const BoxDecoration(),
+                                      width: MediaQuery.sizeOf(context).width,
+                                      decoration: BoxDecoration(),
                                     ),
                                   ),
                                   Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
-                                        10.0, 0.0, 10.0, 0.0),
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        10, 0, 10, 0),
                                     child: Container(
-                                      width: MediaQuery.sizeOf(context).width *
-                                          1.0,
-                                      decoration: const BoxDecoration(),
+                                      width: MediaQuery.sizeOf(context).width,
+                                      decoration: BoxDecoration(),
                                     ),
                                   ),
                                 ],
@@ -1045,18 +800,18 @@ class _ProductDescriptionCopyWidgetState
                       ),
                     ),
                     Padding(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
+                      padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                       child: Container(
-                        width: MediaQuery.sizeOf(context).width * 1.0,
+                        width: MediaQuery.sizeOf(context).width,
                         height: MediaQuery.sizeOf(context).height * 0.13,
-                        decoration: const BoxDecoration(
-                          color: Color(0xFF263F96),
+                        decoration: BoxDecoration(
+                          color:
+                              FlutterFlowTheme.of(context).secondaryBackground,
                           borderRadius: BorderRadius.only(
-                            bottomLeft: Radius.circular(0.0),
-                            bottomRight: Radius.circular(0.0),
-                            topLeft: Radius.circular(25.0),
-                            topRight: Radius.circular(25.0),
+                            bottomLeft: Radius.circular(0),
+                            bottomRight: Radius.circular(0),
+                            topLeft: Radius.circular(0),
+                            topRight: Radius.circular(0),
                           ),
                         ),
                         child: Row(
@@ -1064,102 +819,372 @@ class _ProductDescriptionCopyWidgetState
                           mainAxisAlignment: MainAxisAlignment.end,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
+                            Stack(
+                              children: [
+                                if (!functions.newCustomFunction4(
+                                    BackendAPIGroup.getProductBycolorCall
+                                        .wishListedBy(
+                                          productDescriptionCopyGetProductBycolorResponse
+                                              .jsonBody,
+                                        )
+                                        ?.toList(),
+                                    FFAppState().userId)!)
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0, 8, 10, 0),
+                                    child: FFButtonWidget(
+                                      onPressed: () async {
+                                        _model.colorWishlist =
+                                            await BackendAPIGroup
+                                                .createWishListCall
+                                                .call(
+                                          userId: FFAppState().userId,
+                                          productId: BackendAPIGroup
+                                              .getProductBycolorCall
+                                              .productId(
+                                            productDescriptionCopyGetProductBycolorResponse
+                                                .jsonBody,
+                                          ),
+                                        );
+
+                                        if ((_model.colorWishlist?.succeeded ??
+                                            true)) {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            SnackBar(
+                                              content: Text(
+                                                getJsonField(
+                                                  (_model.colorWishlist
+                                                          ?.jsonBody ??
+                                                      ''),
+                                                  r'''$.message''',
+                                                ).toString(),
+                                                style: TextStyle(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryText,
+                                                ),
+                                              ),
+                                              duration:
+                                                  Duration(milliseconds: 4000),
+                                              backgroundColor:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondary,
+                                            ),
+                                          );
+                                          safeSetState(() => _model
+                                              .apiRequestCompleter = null);
+                                          await _model
+                                              .waitForApiRequestCompleted();
+                                        } else {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            SnackBar(
+                                              content: Text(
+                                                getJsonField(
+                                                  (_model.colorWishlist
+                                                          ?.jsonBody ??
+                                                      ''),
+                                                  r'''$.message''',
+                                                ).toString(),
+                                                style: TextStyle(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryText,
+                                                ),
+                                              ),
+                                              duration:
+                                                  Duration(milliseconds: 4000),
+                                              backgroundColor:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondary,
+                                            ),
+                                          );
+                                        }
+
+                                        safeSetState(() {});
+                                      },
+                                      text: 'Wishlist Item',
+                                      options: FFButtonOptions(
+                                        width:
+                                            MediaQuery.sizeOf(context).width *
+                                                0.45,
+                                        height:
+                                            MediaQuery.sizeOf(context).height *
+                                                0.06,
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            24, 0, 24, 0),
+                                        iconPadding:
+                                            EdgeInsetsDirectional.fromSTEB(
+                                                0, 0, 0, 0),
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryBackground,
+                                        textStyle: FlutterFlowTheme.of(context)
+                                            .titleSmall
+                                            .override(
+                                              fontFamily:
+                                                  FlutterFlowTheme.of(context)
+                                                      .titleSmallFamily,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primary,
+                                              fontSize: 12,
+                                              letterSpacing: 0.0,
+                                              useGoogleFonts: GoogleFonts
+                                                      .asMap()
+                                                  .containsKey(
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .titleSmallFamily),
+                                            ),
+                                        elevation: 3,
+                                        borderSide: BorderSide(
+                                          color: Colors.transparent,
+                                          width: 1,
+                                        ),
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                    ),
+                                  ),
+                                if (functions.newCustomFunction4(
+                                        BackendAPIGroup.getProductBycolorCall
+                                            .wishListedBy(
+                                              productDescriptionCopyGetProductBycolorResponse
+                                                  .jsonBody,
+                                            )
+                                            ?.toList(),
+                                        FFAppState().userId) ??
+                                    true)
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0, 8, 10, 0),
+                                    child: FFButtonWidget(
+                                      onPressed: () async {
+                                        if (currentPhoneNumber != null &&
+                                            currentPhoneNumber != '') {
+                                          _model.apiResultdshcopy =
+                                              await BackendAPIGroup
+                                                  .createWishListCall
+                                                  .call(
+                                            userId: FFAppState().userId,
+                                            productId: widget!.productId,
+                                          );
+
+                                          if ((_model.apiResultdshcopy
+                                                  ?.succeeded ??
+                                              true)) {
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(
+                                              SnackBar(
+                                                content: Text(
+                                                  getJsonField(
+                                                    (_model.apiResultdshcopy
+                                                            ?.jsonBody ??
+                                                        ''),
+                                                    r'''$.message''',
+                                                  ).toString(),
+                                                  style: TextStyle(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .primaryText,
+                                                  ),
+                                                ),
+                                                duration: Duration(
+                                                    milliseconds: 4000),
+                                                backgroundColor:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondary,
+                                              ),
+                                            );
+                                            safeSetState(() => _model
+                                                .apiRequestCompleter = null);
+                                            await _model
+                                                .waitForApiRequestCompleted();
+                                            HapticFeedback.mediumImpact();
+                                          } else {
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(
+                                              SnackBar(
+                                                content: Text(
+                                                  getJsonField(
+                                                    (_model.apiResultdshcopy
+                                                            ?.jsonBody ??
+                                                        ''),
+                                                    r'''$.message''',
+                                                  ).toString(),
+                                                  style: TextStyle(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .primaryText,
+                                                  ),
+                                                ),
+                                                duration: Duration(
+                                                    milliseconds: 4000),
+                                                backgroundColor:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondary,
+                                              ),
+                                            );
+                                          }
+                                        } else {
+                                          context
+                                              .pushNamed('LoginMobileScreen');
+                                        }
+
+                                        safeSetState(() {});
+                                      },
+                                      text: 'Added To Wishlist',
+                                      options: FFButtonOptions(
+                                        width:
+                                            MediaQuery.sizeOf(context).width *
+                                                0.45,
+                                        height:
+                                            MediaQuery.sizeOf(context).height *
+                                                0.06,
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            24, 0, 24, 0),
+                                        iconPadding:
+                                            EdgeInsetsDirectional.fromSTEB(
+                                                0, 0, 0, 0),
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryBackground,
+                                        textStyle: FlutterFlowTheme.of(context)
+                                            .titleSmall
+                                            .override(
+                                              fontFamily:
+                                                  FlutterFlowTheme.of(context)
+                                                      .titleSmallFamily,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primary,
+                                              fontSize: 12,
+                                              letterSpacing: 0.0,
+                                              useGoogleFonts: GoogleFonts
+                                                      .asMap()
+                                                  .containsKey(
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .titleSmallFamily),
+                                            ),
+                                        elevation: 3,
+                                        borderSide: BorderSide(
+                                          color: Colors.transparent,
+                                          width: 1,
+                                        ),
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                    ),
+                                  ),
+                              ],
+                            ),
                             Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 9.0, 20.0, 0.0),
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(0, 9, 10, 0),
                               child: FFButtonWidget(
                                 onPressed: () async {
-                                  HapticFeedback.mediumImpact();
-                                  _model.apiResult2t4new = await BackendAPIGroup
-                                      .createCartandUpdateCartOneFunctionCall
-                                      .call(
-                                    userId: FFAppState().userId,
-                                    productId: BackendAPIGroup
-                                        .getProductBycolorCall
-                                        .productId(
-                                      productDescriptionCopyGetProductBycolorResponse
-                                          .jsonBody,
-                                    ),
-                                    quantity: 1,
-                                    size: _model.size,
-                                    color: BackendAPIGroup.getProductBycolorCall
-                                        .variantColor(
-                                      productDescriptionCopyGetProductBycolorResponse
-                                          .jsonBody,
-                                    ),
-                                    customizations: 'Na',
-                                  );
-
-                                  if ((_model.apiResult2t4new?.succeeded ??
-                                      true)) {
-                                    FFAppState().cartId = BackendAPIGroup
+                                  if (currentPhoneNumber != null &&
+                                      currentPhoneNumber != '') {
+                                    HapticFeedback.mediumImpact();
+                                    _model.apiResult2t4new = await BackendAPIGroup
                                         .createCartandUpdateCartOneFunctionCall
-                                        .cartId(
-                                      (_model.apiResult2t4new?.jsonBody ?? ''),
-                                    )!;
-                                    safeSetState(() {});
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                        content: Text(
-                                          getJsonField(
-                                            (_model.apiResult2t4new?.jsonBody ??
-                                                ''),
-                                            r'''$.message''',
-                                          ).toString(),
-                                          style: TextStyle(
-                                            color: FlutterFlowTheme.of(context)
-                                                .primaryText,
-                                          ),
-                                        ),
-                                        duration: const Duration(milliseconds: 4000),
-                                        backgroundColor:
-                                            FlutterFlowTheme.of(context)
-                                                .secondary,
+                                        .call(
+                                      userId: FFAppState().userId,
+                                      productId: BackendAPIGroup
+                                          .getProductBycolorCall
+                                          .productId(
+                                        productDescriptionCopyGetProductBycolorResponse
+                                            .jsonBody,
                                       ),
+                                      quantity: 1,
+                                      size: _model.size,
+                                      color: BackendAPIGroup
+                                          .getProductBycolorCall
+                                          .variantColor(
+                                        productDescriptionCopyGetProductBycolorResponse
+                                            .jsonBody,
+                                      ),
+                                      customizations: 'Na',
                                     );
+
+                                    if ((_model.apiResult2t4new?.succeeded ??
+                                        true)) {
+                                      FFAppState().cartId = BackendAPIGroup
+                                          .createCartandUpdateCartOneFunctionCall
+                                          .cartId(
+                                        (_model.apiResult2t4new?.jsonBody ??
+                                            ''),
+                                      )!;
+                                      safeSetState(() {});
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          content: Text(
+                                            getJsonField(
+                                              (_model.apiResult2t4new
+                                                      ?.jsonBody ??
+                                                  ''),
+                                              r'''$.message''',
+                                            ).toString(),
+                                            style: TextStyle(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryText,
+                                            ),
+                                          ),
+                                          duration:
+                                              Duration(milliseconds: 4000),
+                                          backgroundColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .secondary,
+                                        ),
+                                      );
+                                    } else {
+                                      // await actions.snackbar(
+                                      //   context,
+                                      //   getJsonField(
+                                      //     (_model.apiResult2t4new?.jsonBody ??
+                                      //         ''),
+                                      //     r'''$.message''',
+                                      //   ).toString(),
+                                      // );
+                                    }
                                   } else {
-                                    // await actions.snackbar(
-                                    //   context,
-                                    //   getJsonField(
-                                    //     (_model.apiResult2t4new?.jsonBody ??
-                                    //         ''),
-                                    //     r'''$.message''',
-                                    //   ).toString(),
-                                    // );
+                                    context.pushNamed('LoginMobileScreen');
                                   }
 
                                   safeSetState(() {});
                                 },
                                 text: 'Add to cart',
                                 options: FFButtonOptions(
-                                  width: MediaQuery.sizeOf(context).width * 0.3,
+                                  width:
+                                      MediaQuery.sizeOf(context).width * 0.45,
                                   height:
-                                      MediaQuery.sizeOf(context).height * 0.05,
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
-                                      24.0, 0.0, 24.0, 0.0),
-                                  iconPadding: const EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 0.0, 0.0),
-                                  color: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
+                                      MediaQuery.sizeOf(context).height * 0.06,
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      24, 0, 24, 0),
+                                  iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                      0, 0, 0, 0),
+                                  color: FlutterFlowTheme.of(context).primary,
                                   textStyle: FlutterFlowTheme.of(context)
                                       .titleSmall
                                       .override(
                                         fontFamily: FlutterFlowTheme.of(context)
                                             .titleSmallFamily,
                                         color: FlutterFlowTheme.of(context)
-                                            .primary,
+                                            .secondaryBackground,
+                                        fontSize: 12,
                                         letterSpacing: 0.0,
                                         useGoogleFonts: GoogleFonts.asMap()
                                             .containsKey(
                                                 FlutterFlowTheme.of(context)
                                                     .titleSmallFamily),
                                       ),
-                                  elevation: 3.0,
-                                  borderSide: const BorderSide(
+                                  elevation: 3,
+                                  borderSide: BorderSide(
                                     color: Colors.transparent,
-                                    width: 1.0,
+                                    width: 1,
                                   ),
-                                  borderRadius: BorderRadius.circular(30.0),
+                                  borderRadius: BorderRadius.circular(10),
                                 ),
                               ),
                             ),

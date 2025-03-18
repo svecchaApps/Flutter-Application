@@ -1626,6 +1626,7 @@ class CreateDesigneranduserCall {
     String? about = '',
     String? logoUrl = '',
     String? groundImageUrl = '',
+    String? nickName = '',
   }) async {
     final baseUrl = BackendAPIGroup.getBaseUrl();
 
@@ -1636,15 +1637,20 @@ class CreateDesigneranduserCall {
   "displayName":"$displayName" ,
   "phoneNumber":"$phoneNumber" ,
   "role":"$role" ,
-  "address":"$address" ,
-  "city":"$city" ,
-  "state":"$state" ,
-  "pincode":"$pincode" ,
   "is_creator":false ,
   "shortDescription":"$shortDescription" ,
   "about":"$about" ,
   "logoUrl":"$logoUrl" ,
-  "backgroundImageUrl":"$groundImageUrl" 
+  "backgroundImageUrl":"$groundImageUrl" ,
+"address": [
+    {
+      "nick_name": "$nickName",
+      "street_details": "$address",
+      "city": "$city",
+      "state":"$state",
+      "pincode":"$pincode" 
+    }
+  ]
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'createDesigneranduser',

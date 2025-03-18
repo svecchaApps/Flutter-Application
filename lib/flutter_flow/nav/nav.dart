@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 import '/backend/backend.dart';
 import '/backend/schema/structs/index.dart';
 
-
 import '/auth/base_auth_user_provider.dart';
 
 import '/index.dart';
@@ -78,14 +77,16 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
       navigatorKey: appNavigatorKey,
-      errorBuilder: (context, state) =>
-          appStateNotifier.loggedIn ? const NavBarPage() : const LoginOrGuestWidget(),
+      errorBuilder: (context, state) => appStateNotifier.loggedIn
+          ? const NavBarPage()
+          : const LoginOrGuestWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
-          builder: (context, _) =>
-              appStateNotifier.loggedIn ? const NavBarPage() : const LoginOrGuestWidget(),
+          builder: (context, _) => appStateNotifier.loggedIn
+              ? const NavBarPage()
+              : const LoginOrGuestWidget(),
         ),
         FFRoute(
           name: 'ClientFav',
@@ -239,6 +240,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               'colorId',
               ParamType.String,
             ),
+            price: '',
           ),
         ),
         FFRoute(
@@ -301,6 +303,10 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => ProductDescriptionColorWidget(
             productId: params.getParam(
               'productId',
+              ParamType.String,
+            ),
+            price: params.getParam(
+              'price',
               ParamType.String,
             ),
           ),
@@ -750,7 +756,8 @@ class TransitionInfo {
   final Duration duration;
   final Alignment? alignment;
 
-  static TransitionInfo appDefault() => const TransitionInfo(hasTransition: false);
+  static TransitionInfo appDefault() =>
+      const TransitionInfo(hasTransition: false);
 }
 
 class RootPageContext {

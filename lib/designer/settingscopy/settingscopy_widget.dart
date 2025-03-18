@@ -3,9 +3,12 @@ import '/backend/api_requests/api_calls.dart';
 import '/designer/deleteaccount/deleteaccount_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+
 import 'settingscopy_model.dart';
 export 'settingscopy_model.dart';
 
@@ -49,8 +52,8 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
             backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
             body: Center(
               child: SizedBox(
-                width: 50.0,
-                height: 50.0,
+                width: 50,
+                height: 50,
                 child: CircularProgressIndicator(
                   valueColor: AlwaysStoppedAnimation<Color>(
                     FlutterFlowTheme.of(context).primary,
@@ -83,16 +86,15 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Padding(
-                        padding:
-                            const EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 0.0, 0.0),
+                        padding: EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
                         child: Text(
                           'Profile Page',
                           style: FlutterFlowTheme.of(context)
                               .headlineMedium
                               .override(
                                 fontFamily: 'Inter',
-                                color: const Color(0xFF232323),
-                                fontSize: 20.0,
+                                color: Color(0xFF232323),
+                                fontSize: 20,
                                 letterSpacing: 0.0,
                                 fontWeight: FontWeight.w600,
                                 useGoogleFonts:
@@ -102,9 +104,9 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                       ),
                     ],
                   ),
-                  actions: const [],
+                  actions: [],
                   centerTitle: false,
-                  elevation: 0.0,
+                  elevation: 0,
                 ),
               ),
               body: SafeArea(
@@ -114,18 +116,18 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(
-                            20.0, 40.0, 20.0, 0.0),
+                        padding: EdgeInsetsDirectional.fromSTEB(20, 40, 20, 0),
                         child: InkWell(
                           splashColor: Colors.transparent,
                           focusColor: Colors.transparent,
                           hoverColor: Colors.transparent,
                           highlightColor: Colors.transparent,
                           onTap: () async {
-                            if (currentPhoneNumber != '') {
+                            if (currentPhoneNumber != null &&
+                                currentPhoneNumber != '') {
                               context.pushNamed('MyOrders');
                             } else {
-                              context.pushNamed('Emaillogin');
+                              context.pushNamed('LoginMobileScreen');
 
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
@@ -136,7 +138,7 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                           .secondaryBackground,
                                     ),
                                   ),
-                                  duration: const Duration(milliseconds: 4000),
+                                  duration: Duration(milliseconds: 4000),
                                   backgroundColor:
                                       FlutterFlowTheme.of(context).primary,
                                 ),
@@ -144,16 +146,16 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                             }
                           },
                           child: Container(
-                            width: MediaQuery.sizeOf(context).width * 1.0,
+                            width: MediaQuery.sizeOf(context).width,
                             height: MediaQuery.sizeOf(context).height * 0.09,
                             decoration: BoxDecoration(
                               color: FlutterFlowTheme.of(context)
                                   .secondaryBackground,
-                              borderRadius: BorderRadius.circular(20.0),
+                              borderRadius: BorderRadius.circular(20),
                             ),
                             child: Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  10.0, 0.0, 10.0, 0.0),
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
                               child: Row(
                                 mainAxisSize: MainAxisSize.min,
                                 mainAxisAlignment:
@@ -170,19 +172,19 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                         height:
                                             MediaQuery.sizeOf(context).width *
                                                 0.11,
-                                        decoration: const BoxDecoration(
+                                        decoration: BoxDecoration(
                                           color: Color(0xFFECEEF6),
                                           shape: BoxShape.circle,
                                         ),
-                                        child: const Icon(
+                                        child: Icon(
                                           Icons.shopping_bag,
                                           color: Color(0xFF263F96),
-                                          size: 22.0,
+                                          size: 22,
                                         ),
                                       ),
                                       Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            20.0, 0.0, 0.0, 0.0),
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            20, 0, 0, 0),
                                         child: Column(
                                           mainAxisSize: MainAxisSize.max,
                                           mainAxisAlignment:
@@ -197,8 +199,8 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                                   .bodyMedium
                                                   .override(
                                                     fontFamily: 'Inter',
-                                                    color: const Color(0xFF201A25),
-                                                    fontSize: 16.0,
+                                                    color: Color(0xFF201A25),
+                                                    fontSize: 16,
                                                     letterSpacing: 0.0,
                                                     fontWeight: FontWeight.w500,
                                                     useGoogleFonts:
@@ -208,8 +210,8 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                                   ),
                                             ),
                                             Padding(
-                                              padding: const EdgeInsetsDirectional
-                                                  .fromSTEB(0.0, 5.0, 0.0, 0.0),
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(0, 5, 0, 0),
                                               child: Text(
                                                 'Check Your Order',
                                                 style: FlutterFlowTheme.of(
@@ -217,8 +219,8 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                                     .bodyMedium
                                                     .override(
                                                       fontFamily: 'Inter',
-                                                      color: const Color(0xFF201A25),
-                                                      fontSize: 10.0,
+                                                      color: Color(0xFF201A25),
+                                                      fontSize: 10,
                                                       letterSpacing: 0.0,
                                                       useGoogleFonts:
                                                           GoogleFonts.asMap()
@@ -238,7 +240,8 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                     hoverColor: Colors.transparent,
                                     highlightColor: Colors.transparent,
                                     onTap: () async {
-                                      if (currentUserEmail != '') {
+                                      if (currentUserEmail != null &&
+                                          currentUserEmail != '') {
                                         context.pushNamed('MyOrders');
                                       } else {
                                         context.pushNamed('Emaillogin');
@@ -255,7 +258,7 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                               ),
                                             ),
                                             duration:
-                                                const Duration(milliseconds: 4000),
+                                                Duration(milliseconds: 4000),
                                             backgroundColor:
                                                 FlutterFlowTheme.of(context)
                                                     .primary,
@@ -263,10 +266,10 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                         );
                                       }
                                     },
-                                    child: const Icon(
+                                    child: Icon(
                                       Icons.chevron_right_sharp,
                                       color: Color(0xFF201A25),
-                                      size: 26.0,
+                                      size: 26,
                                     ),
                                   ),
                                 ],
@@ -280,18 +283,19 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                           ) ==
                           false)
                         Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
-                              20.0, 15.0, 20.0, 0.0),
+                          padding:
+                              EdgeInsetsDirectional.fromSTEB(20, 15, 20, 0),
                           child: InkWell(
                             splashColor: Colors.transparent,
                             focusColor: Colors.transparent,
                             hoverColor: Colors.transparent,
                             highlightColor: Colors.transparent,
                             onTap: () async {
-                              if (currentPhoneNumber != '') {
+                              if (currentPhoneNumber != null &&
+                                  currentPhoneNumber != '') {
                                 context.pushNamed('ApplyasacreatorPage');
                               } else {
-                                context.pushNamed('Emaillogin');
+                                context.pushNamed('LoginMobileScreen');
 
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
@@ -302,7 +306,7 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                             .secondaryBackground,
                                       ),
                                     ),
-                                    duration: const Duration(milliseconds: 4000),
+                                    duration: Duration(milliseconds: 4000),
                                     backgroundColor:
                                         FlutterFlowTheme.of(context).primary,
                                   ),
@@ -310,12 +314,12 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                               }
                             },
                             child: Container(
-                              width: MediaQuery.sizeOf(context).width * 1.0,
+                              width: MediaQuery.sizeOf(context).width,
                               height: MediaQuery.sizeOf(context).height * 0.09,
                               decoration: BoxDecoration(
                                 color: FlutterFlowTheme.of(context)
                                     .secondaryBackground,
-                                borderRadius: BorderRadius.circular(20.0),
+                                borderRadius: BorderRadius.circular(20),
                               ),
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
@@ -327,8 +331,8 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
                                       Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            8.0, 0.0, 0.0, 0.0),
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            8, 0, 0, 0),
                                         child: Container(
                                           width:
                                               MediaQuery.sizeOf(context).width *
@@ -336,20 +340,20 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                           height:
                                               MediaQuery.sizeOf(context).width *
                                                   0.11,
-                                          decoration: const BoxDecoration(
+                                          decoration: BoxDecoration(
                                             color: Color(0xFFECEEF6),
                                             shape: BoxShape.circle,
                                           ),
-                                          child: const Icon(
+                                          child: Icon(
                                             Icons.movie_creation_rounded,
                                             color: Color(0xFF263F96),
-                                            size: 22.0,
+                                            size: 22,
                                           ),
                                         ),
                                       ),
                                       Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            20.0, 0.0, 0.0, 0.0),
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            20, 0, 0, 0),
                                         child: Column(
                                           mainAxisSize: MainAxisSize.max,
                                           mainAxisAlignment:
@@ -364,8 +368,8 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                                   .bodyMedium
                                                   .override(
                                                     fontFamily: 'Inter',
-                                                    color: const Color(0xFF201A25),
-                                                    fontSize: 16.0,
+                                                    color: Color(0xFF201A25),
+                                                    fontSize: 16,
                                                     letterSpacing: 0.0,
                                                     fontWeight: FontWeight.w500,
                                                     useGoogleFonts:
@@ -375,8 +379,8 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                                   ),
                                             ),
                                             Padding(
-                                              padding: const EdgeInsetsDirectional
-                                                  .fromSTEB(0.0, 5.0, 0.0, 0.0),
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(0, 5, 0, 0),
                                               child: Text(
                                                 'Apply as a Creator',
                                                 style: FlutterFlowTheme.of(
@@ -384,8 +388,8 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                                     .bodyMedium
                                                     .override(
                                                       fontFamily: 'Inter',
-                                                      color: const Color(0xFF201A25),
-                                                      fontSize: 10.0,
+                                                      color: Color(0xFF201A25),
+                                                      fontSize: 10,
                                                       letterSpacing: 0.0,
                                                       useGoogleFonts:
                                                           GoogleFonts.asMap()
@@ -405,7 +409,8 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                     hoverColor: Colors.transparent,
                                     highlightColor: Colors.transparent,
                                     onTap: () async {
-                                      if (currentUserEmail != '') {
+                                      if (currentUserEmail != null &&
+                                          currentUserEmail != '') {
                                         context
                                             .pushNamed('ApplyasacreatorPage');
                                       } else {
@@ -423,7 +428,7 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                               ),
                                             ),
                                             duration:
-                                                const Duration(milliseconds: 4000),
+                                                Duration(milliseconds: 4000),
                                             backgroundColor:
                                                 FlutterFlowTheme.of(context)
                                                     .primary,
@@ -431,10 +436,10 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                         );
                                       }
                                     },
-                                    child: const Icon(
+                                    child: Icon(
                                       Icons.chevron_right_sharp,
                                       color: Color(0xFF201A25),
-                                      size: 26.0,
+                                      size: 26,
                                     ),
                                   ),
                                 ],
@@ -447,18 +452,19 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                           ) ==
                           true)
                         Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
-                              20.0, 15.0, 20.0, 0.0),
+                          padding:
+                              EdgeInsetsDirectional.fromSTEB(20, 15, 20, 0),
                           child: InkWell(
                             splashColor: Colors.transparent,
                             focusColor: Colors.transparent,
                             hoverColor: Colors.transparent,
                             highlightColor: Colors.transparent,
                             onTap: () async {
-                              if (currentPhoneNumber != '') {
+                              if (currentPhoneNumber != null &&
+                                  currentPhoneNumber != '') {
                                 context.pushNamed('creatorProfile');
                               } else {
-                                context.pushNamed('Emaillogin');
+                                context.pushNamed('LoginMobileScreen');
 
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
@@ -469,7 +475,7 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                             .secondaryBackground,
                                       ),
                                     ),
-                                    duration: const Duration(milliseconds: 4000),
+                                    duration: Duration(milliseconds: 4000),
                                     backgroundColor:
                                         FlutterFlowTheme.of(context).primary,
                                   ),
@@ -477,12 +483,12 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                               }
                             },
                             child: Container(
-                              width: MediaQuery.sizeOf(context).width * 1.0,
+                              width: MediaQuery.sizeOf(context).width,
                               height: MediaQuery.sizeOf(context).height * 0.09,
                               decoration: BoxDecoration(
                                 color: FlutterFlowTheme.of(context)
                                     .secondaryBackground,
-                                borderRadius: BorderRadius.circular(20.0),
+                                borderRadius: BorderRadius.circular(20),
                               ),
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
@@ -494,8 +500,8 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
                                       Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            8.0, 0.0, 0.0, 0.0),
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            8, 0, 0, 0),
                                         child: Container(
                                           width:
                                               MediaQuery.sizeOf(context).width *
@@ -503,20 +509,20 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                           height:
                                               MediaQuery.sizeOf(context).width *
                                                   0.11,
-                                          decoration: const BoxDecoration(
+                                          decoration: BoxDecoration(
                                             color: Color(0xFFECEEF6),
                                             shape: BoxShape.circle,
                                           ),
-                                          child: const Icon(
+                                          child: Icon(
                                             Icons.movie_creation_rounded,
                                             color: Color(0xFF263F96),
-                                            size: 22.0,
+                                            size: 22,
                                           ),
                                         ),
                                       ),
                                       Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            20.0, 0.0, 0.0, 0.0),
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            20, 0, 0, 0),
                                         child: Column(
                                           mainAxisSize: MainAxisSize.max,
                                           mainAxisAlignment:
@@ -531,8 +537,8 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                                   .bodyMedium
                                                   .override(
                                                     fontFamily: 'Inter',
-                                                    color: const Color(0xFF201A25),
-                                                    fontSize: 16.0,
+                                                    color: Color(0xFF201A25),
+                                                    fontSize: 16,
                                                     letterSpacing: 0.0,
                                                     fontWeight: FontWeight.w500,
                                                     useGoogleFonts:
@@ -542,8 +548,8 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                                   ),
                                             ),
                                             Padding(
-                                              padding: const EdgeInsetsDirectional
-                                                  .fromSTEB(0.0, 5.0, 0.0, 0.0),
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(0, 5, 0, 0),
                                               child: Text(
                                                 'Manage Your Addresses',
                                                 style: FlutterFlowTheme.of(
@@ -551,8 +557,8 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                                     .bodyMedium
                                                     .override(
                                                       fontFamily: 'Inter',
-                                                      color: const Color(0xFF201A25),
-                                                      fontSize: 10.0,
+                                                      color: Color(0xFF201A25),
+                                                      fontSize: 10,
                                                       letterSpacing: 0.0,
                                                       useGoogleFonts:
                                                           GoogleFonts.asMap()
@@ -572,7 +578,8 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                     hoverColor: Colors.transparent,
                                     highlightColor: Colors.transparent,
                                     onTap: () async {
-                                      if (currentUserEmail != '') {
+                                      if (currentUserEmail != null &&
+                                          currentUserEmail != '') {
                                         context.pushNamed('creatorProfile');
                                       } else {
                                         context.pushNamed('Emaillogin');
@@ -589,7 +596,7 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                               ),
                                             ),
                                             duration:
-                                                const Duration(milliseconds: 4000),
+                                                Duration(milliseconds: 4000),
                                             backgroundColor:
                                                 FlutterFlowTheme.of(context)
                                                     .primary,
@@ -597,10 +604,10 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                         );
                                       }
                                     },
-                                    child: const Icon(
+                                    child: Icon(
                                       Icons.chevron_right_sharp,
                                       color: Color(0xFF201A25),
-                                      size: 26.0,
+                                      size: 26,
                                     ),
                                   ),
                                 ],
@@ -613,18 +620,19 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                           ) ==
                           true)
                         Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
-                              20.0, 15.0, 20.0, 0.0),
+                          padding:
+                              EdgeInsetsDirectional.fromSTEB(20, 15, 20, 0),
                           child: InkWell(
                             splashColor: Colors.transparent,
                             focusColor: Colors.transparent,
                             hoverColor: Colors.transparent,
                             highlightColor: Colors.transparent,
                             onTap: () async {
-                              if (currentPhoneNumber != '') {
+                              if (currentPhoneNumber != null &&
+                                  currentPhoneNumber != '') {
                                 context.pushNamed('creatorProfile');
                               } else {
-                                context.pushNamed('Emaillogin');
+                                context.pushNamed('LoginMobileScreen');
 
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
@@ -635,7 +643,7 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                             .secondaryBackground,
                                       ),
                                     ),
-                                    duration: const Duration(milliseconds: 4000),
+                                    duration: Duration(milliseconds: 4000),
                                     backgroundColor:
                                         FlutterFlowTheme.of(context).primary,
                                   ),
@@ -643,12 +651,12 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                               }
                             },
                             child: Container(
-                              width: MediaQuery.sizeOf(context).width * 1.0,
+                              width: MediaQuery.sizeOf(context).width,
                               height: MediaQuery.sizeOf(context).height * 0.09,
                               decoration: BoxDecoration(
                                 color: FlutterFlowTheme.of(context)
                                     .secondaryBackground,
-                                borderRadius: BorderRadius.circular(20.0),
+                                borderRadius: BorderRadius.circular(20),
                               ),
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
@@ -660,8 +668,8 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
                                       Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            8.0, 0.0, 0.0, 0.0),
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            8, 0, 0, 0),
                                         child: Container(
                                           width:
                                               MediaQuery.sizeOf(context).width *
@@ -669,20 +677,20 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                           height:
                                               MediaQuery.sizeOf(context).width *
                                                   0.11,
-                                          decoration: const BoxDecoration(
+                                          decoration: BoxDecoration(
                                             color: Color(0xFFECEEF6),
                                             shape: BoxShape.circle,
                                           ),
-                                          child: const Icon(
+                                          child: Icon(
                                             Icons.movie_creation_rounded,
                                             color: Color(0xFF263F96),
-                                            size: 22.0,
+                                            size: 22,
                                           ),
                                         ),
                                       ),
                                       Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            20.0, 0.0, 0.0, 0.0),
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            20, 0, 0, 0),
                                         child: Column(
                                           mainAxisSize: MainAxisSize.max,
                                           mainAxisAlignment:
@@ -697,8 +705,8 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                                   .bodyMedium
                                                   .override(
                                                     fontFamily: 'Inter',
-                                                    color: const Color(0xFF201A25),
-                                                    fontSize: 16.0,
+                                                    color: Color(0xFF201A25),
+                                                    fontSize: 16,
                                                     letterSpacing: 0.0,
                                                     fontWeight: FontWeight.w500,
                                                     useGoogleFonts:
@@ -708,8 +716,8 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                                   ),
                                             ),
                                             Padding(
-                                              padding: const EdgeInsetsDirectional
-                                                  .fromSTEB(0.0, 5.0, 0.0, 0.0),
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(0, 5, 0, 0),
                                               child: Text(
                                                 'Mange Your Creator Account',
                                                 style: FlutterFlowTheme.of(
@@ -717,8 +725,8 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                                     .bodyMedium
                                                     .override(
                                                       fontFamily: 'Inter',
-                                                      color: const Color(0xFF201A25),
-                                                      fontSize: 10.0,
+                                                      color: Color(0xFF201A25),
+                                                      fontSize: 10,
                                                       letterSpacing: 0.0,
                                                       useGoogleFonts:
                                                           GoogleFonts.asMap()
@@ -738,7 +746,8 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                     hoverColor: Colors.transparent,
                                     highlightColor: Colors.transparent,
                                     onTap: () async {
-                                      if (currentUserEmail != '') {
+                                      if (currentUserEmail != null &&
+                                          currentUserEmail != '') {
                                         context.pushNamed('creatorProfile');
                                       } else {
                                         context.pushNamed('Emaillogin');
@@ -755,7 +764,7 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                               ),
                                             ),
                                             duration:
-                                                const Duration(milliseconds: 4000),
+                                                Duration(milliseconds: 4000),
                                             backgroundColor:
                                                 FlutterFlowTheme.of(context)
                                                     .primary,
@@ -763,10 +772,10 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                         );
                                       }
                                     },
-                                    child: const Icon(
+                                    child: Icon(
                                       Icons.chevron_right_sharp,
                                       color: Color(0xFF201A25),
-                                      size: 26.0,
+                                      size: 26,
                                     ),
                                   ),
                                 ],
@@ -775,18 +784,18 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                           ),
                         ),
                       Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(
-                            20.0, 15.0, 20.0, 0.0),
+                        padding: EdgeInsetsDirectional.fromSTEB(20, 15, 20, 0),
                         child: InkWell(
                           splashColor: Colors.transparent,
                           focusColor: Colors.transparent,
                           hoverColor: Colors.transparent,
                           highlightColor: Colors.transparent,
                           onTap: () async {
-                            if (currentPhoneNumber != '') {
+                            if (currentPhoneNumber != null &&
+                                currentPhoneNumber != '') {
                               context.pushNamed('ClientFav');
                             } else {
-                              context.pushNamed('Emaillogin');
+                              context.pushNamed('LoginMobileScreen');
 
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
@@ -797,7 +806,7 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                           .secondaryBackground,
                                     ),
                                   ),
-                                  duration: const Duration(milliseconds: 4000),
+                                  duration: Duration(milliseconds: 4000),
                                   backgroundColor:
                                       FlutterFlowTheme.of(context).primary,
                                 ),
@@ -805,12 +814,12 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                             }
                           },
                           child: Container(
-                            width: MediaQuery.sizeOf(context).width * 1.0,
+                            width: MediaQuery.sizeOf(context).width,
                             height: MediaQuery.sizeOf(context).height * 0.09,
                             decoration: BoxDecoration(
                               color: FlutterFlowTheme.of(context)
                                   .secondaryBackground,
-                              borderRadius: BorderRadius.circular(20.0),
+                              borderRadius: BorderRadius.circular(20),
                             ),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
@@ -820,8 +829,8 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
                                     Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          8.0, 0.0, 0.0, 0.0),
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          8, 0, 0, 0),
                                       child: Container(
                                         width:
                                             MediaQuery.sizeOf(context).width *
@@ -829,20 +838,20 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                         height:
                                             MediaQuery.sizeOf(context).width *
                                                 0.11,
-                                        decoration: const BoxDecoration(
+                                        decoration: BoxDecoration(
                                           color: Color(0xFFECEEF6),
                                           shape: BoxShape.circle,
                                         ),
-                                        child: const Icon(
+                                        child: Icon(
                                           FFIcons.kdiamond,
                                           color: Color(0xFF263F96),
-                                          size: 22.0,
+                                          size: 22,
                                         ),
                                       ),
                                     ),
                                     Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          20.0, 0.0, 0.0, 0.0),
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          20, 0, 0, 0),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
                                         mainAxisAlignment:
@@ -856,8 +865,8 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Inter',
-                                                  color: const Color(0xFF201A25),
-                                                  fontSize: 16.0,
+                                                  color: Color(0xFF201A25),
+                                                  fontSize: 16,
                                                   letterSpacing: 0.0,
                                                   fontWeight: FontWeight.w500,
                                                   useGoogleFonts:
@@ -867,8 +876,8 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                           ),
                                           Padding(
                                             padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 5.0, 0.0, 0.0),
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0, 5, 0, 0),
                                             child: Text(
                                               'Items You Waitlisted',
                                               style:
@@ -877,8 +886,8 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                                       .override(
                                                         fontFamily: 'Inter',
                                                         color:
-                                                            const Color(0xFF201A25),
-                                                        fontSize: 10.0,
+                                                            Color(0xFF201A25),
+                                                        fontSize: 10,
                                                         letterSpacing: 0.0,
                                                         useGoogleFonts:
                                                             GoogleFonts.asMap()
@@ -898,7 +907,8 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                   hoverColor: Colors.transparent,
                                   highlightColor: Colors.transparent,
                                   onTap: () async {
-                                    if (currentUserEmail != '') {
+                                    if (currentUserEmail != null &&
+                                        currentUserEmail != '') {
                                       context.pushNamed('ClientFav');
                                     } else {
                                       context.pushNamed('Emaillogin');
@@ -915,7 +925,7 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                             ),
                                           ),
                                           duration:
-                                              const Duration(milliseconds: 4000),
+                                              Duration(milliseconds: 4000),
                                           backgroundColor:
                                               FlutterFlowTheme.of(context)
                                                   .primary,
@@ -923,10 +933,10 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                       );
                                     }
                                   },
-                                  child: const Icon(
+                                  child: Icon(
                                     Icons.chevron_right_sharp,
                                     color: Color(0xFF201A25),
-                                    size: 26.0,
+                                    size: 26,
                                   ),
                                 ),
                               ],
@@ -935,8 +945,7 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(
-                            20.0, 15.0, 20.0, 0.0),
+                        padding: EdgeInsetsDirectional.fromSTEB(20, 15, 20, 0),
                         child: InkWell(
                           splashColor: Colors.transparent,
                           focusColor: Colors.transparent,
@@ -946,12 +955,12 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                             context.pushNamed('contactus');
                           },
                           child: Container(
-                            width: MediaQuery.sizeOf(context).width * 1.0,
+                            width: MediaQuery.sizeOf(context).width,
                             height: MediaQuery.sizeOf(context).height * 0.09,
                             decoration: BoxDecoration(
                               color: FlutterFlowTheme.of(context)
                                   .secondaryBackground,
-                              borderRadius: BorderRadius.circular(20.0),
+                              borderRadius: BorderRadius.circular(20),
                             ),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
@@ -961,8 +970,8 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
                                     Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          8.0, 0.0, 0.0, 0.0),
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          8, 0, 0, 0),
                                       child: Container(
                                         width:
                                             MediaQuery.sizeOf(context).width *
@@ -970,20 +979,20 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                         height:
                                             MediaQuery.sizeOf(context).width *
                                                 0.11,
-                                        decoration: const BoxDecoration(
+                                        decoration: BoxDecoration(
                                           color: Color(0xFFECEEF6),
                                           shape: BoxShape.circle,
                                         ),
-                                        child: const Icon(
+                                        child: Icon(
                                           FFIcons.kbubble,
                                           color: Color(0xFF263F96),
-                                          size: 22.0,
+                                          size: 22,
                                         ),
                                       ),
                                     ),
                                     Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          20.0, 0.0, 0.0, 0.0),
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          20, 0, 0, 0),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
                                         mainAxisAlignment:
@@ -997,8 +1006,8 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Inter',
-                                                  color: const Color(0xFF201A25),
-                                                  fontSize: 16.0,
+                                                  color: Color(0xFF201A25),
+                                                  fontSize: 16,
                                                   letterSpacing: 0.0,
                                                   fontWeight: FontWeight.w500,
                                                   useGoogleFonts:
@@ -1008,8 +1017,8 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                           ),
                                           Padding(
                                             padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 5.0, 0.0, 0.0),
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0, 5, 0, 0),
                                             child: Text(
                                               'Contact Our Customer Support',
                                               style:
@@ -1018,8 +1027,8 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                                       .override(
                                                         fontFamily: 'Inter',
                                                         color:
-                                                            const Color(0xFF201A25),
-                                                        fontSize: 10.0,
+                                                            Color(0xFF201A25),
+                                                        fontSize: 10,
                                                         letterSpacing: 0.0,
                                                         useGoogleFonts:
                                                             GoogleFonts.asMap()
@@ -1041,10 +1050,10 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                   onTap: () async {
                                     context.pushNamed('contactus');
                                   },
-                                  child: const Icon(
+                                  child: Icon(
                                     Icons.chevron_right_sharp,
                                     color: Color(0xFF201A25),
-                                    size: 26.0,
+                                    size: 26,
                                   ),
                                 ),
                               ],
@@ -1053,8 +1062,7 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(
-                            20.0, 15.0, 20.0, 0.0),
+                        padding: EdgeInsetsDirectional.fromSTEB(20, 15, 20, 0),
                         child: InkWell(
                           splashColor: Colors.transparent,
                           focusColor: Colors.transparent,
@@ -1064,12 +1072,12 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                             context.pushNamed('privacy');
                           },
                           child: Container(
-                            width: MediaQuery.sizeOf(context).width * 1.0,
+                            width: MediaQuery.sizeOf(context).width,
                             height: MediaQuery.sizeOf(context).height * 0.08,
                             decoration: BoxDecoration(
                               color: FlutterFlowTheme.of(context)
                                   .secondaryBackground,
-                              borderRadius: BorderRadius.circular(20.0),
+                              borderRadius: BorderRadius.circular(20),
                             ),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
@@ -1079,8 +1087,8 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
                                     Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          8.0, 0.0, 0.0, 0.0),
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          8, 0, 0, 0),
                                       child: Container(
                                         width:
                                             MediaQuery.sizeOf(context).width *
@@ -1088,20 +1096,20 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                         height:
                                             MediaQuery.sizeOf(context).width *
                                                 0.11,
-                                        decoration: const BoxDecoration(
+                                        decoration: BoxDecoration(
                                           color: Color(0xFFECEEF6),
                                           shape: BoxShape.circle,
                                         ),
-                                        child: const Icon(
+                                        child: Icon(
                                           FFIcons.kmegaphone,
                                           color: Color(0xFF263F96),
-                                          size: 22.0,
+                                          size: 22,
                                         ),
                                       ),
                                     ),
                                     Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          20.0, 0.0, 0.0, 0.0),
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          20, 0, 0, 0),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
                                         mainAxisAlignment:
@@ -1115,8 +1123,8 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Inter',
-                                                  color: const Color(0xFF201A25),
-                                                  fontSize: 16.0,
+                                                  color: Color(0xFF201A25),
+                                                  fontSize: 16,
                                                   letterSpacing: 0.0,
                                                   fontWeight: FontWeight.w500,
                                                   useGoogleFonts:
@@ -1137,10 +1145,10 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                   onTap: () async {
                                     context.pushNamed('privacy');
                                   },
-                                  child: const Icon(
+                                  child: Icon(
                                     Icons.chevron_right_sharp,
                                     color: Color(0xFF201A25),
-                                    size: 26.0,
+                                    size: 26,
                                   ),
                                 ),
                               ],
@@ -1149,8 +1157,7 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(
-                            20.0, 15.0, 20.0, 0.0),
+                        padding: EdgeInsetsDirectional.fromSTEB(20, 15, 20, 0),
                         child: InkWell(
                           splashColor: Colors.transparent,
                           focusColor: Colors.transparent,
@@ -1160,12 +1167,12 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                             context.pushNamed('aboutus');
                           },
                           child: Container(
-                            width: MediaQuery.sizeOf(context).width * 1.0,
+                            width: MediaQuery.sizeOf(context).width,
                             height: MediaQuery.sizeOf(context).height * 0.08,
                             decoration: BoxDecoration(
                               color: FlutterFlowTheme.of(context)
                                   .secondaryBackground,
-                              borderRadius: BorderRadius.circular(20.0),
+                              borderRadius: BorderRadius.circular(20),
                             ),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
@@ -1175,8 +1182,8 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
                                     Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          8.0, 0.0, 0.0, 0.0),
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          8, 0, 0, 0),
                                       child: Container(
                                         width:
                                             MediaQuery.sizeOf(context).width *
@@ -1184,20 +1191,20 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                         height:
                                             MediaQuery.sizeOf(context).width *
                                                 0.11,
-                                        decoration: const BoxDecoration(
+                                        decoration: BoxDecoration(
                                           color: Color(0xFFECEEF6),
                                           shape: BoxShape.circle,
                                         ),
-                                        child: const Icon(
+                                        child: Icon(
                                           Icons.info_outline,
                                           color: Color(0xFF263F96),
-                                          size: 22.0,
+                                          size: 22,
                                         ),
                                       ),
                                     ),
                                     Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          20.0, 0.0, 0.0, 0.0),
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          20, 0, 0, 0),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
                                         mainAxisAlignment:
@@ -1211,8 +1218,8 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Inter',
-                                                  color: const Color(0xFF201A25),
-                                                  fontSize: 16.0,
+                                                  color: Color(0xFF201A25),
+                                                  fontSize: 16,
                                                   letterSpacing: 0.0,
                                                   fontWeight: FontWeight.w500,
                                                   useGoogleFonts:
@@ -1233,10 +1240,10 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                   onTap: () async {
                                     context.pushNamed('aboutus');
                                   },
-                                  child: const Icon(
+                                  child: Icon(
                                     Icons.chevron_right_sharp,
                                     color: Color(0xFF201A25),
-                                    size: 26.0,
+                                    size: 26,
                                   ),
                                 ),
                               ],
@@ -1245,8 +1252,7 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(
-                            20.0, 15.0, 20.0, 0.0),
+                        padding: EdgeInsetsDirectional.fromSTEB(20, 15, 20, 0),
                         child: InkWell(
                           splashColor: Colors.transparent,
                           focusColor: Colors.transparent,
@@ -1257,19 +1263,19 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                   context: context,
                                   builder: (alertDialogContext) {
                                     return AlertDialog(
-                                      title: const Text('Logout'),
-                                      content: const Text(
+                                      title: Text('Logout'),
+                                      content: Text(
                                           'Are you sure,you want to logout ?'),
                                       actions: [
                                         TextButton(
                                           onPressed: () => Navigator.pop(
                                               alertDialogContext, false),
-                                          child: const Text('Cancel'),
+                                          child: Text('Cancel'),
                                         ),
                                         TextButton(
                                           onPressed: () => Navigator.pop(
                                               alertDialogContext, true),
-                                          child: const Text('Confirm'),
+                                          child: Text('Confirm'),
                                         ),
                                       ],
                                     );
@@ -1286,12 +1292,12 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                             }
                           },
                           child: Container(
-                            width: MediaQuery.sizeOf(context).width * 1.0,
+                            width: MediaQuery.sizeOf(context).width,
                             height: MediaQuery.sizeOf(context).height * 0.08,
                             decoration: BoxDecoration(
                               color: FlutterFlowTheme.of(context)
                                   .secondaryBackground,
-                              borderRadius: BorderRadius.circular(20.0),
+                              borderRadius: BorderRadius.circular(20),
                             ),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
@@ -1301,8 +1307,8 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
                                     Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          8.0, 0.0, 0.0, 0.0),
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          8, 0, 0, 0),
                                       child: Container(
                                         width:
                                             MediaQuery.sizeOf(context).width *
@@ -1310,20 +1316,20 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                         height:
                                             MediaQuery.sizeOf(context).width *
                                                 0.11,
-                                        decoration: const BoxDecoration(
+                                        decoration: BoxDecoration(
                                           color: Color(0xFFECEEF6),
                                           shape: BoxShape.circle,
                                         ),
-                                        child: const Icon(
+                                        child: Icon(
                                           Icons.logout_rounded,
                                           color: Color(0xFF263F96),
-                                          size: 22.0,
+                                          size: 22,
                                         ),
                                       ),
                                     ),
                                     Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          20.0, 0.0, 0.0, 0.0),
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          20, 0, 0, 0),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
                                         mainAxisAlignment:
@@ -1337,8 +1343,8 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Inter',
-                                                  color: const Color(0xFF201A25),
-                                                  fontSize: 16.0,
+                                                  color: Color(0xFF201A25),
+                                                  fontSize: 16,
                                                   letterSpacing: 0.0,
                                                   fontWeight: FontWeight.w500,
                                                   useGoogleFonts:
@@ -1362,8 +1368,8 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                               context: context,
                                               builder: (alertDialogContext) {
                                                 return AlertDialog(
-                                                  title: const Text('Logout'),
-                                                  content: const Text(
+                                                  title: Text('Logout'),
+                                                  content: Text(
                                                       'Are you sure,you want to logout ?'),
                                                   actions: [
                                                     TextButton(
@@ -1371,14 +1377,14 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                                           Navigator.pop(
                                                               alertDialogContext,
                                                               false),
-                                                      child: const Text('Cancel'),
+                                                      child: Text('Cancel'),
                                                     ),
                                                     TextButton(
                                                       onPressed: () =>
                                                           Navigator.pop(
                                                               alertDialogContext,
                                                               true),
-                                                      child: const Text('Confirm'),
+                                                      child: Text('Confirm'),
                                                     ),
                                                   ],
                                                 );
@@ -1397,10 +1403,10 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                       Navigator.pop(context);
                                     }
                                   },
-                                  child: const Icon(
+                                  child: Icon(
                                     Icons.chevron_right_sharp,
                                     color: Color(0xFF201A25),
-                                    size: 26.0,
+                                    size: 26,
                                   ),
                                 ),
                               ],
@@ -1410,50 +1416,71 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                       ),
                       Builder(
                         builder: (context) => Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
-                              20.0, 15.0, 20.0, 20.0),
+                          padding:
+                              EdgeInsetsDirectional.fromSTEB(20, 15, 20, 20),
                           child: InkWell(
                             splashColor: Colors.transparent,
                             focusColor: Colors.transparent,
                             hoverColor: Colors.transparent,
                             highlightColor: Colors.transparent,
                             onTap: () async {
-                              await showDialog(
-                                context: context,
-                                builder: (dialogContext) {
-                                  return Dialog(
-                                    elevation: 0,
-                                    insetPadding: EdgeInsets.zero,
-                                    backgroundColor: Colors.transparent,
-                                    alignment: const AlignmentDirectional(0.0, 0.0)
-                                        .resolve(Directionality.of(context)),
-                                    child: GestureDetector(
-                                      onTap: () {
-                                        FocusScope.of(dialogContext).unfocus();
-                                        FocusManager.instance.primaryFocus
-                                            ?.unfocus();
-                                      },
-                                      child: SizedBox(
-                                        height:
-                                            MediaQuery.sizeOf(context).height *
-                                                0.5,
-                                        width:
-                                            MediaQuery.sizeOf(context).width *
-                                                0.8,
-                                        child: const DeleteaccountWidget(),
+                              if (currentPhoneNumber != null &&
+                                  currentPhoneNumber != '') {
+                                await showDialog(
+                                  context: context,
+                                  builder: (dialogContext) {
+                                    return Dialog(
+                                      elevation: 0,
+                                      insetPadding: EdgeInsets.zero,
+                                      backgroundColor: Colors.transparent,
+                                      alignment: AlignmentDirectional(0, 0)
+                                          .resolve(Directionality.of(context)),
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          FocusScope.of(dialogContext)
+                                              .unfocus();
+                                          FocusManager.instance.primaryFocus
+                                              ?.unfocus();
+                                        },
+                                        child: Container(
+                                          height: MediaQuery.sizeOf(context)
+                                                  .height *
+                                              0.5,
+                                          width:
+                                              MediaQuery.sizeOf(context).width *
+                                                  0.8,
+                                          child: DeleteaccountWidget(),
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                );
+                              } else {
+                                context.pushNamed('LoginMobileScreen');
+
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                      'Please Login to Your Profile',
+                                      style: TextStyle(
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryBackground,
                                       ),
                                     ),
-                                  );
-                                },
-                              );
+                                    duration: Duration(milliseconds: 4000),
+                                    backgroundColor:
+                                        FlutterFlowTheme.of(context).primary,
+                                  ),
+                                );
+                              }
                             },
                             child: Container(
-                              width: MediaQuery.sizeOf(context).width * 1.0,
+                              width: MediaQuery.sizeOf(context).width,
                               height: MediaQuery.sizeOf(context).height * 0.08,
                               decoration: BoxDecoration(
                                 color: FlutterFlowTheme.of(context)
                                     .secondaryBackground,
-                                borderRadius: BorderRadius.circular(20.0),
+                                borderRadius: BorderRadius.circular(20),
                               ),
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
@@ -1464,8 +1491,8 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
                                       Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            8.0, 0.0, 0.0, 0.0),
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            8, 0, 0, 0),
                                         child: Container(
                                           width:
                                               MediaQuery.sizeOf(context).width *
@@ -1473,20 +1500,20 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                           height:
                                               MediaQuery.sizeOf(context).width *
                                                   0.11,
-                                          decoration: const BoxDecoration(
+                                          decoration: BoxDecoration(
                                             color: Color(0xFFECEEF6),
                                             shape: BoxShape.circle,
                                           ),
-                                          child: const Icon(
+                                          child: Icon(
                                             FFIcons.ktrash,
                                             color: Color(0xFFFF271A),
-                                            size: 22.0,
+                                            size: 22,
                                           ),
                                         ),
                                       ),
                                       Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            20.0, 0.0, 0.0, 0.0),
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            20, 0, 0, 0),
                                         child: Column(
                                           mainAxisSize: MainAxisSize.max,
                                           mainAxisAlignment:
@@ -1501,8 +1528,8 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                                   .bodyMedium
                                                   .override(
                                                     fontFamily: 'Inter',
-                                                    color: const Color(0xFF201A25),
-                                                    fontSize: 16.0,
+                                                    color: Color(0xFF201A25),
+                                                    fontSize: 16,
                                                     letterSpacing: 0.0,
                                                     fontWeight: FontWeight.w500,
                                                     useGoogleFonts:
@@ -1532,7 +1559,7 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                               backgroundColor:
                                                   Colors.transparent,
                                               alignment:
-                                                  const AlignmentDirectional(0.0, 0.0)
+                                                  AlignmentDirectional(0, 0)
                                                       .resolve(
                                                           Directionality.of(
                                                               context)),
@@ -1544,7 +1571,7 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                                       .instance.primaryFocus
                                                       ?.unfocus();
                                                 },
-                                                child: SizedBox(
+                                                child: Container(
                                                   height:
                                                       MediaQuery.sizeOf(context)
                                                               .height *
@@ -1553,17 +1580,17 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                                       MediaQuery.sizeOf(context)
                                                               .width *
                                                           0.8,
-                                                  child: const DeleteaccountWidget(),
+                                                  child: DeleteaccountWidget(),
                                                 ),
                                               ),
                                             );
                                           },
                                         );
                                       },
-                                      child: const Icon(
+                                      child: Icon(
                                         Icons.chevron_right_sharp,
                                         color: Color(0xFF201A25),
-                                        size: 26.0,
+                                        size: 26,
                                       ),
                                     ),
                                   ),

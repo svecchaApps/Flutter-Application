@@ -12,9 +12,27 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import 'flutter_flow/flutter_flow_util.dart';
 import 'flutter_flow/internationalization.dart';
 import 'index.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:in_app_update/in_app_update.dart';
+import 'package:upgrader/upgrader.dart';
+import 'package:package_info_plus/package_info_plus.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'dart:io' show Platform;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  final prefs = await SharedPreferences.getInstance();
+  bool isFirstLaunch = prefs.getBool('firstLaunch') ?? true;
+  await initFirebase();
+
+  if (isFirstLaunch) {
+    // Clear Firebase session and app data on first launch after reinstall
+    await FirebaseAuth.instance.signOut();
+    await prefs.setBool(
+        'firstLaunch', false); // Set flag to false after first launch
+  }
+
   GoRouter.optionURLReflectsImperativeAPIs = true;
   usePathUrlStrategy();
 
@@ -62,6 +80,20 @@ class _MyAppState extends State<MyApp> {
 
   final authUserSub = authenticatedUserStream.listen((_) {});
 
+  Future<void> _checkForAndroidUpdate() async {
+    if (Platform.isAndroid) {
+      try {
+        final updateInfo = await InAppUpdate.checkForUpdate();
+        if (updateInfo.updateAvailability ==
+            UpdateAvailability.updateAvailable) {
+          await InAppUpdate.performImmediateUpdate();
+        }
+      } catch (e) {
+        print('Android update error: $e');
+      }
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -75,7 +107,10 @@ class _MyAppState extends State<MyApp> {
     jwtTokenStream.listen((_) {});
     Future.delayed(
       const Duration(milliseconds: 1000),
-      () => _appStateNotifier.stopShowingSplashImage(),
+      () {
+        _appStateNotifier.stopShowingSplashImage();
+        _checkForAndroidUpdate(); // Trigger Android update check
+      },
     );
   }
 
@@ -165,7 +200,7 @@ class _NavBarPageState extends State<NavBarPage> {
     final currentIndex = tabs.keys.toList().indexOf(_currentPageName);
 
     return Scaffold(
-      body: _currentPage ?? tabs[_currentPageName],
+      body: UpgradeAlert(child: _currentPage ?? tabs[_currentPageName]),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: currentIndex,
         onTap: (i) => safeSetState(() {

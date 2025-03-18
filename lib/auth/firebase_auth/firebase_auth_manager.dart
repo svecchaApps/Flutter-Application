@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:indigo_rhapsody_dupli/custom_code/actions/snackbar.dart';
 import '../auth_manager.dart';
 
 import '/backend/backend.dart';
@@ -70,11 +71,14 @@ class FirebaseAuthManager extends AuthManager
     } on FirebaseAuthException catch (e) {
       if (e.code == 'requires-recent-login') {
         ScaffoldMessenger.of(context).hideCurrentSnackBar();
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-              content: Text(
-                  'Too long since most recent sign in. Sign in again before deleting your account.')),
-        );
+        CustomSnackbar(
+            message:
+                "Too long since most recent sign in. Sign in again before deleting your account");
+        // ScaffoldMessenger.of(context).showSnackBar(
+        //   const SnackBar(
+        //       content: Text(
+        //           'Too long since most recent sign in. Sign in again before deleting your account.')),
+        // );
       }
     }
   }
@@ -94,11 +98,14 @@ class FirebaseAuthManager extends AuthManager
     } on FirebaseAuthException catch (e) {
       if (e.code == 'requires-recent-login') {
         ScaffoldMessenger.of(context).hideCurrentSnackBar();
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-              content: Text(
-                  'Too long since most recent sign in. Sign in again before updating your email.')),
-        );
+        CustomSnackbar(
+            message:
+                "Too long since most recent sign in. Sign in again before updating your email.");
+        // ScaffoldMessenger.of(context).showSnackBar(
+        //   const SnackBar(
+        //       content: Text(
+        //           'Too long since most recent sign in. Sign in again before updating your email.')),
+        // );
       }
     }
   }
@@ -117,11 +124,9 @@ class FirebaseAuthManager extends AuthManager
     } on FirebaseAuthException catch (e) {
       if (e.code == 'requires-recent-login') {
         ScaffoldMessenger.of(context).hideCurrentSnackBar();
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-              content: Text(
-                  'Invalid credentials provided. Please check credentials')),
-        );
+
+        CustomSnackbar(
+            message: "Invalid credentials provided. Please check credentials");
       }
     }
   }
@@ -135,16 +140,19 @@ class FirebaseAuthManager extends AuthManager
       await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
     } on FirebaseAuthException {
       ScaffoldMessenger.of(context).hideCurrentSnackBar();
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-            content:
-                Text('Invalid credentials provided. Please check credentials')),
-      );
+      CustomSnackbar(
+          message: "Invalid credentials provided. Please check credentials");
+      // ScaffoldMessenger.of(context).showSnackBar(
+      //   const SnackBar(
+      //       content:
+      //           Text('Invalid credentials provided. Please check credentials')),
+      // );
       return null;
     }
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Password reset email sent')),
-    );
+    CustomSnackbar(message: 'Password reset email sent');
+    // ScaffoldMessenger.of(context).showSnackBar(
+    //   const SnackBar(content: Text('Password reset email sent')),
+    // );
   }
 
   @override
@@ -208,10 +216,12 @@ class FirebaseAuthManager extends AuthManager
             .update(() => phoneAuthManager.triggerOnCodeSent = false);
       } else if (phoneAuthManager.phoneAuthError != null) {
         final e = phoneAuthManager.phoneAuthError!;
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content:
-              Text('Invalid credentials provided. Please check credentials'),
-        ));
+        CustomSnackbar(
+            message: "Invalid credentials provided. Please check credentials");
+        // ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        //   content:
+        //       Text('Invalid credentials provided. Please check credentials'),
+        // ));
         phoneAuthManager.update(() => phoneAuthManager.phoneAuthError = null);
       }
     });
@@ -238,8 +248,8 @@ class FirebaseAuthManager extends AuthManager
     // * Finally modify verificationCompleted below as instructed.
     await FirebaseAuth.instance.verifyPhoneNumber(
       phoneNumber: phoneNumber,
-      timeout:
-          const Duration(seconds: 0), // Skips Android's default auto-verification
+      timeout: const Duration(
+          seconds: 0), // Skips Android's default auto-verification
       verificationCompleted: (phoneAuthCredential) async {
         await FirebaseAuth.instance.signInWithCredential(phoneAuthCredential);
         phoneAuthManager.update(() {
@@ -322,9 +332,10 @@ class FirebaseAuthManager extends AuthManager
         _ => 'Invalid credentials provided. Please check credentials',
       };
       ScaffoldMessenger.of(context).hideCurrentSnackBar();
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(errorMsg)),
-      );
+      CustomSnackbar(message: errorMsg);
+      // ScaffoldMessenger.of(context).showSnackBar(
+      //   SnackBar(content: Text(errorMsg)),
+      // );
       return null;
     }
   }

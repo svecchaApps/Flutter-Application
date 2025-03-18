@@ -22,6 +22,8 @@ class OtpLoginWidget extends StatefulWidget {
   final String? phoneNumber;
   final String? email;
   final String? username;
+  static String routeName = 'OtpLogin';
+  static String routePath = '/otpLogin';
 
   @override
   State<OtpLoginWidget> createState() => _OtpLoginWidgetState();
@@ -87,7 +89,8 @@ class _OtpLoginWidgetState extends State<OtpLoginWidget>
             mainAxisSize: MainAxisSize.max,
             children: [
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(25.0, 20.0, 25.0, 0.0),
+                padding:
+                    const EdgeInsetsDirectional.fromSTEB(25.0, 20.0, 25.0, 0.0),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   children: [
@@ -107,7 +110,8 @@ class _OtpLoginWidgetState extends State<OtpLoginWidget>
                 ),
               ),
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(25.0, 10.0, 25.0, 0.0),
+                padding:
+                    const EdgeInsetsDirectional.fromSTEB(25.0, 10.0, 25.0, 0.0),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   children: [
@@ -127,7 +131,8 @@ class _OtpLoginWidgetState extends State<OtpLoginWidget>
                 ),
               ),
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(25.0, 60.0, 25.0, 0.0),
+                padding:
+                    const EdgeInsetsDirectional.fromSTEB(25.0, 60.0, 25.0, 0.0),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   children: [
@@ -147,7 +152,8 @@ class _OtpLoginWidgetState extends State<OtpLoginWidget>
                 ),
               ),
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(20.0, 40.0, 20.0, 0.0),
+                padding:
+                    const EdgeInsetsDirectional.fromSTEB(20.0, 40.0, 20.0, 0.0),
                 child: PinCodeTextField(
                   autoDisposeControllers: false,
                   appContext: context,
@@ -192,7 +198,8 @@ class _OtpLoginWidgetState extends State<OtpLoginWidget>
                 ),
               ),
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(25.0, 30.0, 25.0, 0.0),
+                padding:
+                    const EdgeInsetsDirectional.fromSTEB(25.0, 30.0, 25.0, 0.0),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -271,7 +278,8 @@ class _OtpLoginWidgetState extends State<OtpLoginWidget>
               ),
               const Spacer(),
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(20.0, 60.0, 20.0, 30.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(
+                    20.0, 60.0, 20.0, 30.0),
                 child: FFButtonWidget(
                   onPressed: () async {
                     GoRouter.of(context).prepareAuthEvent();
@@ -320,10 +328,10 @@ class _OtpLoginWidgetState extends State<OtpLoginWidget>
                   options: FFButtonOptions(
                     width: double.infinity,
                     height: MediaQuery.sizeOf(context).height * 0.065,
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(21.0, 0.0, 21.0, 0.0),
-                    iconPadding:
-                        const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(
+                        21.0, 0.0, 21.0, 0.0),
+                    iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                        0.0, 0.0, 0.0, 0.0),
                     color: FlutterFlowTheme.of(context).primary,
                     textStyle: FlutterFlowTheme.of(context).titleSmall.override(
                           fontFamily: 'Inter',

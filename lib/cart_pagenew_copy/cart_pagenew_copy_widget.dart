@@ -17,6 +17,9 @@ export 'cart_pagenew_copy_model.dart';
 class CartPagenewCopyWidget extends StatefulWidget {
   const CartPagenewCopyWidget({super.key});
 
+  static String routeName = 'CartPagenewCopy';
+  static String routePath = '/cartPagenewCopy';
+
   @override
   State<CartPagenewCopyWidget> createState() => _CartPagenewCopyWidgetState();
 }

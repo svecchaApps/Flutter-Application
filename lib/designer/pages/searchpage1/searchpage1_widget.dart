@@ -5,7 +5,7 @@ import '/flutter_flow/flutter_flow_autocomplete_options_list.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'dart:ui';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart'; 
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter_animate/flutter_animate.dart';
@@ -51,11 +51,9 @@ class _Searchpage1WidgetState extends State<Searchpage1Widget> {
         _recentlySearchedItems =
             List<Map<String, dynamic>>.from(json.decode(items));
       });
-/*************  ✨ Codeium Command ⭐  *************/
+
       /// Saves the list of recently searched items to shared preferences
       /// in JSON format under the key 'recentlySearchedItems'.
-
-/******  f8ee9fd0-711b-4f94-b371-8cd8f266b437  *******/
     }
   }
 
@@ -106,8 +104,10 @@ class _Searchpage1WidgetState extends State<Searchpage1Widget> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) =>
-            ProductDescriptionColorWidget(productId: product['_id'].toString()),
+        builder: (context) => ProductDescriptionColorWidget(
+          productId: product['_id'].toString(),
+          price: product['price'],
+        ),
       ),
     );
   }

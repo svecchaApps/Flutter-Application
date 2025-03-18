@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>IndigoRhapsodyDupli</string>
+	<string>IndigoRhapsody</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -40,7 +40,7 @@
         <string>indigorhapsodydupli.com</string>
         <key>CFBundleURLSchemes</key>
         <array>
-        <string>indigorhapsodydupli</string>
+        <string>indigorhapsody</string>
         </array>
         </dict>
     </array>

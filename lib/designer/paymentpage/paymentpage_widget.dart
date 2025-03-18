@@ -943,7 +943,8 @@ class _PaymentpageWidgetState extends State<PaymentpageWidget> {
                     padding: const EdgeInsetsDirectional.fromSTEB(
                         10.0, 5.0, 10.0, 10.0),
                     child: FFButtonWidget(
-                      onPressed: selectedPaymentMethod != null
+                      onPressed: (selectedPaymentMethod != null &&
+                              selectedIndex != null)
                           ? () async {
                               if (selectedPaymentMethod == 'Cash on Delivery') {
                                 // Cash On Delivery API call
