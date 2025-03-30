@@ -1,3 +1,4 @@
+import '';
 import '/backend/api_requests/api_calls.dart';
 import '/designer/pages/shimmerbanner/shimmerbanner_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
@@ -5,18 +6,28 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_video_player.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import '/shimmer/categories_shimmer/categories_shimmer_widget.dart';
 import '/shimmer/hiddengems_shimmer/hiddengems_shimmer_widget.dart';
 import '/shimmer/products_shimmer/products_shimmer_widget.dart';
+import 'dart:math';
+import 'dart:ui';
+import '/index.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+
 import 'homepage_model.dart';
 export 'homepage_model.dart';
 
 class HomepageWidget extends StatefulWidget {
   const HomepageWidget({super.key});
+
+  static String routeName = 'Homepage';
+  static String routePath = '/homepage';
 
   @override
   State<HomepageWidget> createState() => _HomepageWidgetState();
@@ -45,8 +56,8 @@ class _HomepageWidgetState extends State<HomepageWidget>
             delay: 0.0.ms,
             duration: 600.0.ms,
             color: Colors.black,
-            begin: 0.0,
-            end: 1.0,
+            begin: 0,
+            end: 1,
           ),
         ],
       ),
@@ -59,8 +70,8 @@ class _HomepageWidgetState extends State<HomepageWidget>
             delay: 0.0.ms,
             duration: 600.0.ms,
             color: Colors.black,
-            begin: 0.0,
-            end: 1.0,
+            begin: 0,
+            end: 1,
           ),
         ],
       ),
@@ -92,7 +103,7 @@ class _HomepageWidgetState extends State<HomepageWidget>
             child: AppBar(
               backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
               automaticallyImplyLeading: false,
-              actions: const [],
+              actions: [],
               flexibleSpace: FlexibleSpaceBar(
                 title: SingleChildScrollView(
                   child: Column(
@@ -101,8 +112,7 @@ class _HomepageWidgetState extends State<HomepageWidget>
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(
-                            20.0, 0.0, 20.0, 8.0),
+                        padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 8),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -112,7 +122,7 @@ class _HomepageWidgetState extends State<HomepageWidget>
                               mainAxisSize: MainAxisSize.max,
                               children: [
                                 ClipRRect(
-                                  borderRadius: BorderRadius.circular(0.0),
+                                  borderRadius: BorderRadius.circular(0),
                                   child: Image.asset(
                                     'assets/images/Asset_4.webp',
                                     width:
@@ -121,10 +131,10 @@ class _HomepageWidgetState extends State<HomepageWidget>
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
-                                      5.0, 0.0, 0.0, 0.0),
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      5, 0, 0, 0),
                                   child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(0.0),
+                                    borderRadius: BorderRadius.circular(0),
                                     child: Image.asset(
                                       'assets/images/Asset_3.webp',
                                       width: MediaQuery.sizeOf(context).width *
@@ -139,16 +149,17 @@ class _HomepageWidgetState extends State<HomepageWidget>
                               children: [
                                 FlutterFlowIconButton(
                                   borderColor: Colors.transparent,
-                                  borderRadius: 30.0,
-                                  buttonSize: 40.0,
-                                  fillColor: const Color(0xFFE0E6ED),
-                                  icon: const Icon(
+                                  borderRadius: 30,
+                                  buttonSize: 40,
+                                  fillColor: Color(0xFFE0E6ED),
+                                  icon: Icon(
                                     FFIcons.kshoppingBag,
                                     color: Color(0xFF263F96),
-                                    size: 24.0,
+                                    size: 24,
                                   ),
                                   onPressed: () async {
-                                    context.pushNamed('CartPagenewCopy');
+                                    context.pushNamed(
+                                        CartPagenewCopyWidget.routeName);
                                   },
                                 ),
                               ],
@@ -162,7 +173,7 @@ class _HomepageWidgetState extends State<HomepageWidget>
                 centerTitle: true,
                 expandedTitleScale: 1.0,
               ),
-              elevation: 0.0,
+              elevation: 0,
             ),
           ),
           body: SafeArea(
@@ -177,31 +188,36 @@ class _HomepageWidgetState extends State<HomepageWidget>
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Align(
-                          alignment: const AlignmentDirectional(0.0, 0.0),
+                          alignment: AlignmentDirectional(0, 0),
                           child: Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                10.0, 21.0, 10.0, 0.0),
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(10, 21, 10, 0),
                             child: Container(
-                              width: MediaQuery.sizeOf(context).width * 1.0,
+                              width: MediaQuery.sizeOf(context).width,
                               height: MediaQuery.sizeOf(context).height * 0.06,
                               decoration: BoxDecoration(
                                 color: FlutterFlowTheme.of(context)
                                     .secondaryBackground,
-                                borderRadius: BorderRadius.circular(10.0),
+                                borderRadius: BorderRadius.circular(10),
                                 border: Border.all(
                                   color: FlutterFlowTheme.of(context).alternate,
                                 ),
                               ),
                               child: Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
-                                    20.0, 0.0, 0.0, 0.0),
+                                padding:
+                                    EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
                                 child: InkWell(
                                   splashColor: Colors.transparent,
                                   focusColor: Colors.transparent,
                                   hoverColor: Colors.transparent,
                                   highlightColor: Colors.transparent,
                                   onTap: () async {
-                                    context.pushNamed('searchpage1');
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const Searchpage1Widget()),
+                                    );
                                   },
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
@@ -214,21 +230,21 @@ class _HomepageWidgetState extends State<HomepageWidget>
                                             .bodyMedium
                                             .override(
                                               fontFamily: 'Inter',
-                                              color: const Color(0xFF232323),
-                                              fontSize: 12.0,
+                                              color: Color(0xFF232323),
+                                              fontSize: 12,
                                               letterSpacing: 0.0,
                                               useGoogleFonts:
                                                   GoogleFonts.asMap()
                                                       .containsKey('Inter'),
                                             ),
                                       ),
-                                      const Padding(
+                                      Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
-                                            15.0, 0.0, 12.0, 0.0),
+                                            15, 0, 12, 0),
                                         child: Icon(
                                           FFIcons.ksearch,
                                           color: Color(0xFF263F96),
-                                          size: 16.0,
+                                          size: 16,
                                         ),
                                       ),
                                     ],
@@ -239,8 +255,173 @@ class _HomepageWidgetState extends State<HomepageWidget>
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
-                              10.0, 10.0, 10.0, 10.0),
+                          padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                          child: Container(
+                            width: MediaQuery.sizeOf(context).width,
+                            decoration: BoxDecoration(
+                              color: FlutterFlowTheme.of(context)
+                                  .secondaryBackground,
+                            ),
+                            child: Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  10, 20, 10, 20),
+                              child: FutureBuilder<ApiCallResponse>(
+                                future: FFAppState().subcategory(
+                                  requestFn: () =>
+                                      BackendAPIGroup.subcategoriesCall.call(),
+                                ),
+                                builder: (context, snapshot) {
+                                  // Customize what your widget looks like when it's loading.
+                                  if (!snapshot.hasData) {
+                                    return Center(
+                                      child: SizedBox(
+                                        width: 50,
+                                        height: 50,
+                                        child: CircularProgressIndicator(
+                                          valueColor:
+                                              AlwaysStoppedAnimation<Color>(
+                                            FlutterFlowTheme.of(context)
+                                                .primary,
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  }
+                                  final gridViewSubcategoriesResponse =
+                                      snapshot.data!;
+
+                                  return Builder(
+                                    builder: (context) {
+                                      final newbody =
+                                          (BackendAPIGroup.subcategoriesCall
+                                                      .body(
+                                                        gridViewSubcategoriesResponse
+                                                            .jsonBody,
+                                                      )
+                                                      ?.toList() ??
+                                                  [])
+                                              .take(8)
+                                              .toList();
+
+                                      return GridView.builder(
+                                        padding: EdgeInsets.fromLTRB(
+                                          0,
+                                          0,
+                                          0,
+                                          0,
+                                        ),
+                                        gridDelegate:
+                                            SliverGridDelegateWithFixedCrossAxisCount(
+                                          crossAxisCount: 4,
+                                          crossAxisSpacing: 10,
+                                          mainAxisSpacing: 20,
+                                          childAspectRatio: 1.2,
+                                        ),
+                                        primary: false,
+                                        shrinkWrap: true,
+                                        scrollDirection: Axis.vertical,
+                                        itemCount: newbody.length,
+                                        itemBuilder: (context, newbodyIndex) {
+                                          final newbodyItem =
+                                              newbody[newbodyIndex];
+                                          return InkWell(
+                                            splashColor: Colors.transparent,
+                                            focusColor: Colors.transparent,
+                                            hoverColor: Colors.transparent,
+                                            highlightColor: Colors.transparent,
+                                            onTap: () async {
+                                              context.pushNamed(
+                                                ProductofdesignerclientCopyCopyWidget
+                                                    .routeName,
+                                                queryParameters: {
+                                                  'subcategoryid':
+                                                      serializeParam(
+                                                    getJsonField(
+                                                      newbodyItem,
+                                                      r'''$._id''',
+                                                    ).toString(),
+                                                    ParamType.String,
+                                                  ),
+                                                }.withoutNulls,
+                                              );
+                                            },
+                                            child: Container(
+                                              width: MediaQuery.sizeOf(context)
+                                                      .width *
+                                                  0.15,
+                                              decoration: BoxDecoration(),
+                                              child: Column(
+                                                mainAxisSize: MainAxisSize.max,
+                                                children: [
+                                                  ClipRRect(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            8),
+                                                    child: Image.network(
+                                                      getJsonField(
+                                                        newbodyItem,
+                                                        r'''$.image''',
+                                                      ).toString(),
+                                                      width: MediaQuery.sizeOf(
+                                                                  context)
+                                                              .width *
+                                                          0.14,
+                                                      height: MediaQuery.sizeOf(
+                                                                  context)
+                                                              .height *
+                                                          0.08,
+                                                      fit: BoxFit.cover,
+                                                    ),
+                                                  ),
+                                                  Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(
+                                                                0, 5, 0, 0),
+                                                    child: Text(
+                                                      getJsonField(
+                                                        newbodyItem,
+                                                        r'''$.name''',
+                                                      ).toString(),
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      maxLines: 2,
+                                                      style: FlutterFlowTheme
+                                                              .of(context)
+                                                          .bodyMedium
+                                                          .override(
+                                                            fontFamily: 'Inter',
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .primaryText,
+                                                            fontSize: 12,
+                                                            letterSpacing: 0.0,
+                                                            fontWeight:
+                                                                FontWeight.w600,
+                                                            useGoogleFonts:
+                                                                GoogleFonts
+                                                                        .asMap()
+                                                                    .containsKey(
+                                                                        'Inter'),
+                                                          ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                      );
+                                    },
+                                  );
+                                },
+                              ),
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding:
+                              EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
                           child: FutureBuilder<ApiCallResponse>(
                             future: FFAppState().carousel(
                               requestFn: () =>
@@ -249,11 +430,11 @@ class _HomepageWidgetState extends State<HomepageWidget>
                             builder: (context, snapshot) {
                               // Customize what your widget looks like when it's loading.
                               if (!snapshot.hasData) {
-                                return SizedBox(
-                                  width: MediaQuery.sizeOf(context).width * 1.0,
+                                return Container(
+                                  width: MediaQuery.sizeOf(context).width,
                                   height:
                                       MediaQuery.sizeOf(context).height * 0.1,
-                                  child: const ShimmerbannerWidget(),
+                                  child: ShimmerbannerWidget(),
                                 );
                               }
                               final carouselGetBannersResponse = snapshot.data!;
@@ -269,9 +450,8 @@ class _HomepageWidgetState extends State<HomepageWidget>
                                               ?.toList() ??
                                           [];
 
-                                  return SizedBox(
-                                    width:
-                                        MediaQuery.sizeOf(context).width * 1.0,
+                                  return Container(
+                                    width: MediaQuery.sizeOf(context).width,
                                     height:
                                         MediaQuery.sizeOf(context).height * 0.2,
                                     child: CarouselSlider.builder(
@@ -282,7 +462,7 @@ class _HomepageWidgetState extends State<HomepageWidget>
                                             bannersMain[bannersMainIndex];
                                         return ClipRRect(
                                           borderRadius:
-                                              BorderRadius.circular(8.0),
+                                              BorderRadius.circular(8),
                                           child: Image.network(
                                             getJsonField(
                                               bannersMainItem,
@@ -298,10 +478,10 @@ class _HomepageWidgetState extends State<HomepageWidget>
                                       options: CarouselOptions(
                                         initialPage: max(
                                             0, min(1, bannersMain.length - 1)),
-                                        viewportFraction: 1.0,
+                                        viewportFraction: 1,
                                         disableCenter: true,
                                         enlargeCenterPage: true,
-                                        enlargeFactor: 1.0,
+                                        enlargeFactor: 1,
                                         enableInfiniteScroll: true,
                                         scrollDirection: Axis.horizontal,
                                         autoPlay: false,
@@ -316,8 +496,7 @@ class _HomepageWidgetState extends State<HomepageWidget>
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
-                              10.0, 0.0, 10.0, 0.0),
+                          padding: EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             children: [
@@ -327,7 +506,7 @@ class _HomepageWidgetState extends State<HomepageWidget>
                                     .bodyMedium
                                     .override(
                                       fontFamily: 'Inter',
-                                      fontSize: 12.0,
+                                      fontSize: 12,
                                       letterSpacing: 0.0,
                                       fontWeight: FontWeight.w600,
                                       useGoogleFonts: GoogleFonts.asMap()
@@ -338,8 +517,8 @@ class _HomepageWidgetState extends State<HomepageWidget>
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
-                              10.0, 15.0, 10.0, 0.0),
+                          padding:
+                              EdgeInsetsDirectional.fromSTEB(10, 15, 10, 0),
                           child: FutureBuilder<ApiCallResponse>(
                             future: FFAppState().categories(
                               requestFn: () =>
@@ -348,7 +527,7 @@ class _HomepageWidgetState extends State<HomepageWidget>
                             builder: (context, snapshot) {
                               // Customize what your widget looks like when it's loading.
                               if (!snapshot.hasData) {
-                                return const CategoriesShimmerWidget();
+                                return CategoriesShimmerWidget();
                               }
                               final rowGetCategoriesResponse = snapshot.data!;
 
@@ -373,8 +552,8 @@ class _HomepageWidgetState extends State<HomepageWidget>
                                             category[categoryIndex];
                                         return Padding(
                                           padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 0.0, 5.0, 0.0),
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0, 0, 5, 0),
                                           child: InkWell(
                                             splashColor: Colors.transparent,
                                             focusColor: Colors.transparent,
@@ -382,7 +561,8 @@ class _HomepageWidgetState extends State<HomepageWidget>
                                             highlightColor: Colors.transparent,
                                             onTap: () async {
                                               context.pushNamed(
-                                                'DesignerCategoryClientyCopy',
+                                                DesignerCategoryClientyCopyWidget
+                                                    .routeName,
                                                 queryParameters: {
                                                   'categoryref': serializeParam(
                                                     getJsonField(
@@ -402,13 +582,13 @@ class _HomepageWidgetState extends State<HomepageWidget>
                                                       .height *
                                                   0.043,
                                               decoration: BoxDecoration(
-                                                color: const Color(0xFF323FA4),
+                                                color: Color(0xFF323FA4),
                                                 borderRadius:
-                                                    BorderRadius.circular(10.0),
+                                                    BorderRadius.circular(10),
                                               ),
                                               child: Align(
-                                                alignment: const AlignmentDirectional(
-                                                    0.0, 0.0),
+                                                alignment:
+                                                    AlignmentDirectional(0, 0),
                                                 child: Text(
                                                   valueOrDefault<String>(
                                                     getJsonField(
@@ -426,7 +606,7 @@ class _HomepageWidgetState extends State<HomepageWidget>
                                                         color: FlutterFlowTheme
                                                                 .of(context)
                                                             .secondaryBackground,
-                                                        fontSize: 10.0,
+                                                        fontSize: 10,
                                                         letterSpacing: 0.0,
                                                         useGoogleFonts:
                                                             GoogleFonts.asMap()
@@ -446,170 +626,13 @@ class _HomepageWidgetState extends State<HomepageWidget>
                             },
                           ),
                         ),
-                        Container(
-                          width: MediaQuery.sizeOf(context).width * 1.0,
-                          decoration: BoxDecoration(
-                            color: FlutterFlowTheme.of(context)
-                                .secondaryBackground,
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                10.0, 20.0, 10.0, 20.0),
-                            child: FutureBuilder<ApiCallResponse>(
-                              future: FFAppState().subcategory(
-                                requestFn: () =>
-                                    BackendAPIGroup.subcategoriesCall.call(),
-                              ),
-                              builder: (context, snapshot) {
-                                // Customize what your widget looks like when it's loading.
-                                if (!snapshot.hasData) {
-                                  return Center(
-                                    child: SizedBox(
-                                      width: 50.0,
-                                      height: 50.0,
-                                      child: CircularProgressIndicator(
-                                        valueColor:
-                                            AlwaysStoppedAnimation<Color>(
-                                          FlutterFlowTheme.of(context).primary,
-                                        ),
-                                      ),
-                                    ),
-                                  );
-                                }
-                                final gridViewSubcategoriesResponse =
-                                    snapshot.data!;
-
-                                return Builder(
-                                  builder: (context) {
-                                    final newbody =
-                                        (BackendAPIGroup.subcategoriesCall
-                                                    .body(
-                                                      gridViewSubcategoriesResponse
-                                                          .jsonBody,
-                                                    )
-                                                    ?.toList() ??
-                                                [])
-                                            .take(8)
-                                            .toList();
-
-                                    return GridView.builder(
-                                      padding: const EdgeInsets.fromLTRB(
-                                        0,
-                                        0.0,
-                                        0,
-                                        0.0,
-                                      ),
-                                      gridDelegate:
-                                          const SliverGridDelegateWithFixedCrossAxisCount(
-                                        crossAxisCount: 4,
-                                        crossAxisSpacing: 10.0,
-                                        mainAxisSpacing: 20.0,
-                                        childAspectRatio: 1.2,
-                                      ),
-                                      primary: false,
-                                      shrinkWrap: true,
-                                      scrollDirection: Axis.vertical,
-                                      itemCount: newbody.length,
-                                      itemBuilder: (context, newbodyIndex) {
-                                        final newbodyItem =
-                                            newbody[newbodyIndex];
-                                        return InkWell(
-                                          splashColor: Colors.transparent,
-                                          focusColor: Colors.transparent,
-                                          hoverColor: Colors.transparent,
-                                          highlightColor: Colors.transparent,
-                                          onTap: () async {
-                                            context.pushNamed(
-                                              'ProductofdesignerclientCopyCopy',
-                                              queryParameters: {
-                                                'subcategoryid': serializeParam(
-                                                  getJsonField(
-                                                    newbodyItem,
-                                                    r'''$._id''',
-                                                  ).toString(),
-                                                  ParamType.String,
-                                                ),
-                                              }.withoutNulls,
-                                            );
-                                          },
-                                          child: Container(
-                                            width: MediaQuery.sizeOf(context)
-                                                    .width *
-                                                0.15,
-                                            decoration: const BoxDecoration(),
-                                            child: Column(
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [
-                                                ClipRRect(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          8.0),
-                                                  child: Image.network(
-                                                    getJsonField(
-                                                      newbodyItem,
-                                                      r'''$.image''',
-                                                    ).toString(),
-                                                    width: MediaQuery.sizeOf(
-                                                                context)
-                                                            .width *
-                                                        0.14,
-                                                    height: MediaQuery.sizeOf(
-                                                                context)
-                                                            .height *
-                                                        0.08,
-                                                    fit: BoxFit.cover,
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding: const EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          0.0, 5.0, 0.0, 0.0),
-                                                  child: Text(
-                                                    getJsonField(
-                                                      newbodyItem,
-                                                      r'''$.name''',
-                                                    ).toString(),
-                                                    textAlign: TextAlign.center,
-                                                    maxLines: 2,
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Inter',
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .primaryText,
-                                                          fontSize: 12.0,
-                                                          letterSpacing: 0.0,
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                          useGoogleFonts:
-                                                              GoogleFonts
-                                                                      .asMap()
-                                                                  .containsKey(
-                                                                      'Inter'),
-                                                        ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                    );
-                                  },
-                                );
-                              },
-                            ),
-                          ),
-                        ),
                         Stack(
                           children: [
                             Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 20.0, 0.0, 0.0),
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
                               child: Container(
-                                width: MediaQuery.sizeOf(context).width * 1.0,
+                                width: MediaQuery.sizeOf(context).width,
                                 decoration: BoxDecoration(
                                   image: DecorationImage(
                                     fit: BoxFit.cover,
@@ -622,8 +645,8 @@ class _HomepageWidgetState extends State<HomepageWidget>
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
                                     Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          10.0, 20.0, 10.0, 0.0),
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          10, 20, 10, 0),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
@@ -633,7 +656,7 @@ class _HomepageWidgetState extends State<HomepageWidget>
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Inter',
-                                                  fontSize: 12.0,
+                                                  fontSize: 12,
                                                   letterSpacing: 0.0,
                                                   fontWeight: FontWeight.w600,
                                                   useGoogleFonts:
@@ -645,8 +668,8 @@ class _HomepageWidgetState extends State<HomepageWidget>
                                       ),
                                     ),
                                     Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          5.0, 10.0, 5.0, 0.0),
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          5, 10, 5, 0),
                                       child: FutureBuilder<ApiCallResponse>(
                                         future: FFAppState().designer(
                                           requestFn: () => BackendAPIGroup
@@ -656,7 +679,7 @@ class _HomepageWidgetState extends State<HomepageWidget>
                                         builder: (context, snapshot) {
                                           // Customize what your widget looks like when it's loading.
                                           if (!snapshot.hasData) {
-                                            return const HiddengemsShimmerWidget();
+                                            return HiddengemsShimmerWidget();
                                           }
                                           final rowGetDesignersResponse =
                                               snapshot.data!;
@@ -687,12 +710,9 @@ class _HomepageWidgetState extends State<HomepageWidget>
                                                         designer[designerIndex];
                                                     return Padding(
                                                       padding:
-                                                          const EdgeInsetsDirectional
+                                                          EdgeInsetsDirectional
                                                               .fromSTEB(
-                                                                  0.0,
-                                                                  0.0,
-                                                                  10.0,
-                                                                  0.0),
+                                                                  0, 0, 10, 0),
                                                       child: InkWell(
                                                         splashColor:
                                                             Colors.transparent,
@@ -704,7 +724,8 @@ class _HomepageWidgetState extends State<HomepageWidget>
                                                             Colors.transparent,
                                                         onTap: () async {
                                                           context.pushNamed(
-                                                            'HiddenGems',
+                                                            HiddenGemsWidget
+                                                                .routeName,
                                                             queryParameters: {
                                                               'designerId':
                                                                   serializeParam(
@@ -732,7 +753,7 @@ class _HomepageWidgetState extends State<HomepageWidget>
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
-                                                                          8.0),
+                                                                          8),
                                                               child:
                                                                   Image.network(
                                                                 getJsonField(
@@ -764,8 +785,8 @@ class _HomepageWidgetState extends State<HomepageWidget>
                                       ),
                                     ),
                                     Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          10.0, 10.0, 10.0, 0.0),
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          10, 10, 10, 0),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
                                         mainAxisAlignment:
@@ -780,7 +801,7 @@ class _HomepageWidgetState extends State<HomepageWidget>
                                                   color: FlutterFlowTheme.of(
                                                           context)
                                                       .primaryText,
-                                                  fontSize: 13.0,
+                                                  fontSize: 13,
                                                   letterSpacing: 0.0,
                                                   fontWeight: FontWeight.bold,
                                                   useGoogleFonts:
@@ -794,8 +815,8 @@ class _HomepageWidgetState extends State<HomepageWidget>
                                       ),
                                     ),
                                     Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 20.0, 0.0, 20.0),
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0, 20, 0, 20),
                                       child: FutureBuilder<ApiCallResponse>(
                                         future: FFAppState().videosection(
                                           requestFn: () => BackendAPIGroup
@@ -807,8 +828,8 @@ class _HomepageWidgetState extends State<HomepageWidget>
                                           if (!snapshot.hasData) {
                                             return Center(
                                               child: SizedBox(
-                                                width: 50.0,
-                                                height: 50.0,
+                                                width: 50,
+                                                height: 50,
                                                 child:
                                                     CircularProgressIndicator(
                                                   valueColor:
@@ -852,24 +873,20 @@ class _HomepageWidgetState extends State<HomepageWidget>
                                                             bodyforvideosIndex];
                                                     return Padding(
                                                       padding:
-                                                          const EdgeInsetsDirectional
+                                                          EdgeInsetsDirectional
                                                               .fromSTEB(
-                                                                  5.0,
-                                                                  0.0,
-                                                                  0.0,
-                                                                  0.0),
+                                                                  5, 0, 0, 0),
                                                       child: Container(
                                                         decoration:
                                                             BoxDecoration(
                                                           borderRadius:
                                                               BorderRadius
-                                                                  .circular(
-                                                                      20.0),
+                                                                  .circular(20),
                                                         ),
                                                         child: Stack(
                                                           alignment:
-                                                              const AlignmentDirectional(
-                                                                  -1.0, 1.0),
+                                                              AlignmentDirectional(
+                                                                  -1, 1),
                                                           children: [
                                                             InkWell(
                                                               splashColor: Colors
@@ -883,7 +900,8 @@ class _HomepageWidgetState extends State<HomepageWidget>
                                                                       .transparent,
                                                               onTap: () async {
                                                                 context.pushNamed(
-                                                                    'VideoContent');
+                                                                    VideoContentWidget
+                                                                        .routeName);
                                                               },
                                                               child:
                                                                   FlutterFlowVideoPlayer(
@@ -915,16 +933,16 @@ class _HomepageWidgetState extends State<HomepageWidget>
                                                             ),
                                                             Align(
                                                               alignment:
-                                                                  const AlignmentDirectional(
-                                                                      -1.0,
-                                                                      0.0),
+                                                                  AlignmentDirectional(
+                                                                      -1, 0),
                                                               child: Padding(
-                                                                padding: const EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        10.0,
-                                                                        0.0,
-                                                                        0.0,
-                                                                        10.0),
+                                                                padding:
+                                                                    EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            10,
+                                                                            0,
+                                                                            0,
+                                                                            10),
                                                                 child: Text(
                                                                   getJsonField(
                                                                     bodyforvideosItem,
@@ -946,7 +964,7 @@ class _HomepageWidgetState extends State<HomepageWidget>
                                                                         color: FlutterFlowTheme.of(context)
                                                                             .secondaryBackground,
                                                                         fontSize:
-                                                                            10.0,
+                                                                            10,
                                                                         letterSpacing:
                                                                             0.0,
                                                                         fontWeight:
@@ -954,7 +972,7 @@ class _HomepageWidgetState extends State<HomepageWidget>
                                                                         useGoogleFonts:
                                                                             GoogleFonts.asMap().containsKey('Inter'),
                                                                         lineHeight:
-                                                                            2.0,
+                                                                            2,
                                                                       ),
                                                                 ),
                                                               ),
@@ -978,8 +996,8 @@ class _HomepageWidgetState extends State<HomepageWidget>
                           ],
                         ),
                         Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
-                              10.0, 10.0, 10.0, 0.0),
+                          padding:
+                              EdgeInsetsDirectional.fromSTEB(10, 10, 10, 0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -992,7 +1010,7 @@ class _HomepageWidgetState extends State<HomepageWidget>
                                       fontFamily: 'Montserrat',
                                       color: FlutterFlowTheme.of(context)
                                           .primaryText,
-                                      fontSize: 13.0,
+                                      fontSize: 13,
                                       letterSpacing: 0.0,
                                       fontWeight: FontWeight.bold,
                                       useGoogleFonts: GoogleFonts.asMap()
@@ -1004,137 +1022,148 @@ class _HomepageWidgetState extends State<HomepageWidget>
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
-                              10.0, 0.0, 10.0, 0.0),
+                          padding: EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
                           child: Container(
-                            width: MediaQuery.sizeOf(context).width * 1.0,
-                            decoration: const BoxDecoration(),
-                            child: Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 15.0, 0.0, 50.0),
-                              child: FutureBuilder<ApiCallResponse>(
-                                future: FFAppState().products(
-                                  requestFn: () => BackendAPIGroup
-                                      .getLatestProductsCall
-                                      .call(),
-                                ),
-                                builder: (context, snapshot) {
-                                  // Customize what your widget looks like when it's loading.
-                                  if (!snapshot.hasData) {
-                                    return const ProductsShimmerWidget();
-                                  }
-                                  final gridViewGetLatestProductsResponse =
-                                      snapshot.data!;
+                            width: MediaQuery.sizeOf(context).width,
+                            decoration: BoxDecoration(),
+                            child: FutureBuilder<ApiCallResponse>(
+                              future: FFAppState().products(
+                                requestFn: () => BackendAPIGroup
+                                    .getLatestProductsCall
+                                    .call(),
+                              ),
+                              builder: (context, snapshot) {
+                                // Customize what your widget looks like when it's loading.
+                                if (!snapshot.hasData) {
+                                  return ProductsShimmerWidget();
+                                }
+                                final gridViewGetLatestProductsResponse =
+                                    snapshot.data!;
 
-                                  return Builder(
-                                    builder: (context) {
-                                      final latestProducts =
-                                          BackendAPIGroup.getLatestProductsCall
-                                                  .body(
-                                                    gridViewGetLatestProductsResponse
-                                                        .jsonBody,
-                                                  )
-                                                  ?.toList() ??
-                                              [];
+                                return Builder(
+                                  builder: (context) {
+                                    final latestProducts =
+                                        BackendAPIGroup.getLatestProductsCall
+                                                .body(
+                                                  gridViewGetLatestProductsResponse
+                                                      .jsonBody,
+                                                )
+                                                ?.toList() ??
+                                            [];
 
-                                      return GridView.builder(
-                                        padding: EdgeInsets.zero,
-                                        gridDelegate:
-                                            const SliverGridDelegateWithFixedCrossAxisCount(
-                                          crossAxisCount: 2,
-                                          crossAxisSpacing: 8.0,
-                                          childAspectRatio: 0.67,
-                                        ),
-                                        primary: false,
-                                        shrinkWrap: true,
-                                        scrollDirection: Axis.vertical,
-                                        itemCount: latestProducts.length,
-                                        itemBuilder:
-                                            (context, latestProductsIndex) {
-                                          final latestProductsItem =
-                                              latestProducts[
-                                                  latestProductsIndex];
-                                          return InkWell(
-                                            splashColor: Colors.transparent,
-                                            focusColor: Colors.transparent,
-                                            hoverColor: Colors.transparent,
-                                            highlightColor: Colors.transparent,
-                                            onTap: () async {
-                                              context.pushNamed(
-                                                'productDescriptionColor',
-                                                queryParameters: {
-                                                  'productId': serializeParam(
-                                                    getJsonField(
-                                                      latestProductsItem,
-                                                      r'''$._id''',
-                                                    ).toString(),
-                                                    ParamType.String,
-                                                  ),
-                                                }.withoutNulls,
-                                              );
-                                            },
-                                            child: Column(
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [
-                                                Container(
-                                                  width:
-                                                      MediaQuery.sizeOf(context)
-                                                              .width *
-                                                          2.5,
-                                                  height:
-                                                      MediaQuery.sizeOf(context)
-                                                              .height *
-                                                          0.23,
-                                                  decoration: BoxDecoration(
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .secondaryBackground,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            18.0),
-                                                  ),
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsetsDirectional
-                                                            .fromSTEB(0.0, 0.0,
-                                                                0.0, 10.0),
-                                                    child: ClipRRect(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              0.0),
-                                                      child: Image.network(
-                                                        getJsonField(
-                                                          latestProductsItem,
-                                                          r'''$.coverImage''',
-                                                        ).toString(),
-                                                        width:
-                                                            MediaQuery.sizeOf(
-                                                                        context)
-                                                                    .width *
-                                                                1.0,
-                                                        fit: BoxFit.cover,
-                                                      ),
+                                    return GridView.builder(
+                                      padding: EdgeInsets.zero,
+                                      gridDelegate:
+                                          SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 2,
+                                        crossAxisSpacing: 6,
+                                        mainAxisSpacing: 15,
+                                        childAspectRatio: 0.68,
+                                      ),
+                                      primary: false,
+                                      shrinkWrap: true,
+                                      scrollDirection: Axis.vertical,
+                                      itemCount: latestProducts.length,
+                                      itemBuilder:
+                                          (context, latestProductsIndex) {
+                                        final latestProductsItem =
+                                            latestProducts[latestProductsIndex];
+                                        return Material(
+                                          color: Colors.transparent,
+                                          elevation: 2,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(15),
+                                          ),
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryBackground,
+                                              borderRadius:
+                                                  BorderRadius.circular(15),
+                                            ),
+                                            child: InkWell(
+                                              splashColor: Colors.transparent,
+                                              focusColor: Colors.transparent,
+                                              hoverColor: Colors.transparent,
+                                              highlightColor:
+                                                  Colors.transparent,
+                                              onTap: () async {
+                                                context.pushNamed(
+                                                  ProductDescriptionColorWidget
+                                                      .routeName,
+                                                  queryParameters: {
+                                                    'productId': serializeParam(
+                                                      getJsonField(
+                                                        latestProductsItem,
+                                                        r'''$._id''',
+                                                      ).toString(),
+                                                      ParamType.String,
                                                     ),
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding: const EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          15.0, 0.0, 15.0, 0.0),
-                                                  child: Container(
+                                                    'price': serializeParam(
+                                                      getJsonField(
+                                                        latestProductsItem,
+                                                        r'''$.price''',
+                                                      ).toString(),
+                                                      ParamType.String,
+                                                    ),
+                                                  }.withoutNulls,
+                                                );
+                                              },
+                                              child: Column(
+                                                mainAxisSize: MainAxisSize.max,
+                                                children: [
+                                                  Container(
                                                     width: MediaQuery.sizeOf(
                                                                 context)
                                                             .width *
-                                                        1.0,
-                                                    decoration: const BoxDecoration(),
+                                                        2.5,
+                                                    height: MediaQuery.sizeOf(
+                                                                context)
+                                                            .height *
+                                                        0.23,
+                                                    decoration: BoxDecoration(
+                                                      color: FlutterFlowTheme
+                                                              .of(context)
+                                                          .secondaryBackground,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              18),
+                                                    ),
                                                     child: Padding(
                                                       padding:
-                                                          const EdgeInsetsDirectional
+                                                          EdgeInsetsDirectional
                                                               .fromSTEB(
-                                                                  0.0,
-                                                                  5.0,
-                                                                  5.0,
-                                                                  0.0),
+                                                                  0, 0, 0, 10),
+                                                      child: ClipRRect(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(0),
+                                                        child: Image.network(
+                                                          getJsonField(
+                                                            latestProductsItem,
+                                                            r'''$.coverImage''',
+                                                          ).toString(),
+                                                          width:
+                                                              MediaQuery.sizeOf(
+                                                                      context)
+                                                                  .width,
+                                                          fit: BoxFit.cover,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Container(
+                                                    width: MediaQuery.sizeOf(
+                                                            context)
+                                                        .width,
+                                                    decoration: BoxDecoration(),
+                                                    child: Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  5, 0, 5, 0),
                                                       child: Text(
                                                         getJsonField(
                                                           latestProductsItem,
@@ -1145,90 +1174,96 @@ class _HomepageWidgetState extends State<HomepageWidget>
                                                               maxChars: 20,
                                                               replacement: '…',
                                                             ),
-                                                        style: FlutterFlowTheme
-                                                                .of(context)
-                                                            .bodyMedium
-                                                            .override(
-                                                              fontFamily:
-                                                                  'Inter',
-                                                              color: const Color(
-                                                                  0xFF232323),
-                                                              fontSize: 14.0,
-                                                              letterSpacing:
-                                                                  0.0,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w600,
-                                                              useGoogleFonts:
-                                                                  GoogleFonts
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Inter',
+                                                                  color: Color(
+                                                                      0xFF232323),
+                                                                  fontSize: 11,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600,
+                                                                  useGoogleFonts: GoogleFonts
                                                                           .asMap()
                                                                       .containsKey(
                                                                           'Inter'),
-                                                            ),
+                                                                ),
                                                       ),
                                                     ),
                                                   ),
-                                                ),
-                                                Container(
-                                                  decoration: const BoxDecoration(),
-                                                  child: Padding(
+                                                  Padding(
                                                     padding:
-                                                        const EdgeInsetsDirectional
+                                                        EdgeInsetsDirectional
                                                             .fromSTEB(
-                                                                15.0,
-                                                                10.0,
-                                                                15.0,
-                                                                0.0),
-                                                    child: Row(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .center,
-                                                      children: [
-                                                        Text(
-                                                          '₹${getJsonField(
-                                                            latestProductsItem,
-                                                            r'''$.price''',
-                                                          ).toString()}',
-                                                          textAlign:
-                                                              TextAlign.start,
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodyMedium
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Inter',
-                                                                color: const Color(
-                                                                    0xFF263F96),
-                                                                fontSize: 14.0,
-                                                                letterSpacing:
-                                                                    0.0,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w600,
-                                                                useGoogleFonts: GoogleFonts
-                                                                        .asMap()
-                                                                    .containsKey(
-                                                                        'Inter'),
-                                                              ),
+                                                                5, 0, 0, 0),
+                                                    child: Container(
+                                                      decoration:
+                                                          BoxDecoration(),
+                                                      child: Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(0, 10,
+                                                                    15, 0),
+                                                        child: Row(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceBetween,
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .center,
+                                                          children: [
+                                                            Text(
+                                                              '₹${getJsonField(
+                                                                latestProductsItem,
+                                                                r'''$.price''',
+                                                              ).toString()}',
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .start,
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .bodyMedium
+                                                                  .override(
+                                                                    fontFamily:
+                                                                        'Inter',
+                                                                    color: Color(
+                                                                        0xFF263F96),
+                                                                    fontSize:
+                                                                        13,
+                                                                    letterSpacing:
+                                                                        0.0,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w600,
+                                                                    useGoogleFonts: GoogleFonts
+                                                                            .asMap()
+                                                                        .containsKey(
+                                                                            'Inter'),
+                                                                  ),
+                                                            ),
+                                                          ],
                                                         ),
-                                                      ],
+                                                      ),
                                                     ),
                                                   ),
-                                                ),
-                                              ],
+                                                ],
+                                              ),
                                             ),
-                                          );
-                                        },
-                                      );
-                                    },
-                                  );
-                                },
-                              ),
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  },
+                                );
+                              },
                             ),
                           ),
                         ),

@@ -1,8 +1,13 @@
+import '';
 import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
+import 'dart:math';
+import 'dart:ui';
 import '/flutter_flow/custom_functions.dart' as functions;
+import '/index.dart';
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -10,6 +15,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+
 import 'productofdesignerclient_copy_copy_model.dart';
 export 'productofdesignerclient_copy_copy_model.dart';
 
@@ -20,6 +26,9 @@ class ProductofdesignerclientCopyCopyWidget extends StatefulWidget {
   });
 
   final String? subcategoryid;
+
+  static String routeName = 'ProductofdesignerclientCopyCopy';
+  static String routePath = '/productofdesignerclientCopyCopy';
 
   @override
   State<ProductofdesignerclientCopyCopyWidget> createState() =>
@@ -80,7 +89,7 @@ class _ProductofdesignerclientCopyCopyWidgetState
     return FutureBuilder<ApiCallResponse>(
       future: (_model.apiRequestCompleter ??= Completer<ApiCallResponse>()
             ..complete(BackendAPIGroup.getProductsBySubcategoryCall.call(
-              subcategoryId: widget.subcategoryid,
+              subcategoryId: widget!.subcategoryid,
               color: FFAppState().color,
               minPrice: FFAppState().min,
               maxPrice: FFAppState().max,
@@ -95,8 +104,8 @@ class _ProductofdesignerclientCopyCopyWidgetState
             backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
             body: Center(
               child: SizedBox(
-                width: 50.0,
-                height: 50.0,
+                width: 50,
+                height: 50,
                 child: CircularProgressIndicator(
                   valueColor: AlwaysStoppedAnimation<Color>(
                     FlutterFlowTheme.of(context).primary,
@@ -135,7 +144,7 @@ class _ProductofdesignerclientCopyCopyWidgetState
                     child: Icon(
                       Icons.chevron_left,
                       color: FlutterFlowTheme.of(context).primary,
-                      size: 24.0,
+                      size: 24,
                     ),
                   ),
                   Opacity(
@@ -154,19 +163,19 @@ class _ProductofdesignerclientCopyCopyWidgetState
                         highlightColor: Colors.transparent,
                         onTap: () async {
                           context.pushNamed(
-                            'ApplyFilters',
+                            ApplyFiltersWidget.routeName,
                             queryParameters: {
                               'subCategoryid': serializeParam(
-                                widget.subcategoryid,
+                                widget!.subcategoryid,
                                 ParamType.String,
                               ),
                             }.withoutNulls,
                           );
                         },
-                        child: const Icon(
+                        child: Icon(
                           FFIcons.kparams,
                           color: Color(0xFF263F96),
-                          size: 22.0,
+                          size: 22,
                         ),
                       ),
                     ),
@@ -175,10 +184,9 @@ class _ProductofdesignerclientCopyCopyWidgetState
               ),
               actions: [
                 Align(
-                  alignment: const AlignmentDirectional(0.0, 0.0),
+                  alignment: AlignmentDirectional(0, 0),
                   child: Padding(
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 20.0, 0.0),
+                    padding: EdgeInsetsDirectional.fromSTEB(0, 0, 20, 0),
                     child: InkWell(
                       splashColor: Colors.transparent,
                       focusColor: Colors.transparent,
@@ -193,17 +201,17 @@ class _ProductofdesignerclientCopyCopyWidgetState
                         safeSetState(() => _model.apiRequestCompleter = null);
                         await _model.waitForApiRequestCompleted();
                       },
-                      child: const Icon(
+                      child: Icon(
                         Icons.close_sharp,
                         color: Color(0x6D04137B),
-                        size: 20.0,
+                        size: 20,
                       ),
                     ),
                   ),
                 ),
               ],
               centerTitle: true,
-              elevation: 0.0,
+              elevation: 0,
             ),
             body: SafeArea(
               top: true,
@@ -212,8 +220,7 @@ class _ProductofdesignerclientCopyCopyWidgetState
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Padding(
-                      padding: const EdgeInsetsDirectional.fromSTEB(
-                          10.0, 15.0, 10.0, 50.0),
+                      padding: EdgeInsetsDirectional.fromSTEB(10, 15, 10, 50),
                       child: FutureBuilder<ApiCallResponse>(
                         future: BackendAPIGroup.wishlistCall.call(
                           userId: FFAppState().userId,
@@ -223,8 +230,8 @@ class _ProductofdesignerclientCopyCopyWidgetState
                           if (!snapshot.hasData) {
                             return Center(
                               child: SizedBox(
-                                width: 50.0,
-                                height: 50.0,
+                                width: 50,
+                                height: 50,
                                 child: CircularProgressIndicator(
                                   valueColor: AlwaysStoppedAnimation<Color>(
                                     FlutterFlowTheme.of(context).primary,
@@ -251,11 +258,11 @@ class _ProductofdesignerclientCopyCopyWidgetState
                                 child: GridView.builder(
                                   padding: EdgeInsets.zero,
                                   gridDelegate:
-                                      const SliverGridDelegateWithFixedCrossAxisCount(
+                                      SliverGridDelegateWithFixedCrossAxisCount(
                                     crossAxisCount: 2,
-                                    crossAxisSpacing: 8.0,
-                                    mainAxisSpacing: 8.0,
-                                    childAspectRatio: 0.57,
+                                    crossAxisSpacing: 8,
+                                    mainAxisSpacing: 8,
+                                    childAspectRatio: 0.63,
                                   ),
                                   primary: false,
                                   shrinkWrap: true,
@@ -271,12 +278,20 @@ class _ProductofdesignerclientCopyCopyWidgetState
                                       highlightColor: Colors.transparent,
                                       onTap: () async {
                                         context.pushNamed(
-                                          'productDescriptionColor',
+                                          ProductDescriptionColorWidget
+                                              .routeName,
                                           queryParameters: {
                                             'productId': serializeParam(
                                               getJsonField(
                                                 productBodyItem,
                                                 r'''$._id''',
+                                              ).toString(),
+                                              ParamType.String,
+                                            ),
+                                            'price': serializeParam(
+                                              getJsonField(
+                                                productBodyItem,
+                                                r'''$.price''',
                                               ).toString(),
                                               ParamType.String,
                                             ),
@@ -291,7 +306,7 @@ class _ProductofdesignerclientCopyCopyWidgetState
                                           color: FlutterFlowTheme.of(context)
                                               .secondaryBackground,
                                           borderRadius:
-                                              BorderRadius.circular(20.0),
+                                              BorderRadius.circular(0),
                                         ),
                                         child: Column(
                                           mainAxisSize: MainAxisSize.max,
@@ -308,31 +323,19 @@ class _ProductofdesignerclientCopyCopyWidgetState
                                                     FlutterFlowTheme.of(context)
                                                         .secondaryBackground,
                                                 borderRadius:
-                                                    BorderRadius.circular(18.0),
+                                                    BorderRadius.circular(18),
                                               ),
                                               child: Stack(
                                                 children: [
                                                   Padding(
                                                     padding:
-                                                        const EdgeInsetsDirectional
-                                                            .fromSTEB(5.0, 5.0,
-                                                                5.0, 5.0),
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(
+                                                                5, 5, 5, 5),
                                                     child: ClipRRect(
                                                       borderRadius:
-                                                          const BorderRadius.only(
-                                                        bottomLeft:
-                                                            Radius.circular(
-                                                                20.0),
-                                                        bottomRight:
-                                                            Radius.circular(
-                                                                20.0),
-                                                        topLeft:
-                                                            Radius.circular(
-                                                                20.0),
-                                                        topRight:
-                                                            Radius.circular(
-                                                                20.0),
-                                                      ),
+                                                          BorderRadius.circular(
+                                                              0),
                                                       child: Image.network(
                                                         getJsonField(
                                                           productBodyItem,
@@ -340,9 +343,8 @@ class _ProductofdesignerclientCopyCopyWidgetState
                                                         ).toString(),
                                                         width:
                                                             MediaQuery.sizeOf(
-                                                                        context)
-                                                                    .width *
-                                                                1.0,
+                                                                    context)
+                                                                .width,
                                                         height:
                                                             MediaQuery.sizeOf(
                                                                         context)
@@ -356,19 +358,16 @@ class _ProductofdesignerclientCopyCopyWidgetState
                                               ),
                                             ),
                                             Padding(
-                                              padding: const EdgeInsetsDirectional
-                                                  .fromSTEB(
-                                                      15.0, 0.0, 15.0, 0.0),
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(15, 0, 15, 0),
                                               child: Container(
                                                 width:
                                                     MediaQuery.sizeOf(context)
-                                                            .width *
-                                                        1.0,
-                                                decoration: const BoxDecoration(),
+                                                        .width,
+                                                decoration: BoxDecoration(),
                                                 child: Padding(
-                                                  padding: const EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          0.0, 5.0, 5.0, 0.0),
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(0, 5, 5, 0),
                                                   child: Text(
                                                     getJsonField(
                                                       productBodyItem,
@@ -385,8 +384,8 @@ class _ProductofdesignerclientCopyCopyWidgetState
                                                         .override(
                                                           fontFamily: 'Inter',
                                                           color:
-                                                              const Color(0xFF232323),
-                                                          fontSize: 12.0,
+                                                              Color(0xFF232323),
+                                                          fontSize: 12,
                                                           letterSpacing: 0.0,
                                                           fontWeight:
                                                               FontWeight.w500,
@@ -401,9 +400,8 @@ class _ProductofdesignerclientCopyCopyWidgetState
                                               ),
                                             ),
                                             Padding(
-                                              padding: const EdgeInsetsDirectional
-                                                  .fromSTEB(
-                                                      15.0, 10.0, 15.0, 0.0),
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(15, 10, 15, 0),
                                               child: Row(
                                                 mainAxisSize: MainAxisSize.max,
                                                 mainAxisAlignment:
@@ -422,8 +420,8 @@ class _ProductofdesignerclientCopyCopyWidgetState
                                                         .override(
                                                           fontFamily: 'Inter',
                                                           color:
-                                                              const Color(0xFF263F96),
-                                                          fontSize: 12.0,
+                                                              Color(0xFF263F96),
+                                                          fontSize: 12,
                                                           letterSpacing: 0.0,
                                                           fontWeight:
                                                               FontWeight.w600,
@@ -447,8 +445,8 @@ class _ProductofdesignerclientCopyCopyWidgetState
                                                           true)
                                                         Align(
                                                           alignment:
-                                                              const AlignmentDirectional(
-                                                                  0.0, 0.0),
+                                                              AlignmentDirectional(
+                                                                  0, 0),
                                                           child: InkWell(
                                                             splashColor: Colors
                                                                 .transparent,
@@ -495,7 +493,7 @@ class _ProductofdesignerclientCopyCopyWidgetState
                                                                             .primaryText,
                                                                       ),
                                                                     ),
-                                                                    duration: const Duration(
+                                                                    duration: Duration(
                                                                         milliseconds:
                                                                             4000),
                                                                     backgroundColor:
@@ -538,7 +536,7 @@ class _ProductofdesignerclientCopyCopyWidgetState
                                                                             .primaryText,
                                                                       ),
                                                                     ),
-                                                                    duration: const Duration(
+                                                                    duration: Duration(
                                                                         milliseconds:
                                                                             4000),
                                                                     backgroundColor:
@@ -556,7 +554,7 @@ class _ProductofdesignerclientCopyCopyWidgetState
                                                               color: FlutterFlowTheme
                                                                       .of(context)
                                                                   .error,
-                                                              size: 18.0,
+                                                              size: 18,
                                                             ),
                                                           ),
                                                         ),
@@ -570,8 +568,8 @@ class _ProductofdesignerclientCopyCopyWidgetState
                                                                   .userId)!)
                                                         Align(
                                                           alignment:
-                                                              const AlignmentDirectional(
-                                                                  0.0, 0.0),
+                                                              AlignmentDirectional(
+                                                                  0, 0),
                                                           child: InkWell(
                                                             splashColor: Colors
                                                                 .transparent,
@@ -618,7 +616,7 @@ class _ProductofdesignerclientCopyCopyWidgetState
                                                                             .primaryText,
                                                                       ),
                                                                     ),
-                                                                    duration: const Duration(
+                                                                    duration: Duration(
                                                                         milliseconds:
                                                                             4000),
                                                                     backgroundColor:
@@ -661,7 +659,7 @@ class _ProductofdesignerclientCopyCopyWidgetState
                                                                             .primaryText,
                                                                       ),
                                                                     ),
-                                                                    duration: const Duration(
+                                                                    duration: Duration(
                                                                         milliseconds:
                                                                             4000),
                                                                     backgroundColor:
@@ -679,7 +677,7 @@ class _ProductofdesignerclientCopyCopyWidgetState
                                                               color: FlutterFlowTheme
                                                                       .of(context)
                                                                   .alternate,
-                                                              size: 18.0,
+                                                              size: 18,
                                                             ),
                                                           ).animateOnActionTrigger(
                                                             animationsMap[

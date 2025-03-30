@@ -17,6 +17,9 @@ class ApplyFiltersWidget extends StatefulWidget {
 
   final String? subCategoryid;
 
+  static String routeName = 'ApplyFiltersWidget';
+  static String routePath = '/applyFiltersWidget';
+
   @override
   State<ApplyFiltersWidget> createState() => _ApplyFiltersWidgetState();
 }
@@ -114,8 +117,8 @@ class _ApplyFiltersWidgetState extends State<ApplyFiltersWidget> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
+                      padding: const EdgeInsetsDirectional.fromSTEB(
+                          0.0, 20.0, 0.0, 0.0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -205,8 +208,8 @@ class _ApplyFiltersWidgetState extends State<ApplyFiltersWidget> {
                       ),
                     ),
                     Padding(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(20.0, 20.0, 20.0, 0.0),
+                      padding: const EdgeInsetsDirectional.fromSTEB(
+                          20.0, 20.0, 20.0, 0.0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
@@ -229,8 +232,8 @@ class _ApplyFiltersWidgetState extends State<ApplyFiltersWidget> {
                       ),
                     ),
                     Padding(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 0.0, 0.0),
+                      padding: const EdgeInsetsDirectional.fromSTEB(
+                          20.0, 0.0, 0.0, 0.0),
                       child: FlutterFlowRadioButton(
                         options: ['desc ', 'asc'].toList(),
                         onChanged: (val) async {
@@ -271,8 +274,8 @@ class _ApplyFiltersWidgetState extends State<ApplyFiltersWidget> {
                       ),
                     ),
                     Padding(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(20.0, 20.0, 20.0, 0.0),
+                      padding: const EdgeInsetsDirectional.fromSTEB(
+                          20.0, 20.0, 20.0, 0.0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
@@ -295,8 +298,8 @@ class _ApplyFiltersWidgetState extends State<ApplyFiltersWidget> {
                       ),
                     ),
                     Padding(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 15.0, 0.0, 0.0),
+                      padding: const EdgeInsetsDirectional.fromSTEB(
+                          0.0, 15.0, 0.0, 0.0),
                       child: Slider(
                         activeColor: FlutterFlowTheme.of(context).primary,
                         inactiveColor: FlutterFlowTheme.of(context).alternate,
@@ -314,8 +317,8 @@ class _ApplyFiltersWidgetState extends State<ApplyFiltersWidget> {
                       ),
                     ),
                     Padding(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(20.0, 20.0, 20.0, 0.0),
+                      padding: const EdgeInsetsDirectional.fromSTEB(
+                          20.0, 20.0, 20.0, 0.0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
@@ -338,8 +341,8 @@ class _ApplyFiltersWidgetState extends State<ApplyFiltersWidget> {
                       ),
                     ),
                     Padding(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 0.0, 0.0),
+                      padding: const EdgeInsetsDirectional.fromSTEB(
+                          20.0, 0.0, 0.0, 0.0),
                       child: FlutterFlowRadioButton(
                         options: BackendAPIGroup.fitfiltersCall
                             .filterBody(
@@ -393,8 +396,8 @@ class _ApplyFiltersWidgetState extends State<ApplyFiltersWidget> {
                       ),
                     ),
                     Padding(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(20.0, 25.0, 20.0, 0.0),
+                      padding: const EdgeInsetsDirectional.fromSTEB(
+                          20.0, 25.0, 20.0, 0.0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [

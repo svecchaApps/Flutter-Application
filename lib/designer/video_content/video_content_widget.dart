@@ -1,3 +1,4 @@
+import '';
 import '/backend/api_requests/api_calls.dart';
 import '/components/comment_box_widget.dart';
 import '/components/commenttext_widget.dart';
@@ -5,12 +6,15 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_video_player.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
+import 'dart:ui';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+
 import 'video_content_model.dart';
 export 'video_content_model.dart';
 
@@ -21,6 +25,9 @@ class VideoContentWidget extends StatefulWidget {
   });
 
   final bool? likedVideo;
+
+  static String routeName = 'VideoContent';
+  static String routePath = '/videoContent';
 
   @override
   State<VideoContentWidget> createState() => _VideoContentWidgetState();
@@ -59,8 +66,8 @@ class _VideoContentWidgetState extends State<VideoContentWidget> {
             backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
             body: Center(
               child: SizedBox(
-                width: 50.0,
-                height: 50.0,
+                width: 50,
+                height: 50,
                 child: CircularProgressIndicator(
                   valueColor: AlwaysStoppedAnimation<Color>(
                     FlutterFlowTheme.of(context).primary,
@@ -89,21 +96,21 @@ class _VideoContentWidgetState extends State<VideoContentWidget> {
                       fontFamily:
                           FlutterFlowTheme.of(context).headlineMediumFamily,
                       color: FlutterFlowTheme.of(context).primaryText,
-                      fontSize: 22.0,
+                      fontSize: 22,
                       letterSpacing: 0.0,
                       fontWeight: FontWeight.w600,
                       useGoogleFonts: GoogleFonts.asMap().containsKey(
                           FlutterFlowTheme.of(context).headlineMediumFamily),
                     ),
               ),
-              actions: const [],
+              actions: [],
               centerTitle: true,
-              elevation: 0.0,
+              elevation: 0,
             ),
             body: SafeArea(
               top: true,
               child: Container(
-                width: MediaQuery.sizeOf(context).width * 1.0,
+                width: MediaQuery.sizeOf(context).width,
                 decoration: BoxDecoration(
                   color: FlutterFlowTheme.of(context).primaryBackground,
                 ),
@@ -120,12 +127,12 @@ class _VideoContentWidgetState extends State<VideoContentWidget> {
                                   ?.toList() ??
                               [];
 
-                          return SizedBox(
-                            width: MediaQuery.sizeOf(context).width * 1.0,
-                            height: MediaQuery.sizeOf(context).height * 1.0,
+                          return Container(
+                            width: MediaQuery.sizeOf(context).width,
+                            height: MediaQuery.sizeOf(context).height,
                             child: Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 0.0, 0.0, 40.0),
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(0, 0, 0, 40),
                               child: PageView.builder(
                                 controller: _model.pageViewController ??=
                                     PageController(
@@ -138,10 +145,8 @@ class _VideoContentWidgetState extends State<VideoContentWidget> {
                                   final videoPasthItem =
                                       videoPasth[videoPasthIndex];
                                   return Container(
-                                    width:
-                                        MediaQuery.sizeOf(context).width * 1.0,
-                                    height:
-                                        MediaQuery.sizeOf(context).height * 1.0,
+                                    width: MediaQuery.sizeOf(context).width,
+                                    height: MediaQuery.sizeOf(context).height,
                                     decoration: BoxDecoration(
                                       color: FlutterFlowTheme.of(context)
                                           .secondaryBackground,
@@ -149,15 +154,12 @@ class _VideoContentWidgetState extends State<VideoContentWidget> {
                                     child: Stack(
                                       children: [
                                         Align(
-                                          alignment:
-                                              const AlignmentDirectional(0.0, 0.0),
+                                          alignment: AlignmentDirectional(0, 0),
                                           child: Container(
                                             width: MediaQuery.sizeOf(context)
-                                                    .width *
-                                                1.0,
+                                                .width,
                                             height: MediaQuery.sizeOf(context)
-                                                    .height *
-                                                1.0,
+                                                .height,
                                             decoration: BoxDecoration(
                                               color:
                                                   FlutterFlowTheme.of(context)
@@ -170,8 +172,7 @@ class _VideoContentWidgetState extends State<VideoContentWidget> {
                                               ).toString(),
                                               videoType: VideoType.network,
                                               width: MediaQuery.sizeOf(context)
-                                                      .width *
-                                                  1.0,
+                                                  .width,
                                               height: MediaQuery.sizeOf(context)
                                                       .height *
                                                   0.9,
@@ -185,11 +186,11 @@ class _VideoContentWidgetState extends State<VideoContentWidget> {
                                         ),
                                         Align(
                                           alignment:
-                                              const AlignmentDirectional(-0.92, 0.79),
+                                              AlignmentDirectional(-0.92, 0.79),
                                           child: Padding(
                                             padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 0.0, 20.0),
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0, 0, 0, 20),
                                             child: Container(
                                               width: MediaQuery.sizeOf(context)
                                                       .width *
@@ -197,27 +198,24 @@ class _VideoContentWidgetState extends State<VideoContentWidget> {
                                               height: MediaQuery.sizeOf(context)
                                                       .height *
                                                   0.04,
-                                              decoration: const BoxDecoration(),
+                                              decoration: BoxDecoration(),
                                               child: Column(
                                                 mainAxisSize: MainAxisSize.max,
                                                 children: [
                                                   Padding(
                                                     padding:
-                                                        const EdgeInsetsDirectional
-                                                            .fromSTEB(20.0, 0.0,
-                                                                20.0, 20.0),
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(
+                                                                20, 0, 20, 20),
                                                     child: Row(
                                                       mainAxisSize:
                                                           MainAxisSize.max,
                                                       children: [
                                                         Padding(
                                                           padding:
-                                                              const EdgeInsetsDirectional
-                                                                  .fromSTEB(
-                                                                      0.0,
-                                                                      0.0,
-                                                                      0.0,
-                                                                      40.0),
+                                                              EdgeInsetsDirectional
+                                                                  .fromSTEB(0,
+                                                                      0, 0, 40),
                                                           child: Text(
                                                             getJsonField(
                                                               videoPasthItem,
@@ -233,8 +231,7 @@ class _VideoContentWidgetState extends State<VideoContentWidget> {
                                                                   color: FlutterFlowTheme.of(
                                                                           context)
                                                                       .secondaryBackground,
-                                                                  fontSize:
-                                                                      18.0,
+                                                                  fontSize: 18,
                                                                   letterSpacing:
                                                                       0.0,
                                                                   fontWeight:
@@ -257,20 +254,19 @@ class _VideoContentWidgetState extends State<VideoContentWidget> {
                                           ),
                                         ),
                                         Align(
-                                          alignment:
-                                              const AlignmentDirectional(0.0, 0.0),
+                                          alignment: AlignmentDirectional(0, 0),
                                           child: Padding(
                                             padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
-                                                    5.0, 0.0, 5.0, 5.0),
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    5, 0, 5, 5),
                                             child: Row(
                                               mainAxisSize: MainAxisSize.max,
                                               children: [
                                                 Expanded(
                                                   child: Align(
                                                     alignment:
-                                                        const AlignmentDirectional(
-                                                            -1.0, 0.97),
+                                                        AlignmentDirectional(
+                                                            -1, 0.97),
                                                     child: CommenttextWidget(
                                                       key: Key(
                                                           'Keyt99_${videoPasthIndex}_of_${videoPasth.length}'),
@@ -282,9 +278,8 @@ class _VideoContentWidgetState extends State<VideoContentWidget> {
                                                   ),
                                                 ),
                                                 Padding(
-                                                  padding: const EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          0.0, 0.0, 0.0, 70.0),
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(0, 0, 0, 70),
                                                   child: Column(
                                                     mainAxisSize:
                                                         MainAxisSize.max,
@@ -303,7 +298,7 @@ class _VideoContentWidgetState extends State<VideoContentWidget> {
                                                                     .width *
                                                                 0.13,
                                                         decoration:
-                                                            const BoxDecoration(
+                                                            BoxDecoration(
                                                           shape:
                                                               BoxShape.circle,
                                                         ),
@@ -319,21 +314,21 @@ class _VideoContentWidgetState extends State<VideoContentWidget> {
                                                                         .userId)!)
                                                               Padding(
                                                                 padding:
-                                                                    const EdgeInsetsDirectional
+                                                                    EdgeInsetsDirectional
                                                                         .fromSTEB(
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0,
-                                                                            10.0),
+                                                                            0,
+                                                                            0,
+                                                                            0,
+                                                                            10),
                                                                 child:
                                                                     FlutterFlowIconButton(
                                                                   borderColor:
                                                                       Colors
                                                                           .transparent,
                                                                   borderRadius:
-                                                                      20.0,
+                                                                      20,
                                                                   buttonSize:
-                                                                      44.0,
+                                                                      44,
                                                                   fillColor: FlutterFlowTheme.of(
                                                                           context)
                                                                       .secondaryBackground,
@@ -343,7 +338,7 @@ class _VideoContentWidgetState extends State<VideoContentWidget> {
                                                                     color: FlutterFlowTheme.of(
                                                                             context)
                                                                         .alternate,
-                                                                    size: 22.0,
+                                                                    size: 22,
                                                                   ),
                                                                   onPressed:
                                                                       () async {
@@ -387,7 +382,7 @@ class _VideoContentWidgetState extends State<VideoContentWidget> {
                                                                             ),
                                                                           ),
                                                                           duration:
-                                                                              const Duration(milliseconds: 4000),
+                                                                              Duration(milliseconds: 4000),
                                                                           backgroundColor:
                                                                               FlutterFlowTheme.of(context).secondary,
                                                                         ),
@@ -409,7 +404,7 @@ class _VideoContentWidgetState extends State<VideoContentWidget> {
                                                                             ),
                                                                           ),
                                                                           duration:
-                                                                              const Duration(milliseconds: 4000),
+                                                                              Duration(milliseconds: 4000),
                                                                           backgroundColor:
                                                                               FlutterFlowTheme.of(context).secondary,
                                                                         ),
@@ -434,9 +429,8 @@ class _VideoContentWidgetState extends State<VideoContentWidget> {
                                                                 borderColor: Colors
                                                                     .transparent,
                                                                 borderRadius:
-                                                                    22.0,
-                                                                buttonSize:
-                                                                    44.0,
+                                                                    22,
+                                                                buttonSize: 44,
                                                                 fillColor: FlutterFlowTheme.of(
                                                                         context)
                                                                     .secondaryBackground,
@@ -446,7 +440,7 @@ class _VideoContentWidgetState extends State<VideoContentWidget> {
                                                                   color: FlutterFlowTheme.of(
                                                                           context)
                                                                       .error,
-                                                                  size: 22.0,
+                                                                  size: 22,
                                                                 ),
                                                                 onPressed:
                                                                     () async {
@@ -492,7 +486,7 @@ class _VideoContentWidgetState extends State<VideoContentWidget> {
                                                                           ),
                                                                         ),
                                                                         duration:
-                                                                            const Duration(milliseconds: 4000),
+                                                                            Duration(milliseconds: 4000),
                                                                         backgroundColor:
                                                                             FlutterFlowTheme.of(context).secondary,
                                                                       ),
@@ -516,7 +510,7 @@ class _VideoContentWidgetState extends State<VideoContentWidget> {
                                                                           ),
                                                                         ),
                                                                         duration:
-                                                                            const Duration(milliseconds: 4000),
+                                                                            Duration(milliseconds: 4000),
                                                                         backgroundColor:
                                                                             FlutterFlowTheme.of(context).secondary,
                                                                       ),
@@ -532,18 +526,15 @@ class _VideoContentWidgetState extends State<VideoContentWidget> {
                                                       ),
                                                       Padding(
                                                         padding:
-                                                            const EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    0.0,
-                                                                    15.0,
-                                                                    0.0,
-                                                                    0.0),
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(0, 15,
+                                                                    0, 0),
                                                         child:
                                                             FlutterFlowIconButton(
                                                           borderColor: Colors
                                                               .transparent,
-                                                          borderRadius: 22.0,
-                                                          buttonSize: 44.0,
+                                                          borderRadius: 22,
+                                                          buttonSize: 44,
                                                           fillColor: FlutterFlowTheme
                                                                   .of(context)
                                                               .secondaryBackground,
@@ -552,7 +543,7 @@ class _VideoContentWidgetState extends State<VideoContentWidget> {
                                                             color: FlutterFlowTheme
                                                                     .of(context)
                                                                 .primaryText,
-                                                            size: 22.0,
+                                                            size: 22,
                                                           ),
                                                           onPressed: () async {
                                                             await showModalBottomSheet(
@@ -581,7 +572,7 @@ class _VideoContentWidgetState extends State<VideoContentWidget> {
                                                                         .viewInsetsOf(
                                                                             context),
                                                                     child:
-                                                                        SizedBox(
+                                                                        Container(
                                                                       height: MediaQuery.sizeOf(context)
                                                                               .height *
                                                                           0.45,

@@ -21,6 +21,9 @@ class DesignerStorePageWidget extends StatefulWidget {
 
   final String? designerref;
 
+  static String routeName = 'DesignerStorePageWidget';
+  static String routePath = '/designerStorePageWidget';
+
   @override
   State<DesignerStorePageWidget> createState() =>
       _DesignerStorePageWidgetState();
@@ -118,8 +121,8 @@ class _DesignerStorePageWidgetState extends State<DesignerStorePageWidget>
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(10.0, 50.0, 10.0, 0.0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(
+                        10.0, 50.0, 10.0, 0.0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -212,8 +215,8 @@ class _DesignerStorePageWidgetState extends State<DesignerStorePageWidget>
                     ),
                   ),
                   Padding(
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 0.0, 0.0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(
+                        10.0, 0.0, 0.0, 0.0),
                     child: FutureBuilder<ApiCallResponse>(
                       future: BackendAPIGroup.getCategoriesCall.call(),
                       builder: (context, snapshot) {
@@ -253,8 +256,9 @@ class _DesignerStorePageWidgetState extends State<DesignerStorePageWidget>
                                   final categoryVBodyItem =
                                       categoryVBody[categoryVBodyIndex];
                                   return Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 20.0, 20.0, 0.0),
+                                    padding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 20.0, 20.0, 0.0),
                                     child: InkWell(
                                       splashColor: Colors.transparent,
                                       focusColor: Colors.transparent,
@@ -298,9 +302,8 @@ class _DesignerStorePageWidgetState extends State<DesignerStorePageWidget>
                                             ),
                                           ),
                                           Padding(
-                                            padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 5.0, 0.0, 0.0),
+                                            padding: const EdgeInsetsDirectional
+                                                .fromSTEB(0.0, 5.0, 0.0, 0.0),
                                             child: Text(
                                               getJsonField(
                                                 categoryVBodyItem,
@@ -337,8 +340,8 @@ class _DesignerStorePageWidgetState extends State<DesignerStorePageWidget>
                     ),
                   ),
                   Padding(
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(10.0, 20.0, 10.0, 20.0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(
+                        10.0, 20.0, 10.0, 20.0),
                     child: FutureBuilder<ApiCallResponse>(
                       future: BackendAPIGroup.wishlistCall.call(
                         userId: FFAppState().userId,
@@ -430,8 +433,9 @@ class _DesignerStorePageWidgetState extends State<DesignerStorePageWidget>
                                           child: Stack(
                                             children: [
                                               Padding(
-                                                padding: const EdgeInsetsDirectional
-                                                    .fromSTEB(
+                                                padding:
+                                                    const EdgeInsetsDirectional
+                                                        .fromSTEB(
                                                         5.0, 5.0, 5.0, 10.0),
                                                 child: ClipRRect(
                                                   borderRadius:
@@ -463,14 +467,14 @@ class _DesignerStorePageWidgetState extends State<DesignerStorePageWidget>
                                           ),
                                         ),
                                         Padding(
-                                          padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 10.0, 0.0, 0.0),
+                                          padding: const EdgeInsetsDirectional
+                                              .fromSTEB(0.0, 10.0, 0.0, 0.0),
                                           child: Container(
                                             decoration: const BoxDecoration(),
                                             child: Padding(
-                                              padding: const EdgeInsetsDirectional
-                                                  .fromSTEB(
+                                              padding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(
                                                       15.0, 0.0, 15.0, 0.0),
                                               child: Row(
                                                 mainAxisSize: MainAxisSize.max,
@@ -495,8 +499,8 @@ class _DesignerStorePageWidgetState extends State<DesignerStorePageWidget>
                                                         .bodyMedium
                                                         .override(
                                                           fontFamily: 'Inter',
-                                                          color:
-                                                              const Color(0xFF263F96),
+                                                          color: const Color(
+                                                              0xFF263F96),
                                                           fontSize: 10.0,
                                                           letterSpacing: 0.0,
                                                           fontWeight:
@@ -768,12 +772,11 @@ class _DesignerStorePageWidgetState extends State<DesignerStorePageWidget>
                                           ),
                                         ),
                                         Align(
-                                          alignment:
-                                              const AlignmentDirectional(-1.0, 0.0),
+                                          alignment: const AlignmentDirectional(
+                                              -1.0, 0.0),
                                           child: Padding(
-                                            padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
-                                                    15.0, 5.0, 0.0, 0.0),
+                                            padding: const EdgeInsetsDirectional
+                                                .fromSTEB(15.0, 5.0, 0.0, 0.0),
                                             child: Text(
                                               getJsonField(
                                                 mainBodyItem,
@@ -787,7 +790,8 @@ class _DesignerStorePageWidgetState extends State<DesignerStorePageWidget>
                                                         FlutterFlowTheme.of(
                                                                 context)
                                                             .bodyMediumFamily,
-                                                    color: const Color(0xFF323FA4),
+                                                    color:
+                                                        const Color(0xFF323FA4),
                                                     fontSize: 12.0,
                                                     letterSpacing: 0.0,
                                                     fontWeight: FontWeight.w600,

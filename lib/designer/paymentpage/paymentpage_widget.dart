@@ -1014,7 +1014,16 @@ class _PaymentpageWidgetState extends State<PaymentpageWidget> {
                                 }
                               }
                             }
-                          : null, // Disable button if no payment method is selected
+                          : () {
+                              if (selectedIndex == null) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                        'Please select an address before proceeding.'),
+                                  ),
+                                );
+                              }
+                            },
                       text: 'Continue to Payment',
                       options: FFButtonOptions(
                         width: MediaQuery.sizeOf(context).width * 1.0,

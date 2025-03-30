@@ -1,0 +1,2 @@
+C:/Users/offic/OneDrive/Desktop/irfinall/indigo_rhapsody_dupli/android/app/.cxx/RelWithDebInfo/3w2h3w4f/x86_64/CMakeFiles/edit_cache.dir
+C:/Users/offic/OneDrive/Desktop/irfinall/indigo_rhapsody_dupli/android/app/.cxx/RelWithDebInfo/3w2h3w4f/x86_64/CMakeFiles/rebuild_cache.dir

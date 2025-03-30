@@ -5,7 +5,7 @@ import '/flutter_flow/flutter_flow_autocomplete_options_list.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'dart:ui';
-import 'package:flutter/material.dart'; 
+import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter_animate/flutter_animate.dart';
@@ -16,6 +16,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class Searchpage1Widget extends StatefulWidget {
   const Searchpage1Widget({super.key});
+
+  static String routeName = 'Searchpage1Widget';
+  static String routePath = '/searchpage1Widget';
 
   @override
   State<Searchpage1Widget> createState() => _Searchpage1WidgetState();
