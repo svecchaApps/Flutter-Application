@@ -3,8 +3,6 @@ plugins {
    id "kotlin-android"
    id "dev.flutter.flutter-gradle-plugin"
    id "com.google.gms.google-services"  // Google Services plugin
-
-   
 }
 
 def localProperties = new Properties()
@@ -32,11 +30,12 @@ if (keystorePropertiesFile.exists()) {
 }
 
 android {
-    compileSdkVersion 34
+    namespace "com.mycompany.lsdapp"
+    compileSdkVersion 31
 
      compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
         coreLibraryDesugaringEnabled true
     }
     
@@ -61,6 +60,9 @@ android {
     }
 
    signingConfigs {
+        debug {
+
+       }
        release {
            keyAlias keystoreProperties['keyAlias']
            keyPassword keystoreProperties['keyPassword']
@@ -70,6 +72,9 @@ android {
    }
 
     buildTypes {
+        debug {
+            signingConfig signingConfigs.debug
+        }
         release {
             // TODO: Add your own signing config for the release build.
             // Signing with the debug keys for now, so `flutter run --release` works.
@@ -85,7 +90,12 @@ flutter {
 dependencies {
         coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
 
-    // implementation 'androidx.multidex:multidex:2.0.1'
+    implementation 'androidx.multidex:multidex:2.0.1'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:2.0.0"
-       implementation "phonepe.intentsdk.android.release:IntentSDK:3.0.0"
+    implementation "phonepe.intentsdk.android.release:IntentSDK:3.0.0"
+    // implementation "androidx.multidex:multidex:2.0.1"
+    implementation 'com.google.firebase:firebase-auth:23.1.0'
+    implementation 'com.google.android.recaptcha:recaptcha:18.5.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.8.10'
 }
