@@ -39,8 +39,7 @@ export '/designer/addaddress_page/addaddress_page_widget.dart'
     show AddaddressPageWidget;
 export '/designer/product_description/product_description_widget.dart'
     show ProductDescriptionWidget;
-export '/designer/settingscopy/settingscopy_widget.dart'
-    show SettingscopyWidget;
+export 'designer/settings/settings_widget.dart' show SettingsWidget;
 export '/designer/choose_payment/choose_payment_widget.dart'
     show ChoosePaymentWidget;
 export '/designer/hidden_gems/hidden_gems_widget.dart' show HiddenGemsWidget;

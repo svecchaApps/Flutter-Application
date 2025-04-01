@@ -1,12 +1,15 @@
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+
 import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_radio_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
-import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import '/index.dart';
 import 'apply_filterspage_designer_model.dart';
+
 export 'apply_filterspage_designer_model.dart';
 
 class ApplyFilterspageDesignerWidget extends StatefulWidget {
@@ -18,6 +21,9 @@ class ApplyFilterspageDesignerWidget extends StatefulWidget {
 
   final String? subCategoryid;
   final String? designerRef;
+
+  static String routeName = 'ApplyFilterspageDesigner';
+  static String routePath = '/applyFilterspageDesigner';
 
   @override
   State<ApplyFilterspageDesignerWidget> createState() =>
@@ -56,8 +62,8 @@ class _ApplyFilterspageDesignerWidgetState
             backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
             body: Center(
               child: SizedBox(
-                width: 50.0,
-                height: 50.0,
+                width: 50,
+                height: 50,
                 child: CircularProgressIndicator(
                   valueColor: AlwaysStoppedAnimation<Color>(
                     FlutterFlowTheme.of(context).primary,
@@ -91,7 +97,7 @@ class _ApplyFilterspageDesignerWidgetState
                 child: Icon(
                   Icons.chevron_left,
                   color: FlutterFlowTheme.of(context).primary,
-                  size: 24.0,
+                  size: 24,
                 ),
               ),
               title: Text(
@@ -100,7 +106,7 @@ class _ApplyFilterspageDesignerWidgetState
                       fontFamily:
                           FlutterFlowTheme.of(context).headlineMediumFamily,
                       color: FlutterFlowTheme.of(context).primaryText,
-                      fontSize: 22.0,
+                      fontSize: 22,
                       letterSpacing: 0.0,
                       useGoogleFonts: GoogleFonts.asMap().containsKey(
                           FlutterFlowTheme.of(context).headlineMediumFamily),
@@ -108,7 +114,7 @@ class _ApplyFilterspageDesignerWidgetState
               ),
               actions: const [],
               centerTitle: true,
-              elevation: 0.0,
+              elevation: 0,
             ),
             body: SafeArea(
               top: true,
@@ -119,7 +125,7 @@ class _ApplyFilterspageDesignerWidgetState
                   children: [
                     Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -133,7 +139,7 @@ class _ApplyFilterspageDesignerWidgetState
                               safeSetState(() {});
 
                               context.pushNamed(
-                                'DesignerStorePage',
+                                DesignerStorePageWidget.routeName,
                                 queryParameters: {
                                   'designerref': serializeParam(
                                     widget.designerRef,
@@ -145,11 +151,11 @@ class _ApplyFilterspageDesignerWidgetState
                             text: 'Clear',
                             options: FFButtonOptions(
                               width: MediaQuery.sizeOf(context).width * 0.5,
-                              height: 40.0,
+                              height: 40,
                               padding: const EdgeInsetsDirectional.fromSTEB(
-                                  16.0, 0.0, 16.0, 0.0),
+                                  16, 0, 16, 0),
                               iconPadding: const EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 0.0, 0.0, 0.0),
+                                  0, 0, 0, 0),
                               color: FlutterFlowTheme.of(context).alternate,
                               textStyle: FlutterFlowTheme.of(context)
                                   .titleSmall
@@ -164,14 +170,14 @@ class _ApplyFilterspageDesignerWidgetState
                                             FlutterFlowTheme.of(context)
                                                 .titleSmallFamily),
                                   ),
-                              elevation: 0.0,
-                              borderRadius: BorderRadius.circular(12.0),
+                              elevation: 0,
+                              borderRadius: BorderRadius.circular(12),
                             ),
                           ),
                           FFButtonWidget(
                             onPressed: () async {
                               context.goNamed(
-                                'DesignerStorePage',
+                                DesignerStorePageWidget.routeName,
                                 queryParameters: {
                                   'designerref': serializeParam(
                                     widget.designerRef,
@@ -183,11 +189,11 @@ class _ApplyFilterspageDesignerWidgetState
                             text: 'Apply',
                             options: FFButtonOptions(
                               width: MediaQuery.sizeOf(context).width * 0.5,
-                              height: 40.0,
+                              height: 40,
                               padding: const EdgeInsetsDirectional.fromSTEB(
-                                  16.0, 0.0, 16.0, 0.0),
+                                  16, 0, 16, 0),
                               iconPadding: const EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 0.0, 0.0, 0.0),
+                                  0, 0, 0, 0),
                               color: FlutterFlowTheme.of(context).primary,
                               textStyle: FlutterFlowTheme.of(context)
                                   .titleSmall
@@ -201,8 +207,8 @@ class _ApplyFilterspageDesignerWidgetState
                                             FlutterFlowTheme.of(context)
                                                 .titleSmallFamily),
                                   ),
-                              elevation: 0.0,
-                              borderRadius: BorderRadius.circular(12.0),
+                              elevation: 0,
+                              borderRadius: BorderRadius.circular(12),
                             ),
                           ),
                         ],
@@ -210,7 +216,7 @@ class _ApplyFilterspageDesignerWidgetState
                     ),
                     Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(20.0, 20.0, 20.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(20, 20, 20, 0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
@@ -222,7 +228,7 @@ class _ApplyFilterspageDesignerWidgetState
                                   fontFamily: FlutterFlowTheme.of(context)
                                       .bodyMediumFamily,
                                   color: FlutterFlowTheme.of(context).primary,
-                                  fontSize: 16.0,
+                                  fontSize: 16,
                                   letterSpacing: 0.0,
                                   useGoogleFonts: GoogleFonts.asMap()
                                       .containsKey(FlutterFlowTheme.of(context)
@@ -234,7 +240,7 @@ class _ApplyFilterspageDesignerWidgetState
                     ),
                     Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 0.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
                       child: FlutterFlowRadioButton(
                         options: ['desc ', 'asc'].toList(),
                         onChanged: (val) async {
@@ -244,7 +250,7 @@ class _ApplyFilterspageDesignerWidgetState
                         },
                         controller: _model.radioButtonValueController1 ??=
                             FormFieldController<String>(null),
-                        optionHeight: 32.0,
+                        optionHeight: 32,
                         textStyle:
                             FlutterFlowTheme.of(context).labelMedium.override(
                                   fontFamily: FlutterFlowTheme.of(context)
@@ -276,7 +282,7 @@ class _ApplyFilterspageDesignerWidgetState
                     ),
                     Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(20.0, 20.0, 20.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(20, 20, 20, 0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
@@ -288,7 +294,7 @@ class _ApplyFilterspageDesignerWidgetState
                                   fontFamily: FlutterFlowTheme.of(context)
                                       .bodyMediumFamily,
                                   color: FlutterFlowTheme.of(context).primary,
-                                  fontSize: 16.0,
+                                  fontSize: 16,
                                   letterSpacing: 0.0,
                                   useGoogleFonts: GoogleFonts.asMap()
                                       .containsKey(FlutterFlowTheme.of(context)
@@ -300,13 +306,13 @@ class _ApplyFilterspageDesignerWidgetState
                     ),
                     Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 15.0, 0.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
                       child: Slider(
                         activeColor: FlutterFlowTheme.of(context).primary,
                         inactiveColor: FlutterFlowTheme.of(context).alternate,
-                        min: 0.0,
-                        max: 100000.0,
-                        value: _model.sliderValue ??= 0.0,
+                        min: 0,
+                        max: 100000,
+                        value: _model.sliderValue ??= 0,
                         label: _model.sliderValue?.toStringAsFixed(2),
                         divisions: 200,
                         onChanged: (newValue) async {
@@ -319,7 +325,7 @@ class _ApplyFilterspageDesignerWidgetState
                     ),
                     Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(20.0, 20.0, 20.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(20, 20, 20, 0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
@@ -331,7 +337,7 @@ class _ApplyFilterspageDesignerWidgetState
                                   fontFamily: FlutterFlowTheme.of(context)
                                       .bodyMediumFamily,
                                   color: FlutterFlowTheme.of(context).primary,
-                                  fontSize: 16.0,
+                                  fontSize: 16,
                                   letterSpacing: 0.0,
                                   useGoogleFonts: GoogleFonts.asMap()
                                       .containsKey(FlutterFlowTheme.of(context)
@@ -343,7 +349,7 @@ class _ApplyFilterspageDesignerWidgetState
                     ),
                     Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(20, 0, 20, 0),
                       child: FlutterFlowRadioButton(
                         options: BackendAPIGroup.fitfiltersCall
                             .filterBody(
@@ -364,7 +370,7 @@ class _ApplyFilterspageDesignerWidgetState
                         },
                         controller: _model.radioButtonValueController2 ??=
                             FormFieldController<String>(null),
-                        optionHeight: 32.0,
+                        optionHeight: 32,
                         textStyle:
                             FlutterFlowTheme.of(context).labelMedium.override(
                                   fontFamily: FlutterFlowTheme.of(context)
@@ -396,7 +402,7 @@ class _ApplyFilterspageDesignerWidgetState
                     ),
                     Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(20.0, 25.0, 20.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(20, 25, 20, 0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
@@ -408,7 +414,7 @@ class _ApplyFilterspageDesignerWidgetState
                                   fontFamily: FlutterFlowTheme.of(context)
                                       .bodyMediumFamily,
                                   color: FlutterFlowTheme.of(context).primary,
-                                  fontSize: 16.0,
+                                  fontSize: 16,
                                   letterSpacing: 0.0,
                                   useGoogleFonts: GoogleFonts.asMap()
                                       .containsKey(FlutterFlowTheme.of(context)
@@ -425,8 +431,8 @@ class _ApplyFilterspageDesignerWidgetState
                         if (!snapshot.hasData) {
                           return Center(
                             child: SizedBox(
-                              width: 50.0,
-                              height: 50.0,
+                              width: 50,
+                              height: 50,
                               child: CircularProgressIndicator(
                                 valueColor: AlwaysStoppedAnimation<Color>(
                                   FlutterFlowTheme.of(context).primary,
@@ -438,11 +444,11 @@ class _ApplyFilterspageDesignerWidgetState
                         final containerColorFiltersResponse = snapshot.data!;
 
                         return Container(
-                          width: MediaQuery.sizeOf(context).width * 1.0,
+                          width: MediaQuery.sizeOf(context).width,
                           decoration: const BoxDecoration(),
                           child: Padding(
                             padding: const EdgeInsetsDirectional.fromSTEB(
-                                20.0, 0.0, 20.0, 0.0),
+                                20, 0, 20, 0),
                             child: FlutterFlowRadioButton(
                               options: BackendAPIGroup.colorFiltersCall
                                   .colorBody(
@@ -462,7 +468,7 @@ class _ApplyFilterspageDesignerWidgetState
                               },
                               controller: _model.radioButtonValueController3 ??=
                                   FormFieldController<String>(null),
-                              optionHeight: 32.0,
+                              optionHeight: 32,
                               textStyle: FlutterFlowTheme.of(context)
                                   .labelMedium
                                   .override(

@@ -193,7 +193,7 @@ class _NavBarPageState extends State<NavBarPage> {
       'Homepage': const HomepageWidget(),
       'CartPagenewCopy': const CartPagenewCopyWidget(),
       'VideoContent': const VideoContentWidget(),
-      'Settingscopy': const SettingscopyWidget(),
+      'Settingscopy': const SettingsWidget(),
     };
     final currentIndex = tabs.keys.toList().indexOf(_currentPageName);
 

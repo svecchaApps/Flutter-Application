@@ -248,7 +248,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           path: '/settingscopy',
           builder: (context, params) => params.isEmpty
               ? const NavBarPage(initialPage: 'Settingscopy')
-              : const SettingscopyWidget(),
+              : const SettingsWidget(),
         ),
         FFRoute(
           name: 'choosePayment',

@@ -1,15 +1,14 @@
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+
 import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import 'dart:ui';
 import '/index.dart';
-import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
-
 import 'hidden_gems_model.dart';
+
 export 'hidden_gems_model.dart';
 
 class HiddenGemsWidget extends StatefulWidget {
@@ -49,7 +48,7 @@ class _HiddenGemsWidgetState extends State<HiddenGemsWidget> {
   Widget build(BuildContext context) {
     return FutureBuilder<ApiCallResponse>(
       future: BackendAPIGroup.getDesignerByidCall.call(
-        designerId: widget!.designerId,
+        designerId: widget.designerId,
       ),
       builder: (context, snapshot) {
         // Customize what your widget looks like when it's loading.
@@ -79,200 +78,224 @@ class _HiddenGemsWidgetState extends State<HiddenGemsWidget> {
           child: Scaffold(
             key: scaffoldKey,
             backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-            body: Container(
-              width: MediaQuery.sizeOf(context).width,
-              height: MediaQuery.sizeOf(context).height,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  fit: BoxFit.cover,
-                  image: Image.network(
-                    BackendAPIGroup.getDesignerByidCall.backGroundImage(
-                      hiddenGemsGetDesignerByidResponse.jsonBody,
-                    )!,
-                  ).image,
-                ),
-                gradient: LinearGradient(
-                  colors: [Color(0x0D1634AF), Color(0x263F961A), Colors.black],
-                  stops: [0.1, 0.68, 1],
-                  begin: AlignmentDirectional(-1, -1),
-                  end: AlignmentDirectional(1, 1),
-                ),
-              ),
+            body: SafeArea(
+              top: true,
               child: Container(
-                width: 100,
-                height: 100,
+                width: MediaQuery.sizeOf(context).width,
+                height: MediaQuery.sizeOf(context).height,
                 decoration: BoxDecoration(
-                  gradient: LinearGradient(
+                  image: DecorationImage(
+                    fit: BoxFit.cover,
+                    image: Image.network(
+                      BackendAPIGroup.getDesignerByidCall.backGroundImage(
+                        hiddenGemsGetDesignerByidResponse.jsonBody,
+                      )!,
+                    ).image,
+                  ),
+                  gradient: const LinearGradient(
                     colors: [
-                      Color(0x263F961A),
                       Color(0x0D1634AF),
+                      Color(0x263F961A),
                       Colors.black
                     ],
-                    stops: [0.1, 0.3, 1],
-                    begin: AlignmentDirectional(0, -1),
-                    end: AlignmentDirectional(0, 1),
+                    stops: [0.1, 0.68, 1],
+                    begin: AlignmentDirectional(-1, -1),
+                    end: AlignmentDirectional(1, 1),
                   ),
                 ),
                 child: Container(
-                  decoration: BoxDecoration(
-                    color: Color(0x2214181B),
-                  ),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(20, 30, 0, 0),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              FlutterFlowIconButton(
-                                borderColor: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
-                                borderRadius: 20,
-                                borderWidth: 1,
-                                buttonSize: 40,
-                                fillColor: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
-                                icon: Icon(
-                                  Icons.chevron_left_rounded,
-                                  color: Color(0xFF263F96),
-                                  size: 24,
-                                ),
-                                onPressed: () async {
-                                  context.safePop();
-                                },
-                              ),
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(20, 25, 0, 0),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Container(
-                                width: MediaQuery.sizeOf(context).width * 0.14,
-                                height: MediaQuery.sizeOf(context).width * 0.14,
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                ),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(40),
-                                  child: Image.network(
-                                    BackendAPIGroup.getDesignerByidCall.logo(
-                                      hiddenGemsGetDesignerByidResponse
-                                          .jsonBody,
-                                    )!,
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
-                                child: Text(
-                                  valueOrDefault<String>(
-                                    BackendAPIGroup.getDesignerByidCall
-                                        .displayName(
-                                      hiddenGemsGetDesignerByidResponse
-                                          .jsonBody,
-                                    ),
-                                    'display name',
-                                  ),
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Inter',
-                                        color: FlutterFlowTheme.of(context)
-                                            .secondaryBackground,
-                                        fontSize: 30,
-                                        letterSpacing: 0.0,
-                                        fontWeight: FontWeight.w600,
-                                        useGoogleFonts: GoogleFonts.asMap()
-                                            .containsKey('Inter'),
-                                      ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding:
-                              EdgeInsetsDirectional.fromSTEB(20, 20, 20, 40),
-                          child: Container(
-                            width: MediaQuery.sizeOf(context).width,
-                            height: MediaQuery.sizeOf(context).height * 0.6,
-                            decoration: BoxDecoration(),
-                            child: Text(
-                              valueOrDefault<String>(
-                                BackendAPIGroup.getDesignerByidCall.description(
-                                  hiddenGemsGetDesignerByidResponse.jsonBody,
-                                ),
-                                'description',
-                              ),
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Inter',
-                                    color: FlutterFlowTheme.of(context)
-                                        .secondaryBackground,
-                                    fontSize: 22,
-                                    letterSpacing: 1,
-                                    fontWeight: FontWeight.w600,
-                                    useGoogleFonts: GoogleFonts.asMap()
-                                        .containsKey('Inter'),
-                                  ),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding:
-                              EdgeInsetsDirectional.fromSTEB(20, 10, 20, 0),
-                          child: FFButtonWidget(
-                            onPressed: () async {
-                              context.pushNamed(
-                                DesignerStorePageWidget.routeName,
-                                queryParameters: {
-                                  'designerref': serializeParam(
-                                    widget!.designerId,
-                                    ParamType.String,
-                                  ),
-                                }.withoutNulls,
-                              );
-
-                              FFAppState().categoryFilter = '';
-                              safeSetState(() {});
-                            },
-                            text: 'Go to Collection',
-                            options: FFButtonOptions(
-                              width: double.infinity,
-                              height: MediaQuery.sizeOf(context).height * 0.065,
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(24, 0, 24, 0),
-                              iconPadding:
-                                  EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
-                              color: Color(0xFF323FA4),
-                              textStyle: FlutterFlowTheme.of(context)
-                                  .titleSmall
-                                  .override(
-                                    fontFamily: 'Inter',
-                                    color: Colors.white,
-                                    letterSpacing: 0.0,
-                                    fontWeight: FontWeight.w600,
-                                    useGoogleFonts: GoogleFonts.asMap()
-                                        .containsKey('Inter'),
-                                  ),
-                              elevation: 3,
-                              borderSide: BorderSide(
-                                color: Colors.transparent,
-                                width: 1,
-                              ),
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                          ),
-                        ),
+                  width: 100,
+                  height: 100,
+                  decoration: const BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        Color(0x263F961A),
+                        Color(0x0D1634AF),
+                        Colors.black
                       ],
+                      stops: [0.1, 0.3, 1],
+                      begin: AlignmentDirectional(0, -1),
+                      end: AlignmentDirectional(0, 1),
+                    ),
+                  ),
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      color: Color(0x2214181B),
+                    ),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                20, 30, 0, 0),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                FlutterFlowIconButton(
+                                  borderColor: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
+                                  borderRadius: 20,
+                                  borderWidth: 1,
+                                  buttonSize: 40,
+                                  fillColor: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
+                                  icon: const Icon(
+                                    Icons.chevron_left_rounded,
+                                    color: Color(0xFF263F96),
+                                    size: 24,
+                                  ),
+                                  onPressed: () async {
+                                    context.safePop();
+                                  },
+                                ),
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                20, 25, 0, 0),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Container(
+                                  width:
+                                      MediaQuery.sizeOf(context).width * 0.14,
+                                  height:
+                                      MediaQuery.sizeOf(context).width * 0.14,
+                                  decoration: const BoxDecoration(
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(40),
+                                    child: Image.network(
+                                      BackendAPIGroup.getDesignerByidCall.logo(
+                                        hiddenGemsGetDesignerByidResponse
+                                            .jsonBody,
+                                      )!,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                      10, 0, 0, 0),
+                                  child: Text(
+                                    valueOrDefault<String>(
+                                      BackendAPIGroup.getDesignerByidCall
+                                          .displayName(
+                                        hiddenGemsGetDesignerByidResponse
+                                            .jsonBody,
+                                      ),
+                                      'display name',
+                                    ),
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Inter',
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryBackground,
+                                          fontSize: 30,
+                                          letterSpacing: 0.0,
+                                          fontWeight: FontWeight.w600,
+                                          useGoogleFonts: GoogleFonts.asMap()
+                                              .containsKey('Inter'),
+                                        ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                20, 20, 20, 40),
+                            child: Container(
+                              width: MediaQuery.sizeOf(context).width,
+                              height: MediaQuery.sizeOf(context).height * 0.6,
+                              decoration: const BoxDecoration(),
+                              child: SingleChildScrollView(
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      valueOrDefault<String>(
+                                        BackendAPIGroup.getDesignerByidCall
+                                            .description(
+                                          hiddenGemsGetDesignerByidResponse
+                                              .jsonBody,
+                                        ),
+                                        'description',
+                                      ),
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Inter',
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryBackground,
+                                            fontSize: 22,
+                                            letterSpacing: 1,
+                                            fontWeight: FontWeight.w600,
+                                            useGoogleFonts: GoogleFonts.asMap()
+                                                .containsKey('Inter'),
+                                          ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                20, 10, 20, 0),
+                            child: FFButtonWidget(
+                              onPressed: () async {
+                                context.pushNamed(
+                                  DesignerStorePageWidget.routeName,
+                                  queryParameters: {
+                                    'designerref': serializeParam(
+                                      widget.designerId,
+                                      ParamType.String,
+                                    ),
+                                  }.withoutNulls,
+                                );
+
+                                FFAppState().categoryFilter = '';
+                                safeSetState(() {});
+                              },
+                              text: 'Go to Collection',
+                              options: FFButtonOptions(
+                                width: double.infinity,
+                                height:
+                                    MediaQuery.sizeOf(context).height * 0.065,
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    24, 0, 24, 0),
+                                iconPadding:
+                                    const EdgeInsetsDirectional.fromSTEB(
+                                        0, 0, 0, 0),
+                                color: const Color(0xFF323FA4),
+                                textStyle: FlutterFlowTheme.of(context)
+                                    .titleSmall
+                                    .override(
+                                      fontFamily: 'Inter',
+                                      color: Colors.white,
+                                      letterSpacing: 0.0,
+                                      fontWeight: FontWeight.w600,
+                                      useGoogleFonts: GoogleFonts.asMap()
+                                          .containsKey('Inter'),
+                                    ),
+                                elevation: 3,
+                                borderSide: const BorderSide(
+                                  color: Colors.transparent,
+                                  width: 1,
+                                ),
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),

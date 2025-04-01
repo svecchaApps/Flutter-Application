@@ -1,10 +1,12 @@
-import '/backend/backend.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '/backend/backend.dart';
+import '/flutter_flow/flutter_flow_theme.dart';
+import '/flutter_flow/flutter_flow_util.dart';
 import 'client_product_model.dart';
+
 export 'client_product_model.dart';
 
 class ClientProductWidget extends StatefulWidget {
@@ -114,7 +116,8 @@ class _ClientProductWidgetState extends State<ClientProductWidget> {
                             child: Stack(
                               children: [
                                 Align(
-                                  alignment: const AlignmentDirectional(0.0, 0.0),
+                                  alignment:
+                                      const AlignmentDirectional(0.0, 0.0),
                                   child: Icon(
                                     Icons.favorite_border,
                                     color: FlutterFlowTheme.of(context)

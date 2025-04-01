@@ -168,7 +168,7 @@ class _LoginOrGuestWidgetState extends State<LoginOrGuestWidget> {
                             context.pushNamed('CreateAnAccount');
                           },
                           child: Text(
-                            'Sign Up',
+                          'Sign Up',
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(

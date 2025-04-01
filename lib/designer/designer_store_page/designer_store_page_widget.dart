@@ -1,16 +1,20 @@
-import '/backend/api_requests/api_calls.dart';
-import '/flutter_flow/flutter_flow_animations.dart';
-import '/flutter_flow/flutter_flow_icon_button.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/custom_functions.dart' as functions;
 import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+
+import '/backend/api_requests/api_calls.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
+import '/flutter_flow/flutter_flow_animations.dart';
+import '/flutter_flow/flutter_flow_icon_button.dart';
+import '/flutter_flow/flutter_flow_theme.dart';
+import '/flutter_flow/flutter_flow_util.dart';
+import '/index.dart';
 import 'designer_store_page_model.dart';
+
 export 'designer_store_page_model.dart';
 
 class DesignerStorePageWidget extends StatefulWidget {
@@ -21,8 +25,8 @@ class DesignerStorePageWidget extends StatefulWidget {
 
   final String? designerref;
 
-  static String routeName = 'DesignerStorePageWidget';
-  static String routePath = '/designerStorePageWidget';
+  static String routeName = 'DesignerStorePage';
+  static String routePath = '/designerStorePage';
 
   @override
   State<DesignerStorePageWidget> createState() =>
@@ -94,8 +98,8 @@ class _DesignerStorePageWidgetState extends State<DesignerStorePageWidget>
             backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
             body: Center(
               child: SizedBox(
-                width: 50.0,
-                height: 50.0,
+                width: 50,
+                height: 50,
                 child: CircularProgressIndicator(
                   valueColor: AlwaysStoppedAnimation<Color>(
                     FlutterFlowTheme.of(context).primary,
@@ -121,8 +125,8 @@ class _DesignerStorePageWidgetState extends State<DesignerStorePageWidget>
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(
-                        10.0, 50.0, 10.0, 0.0),
+                    padding:
+                        const EdgeInsetsDirectional.fromSTEB(10, 50, 10, 0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -143,19 +147,19 @@ class _DesignerStorePageWidgetState extends State<DesignerStorePageWidget>
                               child: Icon(
                                 Icons.chevron_left,
                                 color: FlutterFlowTheme.of(context).primary,
-                                size: 24.0,
+                                size: 24,
                               ),
                             ),
                             Padding(
                               padding: const EdgeInsetsDirectional.fromSTEB(
-                                  10.0, 0.0, 0.0, 0.0),
+                                  10, 0, 0, 0),
                               child: Text(
                                 'Store',
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
                                       fontFamily: 'Inter',
-                                      fontSize: 18.0,
+                                      fontSize: 18,
                                       letterSpacing: 0.0,
                                       fontWeight: FontWeight.w600,
                                       useGoogleFonts: GoogleFonts.asMap()
@@ -170,10 +174,10 @@ class _DesignerStorePageWidgetState extends State<DesignerStorePageWidget>
                           children: [
                             Padding(
                               padding: const EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 0.0, 20.0, 0.0),
+                                  0, 0, 20, 0),
                               child: FlutterFlowIconButton(
-                                borderRadius: 30.0,
-                                borderWidth: 1.0,
+                                borderRadius: 30,
+                                borderWidth: 1,
                                 buttonSize:
                                     MediaQuery.sizeOf(context).width * 0.1,
                                 fillColor:
@@ -181,25 +185,26 @@ class _DesignerStorePageWidgetState extends State<DesignerStorePageWidget>
                                 icon: const Icon(
                                   Icons.shopping_bag_outlined,
                                   color: Color(0xFF263F96),
-                                  size: 22.0,
+                                  size: 22,
                                 ),
                                 onPressed: () async {
-                                  context.pushNamed('CartPagenewCopy');
+                                  context.pushNamed(
+                                      CartPagenewCopyWidget.routeName);
                                 },
                               ),
                             ),
                             FlutterFlowIconButton(
-                              borderRadius: 30.0,
-                              buttonSize: 40.0,
+                              borderRadius: 30,
+                              buttonSize: 40,
                               fillColor: FlutterFlowTheme.of(context).alternate,
                               icon: const Icon(
                                 Icons.filter_alt,
                                 color: Color(0xFF263F96),
-                                size: 24.0,
+                                size: 24,
                               ),
                               onPressed: () async {
                                 context.pushNamed(
-                                  'ApplyFilterspageDesigner',
+                                  ApplyFilterspageDesignerWidget.routeName,
                                   queryParameters: {
                                     'designerRef': serializeParam(
                                       widget.designerref,
@@ -215,8 +220,7 @@ class _DesignerStorePageWidgetState extends State<DesignerStorePageWidget>
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(
-                        10.0, 0.0, 0.0, 0.0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
                     child: FutureBuilder<ApiCallResponse>(
                       future: BackendAPIGroup.getCategoriesCall.call(),
                       builder: (context, snapshot) {
@@ -224,8 +228,8 @@ class _DesignerStorePageWidgetState extends State<DesignerStorePageWidget>
                         if (!snapshot.hasData) {
                           return Center(
                             child: SizedBox(
-                              width: 50.0,
-                              height: 50.0,
+                              width: 50,
+                              height: 50,
                               child: CircularProgressIndicator(
                                 valueColor: AlwaysStoppedAnimation<Color>(
                                   FlutterFlowTheme.of(context).primary,
@@ -258,7 +262,7 @@ class _DesignerStorePageWidgetState extends State<DesignerStorePageWidget>
                                   return Padding(
                                     padding:
                                         const EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 20.0, 20.0, 0.0),
+                                            0, 20, 20, 0),
                                     child: InkWell(
                                       splashColor: Colors.transparent,
                                       focusColor: Colors.transparent,
@@ -303,7 +307,7 @@ class _DesignerStorePageWidgetState extends State<DesignerStorePageWidget>
                                           ),
                                           Padding(
                                             padding: const EdgeInsetsDirectional
-                                                .fromSTEB(0.0, 5.0, 0.0, 0.0),
+                                                .fromSTEB(0, 5, 0, 0),
                                             child: Text(
                                               getJsonField(
                                                 categoryVBodyItem,
@@ -340,8 +344,8 @@ class _DesignerStorePageWidgetState extends State<DesignerStorePageWidget>
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(
-                        10.0, 20.0, 10.0, 20.0),
+                    padding:
+                        const EdgeInsetsDirectional.fromSTEB(10, 20, 10, 20),
                     child: FutureBuilder<ApiCallResponse>(
                       future: BackendAPIGroup.wishlistCall.call(
                         userId: FFAppState().userId,
@@ -351,8 +355,8 @@ class _DesignerStorePageWidgetState extends State<DesignerStorePageWidget>
                         if (!snapshot.hasData) {
                           return Center(
                             child: SizedBox(
-                              width: 50.0,
-                              height: 50.0,
+                              width: 50,
+                              height: 50,
                               child: CircularProgressIndicator(
                                 valueColor: AlwaysStoppedAnimation<Color>(
                                   FlutterFlowTheme.of(context).primary,
@@ -379,8 +383,8 @@ class _DesignerStorePageWidgetState extends State<DesignerStorePageWidget>
                               gridDelegate:
                                   const SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: 2,
-                                crossAxisSpacing: 8.0,
-                                mainAxisSpacing: 8.0,
+                                crossAxisSpacing: 8,
+                                mainAxisSpacing: 8,
                                 childAspectRatio: 0.59,
                               ),
                               primary: false,
@@ -396,12 +400,19 @@ class _DesignerStorePageWidgetState extends State<DesignerStorePageWidget>
                                   highlightColor: Colors.transparent,
                                   onTap: () async {
                                     context.pushNamed(
-                                      'productDescriptionColor',
+                                      ProductDescriptionColorWidget.routeName,
                                       queryParameters: {
                                         'productId': serializeParam(
                                           getJsonField(
                                             mainBodyItem,
                                             r'''$._id''',
+                                          ).toString(),
+                                          ParamType.String,
+                                        ),
+                                        'price': serializeParam(
+                                          getJsonField(
+                                            mainBodyItem,
+                                            r'''$.price''',
                                           ).toString(),
                                           ParamType.String,
                                         ),
@@ -414,7 +425,7 @@ class _DesignerStorePageWidgetState extends State<DesignerStorePageWidget>
                                     decoration: BoxDecoration(
                                       color: FlutterFlowTheme.of(context)
                                           .secondaryBackground,
-                                      borderRadius: BorderRadius.circular(20.0),
+                                      borderRadius: BorderRadius.circular(20),
                                     ),
                                     child: Column(
                                       mainAxisSize: MainAxisSize.max,
@@ -423,31 +434,30 @@ class _DesignerStorePageWidgetState extends State<DesignerStorePageWidget>
                                           width:
                                               MediaQuery.sizeOf(context).width *
                                                   2.5,
-                                          height: 210.0,
+                                          height: 210,
                                           decoration: BoxDecoration(
                                             color: FlutterFlowTheme.of(context)
                                                 .secondaryBackground,
                                             borderRadius:
-                                                BorderRadius.circular(18.0),
+                                                BorderRadius.circular(18),
                                           ),
                                           child: Stack(
                                             children: [
                                               Padding(
                                                 padding:
                                                     const EdgeInsetsDirectional
-                                                        .fromSTEB(
-                                                        5.0, 5.0, 5.0, 10.0),
+                                                        .fromSTEB(5, 5, 5, 10),
                                                 child: ClipRRect(
                                                   borderRadius:
                                                       const BorderRadius.only(
                                                     bottomLeft:
-                                                        Radius.circular(20.0),
+                                                        Radius.circular(20),
                                                     bottomRight:
-                                                        Radius.circular(20.0),
+                                                        Radius.circular(20),
                                                     topLeft:
-                                                        Radius.circular(20.0),
+                                                        Radius.circular(20),
                                                     topRight:
-                                                        Radius.circular(20.0),
+                                                        Radius.circular(20),
                                                   ),
                                                   child: Image.network(
                                                     getJsonField(
@@ -455,10 +465,9 @@ class _DesignerStorePageWidgetState extends State<DesignerStorePageWidget>
                                                       r'''$.coverImage''',
                                                     ).toString(),
                                                     width: MediaQuery.sizeOf(
-                                                                context)
-                                                            .width *
-                                                        1.0,
-                                                    height: 230.0,
+                                                            context)
+                                                        .width,
+                                                    height: 230,
                                                     fit: BoxFit.cover,
                                                   ),
                                                 ),
@@ -468,14 +477,13 @@ class _DesignerStorePageWidgetState extends State<DesignerStorePageWidget>
                                         ),
                                         Padding(
                                           padding: const EdgeInsetsDirectional
-                                              .fromSTEB(0.0, 10.0, 0.0, 0.0),
+                                              .fromSTEB(0, 10, 0, 0),
                                           child: Container(
                                             decoration: const BoxDecoration(),
                                             child: Padding(
                                               padding:
                                                   const EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                      15.0, 0.0, 15.0, 0.0),
+                                                      .fromSTEB(15, 0, 15, 0),
                                               child: Row(
                                                 mainAxisSize: MainAxisSize.max,
                                                 mainAxisAlignment:
@@ -501,7 +509,7 @@ class _DesignerStorePageWidgetState extends State<DesignerStorePageWidget>
                                                           fontFamily: 'Inter',
                                                           color: const Color(
                                                               0xFF263F96),
-                                                          fontSize: 10.0,
+                                                          fontSize: 10,
                                                           letterSpacing: 0.0,
                                                           fontWeight:
                                                               FontWeight.normal,
@@ -526,7 +534,7 @@ class _DesignerStorePageWidgetState extends State<DesignerStorePageWidget>
                                                         Align(
                                                           alignment:
                                                               const AlignmentDirectional(
-                                                                  0.0, 0.0),
+                                                                  0, 0),
                                                           child: InkWell(
                                                             splashColor: Colors
                                                                 .transparent,
@@ -634,7 +642,7 @@ class _DesignerStorePageWidgetState extends State<DesignerStorePageWidget>
                                                               color: FlutterFlowTheme
                                                                       .of(context)
                                                                   .error,
-                                                              size: 18.0,
+                                                              size: 18,
                                                             ),
                                                           ),
                                                         ),
@@ -649,7 +657,7 @@ class _DesignerStorePageWidgetState extends State<DesignerStorePageWidget>
                                                         Align(
                                                           alignment:
                                                               const AlignmentDirectional(
-                                                                  0.0, 0.0),
+                                                                  0, 0),
                                                           child: InkWell(
                                                             splashColor: Colors
                                                                 .transparent,
@@ -757,7 +765,7 @@ class _DesignerStorePageWidgetState extends State<DesignerStorePageWidget>
                                                               color: FlutterFlowTheme
                                                                       .of(context)
                                                                   .alternate,
-                                                              size: 18.0,
+                                                              size: 18,
                                                             ),
                                                           ).animateOnActionTrigger(
                                                             animationsMap[
@@ -772,11 +780,11 @@ class _DesignerStorePageWidgetState extends State<DesignerStorePageWidget>
                                           ),
                                         ),
                                         Align(
-                                          alignment: const AlignmentDirectional(
-                                              -1.0, 0.0),
+                                          alignment:
+                                              const AlignmentDirectional(-1, 0),
                                           child: Padding(
                                             padding: const EdgeInsetsDirectional
-                                                .fromSTEB(15.0, 5.0, 0.0, 0.0),
+                                                .fromSTEB(15, 5, 0, 0),
                                             child: Text(
                                               getJsonField(
                                                 mainBodyItem,
@@ -792,7 +800,7 @@ class _DesignerStorePageWidgetState extends State<DesignerStorePageWidget>
                                                             .bodyMediumFamily,
                                                     color:
                                                         const Color(0xFF323FA4),
-                                                    fontSize: 12.0,
+                                                    fontSize: 12,
                                                     letterSpacing: 0.0,
                                                     fontWeight: FontWeight.w600,
                                                     useGoogleFonts: GoogleFonts

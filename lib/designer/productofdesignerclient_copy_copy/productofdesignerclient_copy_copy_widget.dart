@@ -1,14 +1,5 @@
-import '';
-import '/backend/api_requests/api_calls.dart';
-import '/flutter_flow/flutter_flow_animations.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
-import 'dart:math';
-import 'dart:ui';
-import '/flutter_flow/custom_functions.dart' as functions;
-import '/index.dart';
 import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
@@ -16,7 +7,15 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
+import '';
+import '/backend/api_requests/api_calls.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
+import '/flutter_flow/flutter_flow_animations.dart';
+import '/flutter_flow/flutter_flow_theme.dart';
+import '/flutter_flow/flutter_flow_util.dart';
+import '/index.dart';
 import 'productofdesignerclient_copy_copy_model.dart';
+
 export 'productofdesignerclient_copy_copy_model.dart';
 
 class ProductofdesignerclientCopyCopyWidget extends StatefulWidget {
@@ -89,7 +88,7 @@ class _ProductofdesignerclientCopyCopyWidgetState
     return FutureBuilder<ApiCallResponse>(
       future: (_model.apiRequestCompleter ??= Completer<ApiCallResponse>()
             ..complete(BackendAPIGroup.getProductsBySubcategoryCall.call(
-              subcategoryId: widget!.subcategoryid,
+              subcategoryId: widget.subcategoryid,
               color: FFAppState().color,
               minPrice: FFAppState().min,
               maxPrice: FFAppState().max,
@@ -166,13 +165,13 @@ class _ProductofdesignerclientCopyCopyWidgetState
                             ApplyFiltersWidget.routeName,
                             queryParameters: {
                               'subCategoryid': serializeParam(
-                                widget!.subcategoryid,
+                                widget.subcategoryid,
                                 ParamType.String,
                               ),
                             }.withoutNulls,
                           );
                         },
-                        child: Icon(
+                        child: const Icon(
                           FFIcons.kparams,
                           color: Color(0xFF263F96),
                           size: 22,
@@ -184,9 +183,9 @@ class _ProductofdesignerclientCopyCopyWidgetState
               ),
               actions: [
                 Align(
-                  alignment: AlignmentDirectional(0, 0),
+                  alignment: const AlignmentDirectional(0, 0),
                   child: Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 0, 20, 0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 20, 0),
                     child: InkWell(
                       splashColor: Colors.transparent,
                       focusColor: Colors.transparent,
@@ -201,7 +200,7 @@ class _ProductofdesignerclientCopyCopyWidgetState
                         safeSetState(() => _model.apiRequestCompleter = null);
                         await _model.waitForApiRequestCompleted();
                       },
-                      child: Icon(
+                      child: const Icon(
                         Icons.close_sharp,
                         color: Color(0x6D04137B),
                         size: 20,
@@ -220,7 +219,8 @@ class _ProductofdesignerclientCopyCopyWidgetState
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(10, 15, 10, 50),
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(10, 15, 10, 50),
                       child: FutureBuilder<ApiCallResponse>(
                         future: BackendAPIGroup.wishlistCall.call(
                           userId: FFAppState().userId,
@@ -258,7 +258,7 @@ class _ProductofdesignerclientCopyCopyWidgetState
                                 child: GridView.builder(
                                   padding: EdgeInsets.zero,
                                   gridDelegate:
-                                      SliverGridDelegateWithFixedCrossAxisCount(
+                                      const SliverGridDelegateWithFixedCrossAxisCount(
                                     crossAxisCount: 2,
                                     crossAxisSpacing: 8,
                                     mainAxisSpacing: 8,
@@ -329,9 +329,9 @@ class _ProductofdesignerclientCopyCopyWidgetState
                                                 children: [
                                                   Padding(
                                                     padding:
-                                                        EdgeInsetsDirectional
+                                                        const EdgeInsetsDirectional
                                                             .fromSTEB(
-                                                                5, 5, 5, 5),
+                                                            5, 5, 5, 5),
                                                     child: ClipRRect(
                                                       borderRadius:
                                                           BorderRadius.circular(
@@ -358,16 +358,19 @@ class _ProductofdesignerclientCopyCopyWidgetState
                                               ),
                                             ),
                                             Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(15, 0, 15, 0),
+                                              padding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(15, 0, 15, 0),
                                               child: Container(
                                                 width:
                                                     MediaQuery.sizeOf(context)
                                                         .width,
-                                                decoration: BoxDecoration(),
+                                                decoration:
+                                                    const BoxDecoration(),
                                                 child: Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(0, 5, 5, 0),
+                                                  padding:
+                                                      const EdgeInsetsDirectional
+                                                          .fromSTEB(0, 5, 5, 0),
                                                   child: Text(
                                                     getJsonField(
                                                       productBodyItem,
@@ -383,8 +386,8 @@ class _ProductofdesignerclientCopyCopyWidgetState
                                                         .bodyMedium
                                                         .override(
                                                           fontFamily: 'Inter',
-                                                          color:
-                                                              Color(0xFF232323),
+                                                          color: const Color(
+                                                              0xFF232323),
                                                           fontSize: 12,
                                                           letterSpacing: 0.0,
                                                           fontWeight:
@@ -400,8 +403,9 @@ class _ProductofdesignerclientCopyCopyWidgetState
                                               ),
                                             ),
                                             Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(15, 10, 15, 0),
+                                              padding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(15, 10, 15, 0),
                                               child: Row(
                                                 mainAxisSize: MainAxisSize.max,
                                                 mainAxisAlignment:
@@ -419,8 +423,8 @@ class _ProductofdesignerclientCopyCopyWidgetState
                                                         .bodyMedium
                                                         .override(
                                                           fontFamily: 'Inter',
-                                                          color:
-                                                              Color(0xFF263F96),
+                                                          color: const Color(
+                                                              0xFF263F96),
                                                           fontSize: 12,
                                                           letterSpacing: 0.0,
                                                           fontWeight:
@@ -445,7 +449,7 @@ class _ProductofdesignerclientCopyCopyWidgetState
                                                           true)
                                                         Align(
                                                           alignment:
-                                                              AlignmentDirectional(
+                                                              const AlignmentDirectional(
                                                                   0, 0),
                                                           child: InkWell(
                                                             splashColor: Colors
@@ -493,7 +497,7 @@ class _ProductofdesignerclientCopyCopyWidgetState
                                                                             .primaryText,
                                                                       ),
                                                                     ),
-                                                                    duration: Duration(
+                                                                    duration: const Duration(
                                                                         milliseconds:
                                                                             4000),
                                                                     backgroundColor:
@@ -536,7 +540,7 @@ class _ProductofdesignerclientCopyCopyWidgetState
                                                                             .primaryText,
                                                                       ),
                                                                     ),
-                                                                    duration: Duration(
+                                                                    duration: const Duration(
                                                                         milliseconds:
                                                                             4000),
                                                                     backgroundColor:
@@ -568,7 +572,7 @@ class _ProductofdesignerclientCopyCopyWidgetState
                                                                   .userId)!)
                                                         Align(
                                                           alignment:
-                                                              AlignmentDirectional(
+                                                              const AlignmentDirectional(
                                                                   0, 0),
                                                           child: InkWell(
                                                             splashColor: Colors
@@ -616,7 +620,7 @@ class _ProductofdesignerclientCopyCopyWidgetState
                                                                             .primaryText,
                                                                       ),
                                                                     ),
-                                                                    duration: Duration(
+                                                                    duration: const Duration(
                                                                         milliseconds:
                                                                             4000),
                                                                     backgroundColor:
@@ -659,7 +663,7 @@ class _ProductofdesignerclientCopyCopyWidgetState
                                                                             .primaryText,
                                                                       ),
                                                                     ),
-                                                                    duration: Duration(
+                                                                    duration: const Duration(
                                                                         milliseconds:
                                                                             4000),
                                                                     backgroundColor:
