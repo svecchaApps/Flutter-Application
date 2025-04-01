@@ -101,15 +101,16 @@ class _MyOrdersWidgetState extends State<MyOrdersWidget> {
             body: SafeArea(
               top: true,
               child: Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(10.0, 15.0, 10.0, 0.0),
+                padding:
+                    const EdgeInsetsDirectional.fromSTEB(10.0, 15.0, 10.0, 0.0),
                 child: SingleChildScrollView(
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       Padding(
-                        padding:
-                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 60.0),
+                        padding: const EdgeInsetsDirectional.fromSTEB(
+                            0.0, 0.0, 0.0, 60.0),
                         child: Builder(
                           builder: (context) {
                             final ordersBody = BackendAPIGroup.alluserOrdersCall
@@ -128,6 +129,11 @@ class _MyOrdersWidgetState extends State<MyOrdersWidget> {
                               itemBuilder: (context, ordersBodyIndex) {
                                 final ordersBodyItem =
                                     ordersBody[ordersBodyIndex];
+                                final orderTime =
+                                    DateTime.tryParse(getJsonField(
+                                  ordersBodyItem,
+                                  r'''$.statusTimestamps.orderPlaced''',
+                                ).toString());
                                 return Padding(
                                   padding: const EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 0.0, 20.0),
@@ -160,8 +166,8 @@ class _MyOrdersWidgetState extends State<MyOrdersWidget> {
                                             BorderRadius.circular(8.0),
                                       ),
                                       child: Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            10.0, 0.0, 10.0, 0.0),
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(10.0, 0.0, 10.0, 0.0),
                                         child: Column(
                                           mainAxisSize: MainAxisSize.max,
                                           mainAxisAlignment:
@@ -170,8 +176,9 @@ class _MyOrdersWidgetState extends State<MyOrdersWidget> {
                                               CrossAxisAlignment.center,
                                           children: [
                                             Padding(
-                                              padding: const EdgeInsetsDirectional
-                                                  .fromSTEB(
+                                              padding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(
                                                       0.0, 10.0, 0.0, 0.0),
                                               child: Row(
                                                 mainAxisSize: MainAxisSize.max,
@@ -184,7 +191,8 @@ class _MyOrdersWidgetState extends State<MyOrdersWidget> {
                                                                 context)
                                                             .width *
                                                         0.66,
-                                                    decoration: const BoxDecoration(),
+                                                    decoration:
+                                                        const BoxDecoration(),
                                                     child: Row(
                                                       mainAxisSize:
                                                           MainAxisSize.max,
@@ -246,8 +254,8 @@ class _MyOrdersWidgetState extends State<MyOrdersWidget> {
                                                               .height *
                                                           0.05,
                                                       decoration: BoxDecoration(
-                                                        color:
-                                                            const Color(0x4A04137B),
+                                                        color: const Color(
+                                                            0x4A04137B),
                                                         borderRadius:
                                                             BorderRadius
                                                                 .circular(12.0),
@@ -286,17 +294,15 @@ class _MyOrdersWidgetState extends State<MyOrdersWidget> {
                                               ),
                                             ),
                                             Padding(
-                                              padding: const EdgeInsetsDirectional
-                                                  .fromSTEB(
+                                              padding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(
                                                       0.0, 10.0, 20.0, 0.0),
                                               child: Row(
                                                 mainAxisSize: MainAxisSize.max,
                                                 children: [
                                                   Text(
-                                                    ' Order at${getJsonField(
-                                                      ordersBodyItem,
-                                                      r'''$.statusTimestamps.orderPlaced''',
-                                                    ).toString()}',
+                                                    ' Ordered on ${(orderTime != null) ? DateFormat("dd-MM-yyyy 'at' hh:mma").format(orderTime) : 'NA'}',
                                                     style: FlutterFlowTheme.of(
                                                             context)
                                                         .bodyLarge

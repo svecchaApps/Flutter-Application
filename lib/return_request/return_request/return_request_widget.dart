@@ -98,8 +98,8 @@ class _ReturnRequestWidgetState extends State<ReturnRequestWidget> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding:
-                      const EdgeInsetsDirectional.fromSTEB(10.0, 20.0, 10.0, 0.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(
+                      10.0, 20.0, 10.0, 0.0),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     children: [
@@ -118,7 +118,8 @@ class _ReturnRequestWidgetState extends State<ReturnRequestWidget> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(20.0, 20.0, 0.0, 0.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(
+                      20.0, 20.0, 0.0, 0.0),
                   child: FlutterFlowRadioButton(
                     options: [
                       'Size Issue',
@@ -159,8 +160,8 @@ class _ReturnRequestWidgetState extends State<ReturnRequestWidget> {
                   ),
                 ),
                 Padding(
-                  padding:
-                      const EdgeInsetsDirectional.fromSTEB(20.0, 10.0, 20.0, 0.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(
+                      20.0, 10.0, 20.0, 0.0),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     children: [
@@ -180,8 +181,8 @@ class _ReturnRequestWidgetState extends State<ReturnRequestWidget> {
                 ),
                 if (_model.uploadedFileUrl == '')
                   Padding(
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(20.0, 10.0, 20.0, 0.0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(
+                        20.0, 10.0, 20.0, 0.0),
                     child: InkWell(
                       splashColor: Colors.transparent,
                       focusColor: Colors.transparent,
@@ -252,8 +253,8 @@ class _ReturnRequestWidgetState extends State<ReturnRequestWidget> {
                   ),
                 if (_model.uploadedFileUrl != '')
                   Padding(
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 0.0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(
+                        20.0, 0.0, 20.0, 0.0),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(8.0),
                       child: Image.network(
@@ -264,9 +265,20 @@ class _ReturnRequestWidgetState extends State<ReturnRequestWidget> {
                       ),
                     ),
                   ),
+                const SizedBox(height: 24),
+                Text(
+                  'Return Reason',
+                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                        fontFamily:
+                            FlutterFlowTheme.of(context).bodyMediumFamily,
+                        letterSpacing: 0.0,
+                        useGoogleFonts: GoogleFonts.asMap().containsKey(
+                            FlutterFlowTheme.of(context).bodyMediumFamily),
+                      ),
+                ),
                 Padding(
                   padding:
-                      const EdgeInsetsDirectional.fromSTEB(20.0, 20.0, 20.0, 0.0),
+                      const EdgeInsetsDirectional.fromSTEB(20.0, 12, 20.0, 0.0),
                   child: SizedBox(
                     width: MediaQuery.sizeOf(context).width * 1.0,
                     child: TextFormField(
@@ -274,6 +286,7 @@ class _ReturnRequestWidgetState extends State<ReturnRequestWidget> {
                       focusNode: _model.problemFocusNode,
                       autofocus: false,
                       obscureText: false,
+                      maxLength: 300,
                       decoration: InputDecoration(
                         isDense: true,
                         labelStyle:
@@ -343,8 +356,8 @@ class _ReturnRequestWidgetState extends State<ReturnRequestWidget> {
                 ),
                 const Spacer(),
                 Padding(
-                  padding:
-                      const EdgeInsetsDirectional.fromSTEB(20.0, 10.0, 20.0, 20.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(
+                      20.0, 10.0, 20.0, 20.0),
                   child: FFButtonWidget(
                     onPressed: () async {
                       if (_model.formKey.currentState == null ||
@@ -418,10 +431,10 @@ class _ReturnRequestWidgetState extends State<ReturnRequestWidget> {
                     options: FFButtonOptions(
                       width: MediaQuery.sizeOf(context).width * 1.0,
                       height: MediaQuery.sizeOf(context).height * 0.065,
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
-                      iconPadding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                      padding: const EdgeInsetsDirectional.fromSTEB(
+                          16.0, 0.0, 16.0, 0.0),
+                      iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                          0.0, 0.0, 0.0, 0.0),
                       color: FlutterFlowTheme.of(context).primary,
                       textStyle: FlutterFlowTheme.of(context)
                           .titleSmall

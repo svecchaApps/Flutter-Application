@@ -1,18 +1,13 @@
-import 'package:indigo_rhapsody_dupli/designer/product_description_color/product_description_color_widget.dart';
-
-import '/flutter_flow/flutter_flow_animations.dart';
-import '/flutter_flow/flutter_flow_autocomplete_options_list.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import 'dart:ui';
-import 'package:flutter/material.dart';
 import 'dart:convert';
+
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:flutter_animate/flutter_animate.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'searchpage1_model.dart';
-export 'searchpage1_model.dart';
+import 'package:indigo_rhapsody_dupli/designer/product_description_color/product_description_color_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '/flutter_flow/flutter_flow_theme.dart';
+
+export 'searchpage1_model.dart';
 
 class Searchpage1Widget extends StatefulWidget {
   const Searchpage1Widget({super.key});
@@ -122,9 +117,9 @@ class _Searchpage1WidgetState extends State<Searchpage1Widget> {
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: FlutterFlowTheme.of(context).primary,
-          title: Text('Search'),
+          title: const Text('Search'),
           leading: IconButton(
-            icon: Icon(Icons.arrow_back, color: Colors.white),
+            icon: const Icon(Icons.arrow_back, color: Colors.white),
             onPressed: () => Navigator.of(context).pop(),
           ),
         ),
@@ -136,10 +131,10 @@ class _Searchpage1WidgetState extends State<Searchpage1Widget> {
                 controller: _typeAheadController,
                 decoration: InputDecoration(
                   hintText: 'Search for products...',
-                  prefixIcon: Icon(Icons.search, color: Colors.grey),
+                  prefixIcon: const Icon(Icons.search, color: Colors.grey),
                   suffixIcon: _typeAheadController.text.isNotEmpty
                       ? IconButton(
-                          icon: Icon(Icons.clear, color: Colors.grey),
+                          icon: const Icon(Icons.clear, color: Colors.grey),
                           onPressed: () {
                             _typeAheadController.clear();
                             setState(() {});
@@ -148,21 +143,21 @@ class _Searchpage1WidgetState extends State<Searchpage1Widget> {
                       : null,
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8),
-                    borderSide: BorderSide(color: Colors.grey),
+                    borderSide: const BorderSide(color: Colors.grey),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8),
                     borderSide:
                         BorderSide(color: Theme.of(context).primaryColor),
                   ),
-                  contentPadding: EdgeInsets.all(15),
+                  contentPadding: const EdgeInsets.all(15),
                 ),
                 autofocus: true,
               ),
               if (_typeAheadController.text.isEmpty ||
                   (_searchResults.isEmpty && !_isLoading))
                 Padding(
-                  padding: EdgeInsets.fromLTRB(10, 20, 0, 10),
+                  padding: const EdgeInsets.fromLTRB(10, 20, 0, 10),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     children: [
@@ -189,21 +184,22 @@ class _Searchpage1WidgetState extends State<Searchpage1Widget> {
                                     width: 50,
                                     fit: BoxFit.cover,
                                   )
-                                : Icon(Icons.image, size: 50),
+                                : const Icon(Icons.image, size: 50),
                             title: Text(product['productName'] ?? 'No Name',
-                                style: TextStyle(fontSize: 16)),
+                                style: const TextStyle(fontSize: 16)),
                             subtitle: Text('₹${product['price'] ?? 0}',
-                                style: TextStyle(color: Colors.green)),
+                                style: const TextStyle(color: Colors.green)),
                             onTap: () => _onProductSelected(product),
                           );
                         },
                       )
                     : _isLoading
-                        ? Center(child: CircularProgressIndicator())
+                        ? const Center(child: CircularProgressIndicator())
                         : _hasError
-                            ? Center(child: Text('Product Does Not Exist'))
+                            ? const Center(
+                                child: Text('Product Does Not Exist'))
                             : _searchResults.isEmpty
-                                ? Center(child: Text('No Products Found'))
+                                ? const Center(child: Text('No Products Found'))
                                 : ListView.builder(
                                     itemCount: _searchResults.length,
                                     itemBuilder: (context, index) {
@@ -222,15 +218,17 @@ class _Searchpage1WidgetState extends State<Searchpage1Widget> {
                                                 fit: BoxFit.cover,
                                                 errorBuilder: (context, error,
                                                         stackTrace) =>
-                                                    Icon(Icons.broken_image,
+                                                    const Icon(
+                                                        Icons.broken_image,
                                                         size: 50),
                                               )
-                                            : Icon(Icons.image, size: 50),
+                                            : const Icon(Icons.image, size: 50),
                                         title: Text(productName,
-                                            style: TextStyle(fontSize: 16)),
-                                        subtitle: Text('₹$price',
                                             style:
-                                                TextStyle(color: Colors.green)),
+                                                const TextStyle(fontSize: 16)),
+                                        subtitle: Text('₹$price',
+                                            style: const TextStyle(
+                                                color: Colors.green)),
                                         onTap: () =>
                                             _onProductSelected(product),
                                       );

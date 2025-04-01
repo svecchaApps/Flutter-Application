@@ -57,6 +57,7 @@ class _PaymentpageWidgetState extends State<PaymentpageWidget> {
     });
   }
 
+  @override
   void initState() {
     super.initState();
     initPhonePeSdk();
@@ -131,7 +132,8 @@ class _PaymentpageWidgetState extends State<PaymentpageWidget> {
             } else {
               // Handle payment fetching failure
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text('Failed to fetch payment details.')),
+                const SnackBar(
+                    content: Text('Failed to fetch payment details.')),
               );
             }
           } else {
@@ -541,14 +543,14 @@ class _PaymentpageWidgetState extends State<PaymentpageWidget> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Row(
+                                  const Row(
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
                                       Text(
                                         'Select Payment',
                                         style: TextStyle(
                                           fontFamily: 'Inter',
-                                          color: const Color(0xFF4A5458),
+                                          color: Color(0xFF4A5458),
                                           fontSize: 13.0,
                                           fontWeight: FontWeight.w600,
                                         ),
@@ -564,7 +566,7 @@ class _PaymentpageWidgetState extends State<PaymentpageWidget> {
                                           ? Colors.blue
                                           : Colors.grey,
                                     ),
-                                    title: Text('Cash on Delivery'),
+                                    title: const Text('Cash on Delivery'),
                                     tileColor: selectedPaymentMethod ==
                                             "Cash on Delivery"
                                         ? Colors.blue.withOpacity(0.1)
@@ -587,7 +589,7 @@ class _PaymentpageWidgetState extends State<PaymentpageWidget> {
                                           ? Colors.blue
                                           : Colors.grey,
                                     ),
-                                    title: Text('PhonePe'),
+                                    title: const Text('PhonePe'),
                                     tileColor:
                                         selectedPaymentMethod == "PhonePe"
                                             ? Colors.blue.withOpacity(0.1)
@@ -962,11 +964,11 @@ class _PaymentpageWidgetState extends State<PaymentpageWidget> {
                                   postalcode: FFAppState().pincode,
                                 );
 
-                                if ((apiResult?.succeeded ?? false)) {
+                                if ((apiResult.succeeded ?? false)) {
                                   context.pushNamed('ordercompletedCopy');
                                 } else {
                                   ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
+                                    const SnackBar(
                                       content: Text('Order Failed!'),
                                     ),
                                   );
@@ -1007,7 +1009,7 @@ class _PaymentpageWidgetState extends State<PaymentpageWidget> {
                                   startTransaction(grandTotal);
                                 } else {
                                   ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
+                                    const SnackBar(
                                         content: Text(
                                             'Invalid grand total amount.')),
                                   );
@@ -1017,7 +1019,7 @@ class _PaymentpageWidgetState extends State<PaymentpageWidget> {
                           : () {
                               if (selectedIndex == null) {
                                 ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
+                                  const SnackBar(
                                     content: Text(
                                         'Please select an address before proceeding.'),
                                   ),

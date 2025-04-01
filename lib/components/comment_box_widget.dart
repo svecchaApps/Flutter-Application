@@ -87,7 +87,8 @@ class _CommentBoxWidgetState extends State<CommentBoxWidget> {
             ),
           ),
           child: Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 16.0),
+            padding:
+                const EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 16.0),
             child: SingleChildScrollView(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -110,7 +111,8 @@ class _CommentBoxWidgetState extends State<CommentBoxWidget> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(
+                        8.0, 0.0, 8.0, 0.0),
                     child: Container(
                       width: 40.0,
                       height: 4.0,
@@ -121,7 +123,8 @@ class _CommentBoxWidgetState extends State<CommentBoxWidget> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(
+                        8.0, 0.0, 8.0, 0.0),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -145,7 +148,8 @@ class _CommentBoxWidgetState extends State<CommentBoxWidget> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(
+                        8.0, 0.0, 8.0, 0.0),
                     child: Builder(
                       builder: (context) {
                         final bodyy = BackendAPIGroup.getCommentCall
@@ -161,9 +165,28 @@ class _CommentBoxWidgetState extends State<CommentBoxWidget> {
                           shrinkWrap: true,
                           scrollDirection: Axis.vertical,
                           itemCount: bodyy.length,
-                          separatorBuilder: (_, __) => const SizedBox(height: 16.0),
+                          separatorBuilder: (_, __) =>
+                              const SizedBox(height: 16.0),
                           itemBuilder: (context, bodyyIndex) {
                             final bodyyItem = bodyy[bodyyIndex];
+                            final userName = getJsonField(
+                              bodyyItem,
+                              r'''$.*.displayName''',
+                            ).toString();
+                            final commentDateTime =
+                                DateTime.tryParse(bodyyItem['createdAt'])
+                                    ?.toLocal();
+
+                            final timestamp = (commentDateTime != null)
+                                ? DateFormat(((commentDateTime
+                                                .difference(DateTime.now())
+                                                .inDays) >
+                                            1)
+                                        ? "hh:mma 'on' dd-MM-yyyy"
+                                        : "hh:mma")
+                                    .format(commentDateTime)
+                                : '';
+
                             return Container(
                               width: MediaQuery.sizeOf(context).width * 1.0,
                               decoration: const BoxDecoration(),
@@ -171,31 +194,55 @@ class _CommentBoxWidgetState extends State<CommentBoxWidget> {
                                 mainAxisSize: MainAxisSize.max,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      color:
-                                          FlutterFlowTheme.of(context).accent2,
-                                      borderRadius: BorderRadius.circular(20.0),
-                                    ),
-                                    child: Text(
-                                      getJsonField(
-                                        bodyyItem,
-                                        r'''$.*.displayName''',
-                                      ).toString(),
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMediumFamily,
-                                            fontSize: 10.0,
-                                            letterSpacing: 0.0,
-                                            useGoogleFonts: GoogleFonts.asMap()
-                                                .containsKey(
+                                  Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Container(
+                                        decoration: BoxDecoration(
+                                          color: FlutterFlowTheme.of(context)
+                                              .accent2,
+                                          borderRadius:
+                                              BorderRadius.circular(20.0),
+                                        ),
+                                        padding: const EdgeInsets.all(4),
+                                        child: Text(
+                                          userName,
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily:
                                                     FlutterFlowTheme.of(context)
-                                                        .bodyMediumFamily),
-                                          ),
-                                    ),
+                                                        .bodyMediumFamily,
+                                                fontSize: 10.0,
+                                                letterSpacing: 0.0,
+                                                useGoogleFonts: GoogleFonts
+                                                        .asMap()
+                                                    .containsKey(
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .bodyMediumFamily),
+                                              ),
+                                        ),
+                                      ),
+                                      Text(
+                                        '  •  $timestamp',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMediumFamily,
+                                              fontSize: 10.0,
+                                              letterSpacing: 0.0,
+                                              useGoogleFonts: GoogleFonts
+                                                      .asMap()
+                                                  .containsKey(
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyMediumFamily),
+                                            ),
+                                      )
+                                    ],
                                   ),
                                   Text(
                                     getJsonField(

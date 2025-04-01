@@ -112,8 +112,8 @@ class _OrderdetailsWidgetState extends State<OrderdetailsWidget> {
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Padding(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(5.0, 0.0, 5.0, 5.0),
+                      padding: const EdgeInsetsDirectional.fromSTEB(
+                          5.0, 0.0, 5.0, 5.0),
                       child: SingleChildScrollView(
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
@@ -133,8 +133,9 @@ class _OrderdetailsWidgetState extends State<OrderdetailsWidget> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          20.0, 10.0, 20.0, 0.0),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              20.0, 10.0, 20.0, 0.0),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
                                         mainAxisAlignment:
@@ -205,8 +206,9 @@ class _OrderdetailsWidgetState extends State<OrderdetailsWidget> {
                                                   BorderRadius.circular(20.0),
                                             ),
                                             child: Align(
-                                              alignment: const AlignmentDirectional(
-                                                  0.0, 0.0),
+                                              alignment:
+                                                  const AlignmentDirectional(
+                                                      0.0, 0.0),
                                               child: Text(
                                                 valueOrDefault<String>(
                                                   BackendAPIGroup
@@ -246,8 +248,9 @@ class _OrderdetailsWidgetState extends State<OrderdetailsWidget> {
                                       ),
                                     ),
                                     Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          20.0, 5.0, 20.0, 0.0),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              20.0, 5.0, 20.0, 0.0),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
@@ -299,8 +302,9 @@ class _OrderdetailsWidgetState extends State<OrderdetailsWidget> {
                                       ),
                                     ),
                                     Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          20.0, 10.0, 20.0, 10.0),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              20.0, 10.0, 20.0, 10.0),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
@@ -324,9 +328,8 @@ class _OrderdetailsWidgetState extends State<OrderdetailsWidget> {
                                                 ),
                                           ),
                                           Padding(
-                                            padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
-                                                    10.0, 0.0, 0.0, 0.0),
+                                            padding: const EdgeInsetsDirectional
+                                                .fromSTEB(10.0, 0.0, 0.0, 0.0),
                                             child: Text(
                                               valueOrDefault<String>(
                                                 BackendAPIGroup
@@ -398,17 +401,17 @@ class _OrderdetailsWidgetState extends State<OrderdetailsWidget> {
                                               ),
                                         ),
                                         Padding(
-                                          padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 10.0, 5.0, 5.0),
+                                          padding: const EdgeInsetsDirectional
+                                              .fromSTEB(0.0, 10.0, 5.0, 5.0),
                                           child: Container(
                                             width: MediaQuery.sizeOf(context)
                                                     .width *
                                                 0.9,
                                             decoration: const BoxDecoration(),
                                             child: Align(
-                                              alignment: const AlignmentDirectional(
-                                                  -1.0, -1.0),
+                                              alignment:
+                                                  const AlignmentDirectional(
+                                                      -1.0, -1.0),
                                               child: Text(
                                                 valueOrDefault<String>(
                                                   BackendAPIGroup
@@ -442,9 +445,8 @@ class _OrderdetailsWidgetState extends State<OrderdetailsWidget> {
                                           ),
                                         ),
                                         Padding(
-                                          padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 5.0, 5.0, 5.0),
+                                          padding: const EdgeInsetsDirectional
+                                              .fromSTEB(0.0, 5.0, 5.0, 5.0),
                                           child: Container(
                                             width: MediaQuery.sizeOf(context)
                                                     .width *
@@ -481,9 +483,8 @@ class _OrderdetailsWidgetState extends State<OrderdetailsWidget> {
                                           ),
                                         ),
                                         Padding(
-                                          padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 5.0, 5.0, 5.0),
+                                          padding: const EdgeInsetsDirectional
+                                              .fromSTEB(0.0, 5.0, 5.0, 5.0),
                                           child: Container(
                                             width: MediaQuery.sizeOf(context)
                                                     .width *
@@ -520,9 +521,8 @@ class _OrderdetailsWidgetState extends State<OrderdetailsWidget> {
                                           ),
                                         ),
                                         Padding(
-                                          padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 5.0, 5.0, 5.0),
+                                          padding: const EdgeInsetsDirectional
+                                              .fromSTEB(0.0, 5.0, 5.0, 5.0),
                                           child: Container(
                                             width: MediaQuery.sizeOf(context)
                                                     .width *
@@ -611,8 +611,8 @@ class _OrderdetailsWidgetState extends State<OrderdetailsWidget> {
                                     itemBuilder: (context, itemsIndex) {
                                       final itemsItem = items[itemsIndex];
                                       return Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 0.0, 0.0, 10.0),
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(0.0, 0.0, 0.0, 10.0),
                                         child: Container(
                                           width:
                                               MediaQuery.sizeOf(context).width *
@@ -631,7 +631,7 @@ class _OrderdetailsWidgetState extends State<OrderdetailsWidget> {
                                                     padding:
                                                         const EdgeInsetsDirectional
                                                             .fromSTEB(10.0, 0.0,
-                                                                0.0, 0.0),
+                                                            0.0, 0.0),
                                                     child: Container(
                                                       width: MediaQuery.sizeOf(
                                                                   context)
@@ -662,8 +662,8 @@ class _OrderdetailsWidgetState extends State<OrderdetailsWidget> {
                                                   Padding(
                                                     padding:
                                                         const EdgeInsetsDirectional
-                                                            .fromSTEB(5.0, 0.0,
-                                                                0.0, 0.0),
+                                                            .fromSTEB(
+                                                            5.0, 0.0, 0.0, 0.0),
                                                     child: Container(
                                                       width: MediaQuery.sizeOf(
                                                                   context)
@@ -693,10 +693,10 @@ class _OrderdetailsWidgetState extends State<OrderdetailsWidget> {
                                                               padding:
                                                                   const EdgeInsetsDirectional
                                                                       .fromSTEB(
-                                                                          3.0,
-                                                                          0.0,
-                                                                          0.0,
-                                                                          0.0),
+                                                                      3.0,
+                                                                      0.0,
+                                                                      0.0,
+                                                                      0.0),
                                                               child: Text(
                                                                 getJsonField(
                                                                   itemsItem,
@@ -733,10 +733,10 @@ class _OrderdetailsWidgetState extends State<OrderdetailsWidget> {
                                                               padding:
                                                                   const EdgeInsetsDirectional
                                                                       .fromSTEB(
-                                                                          3.0,
-                                                                          5.0,
-                                                                          0.0,
-                                                                          0.0),
+                                                                      3.0,
+                                                                      5.0,
+                                                                      0.0,
+                                                                      0.0),
                                                               child: Text(
                                                                 '₹${getJsonField(
                                                                   itemsItem,
@@ -749,7 +749,7 @@ class _OrderdetailsWidgetState extends State<OrderdetailsWidget> {
                                                                       fontFamily:
                                                                           'Inter',
                                                                       color: const Color(
-                                                                          0xFFC3C6C9),
+                                                                          0xFF263F96),
                                                                       fontSize:
                                                                           12.0,
                                                                       letterSpacing:
@@ -773,10 +773,10 @@ class _OrderdetailsWidgetState extends State<OrderdetailsWidget> {
                                                               padding:
                                                                   const EdgeInsetsDirectional
                                                                       .fromSTEB(
-                                                                          3.0,
-                                                                          5.0,
-                                                                          0.0,
-                                                                          0.0),
+                                                                      3.0,
+                                                                      5.0,
+                                                                      0.0,
+                                                                      0.0),
                                                               child: Text(
                                                                 'Size:${getJsonField(
                                                                   itemsItem,
@@ -816,8 +816,9 @@ class _OrderdetailsWidgetState extends State<OrderdetailsWidget> {
                                                                         -1.0,
                                                                         0.0),
                                                                 child: Padding(
-                                                                  padding: const EdgeInsetsDirectional
-                                                                      .fromSTEB(
+                                                                  padding:
+                                                                      const EdgeInsetsDirectional
+                                                                          .fromSTEB(
                                                                           3.0,
                                                                           5.0,
                                                                           0.0,
@@ -857,10 +858,10 @@ class _OrderdetailsWidgetState extends State<OrderdetailsWidget> {
                                                               padding:
                                                                   const EdgeInsetsDirectional
                                                                       .fromSTEB(
-                                                                          3.0,
-                                                                          5.0,
-                                                                          0.0,
-                                                                          0.0),
+                                                                      3.0,
+                                                                      5.0,
+                                                                      0.0,
+                                                                      0.0),
                                                               child: Text(
                                                                 'Quantity${getJsonField(
                                                                   itemsItem,
@@ -896,8 +897,8 @@ class _OrderdetailsWidgetState extends State<OrderdetailsWidget> {
                                                   Padding(
                                                     padding:
                                                         const EdgeInsetsDirectional
-                                                            .fromSTEB(1.0, 0.0,
-                                                                1.0, 0.0),
+                                                            .fromSTEB(
+                                                            1.0, 0.0, 1.0, 0.0),
                                                     child: Material(
                                                       color: Colors.transparent,
                                                       elevation: 0.0,
@@ -910,8 +911,8 @@ class _OrderdetailsWidgetState extends State<OrderdetailsWidget> {
                                                       child: Container(
                                                         decoration:
                                                             BoxDecoration(
-                                                          color:
-                                                              const Color(0xFFB6BCF1),
+                                                          color: const Color(
+                                                              0xFFB6BCF1),
                                                           borderRadius:
                                                               BorderRadius
                                                                   .circular(
@@ -930,8 +931,9 @@ class _OrderdetailsWidgetState extends State<OrderdetailsWidget> {
                                                                       .max,
                                                               children: [
                                                                 Padding(
-                                                                  padding: const EdgeInsetsDirectional
-                                                                      .fromSTEB(
+                                                                  padding:
+                                                                      const EdgeInsetsDirectional
+                                                                          .fromSTEB(
                                                                           10.0,
                                                                           10.0,
                                                                           10.0,
@@ -940,7 +942,9 @@ class _OrderdetailsWidgetState extends State<OrderdetailsWidget> {
                                                                     getJsonField(
                                                                       itemsItem,
                                                                       r'''$.shipping_status''',
-                                                                    ).toString(),
+                                                                    )
+                                                                        .toString()
+                                                                        .toUpperCase(),
                                                                     style: FlutterFlowTheme.of(
                                                                             context)
                                                                         .bodyMedium
@@ -964,8 +968,9 @@ class _OrderdetailsWidgetState extends State<OrderdetailsWidget> {
                                                 ],
                                               ),
                                               Padding(
-                                                padding: const EdgeInsetsDirectional
-                                                    .fromSTEB(
+                                                padding:
+                                                    const EdgeInsetsDirectional
+                                                        .fromSTEB(
                                                         10.0, 15.0, 10.0, 20.0),
                                                 child: InkWell(
                                                   splashColor:
@@ -1103,8 +1108,9 @@ class _OrderdetailsWidgetState extends State<OrderdetailsWidget> {
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
                                     Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          20.0, 0.0, 20.0, 0.0),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              20.0, 0.0, 20.0, 0.0),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
@@ -1130,8 +1136,9 @@ class _OrderdetailsWidgetState extends State<OrderdetailsWidget> {
                                       ),
                                     ),
                                     Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          20.0, 10.0, 20.0, 0.0),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              20.0, 10.0, 20.0, 0.0),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
                                         mainAxisAlignment:
@@ -1182,8 +1189,9 @@ class _OrderdetailsWidgetState extends State<OrderdetailsWidget> {
                                       ),
                                     ),
                                     Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          20.0, 10.0, 20.0, 0.0),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              20.0, 10.0, 20.0, 0.0),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
                                         mainAxisAlignment:
@@ -1234,8 +1242,9 @@ class _OrderdetailsWidgetState extends State<OrderdetailsWidget> {
                                       ),
                                     ),
                                     Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          20.0, 10.0, 20.0, 0.0),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              20.0, 10.0, 20.0, 0.0),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
                                         mainAxisAlignment:
@@ -1286,8 +1295,9 @@ class _OrderdetailsWidgetState extends State<OrderdetailsWidget> {
                                       ),
                                     ),
                                     Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          20.0, 10.0, 20.0, 0.0),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              20.0, 10.0, 20.0, 0.0),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
                                         mainAxisAlignment:
@@ -1338,8 +1348,9 @@ class _OrderdetailsWidgetState extends State<OrderdetailsWidget> {
                                       ),
                                     ),
                                     Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          20.0, 10.0, 20.0, 20.0),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              20.0, 10.0, 20.0, 20.0),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
                                         mainAxisAlignment:

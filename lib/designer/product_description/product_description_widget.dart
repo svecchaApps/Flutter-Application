@@ -971,6 +971,12 @@ class _ProductDescriptionWidgetState extends State<ProductDescriptionWidget> {
                                               productId: widget.productId,
                                             );
 
+                                            if (_model.apiResult2t4new
+                                                    ?.jsonBody ==
+                                                null) {
+                                              return;
+                                            }
+
                                             if ((_model.apiResultdshcopyCopy
                                                     ?.succeeded ??
                                                 true)) {
@@ -1232,6 +1238,11 @@ class _ProductDescriptionWidgetState extends State<ProductDescriptionWidget> {
                                         ),
                                         customizations: 'Na',
                                       );
+
+                                      if (_model.apiResult2t4new?.jsonBody ==
+                                          null) {
+                                        return;
+                                      }
 
                                       if ((_model.apiResult2t4new?.succeeded ??
                                           true)) {

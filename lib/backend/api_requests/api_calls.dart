@@ -1131,10 +1131,12 @@ class GetCartForUserCall {
         response,
         r'''$.cart.subtotal''',
       ));
-  double? cartTotalAmount(dynamic response) => castToType<double>(getJsonField(
-        response,
-        r'''$.cart.total_amount''',
-      ));
+  double? cartTotalAmount(dynamic response) =>
+      double.tryParse(castToType<double>(getJsonField(
+            response,
+            r'''$.cart.total_amount''',
+          ))?.toStringAsFixed(2) ??
+          '');
   bool? discountApplied(dynamic response) => castToType<bool>(getJsonField(
         response,
         r'''$.cart.discount_applied''',
@@ -1959,10 +1961,12 @@ class GetOrderDetailsForParticularUserCall {
         r'''$.order.products''',
         true,
       ) as List?;
-  double? priceOrder(dynamic response) => castToType<double>(getJsonField(
-        response,
-        r'''$.order.amount''',
-      ));
+  double? priceOrder(dynamic response) =>
+      double.tryParse(castToType<double>(getJsonField(
+            response,
+            r'''$.order.amount''',
+          ))?.toStringAsFixed(2) ??
+          '');
   String? mainId(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.order._id''',

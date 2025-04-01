@@ -96,7 +96,8 @@ class _EmailloginWidgetState extends State<EmailloginWidget>
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(25.0, 0.0, 25.0, 0.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(
+                      25.0, 0.0, 25.0, 0.0),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     children: [
@@ -116,8 +117,8 @@ class _EmailloginWidgetState extends State<EmailloginWidget>
                   ),
                 ),
                 Padding(
-                  padding:
-                      const EdgeInsetsDirectional.fromSTEB(25.0, 10.0, 25.0, 0.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(
+                      25.0, 10.0, 25.0, 0.0),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     children: [
@@ -137,8 +138,8 @@ class _EmailloginWidgetState extends State<EmailloginWidget>
                   ),
                 ),
                 Padding(
-                  padding:
-                      const EdgeInsetsDirectional.fromSTEB(25.0, 60.0, 25.0, 0.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(
+                      25.0, 60.0, 25.0, 0.0),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     children: [
@@ -158,8 +159,8 @@ class _EmailloginWidgetState extends State<EmailloginWidget>
                   ),
                 ),
                 Padding(
-                  padding:
-                      const EdgeInsetsDirectional.fromSTEB(20.0, 12.0, 20.0, 12.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(
+                      20.0, 12.0, 20.0, 12.0),
                   child: Container(
                     width: MediaQuery.sizeOf(context).width * 1.0,
                     decoration: BoxDecoration(
@@ -250,8 +251,8 @@ class _EmailloginWidgetState extends State<EmailloginWidget>
                   ),
                 ),
                 Padding(
-                  padding:
-                      const EdgeInsetsDirectional.fromSTEB(25.0, 10.0, 25.0, 0.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(
+                      25.0, 10.0, 25.0, 0.0),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     children: [
@@ -271,8 +272,8 @@ class _EmailloginWidgetState extends State<EmailloginWidget>
                   ),
                 ),
                 Padding(
-                  padding:
-                      const EdgeInsetsDirectional.fromSTEB(20.0, 12.0, 20.0, 12.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(
+                      20.0, 12.0, 20.0, 12.0),
                   child: Container(
                     width: MediaQuery.sizeOf(context).width * 1.0,
                     decoration: BoxDecoration(
@@ -372,7 +373,8 @@ class _EmailloginWidgetState extends State<EmailloginWidget>
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(20.0, 2.0, 20.0, 0.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(
+                      20.0, 2.0, 20.0, 0.0),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.end,
@@ -404,8 +406,8 @@ class _EmailloginWidgetState extends State<EmailloginWidget>
                   ),
                 ),
                 Padding(
-                  padding:
-                      const EdgeInsetsDirectional.fromSTEB(20.0, 60.0, 20.0, 30.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(
+                      20.0, 60.0, 20.0, 30.0),
                   child: FFButtonWidget(
                     onPressed: () async {
                       GoRouter.of(context).prepareAuthEvent();
@@ -428,7 +430,7 @@ class _EmailloginWidgetState extends State<EmailloginWidget>
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                           content: Text(
-                            'Logged In Successfully',
+                            'Welcome!',
                             style: TextStyle(
                               color: FlutterFlowTheme.of(context).primaryText,
                             ),
@@ -447,10 +449,10 @@ class _EmailloginWidgetState extends State<EmailloginWidget>
                     options: FFButtonOptions(
                       width: double.infinity,
                       height: MediaQuery.sizeOf(context).height * 0.065,
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(21.0, 0.0, 21.0, 0.0),
-                      iconPadding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                      padding: const EdgeInsetsDirectional.fromSTEB(
+                          21.0, 0.0, 21.0, 0.0),
+                      iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                          0.0, 0.0, 0.0, 0.0),
                       color: FlutterFlowTheme.of(context).primary,
                       textStyle:
                           FlutterFlowTheme.of(context).titleSmall.override(
@@ -472,7 +474,8 @@ class _EmailloginWidgetState extends State<EmailloginWidget>
                       animationsMap['buttonOnPageLoadAnimation1']!),
                 ),
                 Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 10.0),
+                  padding:
+                      const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 10.0),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -492,8 +495,8 @@ class _EmailloginWidgetState extends State<EmailloginWidget>
                   ),
                 ),
                 Padding(
-                  padding:
-                      const EdgeInsetsDirectional.fromSTEB(20.0, 20.0, 20.0, 20.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(
+                      20.0, 20.0, 20.0, 20.0),
                   child: FFButtonWidget(
                     onPressed: () async {
                       context.pushNamed('LoginMobileScreen');
@@ -502,10 +505,10 @@ class _EmailloginWidgetState extends State<EmailloginWidget>
                     options: FFButtonOptions(
                       width: double.infinity,
                       height: MediaQuery.sizeOf(context).height * 0.065,
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(21.0, 0.0, 21.0, 0.0),
-                      iconPadding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                      padding: const EdgeInsetsDirectional.fromSTEB(
+                          21.0, 0.0, 21.0, 0.0),
+                      iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                          0.0, 0.0, 0.0, 0.0),
                       color: FlutterFlowTheme.of(context).alternate,
                       textStyle:
                           FlutterFlowTheme.of(context).titleSmall.override(
@@ -527,7 +530,8 @@ class _EmailloginWidgetState extends State<EmailloginWidget>
                       animationsMap['buttonOnPageLoadAnimation2']!),
                 ),
                 Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 30.0),
+                  padding:
+                      const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 30.0),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -544,8 +548,8 @@ class _EmailloginWidgetState extends State<EmailloginWidget>
                             ),
                       ),
                       Padding(
-                        padding:
-                            const EdgeInsetsDirectional.fromSTEB(5.0, 0.0, 0.0, 0.0),
+                        padding: const EdgeInsetsDirectional.fromSTEB(
+                            5.0, 0.0, 0.0, 0.0),
                         child: InkWell(
                           splashColor: Colors.transparent,
                           focusColor: Colors.transparent,

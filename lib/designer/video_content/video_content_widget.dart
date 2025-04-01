@@ -303,149 +303,44 @@ class _VideoContentWidgetState extends State<VideoContentWidget> {
                                                       ),
                                                       child: Stack(
                                                         children: [
-                                                          if (!functions
-                                                              .newCustomFunction3(
-                                                                  getJsonField(
-                                                                    videoPasthItem,
-                                                                    r'''$.likedBy''',
-                                                                  ),
-                                                                  FFAppState()
-                                                                      .userId)!)
-                                                            Padding(
-                                                              padding:
-                                                                  const EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                      0,
-                                                                      0,
-                                                                      0,
-                                                                      10),
-                                                              child:
-                                                                  FlutterFlowIconButton(
-                                                                borderColor: Colors
-                                                                    .transparent,
-                                                                borderRadius:
-                                                                    20,
-                                                                buttonSize: 44,
-                                                                fillColor: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .secondaryBackground,
-                                                                icon: Icon(
-                                                                  Icons
-                                                                      .favorite,
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .alternate,
-                                                                  size: 22,
-                                                                ),
-                                                                onPressed:
-                                                                    () async {
-                                                                  HapticFeedback
-                                                                      .mediumImpact();
-                                                                  _model.apiResultcyxcopyCopyCopy =
-                                                                      await BackendAPIGroup
-                                                                          .toggleLikeVideoCall
-                                                                          .call(
-                                                                    videoId:
-                                                                        getJsonField(
-                                                                      videoPasthItem,
-                                                                      r'''$._id''',
-                                                                    ).toString(),
-                                                                    userId: FFAppState()
-                                                                        .userId,
-                                                                  );
-
-                                                                  if ((_model
-                                                                          .apiResultcyxcopyCopyCopy
-                                                                          ?.succeeded ??
-                                                                      true)) {
-                                                                    safeSetState(() =>
-                                                                        _model.apiRequestCompleter =
-                                                                            null);
-                                                                    await _model
-                                                                        .waitForApiRequestCompleted();
-                                                                    ScaffoldMessenger.of(
-                                                                            context)
-                                                                        .showSnackBar(
-                                                                      SnackBar(
-                                                                        content:
-                                                                            Text(
-                                                                          getJsonField(
-                                                                            (_model.apiResultcyxcopyCopyCopy?.jsonBody ??
-                                                                                ''),
-                                                                            r'''$.message''',
-                                                                          ).toString(),
-                                                                          style:
-                                                                              TextStyle(
-                                                                            color:
-                                                                                FlutterFlowTheme.of(context).primaryText,
-                                                                          ),
-                                                                        ),
-                                                                        duration:
-                                                                            const Duration(milliseconds: 4000),
-                                                                        backgroundColor:
-                                                                            FlutterFlowTheme.of(context).secondary,
-                                                                      ),
-                                                                    );
-                                                                  } else {
-                                                                    ScaffoldMessenger.of(
-                                                                            context)
-                                                                        .showSnackBar(
-                                                                      SnackBar(
-                                                                        content:
-                                                                            Text(
-                                                                          getJsonField(
-                                                                            (_model.apiResultcyxcopyCopyCopy?.jsonBody ??
-                                                                                ''),
-                                                                            r'''$.message''',
-                                                                          ).toString(),
-                                                                          style:
-                                                                              TextStyle(
-                                                                            color:
-                                                                                FlutterFlowTheme.of(context).primaryText,
-                                                                          ),
-                                                                        ),
-                                                                        duration:
-                                                                            const Duration(milliseconds: 4000),
-                                                                        backgroundColor:
-                                                                            FlutterFlowTheme.of(context).secondary,
-                                                                      ),
-                                                                    );
-                                                                  }
-
-                                                                  safeSetState(
-                                                                      () {});
-                                                                },
-                                                              ),
-                                                            ),
-                                                          if (functions
-                                                                  .newCustomFunction3(
-                                                                      getJsonField(
-                                                                        videoPasthItem,
-                                                                        r'''$.likedBy''',
-                                                                      ),
-                                                                      FFAppState()
-                                                                          .userId) ??
-                                                              true)
-                                                            FlutterFlowIconButton(
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsetsDirectional
+                                                                    .fromSTEB(0,
+                                                                    0, 0, 10),
+                                                            child:
+                                                                FlutterFlowIconButton(
                                                               borderColor: Colors
                                                                   .transparent,
-                                                              borderRadius: 22,
+                                                              borderRadius: 20,
                                                               buttonSize: 44,
                                                               fillColor: FlutterFlowTheme
                                                                       .of(context)
                                                                   .secondaryBackground,
                                                               icon: Icon(
                                                                 Icons.favorite,
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .error,
+                                                                color: (functions
+                                                                            .newCustomFunction3(
+                                                                                getJsonField(
+                                                                                  videoPasthItem,
+                                                                                  r'''$.likedBy''',
+                                                                                ),
+                                                                                FFAppState()
+                                                                                    .userId) ??
+                                                                        true)
+                                                                    ? FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .error
+                                                                    : FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .alternate,
                                                                 size: 22,
                                                               ),
                                                               onPressed:
                                                                   () async {
                                                                 HapticFeedback
                                                                     .mediumImpact();
-                                                                _model.unlike =
+                                                                _model.apiResultcyxcopyCopyCopy =
                                                                     await BackendAPIGroup
                                                                         .toggleLikeVideoCall
                                                                         .call(
@@ -459,72 +354,24 @@ class _VideoContentWidgetState extends State<VideoContentWidget> {
                                                                           .userId,
                                                                 );
 
-                                                                if ((_model
-                                                                        .unlike
-                                                                        ?.succeeded ??
-                                                                    true)) {
+                                                                if ((_model.apiResultcyxcopyCopyCopy
+                                                                            ?.succeeded ??
+                                                                        true) &&
+                                                                    _model.apiResultcyxcopyCopyCopy
+                                                                            ?.jsonBody !=
+                                                                        null) {
                                                                   safeSetState(() =>
                                                                       _model.apiRequestCompleter =
                                                                           null);
                                                                   await _model
                                                                       .waitForApiRequestCompleted();
-                                                                  ScaffoldMessenger.of(
-                                                                          context)
-                                                                      .showSnackBar(
-                                                                    SnackBar(
-                                                                      content:
-                                                                          Text(
-                                                                        getJsonField(
-                                                                          (_model.unlike?.jsonBody ??
-                                                                              ''),
-                                                                          r'''$.message''',
-                                                                        ).toString(),
-                                                                        style:
-                                                                            TextStyle(
-                                                                          color:
-                                                                              FlutterFlowTheme.of(context).primaryText,
-                                                                        ),
-                                                                      ),
-                                                                      duration: const Duration(
-                                                                          milliseconds:
-                                                                              4000),
-                                                                      backgroundColor:
-                                                                          FlutterFlowTheme.of(context)
-                                                                              .secondary,
-                                                                    ),
-                                                                  );
-                                                                } else {
-                                                                  ScaffoldMessenger.of(
-                                                                          context)
-                                                                      .showSnackBar(
-                                                                    SnackBar(
-                                                                      content:
-                                                                          Text(
-                                                                        getJsonField(
-                                                                          (_model.unlike?.jsonBody ??
-                                                                              ''),
-                                                                          r'''$.message''',
-                                                                        ).toString(),
-                                                                        style:
-                                                                            TextStyle(
-                                                                          color:
-                                                                              FlutterFlowTheme.of(context).primaryText,
-                                                                        ),
-                                                                      ),
-                                                                      duration: const Duration(
-                                                                          milliseconds:
-                                                                              4000),
-                                                                      backgroundColor:
-                                                                          FlutterFlowTheme.of(context)
-                                                                              .secondary,
-                                                                    ),
-                                                                  );
                                                                 }
 
                                                                 safeSetState(
                                                                     () {});
                                                               },
                                                             ),
+                                                          ),
                                                         ],
                                                       ),
                                                     ),

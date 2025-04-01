@@ -69,6 +69,7 @@ class _CommenttextWidgetState extends State<CommenttextWidget> {
               focusNode: _model.textFieldFocusNode,
               autofocus: false,
               obscureText: false,
+              maxLength: 100,
               decoration: InputDecoration(
                 isDense: true,
                 labelStyle: FlutterFlowTheme.of(context).labelMedium.override(
@@ -83,8 +84,10 @@ class _CommenttextWidgetState extends State<CommenttextWidget> {
                 hintStyle: FlutterFlowTheme.of(context).labelMedium.override(
                       fontFamily:
                           FlutterFlowTheme.of(context).labelMediumFamily,
-                      color: FlutterFlowTheme.of(context).primaryText,
-                      fontSize: 18.0,
+                      color: FlutterFlowTheme.of(context)
+                          .primaryText
+                          .withOpacity(0.35),
+                      fontSize: 14.0,
                       letterSpacing: 0.0,
                       useGoogleFonts: GoogleFonts.asMap().containsKey(
                           FlutterFlowTheme.of(context).labelMediumFamily),

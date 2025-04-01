@@ -86,14 +86,15 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
                         child: Text(
                           'Profile Page',
                           style: FlutterFlowTheme.of(context)
                               .headlineMedium
                               .override(
                                 fontFamily: 'Inter',
-                                color: Color(0xFF232323),
+                                color: const Color(0xFF232323),
                                 fontSize: 20,
                                 letterSpacing: 0.0,
                                 fontWeight: FontWeight.w600,
@@ -104,7 +105,7 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                       ),
                     ],
                   ),
-                  actions: [],
+                  actions: const [],
                   centerTitle: false,
                   elevation: 0,
                 ),
@@ -116,15 +117,15 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(20, 40, 20, 0),
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(20, 40, 20, 0),
                         child: InkWell(
                           splashColor: Colors.transparent,
                           focusColor: Colors.transparent,
                           hoverColor: Colors.transparent,
                           highlightColor: Colors.transparent,
                           onTap: () async {
-                            if (currentPhoneNumber != null &&
-                                currentPhoneNumber != '') {
+                            if (currentPhoneNumber != '') {
                               context.pushNamed('MyOrders');
                             } else {
                               context.pushNamed('LoginMobileScreen');
@@ -138,7 +139,7 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                           .secondaryBackground,
                                     ),
                                   ),
-                                  duration: Duration(milliseconds: 4000),
+                                  duration: const Duration(milliseconds: 4000),
                                   backgroundColor:
                                       FlutterFlowTheme.of(context).primary,
                                 ),
@@ -154,8 +155,8 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                               borderRadius: BorderRadius.circular(20),
                             ),
                             child: Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  10, 0, 10, 0),
                               child: Row(
                                 mainAxisSize: MainAxisSize.min,
                                 mainAxisAlignment:
@@ -172,19 +173,19 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                         height:
                                             MediaQuery.sizeOf(context).width *
                                                 0.11,
-                                        decoration: BoxDecoration(
+                                        decoration: const BoxDecoration(
                                           color: Color(0xFFECEEF6),
                                           shape: BoxShape.circle,
                                         ),
-                                        child: Icon(
+                                        child: const Icon(
                                           Icons.shopping_bag,
                                           color: Color(0xFF263F96),
                                           size: 22,
                                         ),
                                       ),
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            20, 0, 0, 0),
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(20, 0, 0, 0),
                                         child: Column(
                                           mainAxisSize: MainAxisSize.max,
                                           mainAxisAlignment:
@@ -199,7 +200,8 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                                   .bodyMedium
                                                   .override(
                                                     fontFamily: 'Inter',
-                                                    color: Color(0xFF201A25),
+                                                    color:
+                                                        const Color(0xFF201A25),
                                                     fontSize: 16,
                                                     letterSpacing: 0.0,
                                                     fontWeight: FontWeight.w500,
@@ -210,8 +212,9 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                                   ),
                                             ),
                                             Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(0, 5, 0, 0),
+                                              padding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(0, 5, 0, 0),
                                               child: Text(
                                                 'Check Your Order',
                                                 style: FlutterFlowTheme.of(
@@ -219,7 +222,8 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                                     .bodyMedium
                                                     .override(
                                                       fontFamily: 'Inter',
-                                                      color: Color(0xFF201A25),
+                                                      color: const Color(
+                                                          0xFF201A25),
                                                       fontSize: 10,
                                                       letterSpacing: 0.0,
                                                       useGoogleFonts:
@@ -240,8 +244,7 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                     hoverColor: Colors.transparent,
                                     highlightColor: Colors.transparent,
                                     onTap: () async {
-                                      if (currentUserEmail != null &&
-                                          currentUserEmail != '') {
+                                      if (currentUserEmail != '') {
                                         context.pushNamed('MyOrders');
                                       } else {
                                         context.pushNamed('Emaillogin');
@@ -257,8 +260,8 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                                         .secondaryBackground,
                                               ),
                                             ),
-                                            duration:
-                                                Duration(milliseconds: 4000),
+                                            duration: const Duration(
+                                                milliseconds: 4000),
                                             backgroundColor:
                                                 FlutterFlowTheme.of(context)
                                                     .primary,
@@ -266,7 +269,7 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                         );
                                       }
                                     },
-                                    child: Icon(
+                                    child: const Icon(
                                       Icons.chevron_right_sharp,
                                       color: Color(0xFF201A25),
                                       size: 26,
@@ -283,16 +286,15 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                           ) ==
                           false)
                         Padding(
-                          padding:
-                              EdgeInsetsDirectional.fromSTEB(20, 15, 20, 0),
+                          padding: const EdgeInsetsDirectional.fromSTEB(
+                              20, 15, 20, 0),
                           child: InkWell(
                             splashColor: Colors.transparent,
                             focusColor: Colors.transparent,
                             hoverColor: Colors.transparent,
                             highlightColor: Colors.transparent,
                             onTap: () async {
-                              if (currentPhoneNumber != null &&
-                                  currentPhoneNumber != '') {
+                              if (currentPhoneNumber != '') {
                                 context.pushNamed('ApplyasacreatorPage');
                               } else {
                                 context.pushNamed('LoginMobileScreen');
@@ -306,7 +308,8 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                             .secondaryBackground,
                                       ),
                                     ),
-                                    duration: Duration(milliseconds: 4000),
+                                    duration:
+                                        const Duration(milliseconds: 4000),
                                     backgroundColor:
                                         FlutterFlowTheme.of(context).primary,
                                   ),
@@ -331,8 +334,8 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            8, 0, 0, 0),
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(8, 0, 0, 0),
                                         child: Container(
                                           width:
                                               MediaQuery.sizeOf(context).width *
@@ -340,11 +343,11 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                           height:
                                               MediaQuery.sizeOf(context).width *
                                                   0.11,
-                                          decoration: BoxDecoration(
+                                          decoration: const BoxDecoration(
                                             color: Color(0xFFECEEF6),
                                             shape: BoxShape.circle,
                                           ),
-                                          child: Icon(
+                                          child: const Icon(
                                             Icons.movie_creation_rounded,
                                             color: Color(0xFF263F96),
                                             size: 22,
@@ -352,8 +355,8 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                         ),
                                       ),
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            20, 0, 0, 0),
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(20, 0, 0, 0),
                                         child: Column(
                                           mainAxisSize: MainAxisSize.max,
                                           mainAxisAlignment:
@@ -368,7 +371,8 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                                   .bodyMedium
                                                   .override(
                                                     fontFamily: 'Inter',
-                                                    color: Color(0xFF201A25),
+                                                    color:
+                                                        const Color(0xFF201A25),
                                                     fontSize: 16,
                                                     letterSpacing: 0.0,
                                                     fontWeight: FontWeight.w500,
@@ -379,8 +383,9 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                                   ),
                                             ),
                                             Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(0, 5, 0, 0),
+                                              padding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(0, 5, 0, 0),
                                               child: Text(
                                                 'Apply as a Creator',
                                                 style: FlutterFlowTheme.of(
@@ -388,7 +393,8 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                                     .bodyMedium
                                                     .override(
                                                       fontFamily: 'Inter',
-                                                      color: Color(0xFF201A25),
+                                                      color: const Color(
+                                                          0xFF201A25),
                                                       fontSize: 10,
                                                       letterSpacing: 0.0,
                                                       useGoogleFonts:
@@ -409,8 +415,7 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                     hoverColor: Colors.transparent,
                                     highlightColor: Colors.transparent,
                                     onTap: () async {
-                                      if (currentUserEmail != null &&
-                                          currentUserEmail != '') {
+                                      if (currentUserEmail != '') {
                                         context
                                             .pushNamed('ApplyasacreatorPage');
                                       } else {
@@ -427,8 +432,8 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                                         .secondaryBackground,
                                               ),
                                             ),
-                                            duration:
-                                                Duration(milliseconds: 4000),
+                                            duration: const Duration(
+                                                milliseconds: 4000),
                                             backgroundColor:
                                                 FlutterFlowTheme.of(context)
                                                     .primary,
@@ -436,7 +441,7 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                         );
                                       }
                                     },
-                                    child: Icon(
+                                    child: const Icon(
                                       Icons.chevron_right_sharp,
                                       color: Color(0xFF201A25),
                                       size: 26,
@@ -452,16 +457,15 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                           ) ==
                           true)
                         Padding(
-                          padding:
-                              EdgeInsetsDirectional.fromSTEB(20, 15, 20, 0),
+                          padding: const EdgeInsetsDirectional.fromSTEB(
+                              20, 15, 20, 0),
                           child: InkWell(
                             splashColor: Colors.transparent,
                             focusColor: Colors.transparent,
                             hoverColor: Colors.transparent,
                             highlightColor: Colors.transparent,
                             onTap: () async {
-                              if (currentPhoneNumber != null &&
-                                  currentPhoneNumber != '') {
+                              if (currentPhoneNumber != '') {
                                 context.pushNamed('creatorProfile');
                               } else {
                                 context.pushNamed('LoginMobileScreen');
@@ -475,7 +479,8 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                             .secondaryBackground,
                                       ),
                                     ),
-                                    duration: Duration(milliseconds: 4000),
+                                    duration:
+                                        const Duration(milliseconds: 4000),
                                     backgroundColor:
                                         FlutterFlowTheme.of(context).primary,
                                   ),
@@ -500,8 +505,8 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            8, 0, 0, 0),
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(8, 0, 0, 0),
                                         child: Container(
                                           width:
                                               MediaQuery.sizeOf(context).width *
@@ -509,11 +514,11 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                           height:
                                               MediaQuery.sizeOf(context).width *
                                                   0.11,
-                                          decoration: BoxDecoration(
+                                          decoration: const BoxDecoration(
                                             color: Color(0xFFECEEF6),
                                             shape: BoxShape.circle,
                                           ),
-                                          child: Icon(
+                                          child: const Icon(
                                             Icons.movie_creation_rounded,
                                             color: Color(0xFF263F96),
                                             size: 22,
@@ -521,8 +526,8 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                         ),
                                       ),
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            20, 0, 0, 0),
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(20, 0, 0, 0),
                                         child: Column(
                                           mainAxisSize: MainAxisSize.max,
                                           mainAxisAlignment:
@@ -537,7 +542,8 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                                   .bodyMedium
                                                   .override(
                                                     fontFamily: 'Inter',
-                                                    color: Color(0xFF201A25),
+                                                    color:
+                                                        const Color(0xFF201A25),
                                                     fontSize: 16,
                                                     letterSpacing: 0.0,
                                                     fontWeight: FontWeight.w500,
@@ -548,8 +554,9 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                                   ),
                                             ),
                                             Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(0, 5, 0, 0),
+                                              padding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(0, 5, 0, 0),
                                               child: Text(
                                                 'Manage Your Addresses',
                                                 style: FlutterFlowTheme.of(
@@ -557,7 +564,8 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                                     .bodyMedium
                                                     .override(
                                                       fontFamily: 'Inter',
-                                                      color: Color(0xFF201A25),
+                                                      color: const Color(
+                                                          0xFF201A25),
                                                       fontSize: 10,
                                                       letterSpacing: 0.0,
                                                       useGoogleFonts:
@@ -578,8 +586,7 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                     hoverColor: Colors.transparent,
                                     highlightColor: Colors.transparent,
                                     onTap: () async {
-                                      if (currentUserEmail != null &&
-                                          currentUserEmail != '') {
+                                      if (currentUserEmail != '') {
                                         context.pushNamed('creatorProfile');
                                       } else {
                                         context.pushNamed('Emaillogin');
@@ -595,8 +602,8 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                                         .secondaryBackground,
                                               ),
                                             ),
-                                            duration:
-                                                Duration(milliseconds: 4000),
+                                            duration: const Duration(
+                                                milliseconds: 4000),
                                             backgroundColor:
                                                 FlutterFlowTheme.of(context)
                                                     .primary,
@@ -604,7 +611,7 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                         );
                                       }
                                     },
-                                    child: Icon(
+                                    child: const Icon(
                                       Icons.chevron_right_sharp,
                                       color: Color(0xFF201A25),
                                       size: 26,
@@ -620,16 +627,15 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                           ) ==
                           true)
                         Padding(
-                          padding:
-                              EdgeInsetsDirectional.fromSTEB(20, 15, 20, 0),
+                          padding: const EdgeInsetsDirectional.fromSTEB(
+                              20, 15, 20, 0),
                           child: InkWell(
                             splashColor: Colors.transparent,
                             focusColor: Colors.transparent,
                             hoverColor: Colors.transparent,
                             highlightColor: Colors.transparent,
                             onTap: () async {
-                              if (currentPhoneNumber != null &&
-                                  currentPhoneNumber != '') {
+                              if (currentPhoneNumber != '') {
                                 context.pushNamed('creatorProfile');
                               } else {
                                 context.pushNamed('LoginMobileScreen');
@@ -643,7 +649,8 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                             .secondaryBackground,
                                       ),
                                     ),
-                                    duration: Duration(milliseconds: 4000),
+                                    duration:
+                                        const Duration(milliseconds: 4000),
                                     backgroundColor:
                                         FlutterFlowTheme.of(context).primary,
                                   ),
@@ -668,8 +675,8 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            8, 0, 0, 0),
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(8, 0, 0, 0),
                                         child: Container(
                                           width:
                                               MediaQuery.sizeOf(context).width *
@@ -677,11 +684,11 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                           height:
                                               MediaQuery.sizeOf(context).width *
                                                   0.11,
-                                          decoration: BoxDecoration(
+                                          decoration: const BoxDecoration(
                                             color: Color(0xFFECEEF6),
                                             shape: BoxShape.circle,
                                           ),
-                                          child: Icon(
+                                          child: const Icon(
                                             Icons.movie_creation_rounded,
                                             color: Color(0xFF263F96),
                                             size: 22,
@@ -689,8 +696,8 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                         ),
                                       ),
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            20, 0, 0, 0),
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(20, 0, 0, 0),
                                         child: Column(
                                           mainAxisSize: MainAxisSize.max,
                                           mainAxisAlignment:
@@ -705,7 +712,8 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                                   .bodyMedium
                                                   .override(
                                                     fontFamily: 'Inter',
-                                                    color: Color(0xFF201A25),
+                                                    color:
+                                                        const Color(0xFF201A25),
                                                     fontSize: 16,
                                                     letterSpacing: 0.0,
                                                     fontWeight: FontWeight.w500,
@@ -716,8 +724,9 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                                   ),
                                             ),
                                             Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(0, 5, 0, 0),
+                                              padding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(0, 5, 0, 0),
                                               child: Text(
                                                 'Mange Your Creator Account',
                                                 style: FlutterFlowTheme.of(
@@ -725,7 +734,8 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                                     .bodyMedium
                                                     .override(
                                                       fontFamily: 'Inter',
-                                                      color: Color(0xFF201A25),
+                                                      color: const Color(
+                                                          0xFF201A25),
                                                       fontSize: 10,
                                                       letterSpacing: 0.0,
                                                       useGoogleFonts:
@@ -746,8 +756,7 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                     hoverColor: Colors.transparent,
                                     highlightColor: Colors.transparent,
                                     onTap: () async {
-                                      if (currentUserEmail != null &&
-                                          currentUserEmail != '') {
+                                      if (currentUserEmail != '') {
                                         context.pushNamed('creatorProfile');
                                       } else {
                                         context.pushNamed('Emaillogin');
@@ -763,8 +772,8 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                                         .secondaryBackground,
                                               ),
                                             ),
-                                            duration:
-                                                Duration(milliseconds: 4000),
+                                            duration: const Duration(
+                                                milliseconds: 4000),
                                             backgroundColor:
                                                 FlutterFlowTheme.of(context)
                                                     .primary,
@@ -772,7 +781,7 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                         );
                                       }
                                     },
-                                    child: Icon(
+                                    child: const Icon(
                                       Icons.chevron_right_sharp,
                                       color: Color(0xFF201A25),
                                       size: 26,
@@ -784,15 +793,15 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                           ),
                         ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(20, 15, 20, 0),
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(20, 15, 20, 0),
                         child: InkWell(
                           splashColor: Colors.transparent,
                           focusColor: Colors.transparent,
                           hoverColor: Colors.transparent,
                           highlightColor: Colors.transparent,
                           onTap: () async {
-                            if (currentPhoneNumber != null &&
-                                currentPhoneNumber != '') {
+                            if (currentPhoneNumber != '') {
                               context.pushNamed('ClientFav');
                             } else {
                               context.pushNamed('LoginMobileScreen');
@@ -806,7 +815,7 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                           .secondaryBackground,
                                     ),
                                   ),
-                                  duration: Duration(milliseconds: 4000),
+                                  duration: const Duration(milliseconds: 4000),
                                   backgroundColor:
                                       FlutterFlowTheme.of(context).primary,
                                 ),
@@ -829,8 +838,9 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          8, 0, 0, 0),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              8, 0, 0, 0),
                                       child: Container(
                                         width:
                                             MediaQuery.sizeOf(context).width *
@@ -838,11 +848,11 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                         height:
                                             MediaQuery.sizeOf(context).width *
                                                 0.11,
-                                        decoration: BoxDecoration(
+                                        decoration: const BoxDecoration(
                                           color: Color(0xFFECEEF6),
                                           shape: BoxShape.circle,
                                         ),
-                                        child: Icon(
+                                        child: const Icon(
                                           FFIcons.kdiamond,
                                           color: Color(0xFF263F96),
                                           size: 22,
@@ -850,8 +860,9 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                       ),
                                     ),
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          20, 0, 0, 0),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              20, 0, 0, 0),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
                                         mainAxisAlignment:
@@ -865,7 +876,8 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Inter',
-                                                  color: Color(0xFF201A25),
+                                                  color:
+                                                      const Color(0xFF201A25),
                                                   fontSize: 16,
                                                   letterSpacing: 0.0,
                                                   fontWeight: FontWeight.w500,
@@ -875,25 +887,24 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                                 ),
                                           ),
                                           Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0, 5, 0, 0),
+                                            padding: const EdgeInsetsDirectional
+                                                .fromSTEB(0, 5, 0, 0),
                                             child: Text(
-                                              'Items You Waitlisted',
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'Inter',
-                                                        color:
-                                                            Color(0xFF201A25),
-                                                        fontSize: 10,
-                                                        letterSpacing: 0.0,
-                                                        useGoogleFonts:
-                                                            GoogleFonts.asMap()
-                                                                .containsKey(
-                                                                    'Inter'),
-                                                      ),
+                                              'Items You Wishlisted',
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .bodyMedium
+                                                  .override(
+                                                    fontFamily: 'Inter',
+                                                    color:
+                                                        const Color(0xFF201A25),
+                                                    fontSize: 10,
+                                                    letterSpacing: 0.0,
+                                                    useGoogleFonts:
+                                                        GoogleFonts.asMap()
+                                                            .containsKey(
+                                                                'Inter'),
+                                                  ),
                                             ),
                                           ),
                                         ],
@@ -907,8 +918,7 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                   hoverColor: Colors.transparent,
                                   highlightColor: Colors.transparent,
                                   onTap: () async {
-                                    if (currentUserEmail != null &&
-                                        currentUserEmail != '') {
+                                    if (currentUserEmail != '') {
                                       context.pushNamed('ClientFav');
                                     } else {
                                       context.pushNamed('Emaillogin');
@@ -924,8 +934,8 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                                       .secondaryBackground,
                                             ),
                                           ),
-                                          duration:
-                                              Duration(milliseconds: 4000),
+                                          duration: const Duration(
+                                              milliseconds: 4000),
                                           backgroundColor:
                                               FlutterFlowTheme.of(context)
                                                   .primary,
@@ -933,7 +943,7 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                       );
                                     }
                                   },
-                                  child: Icon(
+                                  child: const Icon(
                                     Icons.chevron_right_sharp,
                                     color: Color(0xFF201A25),
                                     size: 26,
@@ -945,7 +955,8 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(20, 15, 20, 0),
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(20, 15, 20, 0),
                         child: InkWell(
                           splashColor: Colors.transparent,
                           focusColor: Colors.transparent,
@@ -970,8 +981,9 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          8, 0, 0, 0),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              8, 0, 0, 0),
                                       child: Container(
                                         width:
                                             MediaQuery.sizeOf(context).width *
@@ -979,11 +991,11 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                         height:
                                             MediaQuery.sizeOf(context).width *
                                                 0.11,
-                                        decoration: BoxDecoration(
+                                        decoration: const BoxDecoration(
                                           color: Color(0xFFECEEF6),
                                           shape: BoxShape.circle,
                                         ),
-                                        child: Icon(
+                                        child: const Icon(
                                           FFIcons.kbubble,
                                           color: Color(0xFF263F96),
                                           size: 22,
@@ -991,8 +1003,9 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                       ),
                                     ),
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          20, 0, 0, 0),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              20, 0, 0, 0),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
                                         mainAxisAlignment:
@@ -1006,7 +1019,8 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Inter',
-                                                  color: Color(0xFF201A25),
+                                                  color:
+                                                      const Color(0xFF201A25),
                                                   fontSize: 16,
                                                   letterSpacing: 0.0,
                                                   fontWeight: FontWeight.w500,
@@ -1016,25 +1030,24 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                                 ),
                                           ),
                                           Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0, 5, 0, 0),
+                                            padding: const EdgeInsetsDirectional
+                                                .fromSTEB(0, 5, 0, 0),
                                             child: Text(
                                               'Contact Our Customer Support',
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'Inter',
-                                                        color:
-                                                            Color(0xFF201A25),
-                                                        fontSize: 10,
-                                                        letterSpacing: 0.0,
-                                                        useGoogleFonts:
-                                                            GoogleFonts.asMap()
-                                                                .containsKey(
-                                                                    'Inter'),
-                                                      ),
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .bodyMedium
+                                                  .override(
+                                                    fontFamily: 'Inter',
+                                                    color:
+                                                        const Color(0xFF201A25),
+                                                    fontSize: 10,
+                                                    letterSpacing: 0.0,
+                                                    useGoogleFonts:
+                                                        GoogleFonts.asMap()
+                                                            .containsKey(
+                                                                'Inter'),
+                                                  ),
                                             ),
                                           ),
                                         ],
@@ -1050,7 +1063,7 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                   onTap: () async {
                                     context.pushNamed('contactus');
                                   },
-                                  child: Icon(
+                                  child: const Icon(
                                     Icons.chevron_right_sharp,
                                     color: Color(0xFF201A25),
                                     size: 26,
@@ -1062,7 +1075,8 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(20, 15, 20, 0),
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(20, 15, 20, 0),
                         child: InkWell(
                           splashColor: Colors.transparent,
                           focusColor: Colors.transparent,
@@ -1087,8 +1101,9 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          8, 0, 0, 0),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              8, 0, 0, 0),
                                       child: Container(
                                         width:
                                             MediaQuery.sizeOf(context).width *
@@ -1096,11 +1111,11 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                         height:
                                             MediaQuery.sizeOf(context).width *
                                                 0.11,
-                                        decoration: BoxDecoration(
+                                        decoration: const BoxDecoration(
                                           color: Color(0xFFECEEF6),
                                           shape: BoxShape.circle,
                                         ),
-                                        child: Icon(
+                                        child: const Icon(
                                           FFIcons.kmegaphone,
                                           color: Color(0xFF263F96),
                                           size: 22,
@@ -1108,8 +1123,9 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                       ),
                                     ),
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          20, 0, 0, 0),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              20, 0, 0, 0),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
                                         mainAxisAlignment:
@@ -1123,7 +1139,8 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Inter',
-                                                  color: Color(0xFF201A25),
+                                                  color:
+                                                      const Color(0xFF201A25),
                                                   fontSize: 16,
                                                   letterSpacing: 0.0,
                                                   fontWeight: FontWeight.w500,
@@ -1145,7 +1162,7 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                   onTap: () async {
                                     context.pushNamed('privacy');
                                   },
-                                  child: Icon(
+                                  child: const Icon(
                                     Icons.chevron_right_sharp,
                                     color: Color(0xFF201A25),
                                     size: 26,
@@ -1157,7 +1174,8 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(20, 15, 20, 0),
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(20, 15, 20, 0),
                         child: InkWell(
                           splashColor: Colors.transparent,
                           focusColor: Colors.transparent,
@@ -1182,8 +1200,9 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          8, 0, 0, 0),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              8, 0, 0, 0),
                                       child: Container(
                                         width:
                                             MediaQuery.sizeOf(context).width *
@@ -1191,11 +1210,11 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                         height:
                                             MediaQuery.sizeOf(context).width *
                                                 0.11,
-                                        decoration: BoxDecoration(
+                                        decoration: const BoxDecoration(
                                           color: Color(0xFFECEEF6),
                                           shape: BoxShape.circle,
                                         ),
-                                        child: Icon(
+                                        child: const Icon(
                                           Icons.info_outline,
                                           color: Color(0xFF263F96),
                                           size: 22,
@@ -1203,8 +1222,9 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                       ),
                                     ),
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          20, 0, 0, 0),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              20, 0, 0, 0),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
                                         mainAxisAlignment:
@@ -1218,7 +1238,8 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Inter',
-                                                  color: Color(0xFF201A25),
+                                                  color:
+                                                      const Color(0xFF201A25),
                                                   fontSize: 16,
                                                   letterSpacing: 0.0,
                                                   fontWeight: FontWeight.w500,
@@ -1240,7 +1261,7 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                   onTap: () async {
                                     context.pushNamed('aboutus');
                                   },
-                                  child: Icon(
+                                  child: const Icon(
                                     Icons.chevron_right_sharp,
                                     color: Color(0xFF201A25),
                                     size: 26,
@@ -1251,227 +1272,47 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                           ),
                         ),
                       ),
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(20, 15, 20, 0),
-                        child: InkWell(
-                          splashColor: Colors.transparent,
-                          focusColor: Colors.transparent,
-                          hoverColor: Colors.transparent,
-                          highlightColor: Colors.transparent,
-                          onTap: () async {
-                            var confirmDialogResponse = await showDialog<bool>(
-                                  context: context,
-                                  builder: (alertDialogContext) {
-                                    return AlertDialog(
-                                      title: Text('Logout'),
-                                      content: Text(
-                                          'Are you sure,you want to logout ?'),
-                                      actions: [
-                                        TextButton(
-                                          onPressed: () => Navigator.pop(
-                                              alertDialogContext, false),
-                                          child: Text('Cancel'),
-                                        ),
-                                        TextButton(
-                                          onPressed: () => Navigator.pop(
-                                              alertDialogContext, true),
-                                          child: Text('Confirm'),
-                                        ),
-                                      ],
-                                    );
-                                  },
-                                ) ??
-                                false;
-                            if (confirmDialogResponse) {
-                              GoRouter.of(context).prepareAuthEvent();
-                              await authManager.signOut();
-                              GoRouter.of(context).clearRedirectLocation();
-
-                              context.pushNamedAuth(
-                                  'loginOrGuest', context.mounted);
-                            }
-                          },
-                          child: Container(
-                            width: MediaQuery.sizeOf(context).width,
-                            height: MediaQuery.sizeOf(context).height * 0.08,
-                            decoration: BoxDecoration(
-                              color: FlutterFlowTheme.of(context)
-                                  .secondaryBackground,
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          8, 0, 0, 0),
-                                      child: Container(
-                                        width:
-                                            MediaQuery.sizeOf(context).width *
-                                                0.11,
-                                        height:
-                                            MediaQuery.sizeOf(context).width *
-                                                0.11,
-                                        decoration: BoxDecoration(
-                                          color: Color(0xFFECEEF6),
-                                          shape: BoxShape.circle,
-                                        ),
-                                        child: Icon(
-                                          Icons.logout_rounded,
-                                          color: Color(0xFF263F96),
-                                          size: 22,
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          20, 0, 0, 0),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            'Logout',
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Inter',
-                                                  color: Color(0xFF201A25),
-                                                  fontSize: 16,
-                                                  letterSpacing: 0.0,
-                                                  fontWeight: FontWeight.w500,
-                                                  useGoogleFonts:
-                                                      GoogleFonts.asMap()
-                                                          .containsKey('Inter'),
-                                                ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                InkWell(
-                                  splashColor: Colors.transparent,
-                                  focusColor: Colors.transparent,
-                                  hoverColor: Colors.transparent,
-                                  highlightColor: Colors.transparent,
-                                  onTap: () async {
-                                    var confirmDialogResponse =
-                                        await showDialog<bool>(
-                                              context: context,
-                                              builder: (alertDialogContext) {
-                                                return AlertDialog(
-                                                  title: Text('Logout'),
-                                                  content: Text(
-                                                      'Are you sure,you want to logout ?'),
-                                                  actions: [
-                                                    TextButton(
-                                                      onPressed: () =>
-                                                          Navigator.pop(
-                                                              alertDialogContext,
-                                                              false),
-                                                      child: Text('Cancel'),
-                                                    ),
-                                                    TextButton(
-                                                      onPressed: () =>
-                                                          Navigator.pop(
-                                                              alertDialogContext,
-                                                              true),
-                                                      child: Text('Confirm'),
-                                                    ),
-                                                  ],
-                                                );
-                                              },
-                                            ) ??
-                                            false;
-                                    if (confirmDialogResponse) {
-                                      GoRouter.of(context).prepareAuthEvent();
-                                      await authManager.signOut();
-                                      GoRouter.of(context)
-                                          .clearRedirectLocation();
-
-                                      context.pushNamedAuth(
-                                          'loginOrGuest', context.mounted);
-                                    } else {
-                                      Navigator.pop(context);
-                                    }
-                                  },
-                                  child: Icon(
-                                    Icons.chevron_right_sharp,
-                                    color: Color(0xFF201A25),
-                                    size: 26,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                      Builder(
-                        builder: (context) => Padding(
-                          padding:
-                              EdgeInsetsDirectional.fromSTEB(20, 15, 20, 20),
+                      if (currentPhoneNumber != '')
+                        Padding(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
+                              20, 15, 20, 0),
                           child: InkWell(
                             splashColor: Colors.transparent,
                             focusColor: Colors.transparent,
                             hoverColor: Colors.transparent,
                             highlightColor: Colors.transparent,
                             onTap: () async {
-                              if (currentPhoneNumber != null &&
-                                  currentPhoneNumber != '') {
-                                await showDialog(
-                                  context: context,
-                                  builder: (dialogContext) {
-                                    return Dialog(
-                                      elevation: 0,
-                                      insetPadding: EdgeInsets.zero,
-                                      backgroundColor: Colors.transparent,
-                                      alignment: AlignmentDirectional(0, 0)
-                                          .resolve(Directionality.of(context)),
-                                      child: GestureDetector(
-                                        onTap: () {
-                                          FocusScope.of(dialogContext)
-                                              .unfocus();
-                                          FocusManager.instance.primaryFocus
-                                              ?.unfocus();
+                              var confirmDialogResponse =
+                                  await showDialog<bool>(
+                                        context: context,
+                                        builder: (alertDialogContext) {
+                                          return AlertDialog(
+                                            title: const Text('Logout'),
+                                            content: const Text(
+                                                'Are you sure,you want to logout ?'),
+                                            actions: [
+                                              TextButton(
+                                                onPressed: () => Navigator.pop(
+                                                    alertDialogContext, false),
+                                                child: const Text('Cancel'),
+                                              ),
+                                              TextButton(
+                                                onPressed: () => Navigator.pop(
+                                                    alertDialogContext, true),
+                                                child: const Text('Confirm'),
+                                              ),
+                                            ],
+                                          );
                                         },
-                                        child: Container(
-                                          height: MediaQuery.sizeOf(context)
-                                                  .height *
-                                              0.5,
-                                          width:
-                                              MediaQuery.sizeOf(context).width *
-                                                  0.8,
-                                          child: DeleteaccountWidget(),
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                );
-                              } else {
-                                context.pushNamed('LoginMobileScreen');
+                                      ) ??
+                                      false;
+                              if (confirmDialogResponse) {
+                                GoRouter.of(context).prepareAuthEvent();
+                                await authManager.signOut();
+                                GoRouter.of(context).clearRedirectLocation();
 
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text(
-                                      'Please Login to Your Profile',
-                                      style: TextStyle(
-                                        color: FlutterFlowTheme.of(context)
-                                            .secondaryBackground,
-                                      ),
-                                    ),
-                                    duration: Duration(milliseconds: 4000),
-                                    backgroundColor:
-                                        FlutterFlowTheme.of(context).primary,
-                                  ),
-                                );
+                                context.pushNamedAuth(
+                                    'loginOrGuest', context.mounted);
                               }
                             },
                             child: Container(
@@ -1491,8 +1332,8 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            8, 0, 0, 0),
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(8, 0, 0, 0),
                                         child: Container(
                                           width:
                                               MediaQuery.sizeOf(context).width *
@@ -1500,20 +1341,20 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                           height:
                                               MediaQuery.sizeOf(context).width *
                                                   0.11,
-                                          decoration: BoxDecoration(
+                                          decoration: const BoxDecoration(
                                             color: Color(0xFFECEEF6),
                                             shape: BoxShape.circle,
                                           ),
-                                          child: Icon(
-                                            FFIcons.ktrash,
-                                            color: Color(0xFFFF271A),
+                                          child: const Icon(
+                                            Icons.logout_rounded,
+                                            color: Color(0xFF263F96),
                                             size: 22,
                                           ),
                                         ),
                                       ),
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            20, 0, 0, 0),
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(20, 0, 0, 0),
                                         child: Column(
                                           mainAxisSize: MainAxisSize.max,
                                           mainAxisAlignment:
@@ -1522,13 +1363,14 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                               CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              'Delete Account',
+                                              'Logout',
                                               style: FlutterFlowTheme.of(
                                                       context)
                                                   .bodyMedium
                                                   .override(
                                                     fontFamily: 'Inter',
-                                                    color: Color(0xFF201A25),
+                                                    color:
+                                                        const Color(0xFF201A25),
                                                     fontSize: 16,
                                                     letterSpacing: 0.0,
                                                     fontWeight: FontWeight.w500,
@@ -1543,55 +1385,58 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                                       ),
                                     ],
                                   ),
-                                  Builder(
-                                    builder: (context) => InkWell(
-                                      splashColor: Colors.transparent,
-                                      focusColor: Colors.transparent,
-                                      hoverColor: Colors.transparent,
-                                      highlightColor: Colors.transparent,
-                                      onTap: () async {
-                                        await showDialog(
-                                          context: context,
-                                          builder: (dialogContext) {
-                                            return Dialog(
-                                              elevation: 0,
-                                              insetPadding: EdgeInsets.zero,
-                                              backgroundColor:
-                                                  Colors.transparent,
-                                              alignment:
-                                                  AlignmentDirectional(0, 0)
-                                                      .resolve(
-                                                          Directionality.of(
-                                                              context)),
-                                              child: GestureDetector(
-                                                onTap: () {
-                                                  FocusScope.of(dialogContext)
-                                                      .unfocus();
-                                                  FocusManager
-                                                      .instance.primaryFocus
-                                                      ?.unfocus();
+                                  InkWell(
+                                    splashColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    onTap: () async {
+                                      var confirmDialogResponse =
+                                          await showDialog<bool>(
+                                                context: context,
+                                                builder: (alertDialogContext) {
+                                                  return AlertDialog(
+                                                    title: const Text('Logout'),
+                                                    content: const Text(
+                                                        'Are you sure,you want to logout ?'),
+                                                    actions: [
+                                                      TextButton(
+                                                        onPressed: () =>
+                                                            Navigator.pop(
+                                                                alertDialogContext,
+                                                                false),
+                                                        child: const Text(
+                                                            'Cancel'),
+                                                      ),
+                                                      TextButton(
+                                                        onPressed: () =>
+                                                            Navigator.pop(
+                                                                alertDialogContext,
+                                                                true),
+                                                        child: const Text(
+                                                            'Confirm'),
+                                                      ),
+                                                    ],
+                                                  );
                                                 },
-                                                child: Container(
-                                                  height:
-                                                      MediaQuery.sizeOf(context)
-                                                              .height *
-                                                          0.5,
-                                                  width:
-                                                      MediaQuery.sizeOf(context)
-                                                              .width *
-                                                          0.8,
-                                                  child: DeleteaccountWidget(),
-                                                ),
-                                              ),
-                                            );
-                                          },
-                                        );
-                                      },
-                                      child: Icon(
-                                        Icons.chevron_right_sharp,
-                                        color: Color(0xFF201A25),
-                                        size: 26,
-                                      ),
+                                              ) ??
+                                              false;
+                                      if (confirmDialogResponse) {
+                                        GoRouter.of(context).prepareAuthEvent();
+                                        await authManager.signOut();
+                                        GoRouter.of(context)
+                                            .clearRedirectLocation();
+
+                                        context.pushNamedAuth(
+                                            'loginOrGuest', context.mounted);
+                                      } else {
+                                        Navigator.pop(context);
+                                      }
+                                    },
+                                    child: const Icon(
+                                      Icons.chevron_right_sharp,
+                                      color: Color(0xFF201A25),
+                                      size: 26,
                                     ),
                                   ),
                                 ],
@@ -1599,7 +1444,200 @@ class _SettingscopyWidgetState extends State<SettingscopyWidget> {
                             ),
                           ),
                         ),
-                      ),
+                      if (currentPhoneNumber != '')
+                        Builder(
+                          builder: (context) => Padding(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                20, 15, 20, 20),
+                            child: InkWell(
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: () async {
+                                if (currentPhoneNumber != '') {
+                                  await showDialog(
+                                    context: context,
+                                    builder: (dialogContext) {
+                                      return Dialog(
+                                        elevation: 0,
+                                        insetPadding: EdgeInsets.zero,
+                                        backgroundColor: Colors.transparent,
+                                        alignment:
+                                            const AlignmentDirectional(0, 0)
+                                                .resolve(
+                                                    Directionality.of(context)),
+                                        child: GestureDetector(
+                                          onTap: () {
+                                            FocusScope.of(dialogContext)
+                                                .unfocus();
+                                            FocusManager.instance.primaryFocus
+                                                ?.unfocus();
+                                          },
+                                          child: SizedBox(
+                                            height: MediaQuery.sizeOf(context)
+                                                    .height *
+                                                0.5,
+                                            width: MediaQuery.sizeOf(context)
+                                                    .width *
+                                                0.8,
+                                            child: const DeleteaccountWidget(),
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  );
+                                } else {
+                                  context.pushNamed('LoginMobileScreen');
+
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                        'Please Login to Your Profile',
+                                        style: TextStyle(
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryBackground,
+                                        ),
+                                      ),
+                                      duration:
+                                          const Duration(milliseconds: 4000),
+                                      backgroundColor:
+                                          FlutterFlowTheme.of(context).primary,
+                                    ),
+                                  );
+                                }
+                              },
+                              child: Container(
+                                width: MediaQuery.sizeOf(context).width,
+                                height:
+                                    MediaQuery.sizeOf(context).height * 0.08,
+                                decoration: BoxDecoration(
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsetsDirectional
+                                              .fromSTEB(8, 0, 0, 0),
+                                          child: Container(
+                                            width: MediaQuery.sizeOf(context)
+                                                    .width *
+                                                0.11,
+                                            height: MediaQuery.sizeOf(context)
+                                                    .width *
+                                                0.11,
+                                            decoration: const BoxDecoration(
+                                              color: Color(0xFFECEEF6),
+                                              shape: BoxShape.circle,
+                                            ),
+                                            child: const Icon(
+                                              FFIcons.ktrash,
+                                              color: Color(0xFFFF271A),
+                                              size: 22,
+                                            ),
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsetsDirectional
+                                              .fromSTEB(20, 0, 0, 0),
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                'Delete Account',
+                                                style: FlutterFlowTheme.of(
+                                                        context)
+                                                    .bodyMedium
+                                                    .override(
+                                                      fontFamily: 'Inter',
+                                                      color: const Color(
+                                                          0xFF201A25),
+                                                      fontSize: 16,
+                                                      letterSpacing: 0.0,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      useGoogleFonts:
+                                                          GoogleFonts.asMap()
+                                                              .containsKey(
+                                                                  'Inter'),
+                                                    ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Builder(
+                                      builder: (context) => InkWell(
+                                        splashColor: Colors.transparent,
+                                        focusColor: Colors.transparent,
+                                        hoverColor: Colors.transparent,
+                                        highlightColor: Colors.transparent,
+                                        onTap: () async {
+                                          await showDialog(
+                                            context: context,
+                                            builder: (dialogContext) {
+                                              return Dialog(
+                                                elevation: 0,
+                                                insetPadding: EdgeInsets.zero,
+                                                backgroundColor:
+                                                    Colors.transparent,
+                                                alignment:
+                                                    const AlignmentDirectional(
+                                                            0, 0)
+                                                        .resolve(
+                                                            Directionality.of(
+                                                                context)),
+                                                child: GestureDetector(
+                                                  onTap: () {
+                                                    FocusScope.of(dialogContext)
+                                                        .unfocus();
+                                                    FocusManager
+                                                        .instance.primaryFocus
+                                                        ?.unfocus();
+                                                  },
+                                                  child: SizedBox(
+                                                    height: MediaQuery.sizeOf(
+                                                                context)
+                                                            .height *
+                                                        0.5,
+                                                    width: MediaQuery.sizeOf(
+                                                                context)
+                                                            .width *
+                                                        0.8,
+                                                    child:
+                                                        const DeleteaccountWidget(),
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                          );
+                                        },
+                                        child: const Icon(
+                                          Icons.chevron_right_sharp,
+                                          color: Color(0xFF201A25),
+                                          size: 26,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
                     ],
                   ),
                 ),

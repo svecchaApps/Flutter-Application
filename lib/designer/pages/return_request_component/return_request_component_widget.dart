@@ -90,7 +90,8 @@ class _ReturnRequestComponentWidgetState
                 ],
               ),
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
+                padding:
+                    const EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
                 child: Text(
                   'Return Summary',
                   style: FlutterFlowTheme.of(context).headlineSmall.override(
@@ -103,7 +104,8 @@ class _ReturnRequestComponentWidgetState
                 ),
               ),
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 0.0, 8.0),
+                padding:
+                    const EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 0.0, 8.0),
                 child: Text(
                   'Here are Details for Your Return Request',
                   style: FlutterFlowTheme.of(context).labelMedium.override(
@@ -124,8 +126,8 @@ class _ReturnRequestComponentWidgetState
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Padding(
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(24.0, 16.0, 24.0, 4.0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(
+                        24.0, 16.0, 24.0, 4.0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       children: [
@@ -147,14 +149,14 @@ class _ReturnRequestComponentWidgetState
                     ),
                   ),
                   Padding(
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(24.0, 4.0, 24.0, 0.0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(
+                        24.0, 4.0, 24.0, 0.0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          'return Id',
+                          'Return ID',
                           style: FlutterFlowTheme.of(context)
                               .labelMedium
                               .override(
@@ -186,8 +188,8 @@ class _ReturnRequestComponentWidgetState
                     ),
                   ),
                   Padding(
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(24.0, 4.0, 24.0, 20.0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(
+                        24.0, 4.0, 24.0, 20.0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -227,7 +229,8 @@ class _ReturnRequestComponentWidgetState
                 ],
               ),
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(20.0, 40.0, 20.0, 0.0),
+                padding:
+                    const EdgeInsetsDirectional.fromSTEB(20.0, 40.0, 20.0, 0.0),
                 child: FFButtonWidget(
                   onPressed: () async {
                     Navigator.pop(context);
@@ -236,10 +239,10 @@ class _ReturnRequestComponentWidgetState
                   options: FFButtonOptions(
                     width: double.infinity,
                     height: MediaQuery.sizeOf(context).height * 0.065,
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
-                    iconPadding:
-                        const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(
+                        16.0, 0.0, 16.0, 0.0),
+                    iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                        0.0, 0.0, 0.0, 0.0),
                     color: FlutterFlowTheme.of(context).primary,
                     textStyle: FlutterFlowTheme.of(context).titleSmall.override(
                           fontFamily: 'Inter',

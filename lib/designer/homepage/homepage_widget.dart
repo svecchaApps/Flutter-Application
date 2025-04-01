@@ -149,7 +149,8 @@ class _HomepageWidgetState extends State<HomepageWidget>
                           color: FlutterFlowTheme.of(context).alternate,
                         ),
                       ),
-                      child: GestureDetector(
+                      child: InkWell(
+                        splashColor: Colors.transparent,
                         onTap: () async {
                           Navigator.push(
                             context,
