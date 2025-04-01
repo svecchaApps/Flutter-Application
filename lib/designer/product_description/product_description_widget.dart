@@ -1,26 +1,25 @@
-import '';
-import '/auth/firebase_auth/auth_util.dart';
-import '/backend/api_requests/api_calls.dart';
-import '/flutter_flow/flutter_flow_expanded_image_view.dart';
-import '/flutter_flow/flutter_flow_icon_button.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
-import 'dart:ui';
-import '/flutter_flow/custom_functions.dart' as functions;
-import '/index.dart';
 import 'dart:async';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart'
-    as smooth_page_indicator;
-import 'package:cached_network_image/cached_network_image.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:page_transition/page_transition.dart';
+import 'package:indigo_rhapsody_dupli/components/cart_nav_button.dart';
 import 'package:provider/provider.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart'
+    as smooth_page_indicator;
 
+import '';
+import '/auth/firebase_auth/auth_util.dart';
+import '/backend/api_requests/api_calls.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
+import '/flutter_flow/flutter_flow_expanded_image_view.dart';
+import '/flutter_flow/flutter_flow_theme.dart';
+import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
+import '/index.dart';
 import 'product_description_model.dart';
+
 export 'product_description_model.dart';
 
 class ProductDescriptionWidget extends StatefulWidget {
@@ -55,7 +54,7 @@ class _ProductDescriptionWidgetState extends State<ProductDescriptionWidget> {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      _model.price = widget!.price;
+      _model.price = widget.price;
       safeSetState(() {});
     });
   }
@@ -74,8 +73,8 @@ class _ProductDescriptionWidgetState extends State<ProductDescriptionWidget> {
     return FutureBuilder<ApiCallResponse>(
       future: (_model.apiRequestCompleter ??= Completer<ApiCallResponse>()
             ..complete(BackendAPIGroup.getProductBycolorCall.call(
-              productId: widget!.productId,
-              color: widget!.colorId,
+              productId: widget.productId,
+              color: widget.colorId,
             )))
           .future,
       builder: (context, snapshot) {
@@ -117,7 +116,7 @@ class _ProductDescriptionWidgetState extends State<ProductDescriptionWidget> {
                       FlutterFlowTheme.of(context).primaryBackground,
                   automaticallyImplyLeading: false,
                   leading: Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(15, 0, 0, 0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(15, 0, 0, 0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       children: [
@@ -138,38 +137,10 @@ class _ProductDescriptionWidgetState extends State<ProductDescriptionWidget> {
                       ],
                     ),
                   ),
-                  title: Align(
-                    alignment: AlignmentDirectional(0, -0.85),
-                    child: Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Stack(
-                            children: [
-                              FlutterFlowIconButton(
-                                borderRadius: 30,
-                                buttonSize: 40,
-                                fillColor: Color(0x00E0E6ED),
-                                icon: Icon(
-                                  FFIcons.kshoppingBag,
-                                  color:
-                                      FlutterFlowTheme.of(context).primaryText,
-                                  size: 24,
-                                ),
-                                onPressed: () async {
-                                  context.pushNamed(
-                                      CartPagenewCopyWidget.routeName);
-                                },
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  actions: [],
+                  actions: const [
+                    CartNavButton(),
+                    SizedBox(width: 16),
+                  ],
                   centerTitle: false,
                   elevation: 0,
                 )
@@ -206,7 +177,8 @@ class _ProductDescriptionWidgetState extends State<ProductDescriptionWidget> {
                                             .primaryBackground,
                                       ),
                                       child: Align(
-                                        alignment: AlignmentDirectional(0, 0),
+                                        alignment:
+                                            const AlignmentDirectional(0, 0),
                                         child: Builder(
                                           builder: (context) {
                                             final data = BackendAPIGroup
@@ -218,7 +190,7 @@ class _ProductDescriptionWidgetState extends State<ProductDescriptionWidget> {
                                                     ?.toList() ??
                                                 [];
 
-                                            return Container(
+                                            return SizedBox(
                                               width: MediaQuery.sizeOf(context)
                                                   .width,
                                               child: Stack(
@@ -296,13 +268,13 @@ class _ProductDescriptionWidgetState extends State<ProductDescriptionWidget> {
                                                   ),
                                                   Align(
                                                     alignment:
-                                                        AlignmentDirectional(
+                                                        const AlignmentDirectional(
                                                             0, 1),
                                                     child: Padding(
                                                       padding:
-                                                          EdgeInsetsDirectional
+                                                          const EdgeInsetsDirectional
                                                               .fromSTEB(
-                                                                  16, 0, 0, 16),
+                                                              16, 0, 0, 16),
                                                       child: smooth_page_indicator
                                                           .SmoothPageIndicator(
                                                         controller: _model
@@ -323,9 +295,10 @@ class _ProductDescriptionWidgetState extends State<ProductDescriptionWidget> {
                                                               .pageViewController!
                                                               .animateToPage(
                                                             i,
-                                                            duration: Duration(
-                                                                milliseconds:
-                                                                    500),
+                                                            duration:
+                                                                const Duration(
+                                                                    milliseconds:
+                                                                        500),
                                                             curve: Curves.ease,
                                                           );
                                                           safeSetState(() {});
@@ -337,8 +310,8 @@ class _ProductDescriptionWidgetState extends State<ProductDescriptionWidget> {
                                                           radius: 16,
                                                           dotWidth: 8,
                                                           dotHeight: 8,
-                                                          dotColor:
-                                                              Color(0xFFC6C7C7),
+                                                          dotColor: const Color(
+                                                              0xFFC6C7C7),
                                                           activeDotColor:
                                                               FlutterFlowTheme.of(
                                                                       context)
@@ -358,11 +331,12 @@ class _ProductDescriptionWidgetState extends State<ProductDescriptionWidget> {
                                       ),
                                     ),
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          10, 10, 10, 0),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              10, 10, 10, 0),
                                       child: Container(
                                         width: MediaQuery.sizeOf(context).width,
-                                        decoration: BoxDecoration(),
+                                        decoration: const BoxDecoration(),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.max,
                                           children: [
@@ -398,8 +372,9 @@ class _ProductDescriptionWidgetState extends State<ProductDescriptionWidget> {
                                       ),
                                     ),
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          10, 20, 0, 0),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              10, 20, 0, 0),
                                       child: InkWell(
                                         splashColor: Colors.transparent,
                                         focusColor: Colors.transparent,
@@ -434,8 +409,9 @@ class _ProductDescriptionWidgetState extends State<ProductDescriptionWidget> {
                                       ),
                                     ),
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          10, 20, 20, 0),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              10, 20, 20, 0),
                                       child: Text(
                                         'Size',
                                         style: FlutterFlowTheme.of(context)
@@ -455,8 +431,9 @@ class _ProductDescriptionWidgetState extends State<ProductDescriptionWidget> {
                                       ),
                                     ),
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          10, 10, 10, 0),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              10, 10, 10, 0),
                                       child: Builder(
                                         builder: (context) {
                                           final sizes = BackendAPIGroup
@@ -478,13 +455,13 @@ class _ProductDescriptionWidgetState extends State<ProductDescriptionWidget> {
                                                     sizes[sizesIndex];
                                                 return Align(
                                                   alignment:
-                                                      AlignmentDirectional(
+                                                      const AlignmentDirectional(
                                                           0, 0),
                                                   child: Padding(
                                                     padding:
-                                                        EdgeInsetsDirectional
+                                                        const EdgeInsetsDirectional
                                                             .fromSTEB(
-                                                                0, 0, 15, 0),
+                                                            0, 0, 15, 0),
                                                     child: InkWell(
                                                       splashColor:
                                                           Colors.transparent,
@@ -547,7 +524,7 @@ class _ProductDescriptionWidgetState extends State<ProductDescriptionWidget> {
                                                           children: [
                                                             Align(
                                                               alignment:
-                                                                  AlignmentDirectional(
+                                                                  const AlignmentDirectional(
                                                                       0, 0),
                                                               child: Text(
                                                                 getJsonField(
@@ -582,12 +559,12 @@ class _ProductDescriptionWidgetState extends State<ProductDescriptionWidget> {
                                                             ),
                                                             Padding(
                                                               padding:
-                                                                  EdgeInsetsDirectional
+                                                                  const EdgeInsetsDirectional
                                                                       .fromSTEB(
-                                                                          0,
-                                                                          5,
-                                                                          0,
-                                                                          0),
+                                                                      0,
+                                                                      5,
+                                                                      0,
+                                                                      0),
                                                               child: Text(
                                                                 '₹${getJsonField(
                                                                   sizesItem,
@@ -630,8 +607,9 @@ class _ProductDescriptionWidgetState extends State<ProductDescriptionWidget> {
                                       ),
                                     ),
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0, 10, 0, 0),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              0, 10, 0, 0),
                                       child: Container(
                                         width: MediaQuery.sizeOf(context).width,
                                         height: 10,
@@ -642,15 +620,15 @@ class _ProductDescriptionWidgetState extends State<ProductDescriptionWidget> {
                                       ),
                                     ),
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          10, 20, 20, 10),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              10, 20, 20, 10),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
                                           Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0, 0, 20, 0),
+                                            padding: const EdgeInsetsDirectional
+                                                .fromSTEB(0, 0, 20, 0),
                                             child: Text(
                                               'Product Details',
                                               style: FlutterFlowTheme.of(
@@ -675,11 +653,12 @@ class _ProductDescriptionWidgetState extends State<ProductDescriptionWidget> {
                                       ),
                                     ),
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          10, 0, 10, 0),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              10, 0, 10, 0),
                                       child: Container(
                                         width: MediaQuery.sizeOf(context).width,
-                                        decoration: BoxDecoration(),
+                                        decoration: const BoxDecoration(),
                                         child: Text(
                                           valueOrDefault<String>(
                                             BackendAPIGroup
@@ -704,8 +683,9 @@ class _ProductDescriptionWidgetState extends State<ProductDescriptionWidget> {
                                       ),
                                     ),
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          10, 10, 10, 0),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              10, 10, 10, 0),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
@@ -731,11 +711,12 @@ class _ProductDescriptionWidgetState extends State<ProductDescriptionWidget> {
                                       ),
                                     ),
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          10, 0, 10, 0),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              10, 0, 10, 0),
                                       child: Container(
                                         width: MediaQuery.sizeOf(context).width,
-                                        decoration: BoxDecoration(),
+                                        decoration: const BoxDecoration(),
                                         child: Text(
                                           valueOrDefault<String>(
                                             BackendAPIGroup
@@ -765,16 +746,18 @@ class _ProductDescriptionWidgetState extends State<ProductDescriptionWidget> {
                                       ),
                                     ),
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          10, 0, 10, 0),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              10, 0, 10, 0),
                                       child: Container(
                                         width: MediaQuery.sizeOf(context).width,
-                                        decoration: BoxDecoration(),
+                                        decoration: const BoxDecoration(),
                                       ),
                                     ),
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          10, 20, 10, 0),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              10, 20, 10, 0),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
@@ -800,11 +783,12 @@ class _ProductDescriptionWidgetState extends State<ProductDescriptionWidget> {
                                       ),
                                     ),
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          10, 0, 10, 0),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              10, 0, 10, 0),
                                       child: Container(
                                         width: MediaQuery.sizeOf(context).width,
-                                        decoration: BoxDecoration(),
+                                        decoration: const BoxDecoration(),
                                         child: Text(
                                           valueOrDefault<String>(
                                             BackendAPIGroup
@@ -828,8 +812,9 @@ class _ProductDescriptionWidgetState extends State<ProductDescriptionWidget> {
                                       ),
                                     ),
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          10, 20, 10, 0),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              10, 20, 10, 0),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
@@ -855,15 +840,15 @@ class _ProductDescriptionWidgetState extends State<ProductDescriptionWidget> {
                                       ),
                                     ),
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          10, 0, 10, 0),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              10, 0, 10, 0),
                                       child: Container(
                                         width: MediaQuery.sizeOf(context).width,
-                                        decoration: BoxDecoration(),
+                                        decoration: const BoxDecoration(),
                                         child: Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0, 2, 0, 0),
+                                          padding: const EdgeInsetsDirectional
+                                              .fromSTEB(0, 2, 0, 0),
                                           child: Text(
                                             valueOrDefault<String>(
                                               BackendAPIGroup
@@ -890,19 +875,21 @@ class _ProductDescriptionWidgetState extends State<ProductDescriptionWidget> {
                                       ),
                                     ),
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          10, 0, 10, 0),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              10, 0, 10, 0),
                                       child: Container(
                                         width: MediaQuery.sizeOf(context).width,
-                                        decoration: BoxDecoration(),
+                                        decoration: const BoxDecoration(),
                                       ),
                                     ),
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          10, 0, 10, 0),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              10, 0, 10, 0),
                                       child: Container(
                                         width: MediaQuery.sizeOf(context).width,
-                                        decoration: BoxDecoration(),
+                                        decoration: const BoxDecoration(),
                                       ),
                                     ),
                                     SingleChildScrollView(
@@ -910,23 +897,21 @@ class _ProductDescriptionWidgetState extends State<ProductDescriptionWidget> {
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
                                           Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    10, 5, 10, 0),
+                                            padding: const EdgeInsetsDirectional
+                                                .fromSTEB(10, 5, 10, 0),
                                             child: Container(
                                               width: MediaQuery.sizeOf(context)
                                                   .width,
-                                              decoration: BoxDecoration(),
+                                              decoration: const BoxDecoration(),
                                             ),
                                           ),
                                           Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    10, 0, 10, 0),
+                                            padding: const EdgeInsetsDirectional
+                                                .fromSTEB(10, 0, 10, 0),
                                             child: Container(
                                               width: MediaQuery.sizeOf(context)
                                                   .width,
-                                              decoration: BoxDecoration(),
+                                              decoration: const BoxDecoration(),
                                             ),
                                           ),
                                         ],
@@ -945,7 +930,7 @@ class _ProductDescriptionWidgetState extends State<ProductDescriptionWidget> {
                         decoration: BoxDecoration(
                           color:
                               FlutterFlowTheme.of(context).secondaryBackground,
-                          borderRadius: BorderRadius.only(
+                          borderRadius: const BorderRadius.only(
                             bottomLeft: Radius.circular(0),
                             bottomRight: Radius.circular(0),
                             topLeft: Radius.circular(0),
@@ -953,7 +938,8 @@ class _ProductDescriptionWidgetState extends State<ProductDescriptionWidget> {
                           ),
                         ),
                         child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 8),
+                          padding:
+                              const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 8),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.end,
@@ -970,10 +956,11 @@ class _ProductDescriptionWidgetState extends State<ProductDescriptionWidget> {
                                           ?.toList(),
                                       FFAppState().userId)!)
                                     Align(
-                                      alignment: AlignmentDirectional(0, -1),
+                                      alignment:
+                                          const AlignmentDirectional(0, -1),
                                       child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            0, 9, 10, 0),
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(0, 9, 10, 0),
                                         child: FFButtonWidget(
                                           onPressed: () async {
                                             _model.apiResultdshcopyCopy =
@@ -981,7 +968,7 @@ class _ProductDescriptionWidgetState extends State<ProductDescriptionWidget> {
                                                     .createWishListCall
                                                     .call(
                                               userId: FFAppState().userId,
-                                              productId: widget!.productId,
+                                              productId: widget.productId,
                                             );
 
                                             if ((_model.apiResultdshcopyCopy
@@ -1004,7 +991,7 @@ class _ProductDescriptionWidgetState extends State<ProductDescriptionWidget> {
                                                               .primaryText,
                                                     ),
                                                   ),
-                                                  duration: Duration(
+                                                  duration: const Duration(
                                                       milliseconds: 4000),
                                                   backgroundColor:
                                                       FlutterFlowTheme.of(
@@ -1035,7 +1022,7 @@ class _ProductDescriptionWidgetState extends State<ProductDescriptionWidget> {
                                                               .primaryText,
                                                     ),
                                                   ),
-                                                  duration: Duration(
+                                                  duration: const Duration(
                                                       milliseconds: 4000),
                                                   backgroundColor:
                                                       FlutterFlowTheme.of(
@@ -1053,12 +1040,11 @@ class _ProductDescriptionWidgetState extends State<ProductDescriptionWidget> {
                                                     .width *
                                                 0.45,
                                             height: 50,
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0, 0, 24, 0),
+                                            padding: const EdgeInsetsDirectional
+                                                .fromSTEB(0, 0, 24, 0),
                                             iconPadding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0, 0, 0, 0),
+                                                const EdgeInsetsDirectional
+                                                    .fromSTEB(0, 0, 0, 0),
                                             color: FlutterFlowTheme.of(context)
                                                 .primaryBackground,
                                             textStyle:
@@ -1083,7 +1069,7 @@ class _ProductDescriptionWidgetState extends State<ProductDescriptionWidget> {
                                                                   .titleSmallFamily),
                                                     ),
                                             elevation: 3,
-                                            borderSide: BorderSide(
+                                            borderSide: const BorderSide(
                                               color: Colors.transparent,
                                               width: 1,
                                             ),
@@ -1103,8 +1089,9 @@ class _ProductDescriptionWidgetState extends State<ProductDescriptionWidget> {
                                           FFAppState().userId) ??
                                       true)
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0, 8, 10, 0),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              0, 8, 10, 0),
                                       child: FFButtonWidget(
                                         onPressed: () async {
                                           _model.apiResultdshcopyCopy1 =
@@ -1112,7 +1099,7 @@ class _ProductDescriptionWidgetState extends State<ProductDescriptionWidget> {
                                                   .createWishListCall
                                                   .call(
                                             userId: FFAppState().userId,
-                                            productId: widget!.productId,
+                                            productId: widget.productId,
                                           );
 
                                           if ((_model.apiResultdshcopyCopy1
@@ -1134,7 +1121,7 @@ class _ProductDescriptionWidgetState extends State<ProductDescriptionWidget> {
                                                         .primaryText,
                                                   ),
                                                 ),
-                                                duration: Duration(
+                                                duration: const Duration(
                                                     milliseconds: 4000),
                                                 backgroundColor:
                                                     FlutterFlowTheme.of(context)
@@ -1163,7 +1150,7 @@ class _ProductDescriptionWidgetState extends State<ProductDescriptionWidget> {
                                                         .primaryText,
                                                   ),
                                                 ),
-                                                duration: Duration(
+                                                duration: const Duration(
                                                     milliseconds: 4000),
                                                 backgroundColor:
                                                     FlutterFlowTheme.of(context)
@@ -1180,12 +1167,11 @@ class _ProductDescriptionWidgetState extends State<ProductDescriptionWidget> {
                                               MediaQuery.sizeOf(context).width *
                                                   0.45,
                                           height: 50,
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  24, 0, 24, 0),
+                                          padding: const EdgeInsetsDirectional
+                                              .fromSTEB(24, 0, 24, 0),
                                           iconPadding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0, 0, 0, 0),
+                                              const EdgeInsetsDirectional
+                                                  .fromSTEB(0, 0, 0, 0),
                                           color: FlutterFlowTheme.of(context)
                                               .primaryBackground,
                                           textStyle: FlutterFlowTheme.of(
@@ -1208,7 +1194,7 @@ class _ProductDescriptionWidgetState extends State<ProductDescriptionWidget> {
                                                             .titleSmallFamily),
                                               ),
                                           elevation: 3,
-                                          borderSide: BorderSide(
+                                          borderSide: const BorderSide(
                                             color: Colors.transparent,
                                             width: 1,
                                           ),
@@ -1220,12 +1206,11 @@ class _ProductDescriptionWidgetState extends State<ProductDescriptionWidget> {
                                 ],
                               ),
                               Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(0, 8, 10, 0),
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    0, 8, 10, 0),
                                 child: FFButtonWidget(
                                   onPressed: () async {
-                                    if (currentPhoneNumber != null &&
-                                        currentPhoneNumber != '') {
+                                    if (currentPhoneNumber != '') {
                                       HapticFeedback.mediumImpact();
                                       _model.apiResult2t4new = await BackendAPIGroup
                                           .createCartandUpdateCartOneFunctionCall
@@ -1273,8 +1258,8 @@ class _ProductDescriptionWidgetState extends State<ProductDescriptionWidget> {
                                                         .primaryText,
                                               ),
                                             ),
-                                            duration:
-                                                Duration(milliseconds: 4000),
+                                            duration: const Duration(
+                                                milliseconds: 4000),
                                             backgroundColor:
                                                 FlutterFlowTheme.of(context)
                                                     .secondary,
@@ -1297,8 +1282,8 @@ class _ProductDescriptionWidgetState extends State<ProductDescriptionWidget> {
                                                         .primaryText,
                                               ),
                                             ),
-                                            duration:
-                                                Duration(milliseconds: 4000),
+                                            duration: const Duration(
+                                                milliseconds: 4000),
                                             backgroundColor:
                                                 FlutterFlowTheme.of(context)
                                                     .secondary,
@@ -1317,10 +1302,12 @@ class _ProductDescriptionWidgetState extends State<ProductDescriptionWidget> {
                                     width:
                                         MediaQuery.sizeOf(context).width * 0.45,
                                     height: 50,
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        24, 0, 24, 0),
-                                    iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                        0, 0, 0, 0),
+                                    padding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            24, 0, 24, 0),
+                                    iconPadding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            0, 0, 0, 0),
                                     color: FlutterFlowTheme.of(context).primary,
                                     textStyle: FlutterFlowTheme.of(context)
                                         .titleSmall
@@ -1338,7 +1325,7 @@ class _ProductDescriptionWidgetState extends State<ProductDescriptionWidget> {
                                                       .titleSmallFamily),
                                         ),
                                     elevation: 3,
-                                    borderSide: BorderSide(
+                                    borderSide: const BorderSide(
                                       color: Colors.transparent,
                                       width: 1,
                                     ),

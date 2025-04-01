@@ -1,16 +1,14 @@
-import '/backend/api_requests/api_calls.dart';
-import '/flutter_flow/flutter_flow_icon_button.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
-import 'dart:ui';
-import '/index.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
+import 'package:indigo_rhapsody_dupli/components/cart_nav_button.dart';
 
+import '/backend/api_requests/api_calls.dart';
+import '/flutter_flow/flutter_flow_theme.dart';
+import '/flutter_flow/flutter_flow_util.dart';
+import '/index.dart';
 import 'designer_category_clienty_copy_model.dart';
+
 export 'designer_category_clienty_copy_model.dart';
 
 class DesignerCategoryClientyCopyWidget extends StatefulWidget {
@@ -87,7 +85,7 @@ class _DesignerCategoryClientyCopyWidgetState
           ),
           actions: [
             Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0, 0, 10, 0),
+              padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 10, 0),
               child: InkWell(
                 splashColor: Colors.transparent,
                 focusColor: Colors.transparent,
@@ -96,28 +94,15 @@ class _DesignerCategoryClientyCopyWidgetState
                 onTap: () async {
                   context.pushNamed(Searchpage1Widget.routeName);
                 },
-                child: Icon(
+                child: const Icon(
                   FFIcons.ksearch,
                   color: Color(0xFF263F96),
                   size: 24,
                 ),
               ),
             ),
-            Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0, 0, 20, 0),
-              child: FlutterFlowIconButton(
-                borderRadius: 60,
-                buttonSize: 40,
-                icon: Icon(
-                  FFIcons.kshoppingBag,
-                  color: Color(0xFF263F96),
-                  size: 24,
-                ),
-                onPressed: () async {
-                  context.pushNamed(CartPagenewCopyWidget.routeName);
-                },
-              ),
-            ),
+            const CartNavButton(),
+            const SizedBox(width: 16),
           ],
           centerTitle: false,
           elevation: 0,
@@ -125,10 +110,10 @@ class _DesignerCategoryClientyCopyWidgetState
         body: SafeArea(
           top: true,
           child: Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+            padding: const EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
             child: FutureBuilder<ApiCallResponse>(
               future: BackendAPIGroup.subcategoryByidCall.call(
-                categoryId: widget!.categoryref,
+                categoryId: widget.categoryref,
               ),
               builder: (context, snapshot) {
                 // Customize what your widget looks like when it's loading.
@@ -159,7 +144,8 @@ class _DesignerCategoryClientyCopyWidgetState
 
                     return GridView.builder(
                       padding: EdgeInsets.zero,
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
                         crossAxisSpacing: 5,
                         mainAxisSpacing: 10,
@@ -204,14 +190,14 @@ class _DesignerCategoryClientyCopyWidgetState
                                 Container(
                                   height:
                                       MediaQuery.sizeOf(context).height * 0.3,
-                                  decoration: BoxDecoration(),
+                                  decoration: const BoxDecoration(),
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(8),
                                     child: CachedNetworkImage(
                                       fadeInDuration:
-                                          Duration(milliseconds: 500),
+                                          const Duration(milliseconds: 500),
                                       fadeOutDuration:
-                                          Duration(milliseconds: 500),
+                                          const Duration(milliseconds: 500),
                                       imageUrl: getJsonField(
                                         subcategoryResponseItem,
                                         r'''$.image''',
@@ -222,7 +208,7 @@ class _DesignerCategoryClientyCopyWidgetState
                                   ),
                                 ),
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0, 10, 0, 0),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
@@ -257,13 +243,13 @@ class _DesignerCategoryClientyCopyWidgetState
                                   ),
                                 ),
                                 Align(
-                                  alignment: AlignmentDirectional(0, 1),
+                                  alignment: const AlignmentDirectional(0, 1),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Container(
-                                        decoration: BoxDecoration(),
+                                        decoration: const BoxDecoration(),
                                       ),
                                     ],
                                   ),

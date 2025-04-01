@@ -85,14 +85,14 @@ class _ApprovalCopyWidgetState extends State<ApprovalCopyWidget> {
         body: SafeArea(
           top: true,
           child: Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 10.0),
+            padding: const EdgeInsetsDirectional.fromSTEB(10.0, 0, 10.0, 10.0),
             child: SingleChildScrollView(
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Padding(
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 0.0, 0.0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(
+                        10.0, 10.0, 0.0, 0.0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       children: [
@@ -114,8 +114,8 @@ class _ApprovalCopyWidgetState extends State<ApprovalCopyWidget> {
                     ),
                   ),
                   Padding(
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 10.0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(
+                        10.0, 10.0, 10.0, 10.0),
                     child: Container(
                       width: MediaQuery.sizeOf(context).width * 1.0,
                       decoration: BoxDecoration(
@@ -138,6 +138,7 @@ class _ApprovalCopyWidgetState extends State<ApprovalCopyWidget> {
                   Row(
                     mainAxisSize: MainAxisSize.max,
                     children: [
+                      const SizedBox(width: 8),
                       Theme(
                         data: ThemeData(
                           checkboxTheme: CheckboxThemeData(
@@ -179,8 +180,8 @@ class _ApprovalCopyWidgetState extends State<ApprovalCopyWidget> {
                     ],
                   ),
                   Padding(
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 10.0, 20.0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(
+                        10.0, 12.0, 10.0, 20.0),
                     child: FFButtonWidget(
                       onPressed: () async {
                         if (_model.checkboxValue == true) {
@@ -210,8 +211,8 @@ class _ApprovalCopyWidgetState extends State<ApprovalCopyWidget> {
                         height: 40.0,
                         padding: const EdgeInsetsDirectional.fromSTEB(
                             24.0, 0.0, 24.0, 0.0),
-                        iconPadding:
-                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                        iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                            0.0, 0.0, 0.0, 0.0),
                         color: FlutterFlowTheme.of(context).primary,
                         textStyle: FlutterFlowTheme.of(context)
                             .titleSmall

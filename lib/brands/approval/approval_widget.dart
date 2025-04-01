@@ -100,8 +100,8 @@ class _ApprovalWidgetState extends State<ApprovalWidget> {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Padding(
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 0.0, 0.0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(
+                        10.0, 10.0, 0.0, 0.0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       children: [
@@ -123,8 +123,8 @@ class _ApprovalWidgetState extends State<ApprovalWidget> {
                     ),
                   ),
                   Padding(
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 10.0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(
+                        10.0, 10.0, 10.0, 10.0),
                     child: Container(
                       width: MediaQuery.sizeOf(context).width * 1.0,
                       decoration: BoxDecoration(
@@ -188,8 +188,8 @@ class _ApprovalWidgetState extends State<ApprovalWidget> {
                     ],
                   ),
                   Padding(
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 10.0, 20.0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(
+                        10.0, 0.0, 10.0, 20.0),
                     child: FFButtonWidget(
                       onPressed: () async {
                         if (_model.checkboxValue == true) {
@@ -219,8 +219,8 @@ class _ApprovalWidgetState extends State<ApprovalWidget> {
                         height: 40.0,
                         padding: const EdgeInsetsDirectional.fromSTEB(
                             24.0, 0.0, 24.0, 0.0),
-                        iconPadding:
-                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                        iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                            0.0, 0.0, 0.0, 0.0),
                         color: FlutterFlowTheme.of(context).primary,
                         textStyle: FlutterFlowTheme.of(context)
                             .titleSmall

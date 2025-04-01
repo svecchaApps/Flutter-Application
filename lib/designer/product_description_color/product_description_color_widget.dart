@@ -1,28 +1,26 @@
-import '';
-import '/auth/firebase_auth/auth_util.dart';
-import '/backend/api_requests/api_calls.dart';
-import '/backend/backend.dart';
-import '/flutter_flow/flutter_flow_expanded_image_view.dart';
-import '/flutter_flow/flutter_flow_icon_button.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
-import 'dart:ui';
-import '/flutter_flow/custom_functions.dart' as functions;
-import '/index.dart';
 import 'dart:async';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart'
-    as smooth_page_indicator;
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:page_transition/page_transition.dart';
+import 'package:indigo_rhapsody_dupli/components/cart_nav_button.dart';
 import 'package:provider/provider.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart'
+    as smooth_page_indicator;
 
+import '';
+import '/auth/firebase_auth/auth_util.dart';
+import '/backend/api_requests/api_calls.dart';
+import '/backend/backend.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
+import '/flutter_flow/flutter_flow_expanded_image_view.dart';
+import '/flutter_flow/flutter_flow_theme.dart';
+import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
+import '/index.dart';
 import 'product_description_color_model.dart';
+
 export 'product_description_color_model.dart';
 
 class ProductDescriptionColorWidget extends StatefulWidget {
@@ -56,7 +54,7 @@ class _ProductDescriptionColorWidgetState
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      _model.price = widget!.price;
+      _model.price = widget.price;
       safeSetState(() {});
     });
   }
@@ -75,7 +73,7 @@ class _ProductDescriptionColorWidgetState
     return FutureBuilder<ApiCallResponse>(
       future: (_model.apiRequestCompleter ??= Completer<ApiCallResponse>()
             ..complete(BackendAPIGroup.getProductByIdCall.call(
-              productId: widget!.productId,
+              productId: widget.productId,
             )))
           .future,
       builder: (context, snapshot) {
@@ -117,7 +115,7 @@ class _ProductDescriptionColorWidgetState
                       FlutterFlowTheme.of(context).primaryBackground,
                   automaticallyImplyLeading: false,
                   leading: Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(15, 0, 0, 0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(15, 0, 0, 0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       children: [
@@ -132,43 +130,18 @@ class _ProductDescriptionColorWidgetState
                           child: Icon(
                             Icons.chevron_left,
                             color: FlutterFlowTheme.of(context).primary,
-                            size: 24,
+                            size: 28,
                           ),
                         ),
                       ],
                     ),
                   ),
-                  title: Align(
-                    alignment: AlignmentDirectional(0, -0.85),
-                    child: Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Stack(
-                            children: [
-                              FlutterFlowIconButton(
-                                borderRadius: 30,
-                                buttonSize: 40,
-                                fillColor: Color(0xFFE0E6ED),
-                                icon: Icon(
-                                  FFIcons.kshoppingBag,
-                                  color: Color(0xFF263F96),
-                                  size: 24,
-                                ),
-                                onPressed: () async {
-                                  context.pushNamed(
-                                      CartPagenewCopyWidget.routeName);
-                                },
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
+                  actions: const [
+                    Padding(
+                      padding: EdgeInsets.only(top: 8, right: 16, bottom: 8),
+                      child: CartNavButton(),
                     ),
-                  ),
-                  actions: [],
+                  ],
                   centerTitle: false,
                   elevation: 0,
                 )
@@ -192,7 +165,7 @@ class _ProductDescriptionColorWidgetState
                                       .primaryBackground,
                                 ),
                                 child: Align(
-                                  alignment: AlignmentDirectional(0, 0),
+                                  alignment: const AlignmentDirectional(0, 0),
                                   child: Builder(
                                     builder: (context) {
                                       final variantImage =
@@ -204,7 +177,7 @@ class _ProductDescriptionColorWidgetState
                                                   ?.toList() ??
                                               [];
 
-                                      return Container(
+                                      return SizedBox(
                                         width: MediaQuery.sizeOf(context).width,
                                         child: Stack(
                                           children: [
@@ -276,10 +249,12 @@ class _ProductDescriptionColorWidgetState
                                             ),
                                             Align(
                                               alignment:
-                                                  AlignmentDirectional(0, 1),
+                                                  const AlignmentDirectional(
+                                                      0, 1),
                                               child: Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(16, 0, 0, 16),
+                                                padding:
+                                                    const EdgeInsetsDirectional
+                                                        .fromSTEB(16, 0, 0, 16),
                                                 child: smooth_page_indicator
                                                     .SmoothPageIndicator(
                                                   controller: _model
@@ -300,7 +275,7 @@ class _ProductDescriptionColorWidgetState
                                                         .pageViewController!
                                                         .animateToPage(
                                                       i,
-                                                      duration: Duration(
+                                                      duration: const Duration(
                                                           milliseconds: 500),
                                                       curve: Curves.ease,
                                                     );
@@ -310,10 +285,11 @@ class _ProductDescriptionColorWidgetState
                                                       .ExpandingDotsEffect(
                                                     expansionFactor: 2,
                                                     spacing: 8,
-                                                    radius: 0,
+                                                    radius: 12,
                                                     dotWidth: 8,
                                                     dotHeight: 8,
-                                                    dotColor: Color(0xFFC6C7C7),
+                                                    dotColor:
+                                                        const Color(0xFFC6C7C7),
                                                     activeDotColor:
                                                         FlutterFlowTheme.of(
                                                                 context)
@@ -332,44 +308,35 @@ class _ProductDescriptionColorWidgetState
                                 ),
                               ),
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    10, 10, 10, 10),
-                                child: Container(
-                                  width: MediaQuery.sizeOf(context).width,
-                                  decoration: BoxDecoration(),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
-                                      Text(
-                                        valueOrDefault<String>(
-                                          BackendAPIGroup.getProductByIdCall
-                                              .productName(
-                                            productDescriptionColorGetProductByIdResponse
-                                                .jsonBody,
-                                          ),
-                                          'productName',
-                                        ),
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Inter',
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .secondaryText,
-                                              fontSize: 16,
-                                              letterSpacing: 0.0,
-                                              fontWeight: FontWeight.w500,
-                                              useGoogleFonts:
-                                                  GoogleFonts.asMap()
-                                                      .containsKey('Inter'),
-                                            ),
-                                      ),
-                                    ],
+                                padding:
+                                    const EdgeInsets.fromLTRB(12, 16, 12, 8),
+                                child: Text(
+                                  valueOrDefault<String>(
+                                    BackendAPIGroup.getProductByIdCall
+                                        .productName(
+                                      productDescriptionColorGetProductByIdResponse
+                                          .jsonBody,
+                                    ),
+                                    'productName',
                                   ),
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Inter',
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryText,
+                                        fontSize: 16,
+                                        letterSpacing: 0.0,
+                                        fontWeight: FontWeight.w500,
+                                        useGoogleFonts: GoogleFonts.asMap()
+                                            .containsKey('Inter'),
+                                      ),
                                 ),
                               ),
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     10, 10, 0, 0),
                                 child: Text(
                                   '₹${_model.price}',
@@ -389,7 +356,7 @@ class _ProductDescriptionColorWidgetState
                                 ),
                               ),
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     10, 15, 0, 0),
                                 child: Text(
                                   'Colors',
@@ -411,17 +378,17 @@ class _ProductDescriptionColorWidgetState
                                 ),
                               ),
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     20, 15, 20, 0),
                                 child: Container(
                                   width: MediaQuery.sizeOf(context).width,
-                                  decoration: BoxDecoration(),
+                                  decoration: const BoxDecoration(),
                                 ),
                               ),
                               Container(
-                                decoration: BoxDecoration(),
+                                decoration: const BoxDecoration(),
                                 child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       10, 0, 10, 0),
                                   child: Builder(
                                     builder: (context) {
@@ -445,10 +412,11 @@ class _ProductDescriptionColorWidgetState
                                                 availableColors[
                                                     availableColorsIndex];
                                             return Container(
-                                              decoration: BoxDecoration(),
+                                              decoration: const BoxDecoration(),
                                               child: Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(0, 0, 20, 0),
+                                                padding:
+                                                    const EdgeInsetsDirectional
+                                                        .fromSTEB(0, 0, 20, 0),
                                                 child: InkWell(
                                                   splashColor:
                                                       Colors.transparent,
@@ -465,7 +433,7 @@ class _ProductDescriptionColorWidgetState
                                                       queryParameters: {
                                                         'productId':
                                                             serializeParam(
-                                                          widget!.productId,
+                                                          widget.productId,
                                                           ParamType.String,
                                                         ),
                                                         'colorId':
@@ -477,7 +445,7 @@ class _ProductDescriptionColorWidgetState
                                                           ParamType.String,
                                                         ),
                                                         'price': serializeParam(
-                                                          widget!.price,
+                                                          widget.price,
                                                           ParamType.String,
                                                         ),
                                                       }.withoutNulls,
@@ -506,9 +474,9 @@ class _ProductDescriptionColorWidgetState
                                                       ),
                                                       Padding(
                                                         padding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(0, 10,
-                                                                    0, 0),
+                                                            const EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                0, 10, 0, 0),
                                                         child: InkWell(
                                                           splashColor: Colors
                                                               .transparent,
@@ -525,7 +493,7 @@ class _ProductDescriptionColorWidgetState
                                                               queryParameters: {
                                                                 'productId':
                                                                     serializeParam(
-                                                                  widget!
+                                                                  widget
                                                                       .productId,
                                                                   ParamType
                                                                       .String,
@@ -539,7 +507,7 @@ class _ProductDescriptionColorWidgetState
                                                                 ),
                                                                 'price':
                                                                     serializeParam(
-                                                                  widget!.price,
+                                                                  widget.price,
                                                                   ParamType
                                                                       .String,
                                                                 ),
@@ -583,7 +551,7 @@ class _ProductDescriptionColorWidgetState
                                 ),
                               ),
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     10, 20, 20, 0),
                                 child: Text(
                                   'Sizes',
@@ -602,7 +570,7 @@ class _ProductDescriptionColorWidgetState
                                 ),
                               ),
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     10, 10, 10, 0),
                                 child: Builder(
                                   builder: (context) {
@@ -624,9 +592,8 @@ class _ProductDescriptionColorWidgetState
                                           final detailsItem =
                                               details[detailsIndex];
                                           return Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0, 0, 8, 0),
+                                            padding: const EdgeInsetsDirectional
+                                                .fromSTEB(0, 0, 8, 0),
                                             child: InkWell(
                                               splashColor: Colors.transparent,
                                               focusColor: Colors.transparent,
@@ -679,13 +646,13 @@ class _ProductDescriptionColorWidgetState
                                                   children: [
                                                     Align(
                                                       alignment:
-                                                          AlignmentDirectional(
+                                                          const AlignmentDirectional(
                                                               0, 0),
                                                       child: Padding(
                                                         padding:
-                                                            EdgeInsetsDirectional
+                                                            const EdgeInsetsDirectional
                                                                 .fromSTEB(
-                                                                    5, 0, 0, 0),
+                                                                5, 0, 0, 0),
                                                         child: Text(
                                                           getJsonField(
                                                             detailsItem,
@@ -722,9 +689,9 @@ class _ProductDescriptionColorWidgetState
                                                     ),
                                                     Padding(
                                                       padding:
-                                                          EdgeInsetsDirectional
+                                                          const EdgeInsetsDirectional
                                                               .fromSTEB(
-                                                                  0, 5, 0, 0),
+                                                              0, 5, 0, 0),
                                                       child: Text(
                                                         '₹${getJsonField(
                                                           detailsItem,
@@ -770,8 +737,8 @@ class _ProductDescriptionColorWidgetState
                                 ),
                               ),
                               Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    0, 10, 0, 0),
                                 child: Container(
                                   width: MediaQuery.sizeOf(context).width,
                                   height: 10,
@@ -782,14 +749,15 @@ class _ProductDescriptionColorWidgetState
                                 ),
                               ),
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     10, 20, 20, 10),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0, 0, 20, 0),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              0, 0, 20, 0),
                                       child: Text(
                                         'Product Details',
                                         style: FlutterFlowTheme.of(context)
@@ -812,11 +780,11 @@ class _ProductDescriptionColorWidgetState
                                 ),
                               ),
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     10, 0, 10, 0),
                                 child: Container(
                                   width: MediaQuery.sizeOf(context).width,
-                                  decoration: BoxDecoration(),
+                                  decoration: const BoxDecoration(),
                                   child: Text(
                                     valueOrDefault<String>(
                                       BackendAPIGroup.getProductByIdCall
@@ -843,7 +811,7 @@ class _ProductDescriptionColorWidgetState
                                 ),
                               ),
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     10, 10, 10, 0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
@@ -853,68 +821,6 @@ class _ProductDescriptionColorWidgetState
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
-                           
-                           
-                           
-                           
-                           
-                           
-                           
-                           
-                           
-                           
-                           
-                           
-                           
-                           
-                           
-                           
-                           
-                           
-                           
-                           
-                           
-                           
-                           
-                           
-                           
-                           
-                           
-                           
-                           
-                           
-                           
-                           
-                           
-                           
-                           
-                           
-                           
-                           
-                           
-                           
-                           
-                           
-                           
-                           
-                           
-                           
-                           
-                           
-                           
-                           
-                           
-                           
-                           
-                           
-                           
-                           
-                           
-                           
-                           
-                           
-                           
-                           
                                             fontFamily: 'Poppins',
                                             color: FlutterFlowTheme.of(context)
                                                 .secondaryText,
@@ -929,11 +835,11 @@ class _ProductDescriptionColorWidgetState
                                 ),
                               ),
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     10, 0, 10, 0),
                                 child: Container(
                                   width: MediaQuery.sizeOf(context).width,
-                                  decoration: BoxDecoration(),
+                                  decoration: const BoxDecoration(),
                                   child: Text(
                                     valueOrDefault<String>(
                                       BackendAPIGroup.getProductByIdCall.fabric(
@@ -959,15 +865,15 @@ class _ProductDescriptionColorWidgetState
                                 ),
                               ),
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     10, 0, 10, 0),
                                 child: Container(
                                   width: MediaQuery.sizeOf(context).width,
-                                  decoration: BoxDecoration(),
+                                  decoration: const BoxDecoration(),
                                 ),
                               ),
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     10, 20, 10, 0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
@@ -991,11 +897,11 @@ class _ProductDescriptionColorWidgetState
                                 ),
                               ),
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     10, 0, 10, 0),
                                 child: Container(
                                   width: MediaQuery.sizeOf(context).width,
-                                  decoration: BoxDecoration(),
+                                  decoration: const BoxDecoration(),
                                   child: Text(
                                     valueOrDefault<String>(
                                       BackendAPIGroup.getProductByIdCall.fit(
@@ -1020,7 +926,7 @@ class _ProductDescriptionColorWidgetState
                                 ),
                               ),
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     10, 20, 10, 0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
@@ -1044,14 +950,15 @@ class _ProductDescriptionColorWidgetState
                                 ),
                               ),
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     10, 0, 10, 0),
                                 child: Container(
                                   width: MediaQuery.sizeOf(context).width,
-                                  decoration: BoxDecoration(),
+                                  decoration: const BoxDecoration(),
                                   child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0, 2, 0, 0),
+                                    padding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            0, 2, 0, 0),
                                     child: Text(
                                       valueOrDefault<String>(
                                         BackendAPIGroup.getProductByIdCall
@@ -1079,15 +986,15 @@ class _ProductDescriptionColorWidgetState
                                 ),
                               ),
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     10, 0, 10, 0),
                                 child: Container(
                                   width: MediaQuery.sizeOf(context).width,
-                                  decoration: BoxDecoration(),
+                                  decoration: const BoxDecoration(),
                                 ),
                               ),
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     10, 10, 10, 0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
@@ -1111,14 +1018,15 @@ class _ProductDescriptionColorWidgetState
                                 ),
                               ),
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     10, 0, 10, 0),
                                 child: Container(
                                   width: MediaQuery.sizeOf(context).width,
-                                  decoration: BoxDecoration(),
+                                  decoration: const BoxDecoration(),
                                   child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0, 2, 0, 20),
+                                    padding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            0, 2, 0, 20),
                                     child: Text(
                                       valueOrDefault<String>(
                                         BackendAPIGroup.getProductByIdCall
@@ -1155,7 +1063,7 @@ class _ProductDescriptionColorWidgetState
                         decoration: BoxDecoration(
                           color:
                               FlutterFlowTheme.of(context).secondaryBackground,
-                          borderRadius: BorderRadius.only(
+                          borderRadius: const BorderRadius.only(
                             bottomLeft: Radius.circular(0),
                             bottomRight: Radius.circular(0),
                             topLeft: Radius.circular(0),
@@ -1163,7 +1071,8 @@ class _ProductDescriptionColorWidgetState
                           ),
                         ),
                         child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 8),
+                          padding:
+                              const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 8),
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             mainAxisAlignment: MainAxisAlignment.end,
@@ -1180,8 +1089,9 @@ class _ProductDescriptionColorWidgetState
                                           ?.toList(),
                                       FFAppState().userId)!)
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0, 8, 10, 0),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              0, 8, 10, 0),
                                       child: FFButtonWidget(
                                         onPressed: () async {
                                           _model.apiResultdshcopyCopy =
@@ -1216,7 +1126,7 @@ class _ProductDescriptionColorWidgetState
                                                         .primaryText,
                                                   ),
                                                 ),
-                                                duration: Duration(
+                                                duration: const Duration(
                                                     milliseconds: 4000),
                                                 backgroundColor:
                                                     FlutterFlowTheme.of(context)
@@ -1245,7 +1155,7 @@ class _ProductDescriptionColorWidgetState
                                                         .primaryText,
                                                   ),
                                                 ),
-                                                duration: Duration(
+                                                duration: const Duration(
                                                     milliseconds: 4000),
                                                 backgroundColor:
                                                     FlutterFlowTheme.of(context)
@@ -1262,12 +1172,11 @@ class _ProductDescriptionColorWidgetState
                                               MediaQuery.sizeOf(context).width *
                                                   0.45,
                                           height: 50,
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  24, 0, 24, 0),
+                                          padding: const EdgeInsetsDirectional
+                                              .fromSTEB(24, 0, 24, 0),
                                           iconPadding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0, 0, 0, 0),
+                                              const EdgeInsetsDirectional
+                                                  .fromSTEB(0, 0, 0, 0),
                                           color: FlutterFlowTheme.of(context)
                                               .secondaryBackground,
                                           textStyle: FlutterFlowTheme.of(
@@ -1290,7 +1199,7 @@ class _ProductDescriptionColorWidgetState
                                                             .titleSmallFamily),
                                               ),
                                           elevation: 3,
-                                          borderSide: BorderSide(
+                                          borderSide: const BorderSide(
                                             color: Colors.transparent,
                                             width: 1,
                                           ),
@@ -1309,12 +1218,12 @@ class _ProductDescriptionColorWidgetState
                                           FFAppState().userId) ??
                                       true)
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0, 8, 10, 0),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              0, 8, 10, 0),
                                       child: FFButtonWidget(
                                         onPressed: () async {
-                                          if (currentPhoneNumber != null &&
-                                              currentPhoneNumber != '') {
+                                          if (currentPhoneNumber != '') {
                                             _model.apiResultdshCopy =
                                                 await BackendAPIGroup
                                                     .createWishListCall
@@ -1348,7 +1257,7 @@ class _ProductDescriptionColorWidgetState
                                                               .primaryText,
                                                     ),
                                                   ),
-                                                  duration: Duration(
+                                                  duration: const Duration(
                                                       milliseconds: 4000),
                                                   backgroundColor:
                                                       FlutterFlowTheme.of(
@@ -1378,7 +1287,7 @@ class _ProductDescriptionColorWidgetState
                                                               .primaryText,
                                                     ),
                                                   ),
-                                                  duration: Duration(
+                                                  duration: const Duration(
                                                       milliseconds: 4000),
                                                   backgroundColor:
                                                       FlutterFlowTheme.of(
@@ -1401,12 +1310,11 @@ class _ProductDescriptionColorWidgetState
                                               MediaQuery.sizeOf(context).width *
                                                   0.45,
                                           height: 50,
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  24, 0, 24, 0),
+                                          padding: const EdgeInsetsDirectional
+                                              .fromSTEB(24, 0, 24, 0),
                                           iconPadding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0, 0, 0, 0),
+                                              const EdgeInsetsDirectional
+                                                  .fromSTEB(0, 0, 0, 0),
                                           color: FlutterFlowTheme.of(context)
                                               .secondaryBackground,
                                           textStyle: FlutterFlowTheme.of(
@@ -1429,7 +1337,7 @@ class _ProductDescriptionColorWidgetState
                                                             .titleSmallFamily),
                                               ),
                                           elevation: 0,
-                                          borderSide: BorderSide(
+                                          borderSide: const BorderSide(
                                             color: Colors.transparent,
                                             width: 1,
                                           ),
@@ -1441,12 +1349,11 @@ class _ProductDescriptionColorWidgetState
                                 ],
                               ),
                               Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(0, 8, 10, 0),
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    0, 8, 10, 0),
                                 child: FFButtonWidget(
                                   onPressed: () async {
-                                    if (currentPhoneNumber != null &&
-                                        currentPhoneNumber != '') {
+                                    if (currentPhoneNumber != '') {
                                       _model.apiResult2t4 = await BackendAPIGroup
                                           .createCartandUpdateCartOneFunctionCall
                                           .call(
@@ -1487,8 +1394,8 @@ class _ProductDescriptionColorWidgetState
                                                         .primaryText,
                                               ),
                                             ),
-                                            duration:
-                                                Duration(milliseconds: 4000),
+                                            duration: const Duration(
+                                                milliseconds: 4000),
                                             backgroundColor:
                                                 FlutterFlowTheme.of(context)
                                                     .secondary,
@@ -1528,8 +1435,8 @@ class _ProductDescriptionColorWidgetState
                                                         .primaryText,
                                               ),
                                             ),
-                                            duration:
-                                                Duration(milliseconds: 4000),
+                                            duration: const Duration(
+                                                milliseconds: 4000),
                                             backgroundColor:
                                                 FlutterFlowTheme.of(context)
                                                     .secondary,
@@ -1548,10 +1455,12 @@ class _ProductDescriptionColorWidgetState
                                     width:
                                         MediaQuery.sizeOf(context).width * 0.45,
                                     height: 50,
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        24, 0, 24, 0),
-                                    iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                        0, 0, 0, 0),
+                                    padding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            24, 0, 24, 0),
+                                    iconPadding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            0, 0, 0, 0),
                                     color: FlutterFlowTheme.of(context).primary,
                                     textStyle: FlutterFlowTheme.of(context)
                                         .titleSmall
@@ -1569,7 +1478,7 @@ class _ProductDescriptionColorWidgetState
                                                       .titleSmallFamily),
                                         ),
                                     elevation: 3,
-                                    borderSide: BorderSide(
+                                    borderSide: const BorderSide(
                                       color: Colors.transparent,
                                       width: 1,
                                     ),

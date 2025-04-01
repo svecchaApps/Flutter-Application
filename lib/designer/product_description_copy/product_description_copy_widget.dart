@@ -1,24 +1,22 @@
-import '/auth/firebase_auth/auth_util.dart';
-import '/backend/api_requests/api_calls.dart';
-import '/flutter_flow/flutter_flow_expanded_image_view.dart';
-import '/flutter_flow/flutter_flow_icon_button.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
-import 'dart:ui';
-import '/custom_code/actions/index.dart' as actions;
-import '/flutter_flow/custom_functions.dart' as functions;
 import 'dart:async';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart'
-    as smooth_page_indicator;
-import 'package:cached_network_image/cached_network_image.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:page_transition/page_transition.dart';
+import 'package:indigo_rhapsody_dupli/components/cart_nav_button.dart';
 import 'package:provider/provider.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart'
+    as smooth_page_indicator;
 
+import '/auth/firebase_auth/auth_util.dart';
+import '/backend/api_requests/api_calls.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
+import '/flutter_flow/flutter_flow_expanded_image_view.dart';
+import '/flutter_flow/flutter_flow_theme.dart';
+import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import 'product_description_copy_model.dart';
+
 export 'product_description_copy_model.dart';
 
 class ProductDescriptionCopyWidget extends StatefulWidget {
@@ -62,8 +60,8 @@ class _ProductDescriptionCopyWidgetState
     return FutureBuilder<ApiCallResponse>(
       future: (_model.apiRequestCompleter ??= Completer<ApiCallResponse>()
             ..complete(BackendAPIGroup.getProductBycolorCall.call(
-              productId: widget!.productId,
-              color: widget!.colorId,
+              productId: widget.productId,
+              color: widget.colorId,
             )))
           .future,
       builder: (context, snapshot) {
@@ -101,7 +99,7 @@ class _ProductDescriptionCopyWidgetState
                 backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
                 automaticallyImplyLeading: false,
                 leading: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(15, 0, 0, 0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(15, 0, 0, 0),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     children: [
@@ -122,36 +120,10 @@ class _ProductDescriptionCopyWidgetState
                     ],
                   ),
                 ),
-                title: Align(
-                  alignment: AlignmentDirectional(0, -0.85),
-                  child: Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Stack(
-                          children: [
-                            FlutterFlowIconButton(
-                              borderRadius: 30,
-                              buttonSize: 40,
-                              fillColor: Color(0x00E0E6ED),
-                              icon: Icon(
-                                FFIcons.kshoppingBag,
-                                color: FlutterFlowTheme.of(context).primaryText,
-                                size: 24,
-                              ),
-                              onPressed: () async {
-                                context.pushNamed('CartPagenewCopy');
-                              },
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                actions: [],
+                actions: const [
+                  CartNavButton(),
+                  SizedBox(width: 16),
+                ],
                 centerTitle: false,
                 elevation: 0,
               ),
@@ -181,7 +153,7 @@ class _ProductDescriptionCopyWidgetState
                                     .primaryBackground,
                               ),
                               child: Align(
-                                alignment: AlignmentDirectional(0, 0),
+                                alignment: const AlignmentDirectional(0, 0),
                                 child: Builder(
                                   builder: (context) {
                                     final data =
@@ -193,7 +165,7 @@ class _ProductDescriptionCopyWidgetState
                                                 ?.toList() ??
                                             [];
 
-                                    return Container(
+                                    return SizedBox(
                                       width: MediaQuery.sizeOf(context).width,
                                       height:
                                           MediaQuery.sizeOf(context).height *
@@ -258,10 +230,12 @@ class _ProductDescriptionCopyWidgetState
                                           ),
                                           Align(
                                             alignment:
-                                                AlignmentDirectional(0, 1),
+                                                const AlignmentDirectional(
+                                                    0, 1),
                                             child: Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(16, 0, 0, 16),
+                                              padding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(16, 0, 0, 16),
                                               child: smooth_page_indicator
                                                   .SmoothPageIndicator(
                                                 controller: _model
@@ -280,7 +254,7 @@ class _ProductDescriptionCopyWidgetState
                                                       .pageViewController!
                                                       .animateToPage(
                                                     i,
-                                                    duration: Duration(
+                                                    duration: const Duration(
                                                         milliseconds: 500),
                                                     curve: Curves.ease,
                                                   );
@@ -293,7 +267,8 @@ class _ProductDescriptionCopyWidgetState
                                                   radius: 16,
                                                   dotWidth: 8,
                                                   dotHeight: 8,
-                                                  dotColor: Color(0xFFC6C7C7),
+                                                  dotColor:
+                                                      const Color(0xFFC6C7C7),
                                                   activeDotColor:
                                                       FlutterFlowTheme.of(
                                                               context)
@@ -315,7 +290,7 @@ class _ProductDescriptionCopyWidgetState
                               mainAxisSize: MainAxisSize.max,
                               children: [
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       10, 0, 20, 0),
                                   child: Text(
                                     valueOrDefault<String>(
@@ -330,7 +305,7 @@ class _ProductDescriptionCopyWidgetState
                                         .bodyMedium
                                         .override(
                                           fontFamily: 'Inter',
-                                          color: Color(0xFF232323),
+                                          color: const Color(0xFF232323),
                                           fontSize: 16,
                                           letterSpacing: 0.0,
                                           fontWeight: FontWeight.w600,
@@ -342,23 +317,23 @@ class _ProductDescriptionCopyWidgetState
                               ],
                             ),
                             Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(20, 15, 20, 0),
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  20, 15, 20, 0),
                               child: Container(
                                 width: MediaQuery.sizeOf(context).width,
-                                decoration: BoxDecoration(),
+                                decoration: const BoxDecoration(),
                               ),
                             ),
                             Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(10, 20, 20, 0),
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  10, 20, 20, 0),
                               child: Text(
                                 'Select size',
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
                                       fontFamily: 'Inter',
-                                      color: Color(0xFF232323),
+                                      color: const Color(0xFF232323),
                                       fontSize: 16,
                                       letterSpacing: 0.0,
                                       fontWeight: FontWeight.w600,
@@ -368,8 +343,8 @@ class _ProductDescriptionCopyWidgetState
                               ),
                             ),
                             Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(10, 10, 10, 0),
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  10, 10, 10, 0),
                               child: Builder(
                                 builder: (context) {
                                   final sizes =
@@ -389,11 +364,11 @@ class _ProductDescriptionCopyWidgetState
                                           (sizesIndex) {
                                         final sizesItem = sizes[sizesIndex];
                                         return Align(
-                                          alignment: AlignmentDirectional(0, 0),
+                                          alignment:
+                                              const AlignmentDirectional(0, 0),
                                           child: Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0, 0, 8, 0),
+                                            padding: const EdgeInsetsDirectional
+                                                .fromSTEB(0, 0, 8, 0),
                                             child: InkWell(
                                               splashColor: Colors.transparent,
                                               focusColor: Colors.transparent,
@@ -440,7 +415,7 @@ class _ProductDescriptionCopyWidgetState
                                                   children: [
                                                     Align(
                                                       alignment:
-                                                          AlignmentDirectional(
+                                                          const AlignmentDirectional(
                                                               0, 0),
                                                       child: Text(
                                                         getJsonField(
@@ -478,9 +453,9 @@ class _ProductDescriptionCopyWidgetState
                                                     ),
                                                     Padding(
                                                       padding:
-                                                          EdgeInsetsDirectional
+                                                          const EdgeInsetsDirectional
                                                               .fromSTEB(
-                                                                  0, 5, 0, 0),
+                                                              0, 5, 0, 0),
                                                       child: Text(
                                                         '₹${getJsonField(
                                                           sizesItem,
@@ -527,21 +502,22 @@ class _ProductDescriptionCopyWidgetState
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   10, 20, 20, 10),
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0, 0, 20, 0),
+                                    padding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            0, 0, 20, 0),
                                     child: Text(
                                       'Description',
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
                                             fontFamily: 'Inter',
-                                            color: Color(0xFF232323),
+                                            color: const Color(0xFF232323),
                                             fontSize: 16,
                                             letterSpacing: 0.0,
                                             fontWeight: FontWeight.w600,
@@ -554,11 +530,11 @@ class _ProductDescriptionCopyWidgetState
                               ),
                             ),
                             Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  10, 0, 10, 0),
                               child: Container(
                                 width: MediaQuery.sizeOf(context).width,
-                                decoration: BoxDecoration(),
+                                decoration: const BoxDecoration(),
                                 child: Text(
                                   valueOrDefault<String>(
                                     BackendAPIGroup.getProductBycolorCall
@@ -584,8 +560,8 @@ class _ProductDescriptionCopyWidgetState
                               ),
                             ),
                             Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(10, 10, 10, 0),
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  10, 10, 10, 0),
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
@@ -608,11 +584,11 @@ class _ProductDescriptionCopyWidgetState
                               ),
                             ),
                             Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  10, 0, 10, 0),
                               child: Container(
                                 width: MediaQuery.sizeOf(context).width,
-                                decoration: BoxDecoration(),
+                                decoration: const BoxDecoration(),
                                 child: Text(
                                   valueOrDefault<String>(
                                     BackendAPIGroup.getProductBycolorCall
@@ -638,16 +614,16 @@ class _ProductDescriptionCopyWidgetState
                               ),
                             ),
                             Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  10, 0, 10, 0),
                               child: Container(
                                 width: MediaQuery.sizeOf(context).width,
-                                decoration: BoxDecoration(),
+                                decoration: const BoxDecoration(),
                               ),
                             ),
                             Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(10, 20, 10, 0),
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  10, 20, 10, 0),
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
@@ -670,11 +646,11 @@ class _ProductDescriptionCopyWidgetState
                               ),
                             ),
                             Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  10, 0, 10, 0),
                               child: Container(
                                 width: MediaQuery.sizeOf(context).width,
-                                decoration: BoxDecoration(),
+                                decoration: const BoxDecoration(),
                                 child: Text(
                                   valueOrDefault<String>(
                                     BackendAPIGroup.getProductBycolorCall.fit(
@@ -698,8 +674,8 @@ class _ProductDescriptionCopyWidgetState
                               ),
                             ),
                             Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(10, 20, 10, 0),
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  10, 20, 10, 0),
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
@@ -722,13 +698,13 @@ class _ProductDescriptionCopyWidgetState
                               ),
                             ),
                             Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  10, 0, 10, 0),
                               child: Container(
                                 width: MediaQuery.sizeOf(context).width,
-                                decoration: BoxDecoration(),
+                                decoration: const BoxDecoration(),
                                 child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0, 2, 0, 0),
                                   child: Text(
                                     valueOrDefault<String>(
@@ -757,19 +733,19 @@ class _ProductDescriptionCopyWidgetState
                               ),
                             ),
                             Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  10, 0, 10, 0),
                               child: Container(
                                 width: MediaQuery.sizeOf(context).width,
-                                decoration: BoxDecoration(),
+                                decoration: const BoxDecoration(),
                               ),
                             ),
                             Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  10, 0, 10, 0),
                               child: Container(
                                 width: MediaQuery.sizeOf(context).width,
-                                decoration: BoxDecoration(),
+                                decoration: const BoxDecoration(),
                               ),
                             ),
                             SingleChildScrollView(
@@ -777,19 +753,21 @@ class _ProductDescriptionCopyWidgetState
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        10, 5, 10, 0),
+                                    padding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            10, 5, 10, 0),
                                     child: Container(
                                       width: MediaQuery.sizeOf(context).width,
-                                      decoration: BoxDecoration(),
+                                      decoration: const BoxDecoration(),
                                     ),
                                   ),
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        10, 0, 10, 0),
+                                    padding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            10, 0, 10, 0),
                                     child: Container(
                                       width: MediaQuery.sizeOf(context).width,
-                                      decoration: BoxDecoration(),
+                                      decoration: const BoxDecoration(),
                                     ),
                                   ),
                                 ],
@@ -800,14 +778,15 @@ class _ProductDescriptionCopyWidgetState
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                       child: Container(
                         width: MediaQuery.sizeOf(context).width,
                         height: MediaQuery.sizeOf(context).height * 0.13,
                         decoration: BoxDecoration(
                           color:
                               FlutterFlowTheme.of(context).secondaryBackground,
-                          borderRadius: BorderRadius.only(
+                          borderRadius: const BorderRadius.only(
                             bottomLeft: Radius.circular(0),
                             bottomRight: Radius.circular(0),
                             topLeft: Radius.circular(0),
@@ -830,8 +809,9 @@ class _ProductDescriptionCopyWidgetState
                                         ?.toList(),
                                     FFAppState().userId)!)
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0, 8, 10, 0),
+                                    padding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            0, 8, 10, 0),
                                     child: FFButtonWidget(
                                       onPressed: () async {
                                         _model.colorWishlist =
@@ -865,8 +845,8 @@ class _ProductDescriptionCopyWidgetState
                                                       .primaryText,
                                                 ),
                                               ),
-                                              duration:
-                                                  Duration(milliseconds: 4000),
+                                              duration: const Duration(
+                                                  milliseconds: 4000),
                                               backgroundColor:
                                                   FlutterFlowTheme.of(context)
                                                       .secondary,
@@ -893,8 +873,8 @@ class _ProductDescriptionCopyWidgetState
                                                       .primaryText,
                                                 ),
                                               ),
-                                              duration:
-                                                  Duration(milliseconds: 4000),
+                                              duration: const Duration(
+                                                  milliseconds: 4000),
                                               backgroundColor:
                                                   FlutterFlowTheme.of(context)
                                                       .secondary,
@@ -912,11 +892,10 @@ class _ProductDescriptionCopyWidgetState
                                         height:
                                             MediaQuery.sizeOf(context).height *
                                                 0.06,
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            24, 0, 24, 0),
-                                        iconPadding:
-                                            EdgeInsetsDirectional.fromSTEB(
-                                                0, 0, 0, 0),
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(24, 0, 24, 0),
+                                        iconPadding: const EdgeInsetsDirectional
+                                            .fromSTEB(0, 0, 0, 0),
                                         color: FlutterFlowTheme.of(context)
                                             .secondaryBackground,
                                         textStyle: FlutterFlowTheme.of(context)
@@ -938,7 +917,7 @@ class _ProductDescriptionCopyWidgetState
                                                           .titleSmallFamily),
                                             ),
                                         elevation: 3,
-                                        borderSide: BorderSide(
+                                        borderSide: const BorderSide(
                                           color: Colors.transparent,
                                           width: 1,
                                         ),
@@ -956,18 +935,18 @@ class _ProductDescriptionCopyWidgetState
                                         FFAppState().userId) ??
                                     true)
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0, 8, 10, 0),
+                                    padding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            0, 8, 10, 0),
                                     child: FFButtonWidget(
                                       onPressed: () async {
-                                        if (currentPhoneNumber != null &&
-                                            currentPhoneNumber != '') {
+                                        if (currentPhoneNumber != '') {
                                           _model.apiResultdshcopy =
                                               await BackendAPIGroup
                                                   .createWishListCall
                                                   .call(
                                             userId: FFAppState().userId,
-                                            productId: widget!.productId,
+                                            productId: widget.productId,
                                           );
 
                                           if ((_model.apiResultdshcopy
@@ -989,7 +968,7 @@ class _ProductDescriptionCopyWidgetState
                                                         .primaryText,
                                                   ),
                                                 ),
-                                                duration: Duration(
+                                                duration: const Duration(
                                                     milliseconds: 4000),
                                                 backgroundColor:
                                                     FlutterFlowTheme.of(context)
@@ -1018,7 +997,7 @@ class _ProductDescriptionCopyWidgetState
                                                         .primaryText,
                                                   ),
                                                 ),
-                                                duration: Duration(
+                                                duration: const Duration(
                                                     milliseconds: 4000),
                                                 backgroundColor:
                                                     FlutterFlowTheme.of(context)
@@ -1041,11 +1020,10 @@ class _ProductDescriptionCopyWidgetState
                                         height:
                                             MediaQuery.sizeOf(context).height *
                                                 0.06,
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            24, 0, 24, 0),
-                                        iconPadding:
-                                            EdgeInsetsDirectional.fromSTEB(
-                                                0, 0, 0, 0),
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(24, 0, 24, 0),
+                                        iconPadding: const EdgeInsetsDirectional
+                                            .fromSTEB(0, 0, 0, 0),
                                         color: FlutterFlowTheme.of(context)
                                             .secondaryBackground,
                                         textStyle: FlutterFlowTheme.of(context)
@@ -1067,7 +1045,7 @@ class _ProductDescriptionCopyWidgetState
                                                           .titleSmallFamily),
                                             ),
                                         elevation: 3,
-                                        borderSide: BorderSide(
+                                        borderSide: const BorderSide(
                                           color: Colors.transparent,
                                           width: 1,
                                         ),
@@ -1078,12 +1056,11 @@ class _ProductDescriptionCopyWidgetState
                               ],
                             ),
                             Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(0, 9, 10, 0),
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  0, 9, 10, 0),
                               child: FFButtonWidget(
                                 onPressed: () async {
-                                  if (currentPhoneNumber != null &&
-                                      currentPhoneNumber != '') {
+                                  if (currentPhoneNumber != '') {
                                     HapticFeedback.mediumImpact();
                                     _model.apiResult2t4new = await BackendAPIGroup
                                         .createCartandUpdateCartOneFunctionCall
@@ -1131,8 +1108,8 @@ class _ProductDescriptionCopyWidgetState
                                                       .primaryText,
                                             ),
                                           ),
-                                          duration:
-                                              Duration(milliseconds: 4000),
+                                          duration: const Duration(
+                                              milliseconds: 4000),
                                           backgroundColor:
                                               FlutterFlowTheme.of(context)
                                                   .secondary,
@@ -1160,10 +1137,11 @@ class _ProductDescriptionCopyWidgetState
                                       MediaQuery.sizeOf(context).width * 0.45,
                                   height:
                                       MediaQuery.sizeOf(context).height * 0.06,
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       24, 0, 24, 0),
-                                  iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                      0, 0, 0, 0),
+                                  iconPadding:
+                                      const EdgeInsetsDirectional.fromSTEB(
+                                          0, 0, 0, 0),
                                   color: FlutterFlowTheme.of(context).primary,
                                   textStyle: FlutterFlowTheme.of(context)
                                       .titleSmall
@@ -1180,7 +1158,7 @@ class _ProductDescriptionCopyWidgetState
                                                     .titleSmallFamily),
                                       ),
                                   elevation: 3,
-                                  borderSide: BorderSide(
+                                  borderSide: const BorderSide(
                                     color: Colors.transparent,
                                     width: 1,
                                   ),
