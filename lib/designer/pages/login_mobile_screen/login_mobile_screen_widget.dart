@@ -337,7 +337,7 @@ class _LoginMobileScreenWidgetState extends State<LoginMobileScreenWidget>
               textStyle: FlutterFlowTheme.of(context).titleSmall.override(
                     fontFamily: 'Inter',
                     color: const Color(0xFFFDFDFD),
-                    fontSize: 12,
+                    fontSize: 15,
                     letterSpacing: 0.0,
                     useGoogleFonts: GoogleFonts.asMap().containsKey('Inter'),
                   ),

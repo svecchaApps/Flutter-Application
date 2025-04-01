@@ -924,433 +924,373 @@ class _ProductDescriptionWidgetState extends State<ProductDescriptionWidget> {
                           ],
                         ),
                       ),
-                      Container(
-                        width: MediaQuery.sizeOf(context).width,
-                        height: 66,
-                        decoration: BoxDecoration(
-                          color:
-                              FlutterFlowTheme.of(context).secondaryBackground,
-                          borderRadius: const BorderRadius.only(
-                            bottomLeft: Radius.circular(0),
-                            bottomRight: Radius.circular(0),
-                            topLeft: Radius.circular(0),
-                            topRight: Radius.circular(0),
-                          ),
-                        ),
-                        child: Padding(
-                          padding:
-                              const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 8),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Stack(
-                                children: [
-                                  if (!functions.newCustomFunction4(
-                                      BackendAPIGroup.getProductBycolorCall
-                                          .wishListedBy(
-                                            productDescriptionGetProductBycolorResponse
-                                                .jsonBody,
-                                          )
-                                          ?.toList(),
-                                      FFAppState().userId)!)
-                                    Align(
-                                      alignment:
-                                          const AlignmentDirectional(0, -1),
-                                      child: Padding(
-                                        padding: const EdgeInsetsDirectional
-                                            .fromSTEB(0, 9, 10, 0),
-                                        child: FFButtonWidget(
-                                          onPressed: () async {
-                                            _model.apiResultdshcopyCopy =
-                                                await BackendAPIGroup
-                                                    .createWishListCall
-                                                    .call(
-                                              userId: FFAppState().userId,
-                                              productId: widget.productId,
-                                            );
-
-                                            if (_model.apiResult2t4new
-                                                    ?.jsonBody ==
-                                                null) {
-                                              return;
-                                            }
-
-                                            if ((_model.apiResultdshcopyCopy
-                                                    ?.succeeded ??
-                                                true)) {
-                                              ScaffoldMessenger.of(context)
-                                                  .showSnackBar(
-                                                SnackBar(
-                                                  content: Text(
-                                                    getJsonField(
-                                                      (_model.apiResultdshcopyCopy
-                                                              ?.jsonBody ??
-                                                          ''),
-                                                      r'''$.message''',
-                                                    ).toString(),
-                                                    style: TextStyle(
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primaryText,
-                                                    ),
-                                                  ),
-                                                  duration: const Duration(
-                                                      milliseconds: 4000),
-                                                  backgroundColor:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .secondary,
-                                                ),
-                                              );
-                                              safeSetState(() => _model
-                                                  .apiRequestCompleter = null);
-                                              await _model
-                                                  .waitForApiRequestCompleted();
-                                              HapticFeedback.mediumImpact();
-                                            } else {
-                                              ScaffoldMessenger.of(context)
-                                                  .showSnackBar(
-                                                SnackBar(
-                                                  content: Text(
-                                                    getJsonField(
-                                                      (_model.apiResultdshcopyCopy
-                                                              ?.jsonBody ??
-                                                          ''),
-                                                      r'''$.message''',
-                                                    ).toString(),
-                                                    style: TextStyle(
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primaryText,
-                                                    ),
-                                                  ),
-                                                  duration: const Duration(
-                                                      milliseconds: 4000),
-                                                  backgroundColor:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .secondary,
-                                                ),
-                                              );
-                                            }
-
-                                            safeSetState(() {});
-                                          },
-                                          text: 'Wishlist Item',
-                                          options: FFButtonOptions(
-                                            width: MediaQuery.sizeOf(context)
-                                                    .width *
-                                                0.45,
-                                            height: 50,
-                                            padding: const EdgeInsetsDirectional
-                                                .fromSTEB(0, 0, 24, 0),
-                                            iconPadding:
-                                                const EdgeInsetsDirectional
-                                                    .fromSTEB(0, 0, 0, 0),
-                                            color: FlutterFlowTheme.of(context)
-                                                .primaryBackground,
-                                            textStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .titleSmall
-                                                    .override(
-                                                      fontFamily:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .titleSmallFamily,
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primaryText,
-                                                      fontSize: 12,
-                                                      letterSpacing: 0.0,
-                                                      useGoogleFonts: GoogleFonts
-                                                              .asMap()
-                                                          .containsKey(
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .titleSmallFamily),
-                                                    ),
-                                            elevation: 3,
-                                            borderSide: const BorderSide(
-                                              color: Colors.transparent,
-                                              width: 1,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  if (functions.newCustomFunction4(
-                                          BackendAPIGroup.getProductBycolorCall
-                                              .wishListedBy(
-                                                productDescriptionGetProductBycolorResponse
-                                                    .jsonBody,
-                                              )
-                                              ?.toList(),
-                                          FFAppState().userId) ??
-                                      true)
-                                    Padding(
-                                      padding:
-                                          const EdgeInsetsDirectional.fromSTEB(
-                                              0, 8, 10, 0),
-                                      child: FFButtonWidget(
-                                        onPressed: () async {
-                                          _model.apiResultdshcopyCopy1 =
-                                              await BackendAPIGroup
-                                                  .createWishListCall
-                                                  .call(
-                                            userId: FFAppState().userId,
-                                            productId: widget.productId,
-                                          );
-
-                                          if ((_model.apiResultdshcopyCopy1
-                                                  ?.succeeded ??
-                                              true)) {
-                                            ScaffoldMessenger.of(context)
-                                                .showSnackBar(
-                                              SnackBar(
-                                                content: Text(
-                                                  getJsonField(
-                                                    (_model.apiResultdshcopyCopy1
-                                                            ?.jsonBody ??
-                                                        ''),
-                                                    r'''$.message''',
-                                                  ).toString(),
-                                                  style: TextStyle(
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .primaryText,
-                                                  ),
-                                                ),
-                                                duration: const Duration(
-                                                    milliseconds: 4000),
-                                                backgroundColor:
-                                                    FlutterFlowTheme.of(context)
-                                                        .secondary,
-                                              ),
-                                            );
-                                            safeSetState(() => _model
-                                                .apiRequestCompleter = null);
-                                            await _model
-                                                .waitForApiRequestCompleted();
-                                            HapticFeedback.mediumImpact();
-                                          } else {
-                                            ScaffoldMessenger.of(context)
-                                                .showSnackBar(
-                                              SnackBar(
-                                                content: Text(
-                                                  getJsonField(
-                                                    (_model.apiResultdshcopyCopy1
-                                                            ?.jsonBody ??
-                                                        ''),
-                                                    r'''$.message''',
-                                                  ).toString(),
-                                                  style: TextStyle(
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .primaryText,
-                                                  ),
-                                                ),
-                                                duration: const Duration(
-                                                    milliseconds: 4000),
-                                                backgroundColor:
-                                                    FlutterFlowTheme.of(context)
-                                                        .secondary,
-                                              ),
-                                            );
-                                          }
-
-                                          safeSetState(() {});
-                                        },
-                                        text: 'Wishlisted',
-                                        options: FFButtonOptions(
-                                          width:
-                                              MediaQuery.sizeOf(context).width *
-                                                  0.45,
-                                          height: 50,
-                                          padding: const EdgeInsetsDirectional
-                                              .fromSTEB(24, 0, 24, 0),
-                                          iconPadding:
-                                              const EdgeInsetsDirectional
-                                                  .fromSTEB(0, 0, 0, 0),
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryBackground,
-                                          textStyle: FlutterFlowTheme.of(
-                                                  context)
-                                              .titleSmall
-                                              .override(
-                                                fontFamily:
-                                                    FlutterFlowTheme.of(context)
-                                                        .titleSmallFamily,
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryText,
-                                                fontSize: 12,
-                                                letterSpacing: 0.0,
-                                                useGoogleFonts: GoogleFonts
-                                                        .asMap()
-                                                    .containsKey(
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .titleSmallFamily),
-                                              ),
-                                          elevation: 3,
-                                          borderSide: const BorderSide(
-                                            color: Colors.transparent,
-                                            width: 1,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                        ),
-                                      ),
-                                    ),
-                                ],
-                              ),
-                              Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
-                                    0, 8, 10, 0),
-                                child: FFButtonWidget(
-                                  onPressed: () async {
-                                    if (currentPhoneNumber != '') {
-                                      HapticFeedback.mediumImpact();
-                                      _model.apiResult2t4new = await BackendAPIGroup
-                                          .createCartandUpdateCartOneFunctionCall
-                                          .call(
-                                        userId: FFAppState().userId,
-                                        productId: BackendAPIGroup
-                                            .getProductBycolorCall
-                                            .productId(
-                                          productDescriptionGetProductBycolorResponse
-                                              .jsonBody,
-                                        ),
-                                        quantity: 1,
-                                        size: _model.size,
-                                        color: BackendAPIGroup
-                                            .getProductBycolorCall
-                                            .variantColor(
-                                          productDescriptionGetProductBycolorResponse
-                                              .jsonBody,
-                                        ),
-                                        customizations: 'Na',
-                                      );
-
-                                      if (_model.apiResult2t4new?.jsonBody ==
-                                          null) {
-                                        return;
-                                      }
-
-                                      if ((_model.apiResult2t4new?.succeeded ??
-                                          true)) {
-                                        FFAppState().cartId = BackendAPIGroup
-                                            .createCartandUpdateCartOneFunctionCall
-                                            .cartId(
-                                          (_model.apiResult2t4new?.jsonBody ??
-                                              ''),
-                                        )!;
-                                        safeSetState(() {});
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(
-                                          SnackBar(
-                                            content: Text(
-                                              getJsonField(
-                                                (_model.apiResult2t4new
-                                                        ?.jsonBody ??
-                                                    ''),
-                                                r'''$.message''',
-                                              ).toString(),
-                                              style: TextStyle(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryText,
-                                              ),
-                                            ),
-                                            duration: const Duration(
-                                                milliseconds: 4000),
-                                            backgroundColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .secondary,
-                                          ),
-                                        );
-                                      } else {
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(
-                                          SnackBar(
-                                            content: Text(
-                                              getJsonField(
-                                                (_model.apiResult2t4new
-                                                        ?.jsonBody ??
-                                                    ''),
-                                                r'''$.message''',
-                                              ).toString(),
-                                              style: TextStyle(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryText,
-                                              ),
-                                            ),
-                                            duration: const Duration(
-                                                milliseconds: 4000),
-                                            backgroundColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .secondary,
-                                          ),
-                                        );
-                                      }
-                                    } else {
-                                      context.pushNamed(
-                                          LoginMobileScreenWidget.routeName);
-                                    }
-
-                                    safeSetState(() {});
-                                  },
-                                  text: 'Add to cart',
-                                  options: FFButtonOptions(
-                                    width:
-                                        MediaQuery.sizeOf(context).width * 0.45,
-                                    height: 50,
-                                    padding:
-                                        const EdgeInsetsDirectional.fromSTEB(
-                                            24, 0, 24, 0),
-                                    iconPadding:
-                                        const EdgeInsetsDirectional.fromSTEB(
-                                            0, 0, 0, 0),
-                                    color: FlutterFlowTheme.of(context).primary,
-                                    textStyle: FlutterFlowTheme.of(context)
-                                        .titleSmall
-                                        .override(
-                                          fontFamily:
-                                              FlutterFlowTheme.of(context)
-                                                  .titleSmallFamily,
-                                          color: FlutterFlowTheme.of(context)
-                                              .secondaryBackground,
-                                          fontSize: 12,
-                                          letterSpacing: 0.0,
-                                          useGoogleFonts: GoogleFonts.asMap()
-                                              .containsKey(
-                                                  FlutterFlowTheme.of(context)
-                                                      .titleSmallFamily),
-                                        ),
-                                    elevation: 3,
-                                    borderSide: const BorderSide(
-                                      color: Colors.transparent,
-                                      width: 1,
-                                    ),
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
                     ],
                   );
                 },
+              ),
+            ),
+            floatingActionButtonLocation:
+                FloatingActionButtonLocation.centerDocked,
+            floatingActionButton: Container(
+              width: MediaQuery.sizeOf(context).width,
+              height: 66,
+              decoration: BoxDecoration(
+                color: FlutterFlowTheme.of(context).secondaryBackground,
+                borderRadius: const BorderRadius.only(
+                  bottomLeft: Radius.circular(0),
+                  bottomRight: Radius.circular(0),
+                  topLeft: Radius.circular(0),
+                  topRight: Radius.circular(0),
+                ),
+              ),
+              child: Padding(
+                padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 8),
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Stack(
+                      children: [
+                        if (!functions.newCustomFunction4(
+                            BackendAPIGroup.getProductBycolorCall
+                                .wishListedBy(
+                                  productDescriptionGetProductBycolorResponse
+                                      .jsonBody,
+                                )
+                                ?.toList(),
+                            FFAppState().userId)!)
+                          Align(
+                            alignment: const AlignmentDirectional(0, -1),
+                            child: Padding(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  0, 9, 10, 0),
+                              child: FFButtonWidget(
+                                onPressed: () async {
+                                  _model.apiResultdshcopyCopy =
+                                      await BackendAPIGroup.createWishListCall
+                                          .call(
+                                    userId: FFAppState().userId,
+                                    productId: widget.productId,
+                                  );
+
+                                  if (_model.apiResult2t4new?.jsonBody ==
+                                      null) {
+                                    return;
+                                  }
+
+                                  if ((_model.apiResultdshcopyCopy?.succeeded ??
+                                      true)) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text(
+                                          getJsonField(
+                                            (_model.apiResultdshcopyCopy
+                                                    ?.jsonBody ??
+                                                ''),
+                                            r'''$.message''',
+                                          ).toString(),
+                                          style: TextStyle(
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryText,
+                                          ),
+                                        ),
+                                        duration:
+                                            const Duration(milliseconds: 4000),
+                                        backgroundColor:
+                                            FlutterFlowTheme.of(context)
+                                                .secondary,
+                                      ),
+                                    );
+                                    safeSetState(() =>
+                                        _model.apiRequestCompleter = null);
+                                    await _model.waitForApiRequestCompleted();
+                                    HapticFeedback.mediumImpact();
+                                  } else {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text(
+                                          getJsonField(
+                                            (_model.apiResultdshcopyCopy
+                                                    ?.jsonBody ??
+                                                ''),
+                                            r'''$.message''',
+                                          ).toString(),
+                                          style: TextStyle(
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryText,
+                                          ),
+                                        ),
+                                        duration:
+                                            const Duration(milliseconds: 4000),
+                                        backgroundColor:
+                                            FlutterFlowTheme.of(context)
+                                                .secondary,
+                                      ),
+                                    );
+                                  }
+
+                                  safeSetState(() {});
+                                },
+                                text: 'Wishlist Item',
+                                options: FFButtonOptions(
+                                  width:
+                                      MediaQuery.sizeOf(context).width * 0.45,
+                                  height: 50,
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                      0, 0, 24, 0),
+                                  iconPadding:
+                                      const EdgeInsetsDirectional.fromSTEB(
+                                          0, 0, 0, 0),
+                                  color: FlutterFlowTheme.of(context)
+                                      .primaryBackground,
+                                  textStyle: FlutterFlowTheme.of(context)
+                                      .titleSmall
+                                      .override(
+                                        fontFamily: FlutterFlowTheme.of(context)
+                                            .titleSmallFamily,
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryText,
+                                        fontSize: 12,
+                                        letterSpacing: 0.0,
+                                        useGoogleFonts: GoogleFonts.asMap()
+                                            .containsKey(
+                                                FlutterFlowTheme.of(context)
+                                                    .titleSmallFamily),
+                                      ),
+                                  elevation: 3,
+                                  borderSide: const BorderSide(
+                                    color: Colors.transparent,
+                                    width: 1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                              ),
+                            ),
+                          ),
+                        if (functions.newCustomFunction4(
+                                BackendAPIGroup.getProductBycolorCall
+                                    .wishListedBy(
+                                      productDescriptionGetProductBycolorResponse
+                                          .jsonBody,
+                                    )
+                                    ?.toList(),
+                                FFAppState().userId) ??
+                            true)
+                          Padding(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                0, 8, 10, 0),
+                            child: FFButtonWidget(
+                              onPressed: () async {
+                                _model.apiResultdshcopyCopy1 =
+                                    await BackendAPIGroup.createWishListCall
+                                        .call(
+                                  userId: FFAppState().userId,
+                                  productId: widget.productId,
+                                );
+
+                                if ((_model.apiResultdshcopyCopy1?.succeeded ??
+                                    true)) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                        getJsonField(
+                                          (_model.apiResultdshcopyCopy1
+                                                  ?.jsonBody ??
+                                              ''),
+                                          r'''$.message''',
+                                        ).toString(),
+                                        style: TextStyle(
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryText,
+                                        ),
+                                      ),
+                                      duration:
+                                          const Duration(milliseconds: 4000),
+                                      backgroundColor:
+                                          FlutterFlowTheme.of(context)
+                                              .secondary,
+                                    ),
+                                  );
+                                  safeSetState(
+                                      () => _model.apiRequestCompleter = null);
+                                  await _model.waitForApiRequestCompleted();
+                                  HapticFeedback.mediumImpact();
+                                } else {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                        getJsonField(
+                                          (_model.apiResultdshcopyCopy1
+                                                  ?.jsonBody ??
+                                              ''),
+                                          r'''$.message''',
+                                        ).toString(),
+                                        style: TextStyle(
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryText,
+                                        ),
+                                      ),
+                                      duration:
+                                          const Duration(milliseconds: 4000),
+                                      backgroundColor:
+                                          FlutterFlowTheme.of(context)
+                                              .secondary,
+                                    ),
+                                  );
+                                }
+
+                                safeSetState(() {});
+                              },
+                              text: 'Wishlisted',
+                              options: FFButtonOptions(
+                                width: MediaQuery.sizeOf(context).width * 0.45,
+                                height: 50,
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    24, 0, 24, 0),
+                                iconPadding:
+                                    const EdgeInsetsDirectional.fromSTEB(
+                                        0, 0, 0, 0),
+                                color: FlutterFlowTheme.of(context)
+                                    .primaryBackground,
+                                textStyle: FlutterFlowTheme.of(context)
+                                    .titleSmall
+                                    .override(
+                                      fontFamily: FlutterFlowTheme.of(context)
+                                          .titleSmallFamily,
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryText,
+                                      fontSize: 12,
+                                      letterSpacing: 0.0,
+                                      useGoogleFonts: GoogleFonts.asMap()
+                                          .containsKey(
+                                              FlutterFlowTheme.of(context)
+                                                  .titleSmallFamily),
+                                    ),
+                                elevation: 3,
+                                borderSide: const BorderSide(
+                                  color: Colors.transparent,
+                                  width: 1,
+                                ),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                            ),
+                          ),
+                      ],
+                    ),
+                    Padding(
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(0, 8, 10, 0),
+                      child: FFButtonWidget(
+                        onPressed: () async {
+                          if (currentPhoneNumber != '') {
+                            HapticFeedback.mediumImpact();
+                            _model.apiResult2t4new = await BackendAPIGroup
+                                .createCartandUpdateCartOneFunctionCall
+                                .call(
+                              userId: FFAppState().userId,
+                              productId: BackendAPIGroup.getProductBycolorCall
+                                  .productId(
+                                productDescriptionGetProductBycolorResponse
+                                    .jsonBody,
+                              ),
+                              quantity: 1,
+                              size: _model.size,
+                              color: BackendAPIGroup.getProductBycolorCall
+                                  .variantColor(
+                                productDescriptionGetProductBycolorResponse
+                                    .jsonBody,
+                              ),
+                              customizations: 'Na',
+                            );
+
+                            if (_model.apiResult2t4new?.jsonBody == null) {
+                              return;
+                            }
+
+                            if ((_model.apiResult2t4new?.succeeded ?? true)) {
+                              FFAppState().cartId = BackendAPIGroup
+                                  .createCartandUpdateCartOneFunctionCall
+                                  .cartId(
+                                (_model.apiResult2t4new?.jsonBody ?? ''),
+                              )!;
+                              safeSetState(() {});
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                    getJsonField(
+                                      (_model.apiResult2t4new?.jsonBody ?? ''),
+                                      r'''$.message''',
+                                    ).toString(),
+                                    style: TextStyle(
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryText,
+                                    ),
+                                  ),
+                                  duration: const Duration(milliseconds: 4000),
+                                  backgroundColor:
+                                      FlutterFlowTheme.of(context).secondary,
+                                ),
+                              );
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                    getJsonField(
+                                      (_model.apiResult2t4new?.jsonBody ?? ''),
+                                      r'''$.message''',
+                                    ).toString(),
+                                    style: TextStyle(
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryText,
+                                    ),
+                                  ),
+                                  duration: const Duration(milliseconds: 4000),
+                                  backgroundColor:
+                                      FlutterFlowTheme.of(context).secondary,
+                                ),
+                              );
+                            }
+                          } else {
+                            context
+                                .pushNamed(LoginMobileScreenWidget.routeName);
+                          }
+
+                          safeSetState(() {});
+                        },
+                        text: 'Add to cart',
+                        options: FFButtonOptions(
+                          width: MediaQuery.sizeOf(context).width * 0.45,
+                          height: 50,
+                          padding: const EdgeInsetsDirectional.fromSTEB(
+                              24, 0, 24, 0),
+                          iconPadding:
+                              const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                          color: FlutterFlowTheme.of(context).primary,
+                          textStyle: FlutterFlowTheme.of(context)
+                              .titleSmall
+                              .override(
+                                fontFamily: FlutterFlowTheme.of(context)
+                                    .titleSmallFamily,
+                                color: FlutterFlowTheme.of(context)
+                                    .secondaryBackground,
+                                fontSize: 12,
+                                letterSpacing: 0.0,
+                                useGoogleFonts: GoogleFonts.asMap().containsKey(
+                                    FlutterFlowTheme.of(context)
+                                        .titleSmallFamily),
+                              ),
+                          elevation: 3,
+                          borderSide: const BorderSide(
+                            color: Colors.transparent,
+                            width: 1,
+                          ),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

@@ -435,19 +435,6 @@ class _CartPagenewCopyWidgetState extends State<CartPagenewCopyWidget> {
                       if ((_model.apiResulta4w?.succeeded ?? true)) {
                         safeSetState(() => _model.apiRequestCompleter = null);
                         await _model.waitForApiRequestCompleted();
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(
-                              'Item updated successfully',
-                              style: TextStyle(
-                                color: FlutterFlowTheme.of(context).primaryText,
-                              ),
-                            ),
-                            duration: const Duration(milliseconds: 4000),
-                            backgroundColor:
-                                FlutterFlowTheme.of(context).secondary,
-                          ),
-                        );
                       }
 
                       safeSetState(() {});
@@ -518,19 +505,6 @@ class _CartPagenewCopyWidgetState extends State<CartPagenewCopyWidget> {
                       if ((_model.apiResulta4wCopy?.succeeded ?? true)) {
                         safeSetState(() => _model.apiRequestCompleter = null);
                         await _model.waitForApiRequestCompleted();
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(
-                              'ItemUpdatedSuccessfully',
-                              style: TextStyle(
-                                color: FlutterFlowTheme.of(context).primaryText,
-                              ),
-                            ),
-                            duration: const Duration(milliseconds: 4000),
-                            backgroundColor:
-                                FlutterFlowTheme.of(context).secondary,
-                          ),
-                        );
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(

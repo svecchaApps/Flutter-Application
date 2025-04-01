@@ -297,7 +297,7 @@ class _OtpLoginWidgetState extends State<OtpLoginWidget>
                           FlutterFlowTheme.of(context).titleSmall.override(
                                 fontFamily: 'Inter',
                                 color: const Color(0xFFFDFDFD),
-                                fontSize: 12.0,
+                                fontSize: 15.0,
                                 letterSpacing: 0.0,
                                 useGoogleFonts:
                                     GoogleFonts.asMap().containsKey('Inter'),

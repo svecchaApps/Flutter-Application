@@ -812,7 +812,7 @@ class _CreateAnAccountWidgetState extends State<CreateAnAccountWidget> {
                             FlutterFlowTheme.of(context).titleSmall.override(
                                   fontFamily: 'Inter',
                                   color: Colors.white,
-                                  fontSize: 12.0,
+                                  fontSize: 15.0,
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.w500,
                                   useGoogleFonts:
