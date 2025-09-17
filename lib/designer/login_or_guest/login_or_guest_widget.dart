@@ -141,49 +141,49 @@ class _LoginOrGuestWidgetState extends State<LoginOrGuestWidget> {
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Don\'t Have An Account?',
-                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              fontFamily: 'Inter',
-                              letterSpacing: 0.0,
-                              useGoogleFonts:
-                                  GoogleFonts.asMap().containsKey('Inter'),
-                            ),
-                      ),
-                      Padding(
-                        padding:
-                            const EdgeInsetsDirectional.fromSTEB(3, 0, 0, 0),
-                        child: InkWell(
-                          splashColor: Colors.transparent,
-                          focusColor: Colors.transparent,
-                          hoverColor: Colors.transparent,
-                          highlightColor: Colors.transparent,
-                          onTap: () async {
-                            context.pushNamed('CreateAnAccount');
-                          },
-                          child: Text(
-                          'Sign Up',
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  fontFamily: 'Inter',
-                                  color: const Color(0xFFC9A54B),
-                                  letterSpacing: 0.0,
-                                  useGoogleFonts:
-                                      GoogleFonts.asMap().containsKey('Inter'),
-                                ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                // Padding(
+                //   padding: const EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
+                //   child: Row(
+                //     mainAxisSize: MainAxisSize.max,
+                //     mainAxisAlignment: MainAxisAlignment.center,
+                //     children: [
+                //       Text(
+                //         'Don\'t Have An Account?',
+                //         style: FlutterFlowTheme.of(context).bodyMedium.override(
+                //               fontFamily: 'Inter',
+                //               letterSpacing: 0.0,
+                //               useGoogleFonts:
+                //                   GoogleFonts.asMap().containsKey('Inter'),
+                //             ),
+                //       ),
+                //       Padding(
+                //         padding:
+                //             const EdgeInsetsDirectional.fromSTEB(3, 0, 0, 0),
+                //         child: InkWell(
+                //           splashColor: Colors.transparent,
+                //           focusColor: Colors.transparent,
+                //           hoverColor: Colors.transparent,
+                //           highlightColor: Colors.transparent,
+                //           onTap: () async {
+                //             context.pushNamed('CreateAnAccount');
+                //           },
+                //           child: Text(
+                //           'Sign Up',
+                //             style: FlutterFlowTheme.of(context)
+                //                 .bodyMedium
+                //                 .override(
+                //                   fontFamily: 'Inter',
+                //                   color: const Color(0xFFC9A54B),
+                //                   letterSpacing: 0.0,
+                //                   useGoogleFonts:
+                //                       GoogleFonts.asMap().containsKey('Inter'),
+                //                 ),
+                //           ),
+                //         ),
+                //       ),
+                //     ],
+                //   ),
+                // ),
                 Padding(
                   padding: const EdgeInsetsDirectional.fromSTEB(20, 24, 20, 36),
                   child: FFButtonWidget(

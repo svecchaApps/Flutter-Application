@@ -64,73 +64,78 @@ class _CommenttextWidgetState extends State<CommenttextWidget> {
         children: [
           SizedBox(
             width: MediaQuery.sizeOf(context).width * 0.7,
-            child: TextFormField(
-              controller: _model.textController,
-              focusNode: _model.textFieldFocusNode,
-              autofocus: false,
-              obscureText: false,
-              maxLength: 100,
-              decoration: InputDecoration(
-                isDense: true,
-                labelStyle: FlutterFlowTheme.of(context).labelMedium.override(
-                      fontFamily:
-                          FlutterFlowTheme.of(context).labelMediumFamily,
-                      color: FlutterFlowTheme.of(context).primaryText,
-                      letterSpacing: 0.0,
-                      useGoogleFonts: GoogleFonts.asMap().containsKey(
-                          FlutterFlowTheme.of(context).labelMediumFamily),
-                    ),
-                hintText: 'Enter Your Thoughts',
-                hintStyle: FlutterFlowTheme.of(context).labelMedium.override(
-                      fontFamily:
-                          FlutterFlowTheme.of(context).labelMediumFamily,
-                      color: FlutterFlowTheme.of(context)
-                          .primaryText
-                          .withOpacity(0.35),
-                      fontSize: 14.0,
-                      letterSpacing: 0.0,
-                      useGoogleFonts: GoogleFonts.asMap().containsKey(
-                          FlutterFlowTheme.of(context).labelMediumFamily),
-                    ),
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: FlutterFlowTheme.of(context).primary,
-                    width: 1.5,
-                  ),
-                  borderRadius: BorderRadius.circular(30.0),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: FlutterFlowTheme.of(context).primaryText,
-                    width: 1.5,
-                  ),
-                  borderRadius: BorderRadius.circular(30.0),
-                ),
-                errorBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: FlutterFlowTheme.of(context).error,
-                    width: 1.5,
-                  ),
-                  borderRadius: BorderRadius.circular(30.0),
-                ),
-                focusedErrorBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: FlutterFlowTheme.of(context).error,
-                    width: 1.5,
-                  ),
-                  borderRadius: BorderRadius.circular(30.0),
-                ),
-                filled: true,
-                fillColor: FlutterFlowTheme.of(context).secondaryBackground,
+            child: ConstrainedBox(
+              constraints: BoxConstraints(
+                maxWidth: MediaQuery.sizeOf(context).width * 0.7,
               ),
-              style: FlutterFlowTheme.of(context).bodyMedium.override(
-                    fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
-                    letterSpacing: 0.0,
-                    useGoogleFonts: GoogleFonts.asMap().containsKey(
-                        FlutterFlowTheme.of(context).bodyMediumFamily),
+              child: TextFormField(
+                controller: _model.textController,
+                focusNode: _model.textFieldFocusNode,
+                autofocus: false,
+                obscureText: false,
+                maxLength: 100,
+                decoration: InputDecoration(
+                  isDense: true,
+                  labelStyle: FlutterFlowTheme.of(context).labelMedium.override(
+                        fontFamily:
+                            FlutterFlowTheme.of(context).labelMediumFamily,
+                        color: FlutterFlowTheme.of(context).primaryText,
+                        letterSpacing: 0.0,
+                        useGoogleFonts: GoogleFonts.asMap().containsKey(
+                            FlutterFlowTheme.of(context).labelMediumFamily),
+                      ),
+                  hintText: 'Enter Your Thoughts',
+                  hintStyle: FlutterFlowTheme.of(context).labelMedium.override(
+                        fontFamily:
+                            FlutterFlowTheme.of(context).labelMediumFamily,
+                        color: FlutterFlowTheme.of(context)
+                            .primaryText
+                            .withOpacity(0.35),
+                        fontSize: 14.0,
+                        letterSpacing: 0.0,
+                        useGoogleFonts: GoogleFonts.asMap().containsKey(
+                            FlutterFlowTheme.of(context).labelMediumFamily),
+                      ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: FlutterFlowTheme.of(context).primary,
+                      width: 1.5,
+                    ),
+                    borderRadius: BorderRadius.circular(30.0),
                   ),
-              cursorColor: FlutterFlowTheme.of(context).primaryText,
-              validator: _model.textControllerValidator.asValidator(context),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: FlutterFlowTheme.of(context).primaryText,
+                      width: 1.5,
+                    ),
+                    borderRadius: BorderRadius.circular(30.0),
+                  ),
+                  errorBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: FlutterFlowTheme.of(context).error,
+                      width: 1.5,
+                    ),
+                    borderRadius: BorderRadius.circular(30.0),
+                  ),
+                  focusedErrorBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: FlutterFlowTheme.of(context).error,
+                      width: 1.5,
+                    ),
+                    borderRadius: BorderRadius.circular(30.0),
+                  ),
+                  filled: true,
+                  fillColor: FlutterFlowTheme.of(context).secondaryBackground,
+                ),
+                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                      fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
+                      letterSpacing: 0.0,
+                      useGoogleFonts: GoogleFonts.asMap().containsKey(
+                          FlutterFlowTheme.of(context).bodyMediumFamily),
+                    ),
+                cursorColor: FlutterFlowTheme.of(context).primaryText,
+                validator: _model.textControllerValidator.asValidator(context),
+              ),
             ),
           ),
           Padding(
@@ -182,10 +187,15 @@ class _CommenttextWidgetState extends State<CommenttextWidget> {
 
                 safeSetState(() {});
               },
-              child: Icon(
-                Icons.send,
-                color: FlutterFlowTheme.of(context).primary,
-                size: 28.0,
+              child: InkWell(
+                child: Padding(
+                  padding: const EdgeInsetsGeometry.fromLTRB(0, 0, 0, 25),
+                  child: Icon(
+                    Icons.send,
+                    color: FlutterFlowTheme.of(context).primary,
+                    size: 24.0,
+                  ),
+                ),
               ),
             ),
           ),

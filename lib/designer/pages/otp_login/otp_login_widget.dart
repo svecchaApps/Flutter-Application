@@ -1,4 +1,8 @@
+import 'package:http/http.dart' as http;
+import 'package:firebase_auth/firebase_auth.dart';
+
 import '/auth/firebase_auth/auth_util.dart';
+import '/auth/jwt_auth_manager.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -176,9 +180,15 @@ class _OtpLoginWidgetState extends State<OtpLoginWidget>
                       ),
                       GestureDetector(
                         onTap: () async {
+                          print('🔄 [RESEND_OTP] Resend OTP button pressed');
                           final phoneNumberVal = widget.phoneNumber;
+                          print(
+                              '🔄 [RESEND_OTP] Phone number: $phoneNumberVal');
+
                           if (phoneNumberVal.isEmpty ||
                               !phoneNumberVal.startsWith('+')) {
+                            print(
+                                '🔄 [RESEND_OTP] Invalid phone number format');
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
                                 content: Text('Incorrect Phone Number'),
@@ -186,6 +196,36 @@ class _OtpLoginWidgetState extends State<OtpLoginWidget>
                             );
                             return;
                           }
+
+                          // First try JWT authentication
+                          print('🔄 [RESEND_OTP] Attempting JWT OTP resend...');
+                          final jwtAuthManager = JwtAuthManager.instance;
+                          final jwtResult = await jwtAuthManager.sendPhoneOtp(
+                            phoneNumber: phoneNumberVal,
+                          );
+
+                          if (jwtResult != null) {
+                            // JWT OTP sent successfully
+                            print(
+                                '🔄 [RESEND_OTP] JWT OTP resent successfully!');
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                  'OTP resent successfully!',
+                                  style: TextStyle(
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryText,
+                                  ),
+                                ),
+                                duration: const Duration(milliseconds: 2000),
+                                backgroundColor:
+                                    FlutterFlowTheme.of(context).secondary,
+                              ),
+                            );
+                            return;
+                          }
+
+                          // Fallback to Firebase authentication if JWT fails
                           await authManager
                               .beginPhoneAuth(
                             context: context,
@@ -244,43 +284,393 @@ class _OtpLoginWidgetState extends State<OtpLoginWidget>
                       final smsCodeVal = _model.pinCodeController!.text;
                       if (smsCodeVal.isEmpty) {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Enter a valid OTP'),
-                          ),
+                          const SnackBar(content: Text('Enter a valid OTP')),
                         );
                         return;
                       }
-                      final phoneVerifiedUser = await authManager.verifySmsCode(
-                        context: context,
-                        smsCode: smsCodeVal,
-                      );
-                      if (phoneVerifiedUser == null) {
-                        return;
+
+                      try {
+                        print('🔍 [OTP_VERIFY] Verify button pressed');
+                        print(
+                            '🔍 [OTP_VERIFY] Phone number: ${widget.phoneNumber}');
+                        print('🔍 [OTP_VERIFY] OTP entered: $smsCodeVal');
+
+                        // Use Firebase OTP verification to get Firebase token
+                        print(
+                            '🔍 [OTP_VERIFY] Using Firebase OTP verification...');
+                        final phoneVerifiedUser =
+                            await authManager.verifySmsCode(
+                          context: context,
+                          smsCode: smsCodeVal,
+                        );
+
+                        if (phoneVerifiedUser == null) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                                content: Text('OTP verification failed')),
+                          );
+                          return;
+                        }
+
+                        // Get Firebase ID token from the verified user
+                        print('🔍 [OTP_VERIFY] Getting Firebase ID token...');
+                        print(
+                            '🔍 [OTP_VERIFY] Phone verified user: ${phoneVerifiedUser.uid}');
+                        print(
+                            '🔍 [OTP_VERIFY] Phone verified user email: ${phoneVerifiedUser.email}');
+                        print(
+                            '🔍 [OTP_VERIFY] Phone verified user phone: ${phoneVerifiedUser.phoneNumber}');
+
+                        // Use the correct method to get Firebase ID token
+                        String? firebaseToken;
+                        try {
+                          // Try different methods to get the token
+                          if (phoneVerifiedUser is User) {
+                            firebaseToken =
+                                await phoneVerifiedUser.getIdToken();
+                            print(
+                                '🔍 [OTP_VERIFY] Token obtained from phoneVerifiedUser (User)');
+                          } else {
+                            // If it's not a User object, try to get current user
+                            final currentUser =
+                                FirebaseAuth.instance.currentUser;
+                            if (currentUser != null) {
+                              firebaseToken = await currentUser.getIdToken();
+                              print(
+                                  '🔍 [OTP_VERIFY] Token obtained from currentUser');
+                            } else {
+                              print(
+                                  '🔍 [OTP_VERIFY] No current user found, trying auth state...');
+                              // Try to get from auth state
+                              final authState =
+                                  FirebaseAuth.instance.authStateChanges();
+                              final user = await authState.first;
+                              if (user != null) {
+                                firebaseToken = await user.getIdToken();
+                                print(
+                                    '🔍 [OTP_VERIFY] Token obtained from auth state');
+                              }
+                            }
+                          }
+                        } catch (e) {
+                          print('🔍 [OTP_VERIFY] Error getting token: $e');
+                          // Try alternative method - force refresh
+                          try {
+                            await FirebaseAuth.instance.currentUser?.reload();
+                            final refreshedUser =
+                                FirebaseAuth.instance.currentUser;
+                            if (refreshedUser != null) {
+                              firebaseToken = await refreshedUser
+                                  .getIdToken(true); // Force refresh
+                              print(
+                                  '🔍 [OTP_VERIFY] Token obtained after reload');
+                            }
+                          } catch (e2) {
+                            print(
+                                '🔍 [OTP_VERIFY] Alternative method also failed: $e2');
+                          }
+                        }
+
+                        print(
+                            '🔍 [OTP_VERIFY] Firebase token received: ${firebaseToken != null ? 'YES' : 'NO'}');
+
+                        if (firebaseToken != null) {
+                          print(
+                              '🔍 [OTP_VERIFY] Firebase token length: ${firebaseToken.length}');
+                          print(
+                              '🔍 [OTP_VERIFY] Firebase token preview: ${firebaseToken.substring(0, 50)}...');
+                          print(
+                              '🔍 [OTP_VERIFY] Full Firebase token: $firebaseToken');
+                        } else {
+                          print(
+                              '🔍 [OTP_VERIFY] ERROR: Firebase token is NULL!');
+                        }
+
+                        if (firebaseToken == null) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                                content:
+                                    Text('Failed to get authentication token')),
+                          );
+                          return;
+                        }
+
+                        // Ensure Firebase authentication state is properly maintained
+                        print(
+                            '🔍 [OTP_VERIFY] Ensuring Firebase auth state is maintained...');
+                        try {
+                          // Small delay to ensure Firebase state is updated
+                          await Future.delayed(
+                              const Duration(milliseconds: 500));
+
+                          // Verify the token is still valid
+                          final currentUser = FirebaseAuth.instance.currentUser;
+                          if (currentUser != null) {
+                            final verifiedToken =
+                                await currentUser.getIdToken();
+                            if (verifiedToken != null) {
+                              firebaseToken =
+                                  verifiedToken; // Update with fresh token
+                              print(
+                                  '🔍 [OTP_VERIFY] Firebase auth state verified and token refreshed');
+                            }
+                          }
+                        } catch (e) {
+                          print(
+                              '🔍 [OTP_VERIFY] Error verifying Firebase auth state: $e');
+                        }
+
+                        // Send Firebase token to backend for JWT authentication
+                        print(
+                            '🔍 [OTP_VERIFY] Sending Firebase token to backend...');
+
+                        if (firebaseToken == null || firebaseToken.isEmpty) {
+                          print(
+                              '🔍 [OTP_VERIFY] ERROR: Firebase token is null or empty, cannot proceed');
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                                content: Text(
+                                    'Authentication failed. Please try again.')),
+                          );
+                          return;
+                        }
+
+                        final jwtAuthManager = JwtAuthManager.instance;
+                        final jwtResult =
+                            await jwtAuthManager.verifyPhoneWithFirebaseToken(
+                          phoneNumber: widget.phoneNumber,
+                          firebaseToken: firebaseToken,
+                        );
+
+                        if (jwtResult != null) {
+                          // Check if this is a new user
+                          final isNewUser = jwtResult['isNewUser'] ?? false;
+                          print('🔍 [OTP_VERIFY] Is new user: $isNewUser');
+                          print('🔍 [OTP_VERIFY] Full JWT result: $jwtResult');
+
+                          // Validate required fields for new user
+                          if (isNewUser) {
+                            final firebaseUid = jwtResult['firebaseUid'];
+                            final phoneNumber = jwtResult['phoneNumber'];
+
+                            if (firebaseUid == null || phoneNumber == null) {
+                              print(
+                                  '🔍 [OTP_VERIFY] ERROR: Missing required fields for new user');
+                              print(
+                                  '🔍 [OTP_VERIFY] firebaseUid: $firebaseUid');
+                              print(
+                                  '🔍 [OTP_VERIFY] phoneNumber: $phoneNumber');
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text(
+                                      'Error: Missing user data. Please try again.'),
+                                ),
+                              );
+                              return;
+                            }
+                          }
+
+                          if (isNewUser) {
+                            // New user - navigate to create account with Firebase UID
+                            print(
+                                '🔍 [OTP_VERIFY] New user detected, navigating to create account');
+                            final firebaseUid = jwtResult['firebaseUid'];
+                            final phoneNumber = jwtResult['phoneNumber'];
+
+                            print('🔍 [OTP_VERIFY] Firebase UID: $firebaseUid');
+                            print('🔍 [OTP_VERIFY] Phone Number: $phoneNumber');
+                            print(
+                                '🔍 [OTP_VERIFY] Context mounted: ${context.mounted}');
+
+                            // Remove +91 prefix for create account page (should be clean 10 digits)
+                            String formattedPhoneNumber =
+                                phoneNumber.toString();
+                            if (formattedPhoneNumber.startsWith('+91')) {
+                              formattedPhoneNumber =
+                                  formattedPhoneNumber.substring(3);
+                            }
+                            print(
+                                '🔍 [OTP_VERIFY] Formatted phone number: $formattedPhoneNumber');
+
+                            // For new users, we'll let them be logged in but mark profile as incomplete
+                            // This allows them to complete their profile setup
+                            print(
+                                '🔍 [OTP_VERIFY] New user detected, will mark profile as incomplete after account creation');
+
+                            if (context.mounted) {
+                              print(
+                                  '🔍 [OTP_VERIFY] Navigating to CreateAnAccount with phone: $formattedPhoneNumber');
+                              print(
+                                  '🔍 [OTP_VERIFY] Firebase token available: ${firebaseToken != null ? 'YES' : 'NO'}');
+
+                              // Ensure Firebase authentication state is maintained
+                              print(
+                                  '🔍 [OTP_VERIFY] Firebase token length: ${firebaseToken.length}');
+                              print(
+                                  '🔍 [OTP_VERIFY] Firebase token preview: ${firebaseToken.substring(0, 50)}...');
+
+                              try {
+                                print(
+                                    '🔍 [OTP_VERIFY] Attempting navigation with pushNamed...');
+                                context.pushNamed(
+                                  'CreateAnAccount',
+                                  queryParameters: {
+                                    'phoneNumber': formattedPhoneNumber,
+                                    'firebaseIdToken': firebaseToken,
+                                  }.withoutNulls,
+                                );
+                                print(
+                                    '🔍 [OTP_VERIFY] Navigation to CreateAnAccount completed');
+                              } catch (e) {
+                                print('🔍 [OTP_VERIFY] Navigation error: $e');
+                                // Try alternative navigation method
+                                try {
+                                  print(
+                                      '🔍 [OTP_VERIFY] Trying alternative navigation with goNamed...');
+                                  context.goNamed(
+                                    'CreateAnAccount',
+                                    queryParameters: {
+                                      'phoneNumber': formattedPhoneNumber,
+                                      'firebaseIdToken': firebaseToken,
+                                    }.withoutNulls,
+                                  );
+                                  print(
+                                      '🔍 [OTP_VERIFY] Alternative navigation completed');
+                                } catch (e2) {
+                                  print(
+                                      '🔍 [OTP_VERIFY] Alternative navigation also failed: $e2');
+                                }
+                              }
+                            } else {
+                              print(
+                                  '🔍 [OTP_VERIFY] Context not mounted, cannot navigate');
+                            }
+                            return;
+                          } else {
+                            // Existing user - JWT authentication successful (tokens already stored)
+                            print(
+                                '🔍 [OTP_VERIFY] JWT authentication successful for existing user!');
+                            final user = jwtResult['user'];
+                            final userId = user?['_id'] ?? '';
+                            print('🔍 [OTP_VERIFY] JWT User ID: $userId');
+
+                            FFAppState().userId = userId;
+                            FFAppState().update(() {});
+
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                  'Welcome!',
+                                  style: TextStyle(
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryText,
+                                  ),
+                                ),
+                                duration: const Duration(milliseconds: 4000),
+                                backgroundColor:
+                                    FlutterFlowTheme.of(context).secondary,
+                              ),
+                            );
+
+                            if (context.mounted) {
+                              print(
+                                  '🔍 [OTP_VERIFY] Navigating to Homepage after JWT success');
+                              context.goNamedAuth('Homepage', context.mounted);
+                            }
+                            return;
+                          }
+                        }
+
+                        // If JWT authentication fails, fallback to Firebase-only flow
+                        print(
+                            '🔍 [OTP_VERIFY] JWT authentication failed, using Firebase fallback...');
+
+                        // Remove +91 prefix for API call (should be clean 10 digits)
+                        String rawPhoneNumber = widget.phoneNumber;
+                        if (rawPhoneNumber.startsWith('+91')) {
+                          rawPhoneNumber = rawPhoneNumber.substring(3);
+                        }
+
+                        // Check if user exists in backend
+                        final response = await http.post(
+                          Uri.parse(
+                              'https://indigo-rhapsody-backend-ten.vercel.app/user/check-user-exists'),
+                          headers: {'Content-Type': 'application/json'},
+                          body: jsonEncode({'phoneNumber': rawPhoneNumber}),
+                        );
+
+                        final responseData = jsonDecode(response.body);
+
+                        if (response.statusCode == 200) {
+                          final userExists = responseData['success'] == true &&
+                              responseData['userId'] != null;
+
+                          if (userExists) {
+                            // User exists - proceed with Firebase login
+                            _model.readDocument123 =
+                                await UsersRecord.getDocumentOnce(
+                                    currentUserReference!);
+                            FFAppState().userId =
+                                valueOrDefault(currentUserDocument?.userId, '');
+                            FFAppState().cartId =
+                                valueOrDefault(currentUserDocument?.cartId, '');
+                            FFAppState().update(() {});
+
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                  'Welcome!',
+                                  style: TextStyle(
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryText,
+                                  ),
+                                ),
+                                duration: const Duration(milliseconds: 4000),
+                                backgroundColor:
+                                    FlutterFlowTheme.of(context).secondary,
+                              ),
+                            );
+
+                            if (context.mounted) {
+                              context.goNamedAuth('Homepage', context.mounted);
+                            }
+                          } else {
+                            // User doesn't exist - navigate to create account
+                            print(
+                                '🔍 [OTP_VERIFY] User does not exist, signing out and navigating to create account');
+                            await authManager.signOut();
+                            if (context.mounted) {
+                              context.pushNamed(
+                                'CreateAnAccount',
+                                queryParameters: {
+                                  'phoneNumber': rawPhoneNumber,
+                                }.withoutNulls,
+                              );
+                            }
+                          }
+                        } else {
+                          // Handle non-200 responses
+                          await authManager.signOut();
+                          if (context.mounted) {
+                            context.goNamedAuth(
+                              'CreateAnAccount',
+                              context.mounted,
+                              queryParameters: {
+                                'phoneNumber': rawPhoneNumber,
+                              }.withoutNulls,
+                            );
+                          }
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                                content: Text(
+                                    'Error: ${responseData['message'] ?? 'Unknown error'}')),
+                          );
+                        }
+                      } catch (e) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text('Error: ${e.toString()}')),
+                        );
                       }
-
-                      _model.readDocument123 =
-                          await UsersRecord.getDocumentOnce(
-                              currentUserReference!);
-                      FFAppState().userId =
-                          valueOrDefault(currentUserDocument?.userId, '');
-                      FFAppState().cartId =
-                          valueOrDefault(currentUserDocument?.cartId, '');
-                      FFAppState().update(() {});
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(
-                            'Welcome!',
-                            style: TextStyle(
-                              color: FlutterFlowTheme.of(context).primaryText,
-                            ),
-                          ),
-                          duration: const Duration(milliseconds: 4000),
-                          backgroundColor:
-                              FlutterFlowTheme.of(context).secondary,
-                        ),
-                      );
-
-                      context.goNamedAuth('Homepage', context.mounted);
 
                       safeSetState(() {});
                     },
@@ -289,9 +679,17 @@ class _OtpLoginWidgetState extends State<OtpLoginWidget>
                       width: double.infinity,
                       height: screenSize.height * 0.065,
                       padding: const EdgeInsetsDirectional.fromSTEB(
-                          21.0, 0.0, 21.0, 0.0),
+                        21.0,
+                        0.0,
+                        21.0,
+                        0.0,
+                      ),
                       iconPadding: const EdgeInsetsDirectional.fromSTEB(
-                          0.0, 0.0, 0.0, 0.0),
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                      ),
                       color: FlutterFlowTheme.of(context).primary,
                       textStyle:
                           FlutterFlowTheme.of(context).titleSmall.override(
@@ -299,18 +697,20 @@ class _OtpLoginWidgetState extends State<OtpLoginWidget>
                                 color: const Color(0xFFFDFDFD),
                                 fontSize: 15.0,
                                 letterSpacing: 0.0,
-                                useGoogleFonts:
-                                    GoogleFonts.asMap().containsKey('Inter'),
+                                useGoogleFonts: GoogleFonts.asMap().containsKey(
+                                  'Inter',
+                                ),
                               ),
                       elevation: 3.0,
                       borderSide: const BorderSide(
                         color: Colors.transparent,
                         width: 1.0,
                       ),
-                      borderRadius: BorderRadius.circular(20.0),
+                      borderRadius: BorderRadius.circular(10.0),
                     ),
                   ).animateOnPageLoad(
-                      animationsMap['buttonOnPageLoadAnimation']!),
+                    animationsMap['buttonOnPageLoadAnimation']!,
+                  ),
                 ],
               ),
             ),

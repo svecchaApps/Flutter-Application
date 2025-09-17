@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:indigo_rhapsody_dupli/designer/pages/searchpage1/searchpage1_widget.dart';
 import 'package:provider/provider.dart';
 import '/backend/backend.dart';
 import '/backend/schema/structs/index.dart';
@@ -156,7 +157,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'searchpage1',
           path: '/searchpage1',
-          builder: (context, params) => const Searchpage1Widget(),
+          builder: (context, params) => const SearchpageWidget(),
         ),
         FFRoute(
           name: 'Orderdetails',
@@ -211,7 +212,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'CreateAnAccount',
           path: '/createAnAccount',
-          builder: (context, params) => const CreateAnAccountWidget(),
+          builder: (context, params) => CreateAnAccountWidget(
+            phoneNumber: params.getParam('phoneNumber', ParamType.String),
+            firebaseIdToken:
+                params.getParam('firebaseIdToken', ParamType.String),
+          ),
         ),
         FFRoute(
           name: 'Homepage',
@@ -246,6 +251,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'Settingscopy',
           path: '/settingscopy',
+          requireAuth: true,
           builder: (context, params) => params.isEmpty
               ? const NavBarPage(initialPage: 'Settingscopy')
               : const SettingsWidget(),

@@ -198,6 +198,14 @@ class _ChoosePaymentWidgetState extends State<ChoosePaymentWidget>
                                   FlutterFlowTheme.of(context).secondary,
                             ),
                           );
+
+                          // Debug prints for order creation
+                          print(
+                              '💳 [CHOOSE_PAYMENT] Starting Cash on Delivery order...');
+                          print('💳 [CHOOSE_PAYMENT] FFAppState values:');
+                          print('  - userId: ${FFAppState().userId}');
+                          print('  - cartId: ${FFAppState().cartId}');
+
                           _model.apiResultns3 =
                               await BackendAPIGroup.createOrderCall.call(
                             userId: FFAppState().userId,
@@ -212,9 +220,21 @@ class _ChoosePaymentWidgetState extends State<ChoosePaymentWidget>
                             postalcode: '201304',
                           );
 
+                          print('💳 [CHOOSE_PAYMENT] Order API Result:');
+                          print(
+                              '  - Succeeded: ${_model.apiResultns3?.succeeded}');
+                          print(
+                              '  - Status Code: ${_model.apiResultns3?.statusCode}');
+                          print(
+                              '  - Response Body: ${_model.apiResultns3?.jsonBody}');
+
                           if ((_model.apiResultns3?.succeeded ?? true)) {
+                            print(
+                                '💳 [CHOOSE_PAYMENT] SUCCESS: Order created, navigating to completion page');
                             context.pushNamed('ordercompletedCopy');
                           } else {
+                            print(
+                                '💳 [CHOOSE_PAYMENT] ERROR: Order creation failed');
                             // await actions.snackbar(
                             //   context,
                             //   getJsonField(

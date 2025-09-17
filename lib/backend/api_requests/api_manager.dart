@@ -12,6 +12,7 @@ import 'package:http_parser/http_parser.dart';
 import 'package:mime_type/mime_type.dart';
 
 import '/flutter_flow/uploaded_file.dart';
+import '/auth/jwt_auth_manager.dart';
 
 import 'get_streamed_response.dart';
 
@@ -169,6 +170,9 @@ class ApiManager {
   // If your API calls need authentication, populate this field once
   // the user has authenticated. Alter this as needed.
   static String? _accessToken;
+
+  // JWT Authentication Manager
+  static final JwtAuthManager _jwtAuthManager = JwtAuthManager.instance;
 
   // You may want to call this if, for example, you make a change to the
   // database and no longer want the cached result of a call that may
@@ -434,6 +438,17 @@ class ApiManager {
     // Modify for your specific needs if this differs from your API.
     if (_accessToken != null) {
       headers[HttpHeaders.authorizationHeader] = 'Bearer $_accessToken';
+    }
+
+    // Add JWT token to headers if available
+    try {
+      final jwtToken = await _jwtAuthManager.getJwtToken();
+      if (jwtToken != null) {
+        headers['Authorization'] = 'Bearer $jwtToken';
+        print('🔐 [API] Adding JWT token to request: ${callOptions.callName}');
+      }
+    } catch (e) {
+      print('🔐 [API] Error getting JWT token: $e');
     }
     if (!apiUrl.startsWith('http')) {
       apiUrl = 'https://$apiUrl';

@@ -6,14 +6,17 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_video_player.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
+import '/index.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'upload_video_model.dart';
 export 'upload_video_model.dart';
 
 class UploadVideoWidget extends StatefulWidget {
   const UploadVideoWidget({super.key});
+
+  static String routeName = 'uploadVideo';
+  static String routePath = '/uploadVideo';
 
   @override
   State<UploadVideoWidget> createState() => _UploadVideoWidgetState();
@@ -28,6 +31,9 @@ class _UploadVideoWidgetState extends State<UploadVideoWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => UploadVideoModel());
+
+    _model.textController ??= TextEditingController();
+    _model.textFieldFocusNode ??= FocusNode();
   }
 
   @override
@@ -98,11 +104,11 @@ class _UploadVideoWidgetState extends State<UploadVideoWidget> {
                       color: FlutterFlowTheme.of(context).primaryText,
                       fontSize: 20.0,
                       letterSpacing: 0.0,
-                      useGoogleFonts: GoogleFonts.asMap().containsKey(
-                          FlutterFlowTheme.of(context).headlineMediumFamily),
+                      useGoogleFonts:
+                          !FlutterFlowTheme.of(context).headlineMediumIsCustom,
                     ),
               ),
-              actions: const [],
+              actions: [],
               centerTitle: true,
               elevation: 0.0,
             ),
@@ -111,13 +117,13 @@ class _UploadVideoWidgetState extends State<UploadVideoWidget> {
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  if (_model.uploadedFileUrl == '')
+                  if (_model.uploadedFileUrl_uploadData297 == '')
                     Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(20.0, 20.0, 20.0, 0.0),
+                          EdgeInsetsDirectional.fromSTEB(20.0, 20.0, 20.0, 0.0),
                       child: Container(
                         width: MediaQuery.sizeOf(context).width * 1.0,
-                        height: MediaQuery.sizeOf(context).height * 0.2,
+                        height: MediaQuery.sizeOf(context).height * 0.3,
                         decoration: BoxDecoration(
                           color: FlutterFlowTheme.of(context).primaryBackground,
                           borderRadius: BorderRadius.circular(20.0),
@@ -126,8 +132,106 @@ class _UploadVideoWidgetState extends State<UploadVideoWidget> {
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
+                            Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Text(
+                                  'Enter Caption',
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: FlutterFlowTheme.of(context)
+                                            .bodyMediumFamily,
+                                        letterSpacing: 0.0,
+                                        useGoogleFonts:
+                                            !FlutterFlowTheme.of(context)
+                                                .bodyMediumIsCustom,
+                                      ),
+                                ),
+                              ],
+                            ),
+                            Container(
+                              width: MediaQuery.sizeOf(context).width * 1.0,
+                              child: TextFormField(
+                                controller: _model.textController,
+                                focusNode: _model.textFieldFocusNode,
+                                autofocus: false,
+                                obscureText: false,
+                                decoration: InputDecoration(
+                                  isDense: true,
+                                  labelStyle: FlutterFlowTheme.of(context)
+                                      .labelMedium
+                                      .override(
+                                        fontFamily: FlutterFlowTheme.of(context)
+                                            .labelMediumFamily,
+                                        letterSpacing: 0.0,
+                                        useGoogleFonts:
+                                            !FlutterFlowTheme.of(context)
+                                                .labelMediumIsCustom,
+                                      ),
+                                  hintText: 'Enter Caption For the Video',
+                                  hintStyle: FlutterFlowTheme.of(context)
+                                      .labelMedium
+                                      .override(
+                                        fontFamily: FlutterFlowTheme.of(context)
+                                            .labelMediumFamily,
+                                        letterSpacing: 0.0,
+                                        lineHeight: 3.0,
+                                        useGoogleFonts:
+                                            !FlutterFlowTheme.of(context)
+                                                .labelMediumIsCustom,
+                                      ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Color(0x00000000),
+                                      width: 1.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Color(0x00000000),
+                                      width: 1.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                  errorBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: FlutterFlowTheme.of(context).error,
+                                      width: 1.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                  focusedErrorBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: FlutterFlowTheme.of(context).error,
+                                      width: 1.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                  filled: true,
+                                  fillColor: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
+                                ),
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: FlutterFlowTheme.of(context)
+                                          .bodyMediumFamily,
+                                      letterSpacing: 0.0,
+                                      useGoogleFonts:
+                                          !FlutterFlowTheme.of(context)
+                                              .bodyMediumIsCustom,
+                                    ),
+                                maxLength: 100,
+                                cursorColor:
+                                    FlutterFlowTheme.of(context).primaryText,
+                                validator: _model.textControllerValidator
+                                    .asValidator(context),
+                              ),
+                            ),
                             Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
+                              padding: EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 15.0),
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
@@ -142,10 +246,9 @@ class _UploadVideoWidgetState extends State<UploadVideoWidget> {
                                               FlutterFlowTheme.of(context)
                                                   .bodyMediumFamily,
                                           letterSpacing: 0.0,
-                                          useGoogleFonts: GoogleFonts.asMap()
-                                              .containsKey(
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMediumFamily),
+                                          useGoogleFonts:
+                                              !FlutterFlowTheme.of(context)
+                                                  .bodyMediumIsCustom,
                                         ),
                                   ),
                                 ],
@@ -171,8 +274,8 @@ class _UploadVideoWidgetState extends State<UploadVideoWidget> {
                                     selectedMedia.every((m) =>
                                         validateFileFormat(
                                             m.storagePath, context))) {
-                                  safeSetState(
-                                      () => _model.isDataUploading = true);
+                                  safeSetState(() => _model
+                                      .isDataUploading_uploadData297 = true);
                                   var selectedUploadedFiles =
                                       <FFUploadedFile>[];
 
@@ -206,16 +309,17 @@ class _UploadVideoWidgetState extends State<UploadVideoWidget> {
                                   } finally {
                                     ScaffoldMessenger.of(context)
                                         .hideCurrentSnackBar();
-                                    _model.isDataUploading = false;
+                                    _model.isDataUploading_uploadData297 =
+                                        false;
                                   }
                                   if (selectedUploadedFiles.length ==
                                           selectedMedia.length &&
                                       downloadUrls.length ==
                                           selectedMedia.length) {
                                     safeSetState(() {
-                                      _model.uploadedLocalFile =
+                                      _model.uploadedLocalFile_uploadData297 =
                                           selectedUploadedFiles.first;
-                                      _model.uploadedFileUrl =
+                                      _model.uploadedFileUrl_uploadData297 =
                                           downloadUrls.first;
                                     });
                                     showUploadMessage(context, 'Success!');
@@ -229,7 +333,7 @@ class _UploadVideoWidgetState extends State<UploadVideoWidget> {
                               },
                             ),
                             Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
+                              padding: EdgeInsetsDirectional.fromSTEB(
                                   0.0, 10.0, 0.0, 0.0),
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
@@ -245,10 +349,9 @@ class _UploadVideoWidgetState extends State<UploadVideoWidget> {
                                                   .bodyMediumFamily,
                                           fontSize: 8.0,
                                           letterSpacing: 0.0,
-                                          useGoogleFonts: GoogleFonts.asMap()
-                                              .containsKey(
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMediumFamily),
+                                          useGoogleFonts:
+                                              !FlutterFlowTheme.of(context)
+                                                  .bodyMediumIsCustom,
                                         ),
                                   ),
                                 ],
@@ -258,12 +361,12 @@ class _UploadVideoWidgetState extends State<UploadVideoWidget> {
                         ),
                       ),
                     ),
-                  if (_model.uploadedFileUrl != '')
+                  if (_model.uploadedFileUrl_uploadData297 != '')
                     Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(20.0, 10.0, 20.0, 0.0),
+                          EdgeInsetsDirectional.fromSTEB(20.0, 10.0, 20.0, 0.0),
                       child: FlutterFlowVideoPlayer(
-                        path: _model.uploadedFileUrl,
+                        path: _model.uploadedFileUrl_uploadData297,
                         videoType: VideoType.network,
                         autoPlay: false,
                         looping: false,
@@ -272,11 +375,11 @@ class _UploadVideoWidgetState extends State<UploadVideoWidget> {
                         allowPlaybackSpeedMenu: false,
                       ),
                     ),
-                  const Spacer(),
-                  if (_model.uploadedFileUrl != '')
+                  Spacer(),
+                  if (_model.uploadedFileUrl_uploadData297 != '')
                     Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 15.0),
+                          EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 15.0),
                       child: FFButtonWidget(
                         onPressed: () async {
                           _model.apiResult3l1 = await BackendAPIGroup
@@ -289,7 +392,8 @@ class _UploadVideoWidgetState extends State<UploadVideoWidget> {
                               ),
                               'aaa',
                             ),
-                            videoUrl: _model.uploadedFileUrl,
+                            videoUrl: _model.uploadedFileUrl_uploadData297,
+                            title: _model.textController.text,
                           );
 
                           if ((_model.apiResult3l1?.succeeded ?? true)) {
@@ -302,13 +406,13 @@ class _UploadVideoWidgetState extends State<UploadVideoWidget> {
                                         .primaryText,
                                   ),
                                 ),
-                                duration: const Duration(milliseconds: 4000),
+                                duration: Duration(milliseconds: 4000),
                                 backgroundColor:
                                     FlutterFlowTheme.of(context).secondary,
                               ),
                             );
 
-                            context.goNamed('creatorProfile');
+                            context.goNamed(CreatorProfileWidget.routeName);
                           } else {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
@@ -322,7 +426,7 @@ class _UploadVideoWidgetState extends State<UploadVideoWidget> {
                                         .primaryText,
                                   ),
                                 ),
-                                duration: const Duration(milliseconds: 4000),
+                                duration: Duration(milliseconds: 4000),
                                 backgroundColor:
                                     FlutterFlowTheme.of(context).secondary,
                               ),
@@ -335,9 +439,9 @@ class _UploadVideoWidgetState extends State<UploadVideoWidget> {
                         options: FFButtonOptions(
                           width: MediaQuery.sizeOf(context).width * 1.0,
                           height: MediaQuery.sizeOf(context).height * 0.065,
-                          padding: const EdgeInsetsDirectional.fromSTEB(
+                          padding: EdgeInsetsDirectional.fromSTEB(
                               16.0, 0.0, 16.0, 0.0),
-                          iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                          iconPadding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 0.0, 0.0),
                           color: FlutterFlowTheme.of(context).primary,
                           textStyle: FlutterFlowTheme.of(context)
@@ -347,9 +451,8 @@ class _UploadVideoWidgetState extends State<UploadVideoWidget> {
                                     .titleSmallFamily,
                                 color: Colors.white,
                                 letterSpacing: 0.0,
-                                useGoogleFonts: GoogleFonts.asMap().containsKey(
-                                    FlutterFlowTheme.of(context)
-                                        .titleSmallFamily),
+                                useGoogleFonts: !FlutterFlowTheme.of(context)
+                                    .titleSmallIsCustom,
                               ),
                           elevation: 0.0,
                           borderRadius: BorderRadius.circular(20.0),

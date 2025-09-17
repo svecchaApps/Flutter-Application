@@ -733,23 +733,7 @@ class _EditaddresspageWidgetState extends State<EditaddresspageWidget> {
                               !_model.formKey.currentState!.validate()) {
                             return;
                           }
-                          if (_model.dropDownStateValue == null) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text(
-                                  'Please Select State',
-                                  style: TextStyle(
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryText,
-                                  ),
-                                ),
-                                duration: const Duration(milliseconds: 2450),
-                                backgroundColor:
-                                    FlutterFlowTheme.of(context).secondary,
-                              ),
-                            );
-                            return;
-                          }
+
                           _model.addAddress =
                               await BackendAPIGroup.updateUserrCall.call(
                             userId: FFAppState().userId,

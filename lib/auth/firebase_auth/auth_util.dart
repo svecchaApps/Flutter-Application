@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import '/backend/backend.dart';
 import 'package:stream_transform/stream_transform.dart';
 import 'firebase_auth_manager.dart';
+import '/app_state.dart';
 
 export 'firebase_auth_manager.dart';
 
@@ -27,6 +28,26 @@ String get currentPhoneNumber =>
     currentUserDocument?.phoneNumber ?? currentUser?.phoneNumber ?? '';
 
 String get currentJwtToken => _currentJwtToken ?? '';
+
+// New getter to check if user is authenticated via any method
+bool get isUserAuthenticated {
+  // Check if user is authenticated via Firebase
+  final hasFirebaseAuth = currentUser != null && currentPhoneNumber.isNotEmpty;
+
+  // Check if user is authenticated via JWT (we'll need to check this asynchronously)
+  // For now, we'll check if there's a user ID in FFAppState
+  final hasJwtAuth = FFAppState().userId.isNotEmpty;
+
+  final isAuth = hasFirebaseAuth || hasJwtAuth;
+
+  print(
+      '🔐 [AUTH_CHECK] Firebase auth: $hasFirebaseAuth (currentUser: ${currentUser != null}, phoneNumber: ${currentPhoneNumber.isNotEmpty})');
+  print(
+      '🔐 [AUTH_CHECK] JWT auth: $hasJwtAuth (userId: ${FFAppState().userId})');
+  print('🔐 [AUTH_CHECK] Final result: $isAuth');
+
+  return isAuth;
+}
 
 bool get currentUserEmailVerified => currentUser?.emailVerified ?? false;
 

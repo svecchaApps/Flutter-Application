@@ -1,4 +1,6 @@
 import '/auth/firebase_auth/auth_util.dart';
+import '/auth/jwt_auth_manager.dart';
+import '/auth/jwt_debug_helper.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -412,6 +414,42 @@ class _EmailloginWidgetState extends State<EmailloginWidget>
                     onPressed: () async {
                       GoRouter.of(context).prepareAuthEvent();
 
+                      // Try JWT authentication first
+                      final jwtAuthManager = JwtAuthManager.instance;
+                      final jwtResult = await jwtAuthManager.loginWithEmail(
+                        email: _model.emailTextController.text,
+                        password: _model.passwordTextController.text,
+                      );
+
+                      if (jwtResult != null) {
+                        // JWT login successful
+                        final user = jwtResult['user'];
+                        final userId = user?['_id'] ?? '';
+                        FFAppState().userId = userId;
+                        FFAppState().update(() {});
+
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              'Welcome!',
+                              style: TextStyle(
+                                color: FlutterFlowTheme.of(context).primaryText,
+                              ),
+                            ),
+                            duration: const Duration(milliseconds: 4000),
+                            backgroundColor:
+                                FlutterFlowTheme.of(context).secondary,
+                          ),
+                        );
+
+                        context.goNamedAuth('Homepage', context.mounted);
+                        return;
+                      }
+
+                      // Fallback to Firebase authentication
+                      print(
+                          '🔐 [EMAIL_LOGIN] JWT authentication failed, using Firebase fallback...');
+
                       final user = await authManager.signInWithEmail(
                         context,
                         _model.emailTextController.text,
@@ -574,6 +612,24 @@ class _EmailloginWidgetState extends State<EmailloginWidget>
                         ),
                       ),
                     ],
+                  ),
+                ),
+                // Debug button for JWT testing
+                Padding(
+                  padding: const EdgeInsetsDirectional.fromSTEB(
+                      20.0, 10.0, 20.0, 10.0),
+                  child: ElevatedButton(
+                    onPressed: () async {
+                      await JwtDebugHelper.runAllTests();
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.orange,
+                      foregroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                    child: const Text('Debug JWT System'),
                   ),
                 ),
               ],

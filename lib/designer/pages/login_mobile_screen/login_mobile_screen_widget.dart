@@ -85,43 +85,43 @@ class _LoginMobileScreenWidgetState extends State<LoginMobileScreenWidget>
         body: SafeArea(
           top: true,
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(24, 16, 24, 0),
+            padding: const EdgeInsets.fromLTRB(24, 1, 24, 0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.max,
               children: [
-                Center(
+                const Center(
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(8),
-                        child: Image.asset(
-                          'assets/images/Asset_4.webp',
-                          width: screenSize.width * 0.2,
-                          height: screenSize.height * 0.13,
-                          fit: BoxFit.contain,
-                        ),
-                      ),
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(8),
-                        child: Image.asset(
-                          'assets/images/Asset_3.webp',
-                          width: screenSize.width * 0.493,
-                          height: screenSize.height * 0.1,
-                          fit: BoxFit.contain,
-                        ),
-                      ),
+                      // ClipRRect(
+                      //   borderRadius: BorderRadius.circular(8),
+                      //   child: Image.asset(
+                      //     'assets/images/Asset_4.webp',
+                      //     width: screenSize.width * 0.2,
+                      //     height: screenSize.height * 0.13,
+                      //     fit: BoxFit.contain,
+                      //   ),
+                      // ),
+                      // ClipRRect(
+                      //   borderRadius: BorderRadius.circular(8),
+                      //   child: Image.asset(
+                      //     'assets/images/Asset_3.webp',
+                      //     width: screenSize.width * 0.493,
+                      //     height: screenSize.height * 0.1,
+                      //     fit: BoxFit.contain,
+                      //   ),
+                      // ),
                     ],
                   ),
                 ),
                 const SizedBox(height: 36),
                 Text(
-                  'Login ',
+                  'What is your mobile number?',
                   style: FlutterFlowTheme.of(context).bodyMedium.override(
                         fontFamily: 'Inter',
-                        fontSize: 16,
+                        fontSize: 22,
                         letterSpacing: 0.0,
                         fontWeight: FontWeight.bold,
                         useGoogleFonts:
@@ -130,7 +130,7 @@ class _LoginMobileScreenWidgetState extends State<LoginMobileScreenWidget>
                 ),
                 const SizedBox(height: 12),
                 Text(
-                  'Let\'s login you for exploring',
+                  'Tap "Continue" to receive an OTP on your mobile number.',
                   style: FlutterFlowTheme.of(context).bodyMedium.override(
                         fontFamily: 'Inter',
                         color: FlutterFlowTheme.of(context).secondaryText,
@@ -142,18 +142,18 @@ class _LoginMobileScreenWidgetState extends State<LoginMobileScreenWidget>
                       ),
                 ),
                 const SizedBox(height: 36),
-                Text(
-                  'Mobile Number ',
-                  style: FlutterFlowTheme.of(context).bodyMedium.override(
-                        fontFamily: 'Inter',
-                        color: const Color(0xFF232323),
-                        fontSize: 14,
-                        letterSpacing: 0.0,
-                        fontWeight: FontWeight.w500,
-                        useGoogleFonts:
-                            GoogleFonts.asMap().containsKey('Inter'),
-                      ),
-                ),
+                // Text(
+                //   'Mobile Number ',
+                //   style: FlutterFlowTheme.of(context).bodyMedium.override(
+                //         fontFamily: 'Inter',
+                //         color: const Color(0xFF232323),
+                //         fontSize: 14,
+                //         letterSpacing: 0.0,
+                //         fontWeight: FontWeight.w500,
+                //         useGoogleFonts:
+                //             GoogleFonts.asMap().containsKey('Inter'),
+                //       ),
+                // ),
                 const SizedBox(height: 18),
                 TextFormField(
                   controller: _model.emailTextController,
@@ -189,7 +189,7 @@ class _LoginMobileScreenWidgetState extends State<LoginMobileScreenWidget>
                           color: FlutterFlowTheme.of(context)
                               .secondaryText
                               .withOpacity(0.65),
-                          fontSize: 14,
+                          fontSize: 12,
                           letterSpacing: 0.0,
                           useGoogleFonts: GoogleFonts.asMap().containsKey(
                               FlutterFlowTheme.of(context).labelMediumFamily),
@@ -248,43 +248,43 @@ class _LoginMobileScreenWidgetState extends State<LoginMobileScreenWidget>
                       _model.emailTextControllerValidator.asValidator(context),
                 ),
                 const SizedBox(height: 20),
-                Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Text(
-                      'Don\'t have an account?  ',
-                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            fontFamily:
-                                FlutterFlowTheme.of(context).bodyMediumFamily,
-                            fontSize: 12,
-                            letterSpacing: 0.0,
-                            useGoogleFonts: GoogleFonts.asMap().containsKey(
-                                FlutterFlowTheme.of(context).bodyMediumFamily),
-                          ),
-                    ),
-                    InkWell(
-                      splashColor: Colors.transparent,
-                      focusColor: Colors.transparent,
-                      hoverColor: Colors.transparent,
-                      highlightColor: Colors.transparent,
-                      onTap: () async {
-                        context.pushNamed(CreateAnAccountWidget.routeName);
-                      },
-                      child: Text(
-                        'Sign Up',
-                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              fontFamily: 'Inter',
-                              color: const Color(0xFF323FA4),
-                              letterSpacing: 0.0,
-                              fontWeight: FontWeight.w600,
-                              useGoogleFonts:
-                                  GoogleFonts.asMap().containsKey('Inter'),
-                            ),
-                      ),
-                    ),
-                  ],
-                ),
+                // const Row(
+                //   mainAxisSize: MainAxisSize.max,
+                //   mainAxisAlignment: MainAxisAlignment.end,
+                //   children: [
+                //     // Text(
+                //     //   'Don\'t have an account?  ',
+                //     //   style: FlutterFlowTheme.of(context).bodyMedium.override(
+                //     //         fontFamily:
+                //     //             FlutterFlowTheme.of(context).bodyMediumFamily,
+                //     //         fontSize: 12,
+                //     //         letterSpacing: 0.0,
+                //     //         useGoogleFonts: GoogleFonts.asMap().containsKey(
+                //     //             FlutterFlowTheme.of(context).bodyMediumFamily),
+                //     //       ),
+                //     // ),
+                //     // InkWell(
+                //     //   splashColor: Colors.transparent,
+                //     //   focusColor: Colors.transparent,
+                //     //   hoverColor: Colors.transparent,
+                //     //   highlightColor: Colors.transparent,
+                //     //   onTap: () async {
+                //     //     context.pushNamed(CreateAnAccountWidget.routeName);
+                //     //   },
+                //     //   child: Text(
+                //     //     'Sign Up',
+                //     //     style: FlutterFlowTheme.of(context).bodyMedium.override(
+                //     //           fontFamily: 'Inter',
+                //     //           color: const Color(0xFF323FA4),
+                //     //           letterSpacing: 0.0,
+                //     //           fontWeight: FontWeight.w600,
+                //     //           useGoogleFonts:
+                //     //               GoogleFonts.asMap().containsKey('Inter'),
+                //     //         ),
+                //     //   ),
+                //     // ),
+                //   ],
+                // ),
               ],
             ),
           ),
@@ -327,7 +327,7 @@ class _LoginMobileScreenWidgetState extends State<LoginMobileScreenWidget>
                 },
               );
             },
-            text: 'Get OTP',
+            text: 'Continue',
             options: FFButtonOptions(
               width: double.infinity,
               height: MediaQuery.sizeOf(context).height * 0.065,

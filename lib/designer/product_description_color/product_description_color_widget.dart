@@ -9,11 +9,12 @@ import 'package:provider/provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart'
     as smooth_page_indicator;
 
-import '';
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
+import '/backend/api_requests/recently_viewed_api.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
+import '/utils/recently_viewed_helper.dart';
 import '/flutter_flow/flutter_flow_expanded_image_view.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -31,7 +32,7 @@ class ProductDescriptionColorWidget extends StatefulWidget {
   });
 
   final String? productId;
-  final String? price;
+  final String price;
 
   static String routeName = 'productDescriptionColor';
   static String routePath = '/productDescriptionColor';
@@ -56,7 +57,30 @@ class _ProductDescriptionColorWidgetState
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       _model.price = widget.price;
       safeSetState(() {});
+
+      // Add product to recently viewed
+      if (widget.productId != null) {
+        _addToRecentlyViewed();
+      }
     });
+  }
+
+  Future<void> _addToRecentlyViewed() async {
+    try {
+      print(
+          '➕ [PRODUCT_DETAILS_COLOR] Adding product to recently viewed: ${widget.productId}');
+      final success =
+          await RecentlyViewedHelper.trackProductView(widget.productId!);
+      if (success) {
+        print(
+            '➕ [PRODUCT_DETAILS_COLOR] Successfully added product to recently viewed');
+      } else {
+        print(
+            '➕ [PRODUCT_DETAILS_COLOR] Failed to add product to recently viewed');
+      }
+    } catch (e) {
+      print('➕ [PRODUCT_DETAILS_COLOR] Error adding to recently viewed: $e');
+    }
   }
 
   @override
@@ -554,7 +578,7 @@ class _ProductDescriptionColorWidgetState
                                 padding: const EdgeInsetsDirectional.fromSTEB(
                                     10, 20, 20, 0),
                                 child: Text(
-                                  'Sizes',
+                                  'Size',
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
@@ -591,68 +615,69 @@ class _ProductDescriptionColorWidgetState
                                             (detailsIndex) {
                                           final detailsItem =
                                               details[detailsIndex];
-                                          return Padding(
-                                            padding: const EdgeInsetsDirectional
-                                                .fromSTEB(0, 0, 8, 0),
-                                            child: InkWell(
-                                              splashColor: Colors.transparent,
-                                              focusColor: Colors.transparent,
-                                              hoverColor: Colors.transparent,
-                                              highlightColor:
-                                                  Colors.transparent,
-                                              onTap: () async {
-                                                _model.pageindex = detailsIndex;
-                                                _model.size = getJsonField(
-                                                  detailsItem,
-                                                  r'''$.size''',
-                                                ).toString();
-                                                _model.price = getJsonField(
-                                                  detailsItem,
-                                                  r'''$.price''',
-                                                ).toString();
-                                                safeSetState(() {});
-                                              },
-                                              child: Container(
-                                                width:
-                                                    MediaQuery.sizeOf(context)
-                                                            .width *
-                                                        0.12,
-                                                height:
-                                                    MediaQuery.sizeOf(context)
-                                                            .height *
-                                                        0.058,
-                                                decoration: BoxDecoration(
-                                                  color: _model.pageindex ==
-                                                          detailsIndex
-                                                      ? FlutterFlowTheme.of(
-                                                              context)
-                                                          .primary
-                                                      : FlutterFlowTheme.of(
-                                                              context)
-                                                          .accent4,
-                                                  borderRadius:
-                                                      BorderRadius.circular(5),
-                                                  border: Border.all(
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .primaryText,
+                                          return Align(
+                                            alignment:
+                                                const AlignmentDirectional(
+                                                    0, 0),
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(0, 0, 15, 0),
+                                              child: InkWell(
+                                                splashColor: Colors.transparent,
+                                                focusColor: Colors.transparent,
+                                                hoverColor: Colors.transparent,
+                                                highlightColor:
+                                                    Colors.transparent,
+                                                onTap: () async {
+                                                  _model.pageindex =
+                                                      detailsIndex;
+                                                  _model.size = getJsonField(
+                                                    detailsItem,
+                                                    r'''$.size''',
+                                                  ).toString();
+                                                  _model.price = getJsonField(
+                                                    detailsItem,
+                                                    r'''$.price''',
+                                                  ).toString();
+                                                  safeSetState(() {});
+                                                },
+                                                child: Container(
+                                                  width:
+                                                      MediaQuery.sizeOf(context)
+                                                              .width *
+                                                          0.12,
+                                                  height:
+                                                      MediaQuery.sizeOf(context)
+                                                              .height *
+                                                          0.058,
+                                                  decoration: BoxDecoration(
+                                                    color: _model.pageindex ==
+                                                            detailsIndex
+                                                        ? FlutterFlowTheme.of(
+                                                                context)
+                                                            .primary
+                                                        : FlutterFlowTheme.of(
+                                                                context)
+                                                            .accent4,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            5),
+                                                    border: Border.all(
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primaryText,
+                                                    ),
                                                   ),
-                                                ),
-                                                child: Column(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: [
-                                                    Align(
-                                                      alignment:
-                                                          const AlignmentDirectional(
-                                                              0, 0),
-                                                      child: Padding(
-                                                        padding:
-                                                            const EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                5, 0, 0, 0),
+                                                  child: Column(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    children: [
+                                                      Align(
+                                                        alignment:
+                                                            const AlignmentDirectional(
+                                                                0, 0),
                                                         child: Text(
                                                           getJsonField(
                                                             detailsItem,
@@ -663,7 +688,46 @@ class _ProductDescriptionColorWidgetState
                                                               .bodyMedium
                                                               .override(
                                                                 fontFamily:
-                                                                    'Inter',
+                                                                    'DM Sans',
+                                                                color: _model
+                                                                            .pageindex ==
+                                                                        detailsIndex
+                                                                    ? FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .secondaryBackground
+                                                                    : FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .secondaryText,
+                                                                fontSize: 12,
+                                                                letterSpacing:
+                                                                    0.0,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                useGoogleFonts: GoogleFonts
+                                                                        .asMap()
+                                                                    .containsKey(
+                                                                        'DM Sans'),
+                                                              ),
+                                                        ),
+                                                      ),
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                0, 5, 0, 0),
+                                                        child: Text(
+                                                          '₹${getJsonField(
+                                                            detailsItem,
+                                                            r'''$.price''',
+                                                          ).toString()}',
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMediumFamily,
                                                                 color: _model
                                                                             .pageindex ==
                                                                         detailsIndex
@@ -673,59 +737,19 @@ class _ProductDescriptionColorWidgetState
                                                                     : FlutterFlowTheme.of(
                                                                             context)
                                                                         .primaryText,
-                                                                fontSize: 12,
+                                                                fontSize: 10,
                                                                 letterSpacing:
                                                                     0.0,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
                                                                 useGoogleFonts: GoogleFonts
                                                                         .asMap()
                                                                     .containsKey(
-                                                                        'Inter'),
+                                                                        FlutterFlowTheme.of(context)
+                                                                            .bodyMediumFamily),
                                                               ),
                                                         ),
                                                       ),
-                                                    ),
-                                                    Padding(
-                                                      padding:
-                                                          const EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                              0, 5, 0, 0),
-                                                      child: Text(
-                                                        '₹${getJsonField(
-                                                          detailsItem,
-                                                          r'''$.price''',
-                                                        ).toString()}',
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyMediumFamily,
-                                                                  color: _model
-                                                                              .pageindex ==
-                                                                          detailsIndex
-                                                                      ? FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .secondaryBackground
-                                                                      : FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .primaryText,
-                                                                  fontSize: 10,
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                  useGoogleFonts: GoogleFonts
-                                                                          .asMap()
-                                                                      .containsKey(
-                                                                          FlutterFlowTheme.of(context)
-                                                                              .bodyMediumFamily),
-                                                                ),
-                                                      ),
-                                                    ),
-                                                  ],
+                                                    ],
+                                                  ),
                                                 ),
                                               ),
                                             ),
@@ -750,85 +774,37 @@ class _ProductDescriptionColorWidgetState
                               ),
                               Padding(
                                 padding: const EdgeInsetsDirectional.fromSTEB(
-                                    10, 20, 20, 10),
+                                    16, 24, 16, 8),
                                 child: Row(
-                                  mainAxisSize: MainAxisSize.max,
                                   children: [
-                                    Padding(
-                                      padding:
-                                          const EdgeInsetsDirectional.fromSTEB(
-                                              0, 0, 20, 0),
-                                      child: Text(
-                                        'Product Details',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Inter',
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .secondaryText,
-                                              fontSize: 10,
-                                              letterSpacing: 0.0,
-                                              fontWeight: FontWeight.w600,
-                                              useGoogleFonts:
-                                                  GoogleFonts.asMap()
-                                                      .containsKey('Inter'),
-                                            ),
+                                    Container(
+                                      width: 4,
+                                      height: 20,
+                                      decoration: BoxDecoration(
+                                        color: FlutterFlowTheme.of(context)
+                                            .primary,
+                                        borderRadius: BorderRadius.circular(2),
                                       ),
                                     ),
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
-                                    10, 0, 10, 0),
-                                child: Container(
-                                  width: MediaQuery.sizeOf(context).width,
-                                  decoration: const BoxDecoration(),
-                                  child: Text(
-                                    valueOrDefault<String>(
-                                      BackendAPIGroup.getProductByIdCall
-                                          .description(
-                                        productDescriptionColorGetProductByIdResponse
-                                            .jsonBody,
-                                      ),
-                                      'product Description',
-                                    ),
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyMediumFamily,
-                                          fontSize: 14,
-                                          letterSpacing: 0.0,
-                                          useGoogleFonts: GoogleFonts.asMap()
-                                              .containsKey(
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMediumFamily),
-                                        ),
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
-                                    10, 10, 10, 0),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
+                                    const SizedBox(width: 12),
                                     Text(
-                                      'Fabric:',
+                                      'Product Details',
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
-                                            fontFamily: 'Poppins',
+                                            fontFamily: 'Inter',
                                             color: FlutterFlowTheme.of(context)
-                                                .secondaryText,
-                                            fontSize: 10,
+                                                .primaryText,
+                                            fontSize: MediaQuery.of(context)
+                                                        .size
+                                                        .width >
+                                                    600
+                                                ? 18
+                                                : 16,
                                             letterSpacing: 0.0,
-                                            fontWeight: FontWeight.w600,
+                                            fontWeight: FontWeight.w700,
                                             useGoogleFonts: GoogleFonts.asMap()
-                                                .containsKey('Poppins'),
+                                                .containsKey('Inter'),
                                           ),
                                     ),
                                   ],
@@ -836,31 +812,115 @@ class _ProductDescriptionColorWidgetState
                               ),
                               Padding(
                                 padding: const EdgeInsetsDirectional.fromSTEB(
-                                    10, 0, 10, 0),
+                                    16, 0, 16, 16),
                                 child: Container(
                                   width: MediaQuery.sizeOf(context).width,
-                                  decoration: const BoxDecoration(),
-                                  child: Text(
-                                    valueOrDefault<String>(
-                                      BackendAPIGroup.getProductByIdCall.fabric(
-                                        productDescriptionColorGetProductByIdResponse
-                                            .jsonBody,
-                                      ),
-                                      'Product fabric',
-                                    ),
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyMediumFamily,
-                                          fontSize: 14,
-                                          letterSpacing: 0.0,
-                                          useGoogleFonts: GoogleFonts.asMap()
-                                              .containsKey(
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMediumFamily),
+                                  decoration: BoxDecoration(
+                                    color: FlutterFlowTheme.of(context)
+                                        .accent4
+                                        .withOpacity(0.3),
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(16),
+                                    child: Text(
+                                      valueOrDefault<String>(
+                                        BackendAPIGroup.getProductByIdCall
+                                            .description(
+                                          productDescriptionColorGetProductByIdResponse
+                                              .jsonBody,
                                         ),
+                                        'Product description will be displayed here.',
+                                      ),
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Inter',
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryText,
+                                            fontSize: 14,
+                                            letterSpacing: 0.0,
+                                            fontWeight: FontWeight.w400,
+                                            useGoogleFonts: GoogleFonts.asMap()
+                                                .containsKey('Inter'),
+                                          ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    16, 16, 16, 8),
+                                child: Row(
+                                  children: [
+                                    Container(
+                                      width: 4,
+                                      height: 16,
+                                      decoration: BoxDecoration(
+                                        color: FlutterFlowTheme.of(context)
+                                            .primary,
+                                        borderRadius: BorderRadius.circular(2),
+                                      ),
+                                    ),
+                                    const SizedBox(width: 12),
+                                    Text(
+                                      'Fabric',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Inter',
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryText,
+                                            fontSize: MediaQuery.of(context)
+                                                        .size
+                                                        .width >
+                                                    600
+                                                ? 16
+                                                : 14,
+                                            letterSpacing: 0.0,
+                                            fontWeight: FontWeight.w600,
+                                            useGoogleFonts: GoogleFonts.asMap()
+                                                .containsKey('Inter'),
+                                          ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    16, 0, 16, 16),
+                                child: Container(
+                                  width: MediaQuery.sizeOf(context).width,
+                                  decoration: BoxDecoration(
+                                    color: FlutterFlowTheme.of(context)
+                                        .accent4
+                                        .withOpacity(0.3),
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(16),
+                                    child: Text(
+                                      valueOrDefault<String>(
+                                        BackendAPIGroup.getProductByIdCall
+                                            .fabric(
+                                          productDescriptionColorGetProductByIdResponse
+                                              .jsonBody,
+                                        ),
+                                        'Product fabric information will be displayed here.',
+                                      ),
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Inter',
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryText,
+                                            fontSize: 14,
+                                            letterSpacing: 0.0,
+                                            fontWeight: FontWeight.w400,
+                                            useGoogleFonts: GoogleFonts.asMap()
+                                                .containsKey('Inter'),
+                                          ),
+                                    ),
                                   ),
                                 ),
                               ),
@@ -874,23 +934,37 @@ class _ProductDescriptionColorWidgetState
                               ),
                               Padding(
                                 padding: const EdgeInsetsDirectional.fromSTEB(
-                                    10, 20, 10, 0),
+                                    16, 24, 16, 8),
                                 child: Row(
-                                  mainAxisSize: MainAxisSize.max,
                                   children: [
+                                    Container(
+                                      width: 4,
+                                      height: 20,
+                                      decoration: BoxDecoration(
+                                        color: FlutterFlowTheme.of(context)
+                                            .primary,
+                                        borderRadius: BorderRadius.circular(2),
+                                      ),
+                                    ),
+                                    const SizedBox(width: 12),
                                     Text(
                                       'Size and Fit',
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
-                                            fontFamily: 'Poppins',
+                                            fontFamily: 'Inter',
                                             color: FlutterFlowTheme.of(context)
-                                                .secondaryText,
-                                            fontSize: 10,
+                                                .primaryText,
+                                            fontSize: MediaQuery.of(context)
+                                                        .size
+                                                        .width >
+                                                    600
+                                                ? 18
+                                                : 16,
                                             letterSpacing: 0.0,
-                                            fontWeight: FontWeight.w600,
+                                            fontWeight: FontWeight.w700,
                                             useGoogleFonts: GoogleFonts.asMap()
-                                                .containsKey('Poppins'),
+                                                .containsKey('Inter'),
                                           ),
                                     ),
                                   ],
@@ -1223,7 +1297,7 @@ class _ProductDescriptionColorWidgetState
                                               0, 8, 10, 0),
                                       child: FFButtonWidget(
                                         onPressed: () async {
-                                          if (currentPhoneNumber != '') {
+                                          if (isUserAuthenticated) {
                                             _model.apiResultdshCopy =
                                                 await BackendAPIGroup
                                                     .createWishListCall
@@ -1297,9 +1371,70 @@ class _ProductDescriptionColorWidgetState
                                               );
                                             }
                                           } else {
-                                            context.pushNamed(
-                                                LoginMobileScreenWidget
-                                                    .routeName);
+                                            // Show login dialog - phone login only
+                                            showDialog(
+                                              context: context,
+                                              builder: (BuildContext context) {
+                                                return AlertDialog(
+                                                  title: const Text(
+                                                      'Login Required'),
+                                                  content: const Text(
+                                                      'Please login with your phone number to add items to wishlist.'),
+                                                  actions: [
+                                                    TextButton(
+                                                      onPressed: () {
+                                                        Navigator.of(context)
+                                                            .pop();
+                                                      },
+                                                      child:
+                                                          const Text('Cancel'),
+                                                    ),
+                                                    ElevatedButton(
+                                                      onPressed: () {
+                                                        Navigator.of(context)
+                                                            .pop();
+                                                        context.pushNamed(
+                                                            'LoginMobileScreen');
+                                                      },
+                                                      style: ElevatedButton
+                                                          .styleFrom(
+                                                        backgroundColor:
+                                                            const Color(
+                                                                0xFF3B82F6),
+                                                        foregroundColor:
+                                                            Colors.white,
+                                                        shape:
+                                                            RoundedRectangleBorder(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(8),
+                                                        ),
+                                                      ),
+                                                      child: const Row(
+                                                        mainAxisSize:
+                                                            MainAxisSize.min,
+                                                        children: [
+                                                          Icon(
+                                                            Icons.phone_android,
+                                                            size: 16,
+                                                            color: Colors.white,
+                                                          ),
+                                                          SizedBox(width: 4),
+                                                          Text(
+                                                            'Login with Phone',
+                                                            style: TextStyle(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600,
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ],
+                                                );
+                                              },
+                                            );
                                           }
 
                                           safeSetState(() {});
@@ -1353,7 +1488,7 @@ class _ProductDescriptionColorWidgetState
                                     0, 8, 10, 0),
                                 child: FFButtonWidget(
                                   onPressed: () async {
-                                    if (currentPhoneNumber != '') {
+                                    if (isUserAuthenticated) {
                                       _model.apiResult2t4 = await BackendAPIGroup
                                           .createCartandUpdateCartOneFunctionCall
                                           .call(
@@ -1374,6 +1509,8 @@ class _ProductDescriptionColorWidgetState
                                         ),
                                         customizations: 'Na',
                                       );
+                                      print(
+                                          'API Result: ${_model.apiResult2t4?.jsonBody}');
 
                                       if ((_model.apiResult2t4?.succeeded ??
                                           true)) {
@@ -1444,8 +1581,61 @@ class _ProductDescriptionColorWidgetState
                                         );
                                       }
                                     } else {
-                                      context.pushNamed(
-                                          LoginMobileScreenWidget.routeName);
+                                      // Show login dialog - phone login only
+                                      showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return AlertDialog(
+                                            title: const Text('Login Required'),
+                                            content: const Text(
+                                                'Please login with your phone number to add items to cart.'),
+                                            actions: [
+                                              TextButton(
+                                                onPressed: () {
+                                                  Navigator.of(context).pop();
+                                                },
+                                                child: const Text('Cancel'),
+                                              ),
+                                              ElevatedButton(
+                                                onPressed: () {
+                                                  Navigator.of(context).pop();
+                                                  context.pushNamed(
+                                                      'LoginMobileScreen');
+                                                },
+                                                style: ElevatedButton.styleFrom(
+                                                  backgroundColor:
+                                                      const Color(0xFF3B82F6),
+                                                  foregroundColor: Colors.white,
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            8),
+                                                  ),
+                                                ),
+                                                child: const Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.min,
+                                                  children: [
+                                                    Icon(
+                                                      Icons.phone_android,
+                                                      size: 16,
+                                                      color: Colors.white,
+                                                    ),
+                                                    SizedBox(width: 4),
+                                                    Text(
+                                                      'Login with Phone',
+                                                      style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ],
+                                          );
+                                        },
+                                      );
                                     }
 
                                     safeSetState(() {});

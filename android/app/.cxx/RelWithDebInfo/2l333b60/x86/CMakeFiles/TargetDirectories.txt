@@ -1,0 +1,2 @@
+C:/Users/offic/OneDrive/Desktop/indigorhaposyfluttercode/android/app/.cxx/RelWithDebInfo/2l333b60/x86/CMakeFiles/edit_cache.dir
+C:/Users/offic/OneDrive/Desktop/indigorhaposyfluttercode/android/app/.cxx/RelWithDebInfo/2l333b60/x86/CMakeFiles/rebuild_cache.dir

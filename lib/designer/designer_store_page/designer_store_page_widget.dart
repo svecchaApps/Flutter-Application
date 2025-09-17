@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
 import '/backend/api_requests/api_calls.dart';
@@ -93,6 +94,7 @@ class _DesignerStorePageWidgetState extends State<DesignerStorePageWidget>
           .future,
       builder: (context, snapshot) {
         // Customize what your widget looks like when it's loading.
+
         if (!snapshot.hasData) {
           return Scaffold(
             backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -224,7 +226,26 @@ class _DesignerStorePageWidgetState extends State<DesignerStorePageWidget>
                     child: FutureBuilder<ApiCallResponse>(
                       future: BackendAPIGroup.getCategoriesCall.call(),
                       builder: (context, snapshot) {
-                        // Customize what your widget looks like when it's loading.
+                        print(snapshot.data?.statusCode);
+                        if (snapshot.data?.statusCode == 404) {
+                          return SizedBox(
+                            height: 400, // Adjust height as needed
+                            child: Center(
+                                child: Image.asset(
+                              'assets/images/images.png',
+                              width: 200,
+                              height: 200,
+                              fit: BoxFit.contain,
+                            )
+                                // Lottie.asset(
+                                //   'assets/lottie/empty.json',
+                                //   width: 200,
+                                //   height: 200,
+                                //   fit: BoxFit.contain,
+                                // ),
+                                ),
+                          );
+                        }
                         if (!snapshot.hasData) {
                           return Center(
                             child: SizedBox(
@@ -369,6 +390,34 @@ class _DesignerStorePageWidgetState extends State<DesignerStorePageWidget>
 
                         return Builder(
                           builder: (context) {
+                            if (designerStorePageGetDesignerProductsResponse
+                                    .statusCode ==
+                                404) {
+                              return SizedBox(
+                                height: 400, // Adjust height as needed
+                                child: Center(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Image.asset(
+                                        'assets/images/emptyimage.png',
+                                        width: 200,
+                                        height: 200,
+                                        fit: BoxFit.contain,
+                                      ),
+                                      // ElevatedButton(
+                                      //   onPressed: () {
+                                      //     safeSetState(() {
+                                      //       _model.apiRequestCompleter = null;
+                                      //     });
+                                      //   },
+                                      //   child: const Text('Reload Products'),
+                                      // ),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            }
                             final mainBody =
                                 BackendAPIGroup.getDesignerProductsCall
                                         .productsMain(

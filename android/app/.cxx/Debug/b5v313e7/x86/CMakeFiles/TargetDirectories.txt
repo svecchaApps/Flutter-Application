@@ -1,0 +1,2 @@
+C:/Users/offic/OneDrive/Desktop/indigorhaposyfluttercode/android/app/.cxx/Debug/b5v313e7/x86/CMakeFiles/edit_cache.dir
+C:/Users/offic/OneDrive/Desktop/indigorhaposyfluttercode/android/app/.cxx/Debug/b5v313e7/x86/CMakeFiles/rebuild_cache.dir

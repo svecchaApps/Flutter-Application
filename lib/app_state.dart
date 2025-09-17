@@ -33,6 +33,10 @@ class FFAppState extends ChangeNotifier {
     _safeInit(() {
       _likedVideo = prefs.getBool('ff_likedVideo') ?? _likedVideo;
     });
+    _safeInit(() {
+      _isProfileComplete =
+          prefs.getBool('ff_isProfileComplete') ?? _isProfileComplete;
+    });
   }
 
   void update(VoidCallback callback) {
@@ -128,6 +132,13 @@ class FFAppState extends ChangeNotifier {
   set likedVideo(bool value) {
     _likedVideo = value;
     prefs.setBool('ff_likedVideo', value);
+  }
+
+  bool _isProfileComplete = true; // Default to true for existing users
+  bool get isProfileComplete => _isProfileComplete;
+  set isProfileComplete(bool value) {
+    _isProfileComplete = value;
+    prefs.setBool('ff_isProfileComplete', value);
   }
 
   bool _timer = false;

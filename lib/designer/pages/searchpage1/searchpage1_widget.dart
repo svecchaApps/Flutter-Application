@@ -1,25 +1,20 @@
 import 'dart:convert';
-
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:flutter/material.dart';
 import 'package:indigo_rhapsody_dupli/designer/product_description_color/product_description_color_widget.dart';
+import 'package:indigo_rhapsody_dupli/flutter_flow/flutter_flow_theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '/flutter_flow/flutter_flow_theme.dart';
-
-export 'searchpage1_model.dart';
-
-class Searchpage1Widget extends StatefulWidget {
-  const Searchpage1Widget({super.key});
-
-  static String routeName = 'Searchpage1Widget';
-  static String routePath = '/searchpage1Widget';
+class SearchpageWidget extends StatefulWidget {
+  const SearchpageWidget({
+    super.key,
+  });
 
   @override
-  State<Searchpage1Widget> createState() => _Searchpage1WidgetState();
+  State<SearchpageWidget> createState() => _SearchpageWidgetState();
 }
 
-class _Searchpage1WidgetState extends State<Searchpage1Widget> {
+class _SearchpageWidgetState extends State<SearchpageWidget> {
   final TextEditingController _typeAheadController = TextEditingController();
   final ProductService _productService = ProductService();
   List<Map<String, dynamic>> _recentlySearchedItems = [];
@@ -49,9 +44,6 @@ class _Searchpage1WidgetState extends State<Searchpage1Widget> {
         _recentlySearchedItems =
             List<Map<String, dynamic>>.from(json.decode(items));
       });
-
-      /// Saves the list of recently searched items to shared preferences
-      /// in JSON format under the key 'recentlySearchedItems'.
     }
   }
 
@@ -104,7 +96,7 @@ class _Searchpage1WidgetState extends State<Searchpage1Widget> {
       MaterialPageRoute(
         builder: (context) => ProductDescriptionColorWidget(
           productId: product['_id'].toString(),
-          price: product['price'],
+          price: product['price'].toString(),
         ),
       ),
     );

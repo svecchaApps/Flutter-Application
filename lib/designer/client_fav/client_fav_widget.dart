@@ -1,3 +1,5 @@
+import 'package:indigo_rhapsody_dupli/designer/product_description_color/product_description_color_widget.dart';
+
 import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -108,7 +110,8 @@ class _ClientFavWidgetState extends State<ClientFavWidget> {
               ),
               actions: [
                 Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 25.0, 0.0),
+                  padding:
+                      const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 25.0, 0.0),
                   child: InkWell(
                     splashColor: Colors.transparent,
                     focusColor: Colors.transparent,
@@ -135,8 +138,8 @@ class _ClientFavWidgetState extends State<ClientFavWidget> {
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Padding(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
+                      padding: const EdgeInsetsDirectional.fromSTEB(
+                          0.0, 20.0, 0.0, 0.0),
                       child: Container(
                         width: MediaQuery.sizeOf(context).width * 1.0,
                         decoration: const BoxDecoration(),
@@ -156,8 +159,9 @@ class _ClientFavWidgetState extends State<ClientFavWidget> {
                                     ))!
                                         .isNotEmpty))
                                   Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 278.0, 0.0, 0.0),
+                                    padding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 278.0, 0.0, 0.0),
                                     child: Text(
                                       'Oops!',
                                       style: FlutterFlowTheme.of(context)
@@ -182,8 +186,9 @@ class _ClientFavWidgetState extends State<ClientFavWidget> {
                                     ))!
                                         .isNotEmpty))
                                   Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
-                                        70.0, 10.0, 69.0, 0.0),
+                                    padding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            70.0, 10.0, 69.0, 0.0),
                                     child: Text(
                                       'No Items In Your Save list Yet!',
                                       textAlign: TextAlign.center,
@@ -208,8 +213,9 @@ class _ClientFavWidgetState extends State<ClientFavWidget> {
                                     ))!
                                         .isNotEmpty))
                                   Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
-                                        20.0, 100.0, 20.0, 0.0),
+                                    padding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            20.0, 100.0, 20.0, 0.0),
                                     child: FFButtonWidget(
                                       onPressed: () async {
                                         context.pushNamed('Homepage');
@@ -220,11 +226,10 @@ class _ClientFavWidgetState extends State<ClientFavWidget> {
                                         height:
                                             MediaQuery.sizeOf(context).height *
                                                 0.065,
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            24.0, 0.0, 24.0, 0.0),
-                                        iconPadding:
-                                            const EdgeInsetsDirectional.fromSTEB(
-                                                0.0, 0.0, 0.0, 0.0),
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(24.0, 0.0, 24.0, 0.0),
+                                        iconPadding: const EdgeInsetsDirectional
+                                            .fromSTEB(0.0, 0.0, 0.0, 0.0),
                                         color: FlutterFlowTheme.of(context)
                                             .primary,
                                         textStyle: FlutterFlowTheme.of(context)
@@ -289,17 +294,21 @@ class _ClientFavWidgetState extends State<ClientFavWidget> {
                                               highlightColor:
                                                   Colors.transparent,
                                               onTap: () async {
-                                                context.pushNamed(
-                                                  'productDescriptionColor',
-                                                  queryParameters: {
-                                                    'productId': serializeParam(
-                                                      getJsonField(
-                                                        productBodyItem,
-                                                        r'''$._id''',
-                                                      ).toString(),
-                                                      ParamType.String,
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        ProductDescriptionColorWidget(
+                                                      productId: getJsonField(
+                                                              productBodyItem,
+                                                              r'''$._id''')
+                                                          .toString(),
+                                                      price: getJsonField(
+                                                              productBodyItem,
+                                                              r'''$.price''')
+                                                          .toString(),
                                                     ),
-                                                  }.withoutNulls,
+                                                  ),
                                                 );
                                               },
                                               child: Container(
@@ -344,10 +353,10 @@ class _ClientFavWidgetState extends State<ClientFavWidget> {
                                                                 padding:
                                                                     const EdgeInsetsDirectional
                                                                         .fromSTEB(
-                                                                            5.0,
-                                                                            5.0,
-                                                                            5.0,
-                                                                            10.0),
+                                                                        5.0,
+                                                                        5.0,
+                                                                        5.0,
+                                                                        10.0),
                                                                 child:
                                                                     ClipRRect(
                                                                   borderRadius:
@@ -390,11 +399,8 @@ class _ClientFavWidgetState extends State<ClientFavWidget> {
                                                     Padding(
                                                       padding:
                                                           const EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  15.0,
-                                                                  0.0,
-                                                                  15.0,
-                                                                  0.0),
+                                                              .fromSTEB(15.0,
+                                                              0.0, 15.0, 0.0),
                                                       child: Container(
                                                         width:
                                                             MediaQuery.sizeOf(
@@ -407,10 +413,10 @@ class _ClientFavWidgetState extends State<ClientFavWidget> {
                                                           padding:
                                                               const EdgeInsetsDirectional
                                                                   .fromSTEB(
-                                                                      0.0,
-                                                                      5.0,
-                                                                      5.0,
-                                                                      0.0),
+                                                                  0.0,
+                                                                  5.0,
+                                                                  5.0,
+                                                                  0.0),
                                                           child: Text(
                                                             getJsonField(
                                                               productBodyItem,
@@ -449,11 +455,8 @@ class _ClientFavWidgetState extends State<ClientFavWidget> {
                                                     Padding(
                                                       padding:
                                                           const EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  15.0,
-                                                                  0.0,
-                                                                  15.0,
-                                                                  0.0),
+                                                              .fromSTEB(15.0,
+                                                              0.0, 15.0, 0.0),
                                                       child: Row(
                                                         mainAxisSize:
                                                             MainAxisSize.max,

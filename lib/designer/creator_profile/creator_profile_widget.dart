@@ -3,16 +3,19 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_video_player.dart';
+import '/index.dart';
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'creator_profile_model.dart';
 export 'creator_profile_model.dart';
 
 class CreatorProfileWidget extends StatefulWidget {
   const CreatorProfileWidget({super.key});
+
+  static String routeName = 'creatorProfile';
+  static String routePath = '/creatorProfile';
 
   @override
   State<CreatorProfileWidget> createState() => _CreatorProfileWidgetState();
@@ -105,8 +108,8 @@ class _CreatorProfileWidgetState extends State<CreatorProfileWidget> {
                       color: FlutterFlowTheme.of(context).primaryText,
                       fontSize: 20.0,
                       letterSpacing: 0.0,
-                      useGoogleFonts: GoogleFonts.asMap().containsKey(
-                          FlutterFlowTheme.of(context).headlineMediumFamily),
+                      useGoogleFonts:
+                          !FlutterFlowTheme.of(context).headlineMediumIsCustom,
                     ),
               ),
               actions: const [],
@@ -120,8 +123,8 @@ class _CreatorProfileWidgetState extends State<CreatorProfileWidget> {
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Padding(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(10.0, 20.0, 10.0, 0.0),
+                      padding: const EdgeInsetsDirectional.fromSTEB(
+                          10.0, 20.0, 10.0, 0.0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.end,
@@ -132,7 +135,7 @@ class _CreatorProfileWidgetState extends State<CreatorProfileWidget> {
                             hoverColor: Colors.transparent,
                             highlightColor: Colors.transparent,
                             onTap: () async {
-                              context.pushNamed('uploadVideo');
+                              context.pushNamed(UploadVideoWidget.routeName);
                             },
                             child: Icon(
                               Icons.cloud_upload_outlined,
@@ -173,12 +176,11 @@ class _CreatorProfileWidgetState extends State<CreatorProfileWidget> {
                                   child: Stack(
                                     children: [
                                       Align(
-                                        alignment:
-                                            const AlignmentDirectional(0.0, 0.0),
+                                        alignment: const AlignmentDirectional(
+                                            0.0, 0.0),
                                         child: Padding(
-                                          padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 0.0, 0.0, 20.0),
+                                          padding: const EdgeInsetsDirectional
+                                              .fromSTEB(0.0, 0.0, 0.0, 20.0),
                                           child: FlutterFlowVideoPlayer(
                                             path: getJsonField(
                                               videobODYItem,
@@ -194,12 +196,11 @@ class _CreatorProfileWidgetState extends State<CreatorProfileWidget> {
                                         ),
                                       ),
                                       Align(
-                                        alignment:
-                                            const AlignmentDirectional(0.97, -0.74),
+                                        alignment: const AlignmentDirectional(
+                                            0.97, -0.74),
                                         child: Padding(
-                                          padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 20.0, 0.0, 0.0),
+                                          padding: const EdgeInsetsDirectional
+                                              .fromSTEB(0.0, 20.0, 0.0, 0.0),
                                           child: FlutterFlowIconButton(
                                             borderRadius: 8.0,
                                             buttonSize: 40.0,
@@ -281,8 +282,8 @@ class _CreatorProfileWidgetState extends State<CreatorProfileWidget> {
                                         ),
                                       ),
                                       Align(
-                                        alignment:
-                                            const AlignmentDirectional(0.0, 0.87),
+                                        alignment: const AlignmentDirectional(
+                                            0.0, 0.87),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.max,
                                           children: [
@@ -300,12 +301,10 @@ class _CreatorProfileWidgetState extends State<CreatorProfileWidget> {
                                                                     context)
                                                                 .bodyMediumFamily,
                                                         letterSpacing: 0.0,
-                                                        useGoogleFonts: GoogleFonts
-                                                                .asMap()
-                                                            .containsKey(
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMediumFamily),
+                                                        useGoogleFonts:
+                                                            !FlutterFlowTheme
+                                                                    .of(context)
+                                                                .bodyMediumIsCustom,
                                                       ),
                                             ),
                                           ],

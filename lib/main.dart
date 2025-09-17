@@ -1,6 +1,8 @@
+import 'dart:convert';
 import 'dart:io' show Platform;
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
@@ -8,8 +10,11 @@ import 'package:in_app_update/in_app_update.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:upgrader/upgrader.dart';
+import 'package:package_info_plus/package_info_plus.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '/backend/supabase/supabase.dart';
+import '/services/deep_link_service.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import 'auth/firebase_auth/auth_util.dart';
 import 'auth/firebase_auth/firebase_user_provider.dart';
@@ -17,6 +22,7 @@ import 'backend/firebase/firebase_config.dart';
 import 'flutter_flow/flutter_flow_util.dart';
 import 'flutter_flow/internationalization.dart';
 import 'index.dart';
+import 'package:http/http.dart' as http;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -37,6 +43,9 @@ void main() async {
   await initFirebase();
 
   await SupaFlow.initialize();
+
+  // Initialize deep link service
+  await DeepLinkService.initialize();
 
   final appState = FFAppState(); // Initialize FFAppState
   await appState.initializePersistedState();
@@ -77,18 +86,94 @@ class _MyAppState extends State<MyApp> {
   late Stream<BaseAuthUser> userStream;
 
   final authUserSub = authenticatedUserStream.listen((_) {});
+  Future<void> _checkForUpdates() async {
+    if (Platform.isAndroid) {
+      await _checkForAndroidUpdate();
+    } else if (Platform.isIOS) {
+      await _checkForIOSUpdate();
+    }
+  }
 
   Future<void> _checkForAndroidUpdate() async {
-    if (Platform.isAndroid) {
-      try {
-        final updateInfo = await InAppUpdate.checkForUpdate();
-        if (updateInfo.updateAvailability ==
-            UpdateAvailability.updateAvailable) {
+    try {
+      final updateInfo = await InAppUpdate.checkForUpdate();
+
+      if (updateInfo.updateAvailability == UpdateAvailability.updateAvailable) {
+        if (updateInfo.immediateUpdateAllowed) {
+          // Perform immediate update
           await InAppUpdate.performImmediateUpdate();
+        } else if (updateInfo.flexibleUpdateAllowed) {
+          // Perform flexible update
+          await InAppUpdate.startFlexibleUpdate();
+          await InAppUpdate.completeFlexibleUpdate();
         }
-      } catch (e) {
-        print('Android update error: $e');
       }
+    } catch (e) {
+      print('Android update error: $e');
+      // You might want to show an error message to the user
+    }
+  }
+
+  Future<void> _checkForIOSUpdate() async {
+    try {
+      final packageInfo = await PackageInfo.fromPlatform();
+      final bundleId = packageInfo.packageName;
+      final currentVersion = packageInfo.version;
+      print('Current iOS version: $currentVersion');
+      print("Bundle ID: $bundleId");
+
+      final url =
+          Uri.parse('https://itunes.apple.com/lookup?bundleId=$bundleId');
+      final response = await http.get(url);
+      final data = json.decode(response.body);
+
+      if (data['resultCount'] == 1) {
+        final latestVersion = data['results'][0]['version'];
+        if (latestVersion != currentVersion) {
+          _showIOSUpdateDialog(latestVersion);
+        }
+      }
+    } catch (e) {
+      print('iOS update check error: $e');
+    }
+  }
+
+  void _showIOSUpdateDialog(String latestVersion) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Update Available'),
+          content: Text(
+              'A new version $latestVersion is available. Please update to continue using the app.'),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Update'),
+              onPressed: () {
+                Navigator.of(context).pop();
+                _launchAppStore();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<void> _launchAppStore() async {
+    final packageInfo = await PackageInfo.fromPlatform();
+    final bundleId = packageInfo.packageName;
+    final url = Uri.parse(
+      Platform.isIOS
+          ? 'https://apps.apple.com/app/id6471662460' // Replace with your App ID
+          : 'https://play.google.com/store/apps/details?id=com.mycompany.lsdapp',
+    );
+
+    if (await canLaunchUrl(url)) {
+      await launchUrl(url, mode: LaunchMode.externalApplication);
+    } else {
+      throw 'Could not launch $url';
     }
   }
 
@@ -107,7 +192,7 @@ class _MyAppState extends State<MyApp> {
       const Duration(milliseconds: 1000),
       () {
         _appStateNotifier.stopShowingSplashImage();
-        _checkForAndroidUpdate(); // Trigger Android update check
+        _checkForUpdates(); // Changed to check for both platforms
       },
     );
   }
@@ -175,7 +260,6 @@ class NavBarPage extends StatefulWidget {
   _NavBarPageState createState() => _NavBarPageState();
 }
 
-/// This is the private State class that goes with NavBarPage.
 class _NavBarPageState extends State<NavBarPage> {
   String _currentPageName = 'Homepage';
   late Widget? _currentPage;
@@ -259,5 +343,27 @@ class _NavBarPageState extends State<NavBarPage> {
         ],
       ),
     );
+  }
+}
+
+void requestNotificationPermissions() async {
+  FirebaseMessaging messaging = FirebaseMessaging.instance;
+
+  NotificationSettings settings = await messaging.requestPermission(
+    alert: true,
+    announcement: false,
+    badge: true,
+    carPlay: false,
+    criticalAlert: false,
+    provisional: false,
+    sound: true,
+  );
+
+  if (settings.authorizationStatus == AuthorizationStatus.authorized) {
+    print('User granted permission');
+  } else if (settings.authorizationStatus == AuthorizationStatus.provisional) {
+    print('User granted provisional permission');
+  } else {
+    print('User declined or has not accepted permission');
   }
 }

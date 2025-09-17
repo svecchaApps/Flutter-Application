@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import '/auth/firebase_auth/auth_util.dart';
+import '/auth/jwt_auth_manager.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -8,7 +10,14 @@ import 'create_an_account_model.dart';
 export 'create_an_account_model.dart';
 
 class CreateAnAccountWidget extends StatefulWidget {
-  const CreateAnAccountWidget({super.key});
+  const CreateAnAccountWidget({
+    super.key,
+    this.phoneNumber, // Add phoneNumber parameter
+    this.firebaseIdToken, // Add Firebase token parameter
+  });
+
+  final String? phoneNumber; // Make it nullable if needed
+  final String? firebaseIdToken; // Firebase token for account creation
 
   static String routeName = 'CreateAnAccount';
   static String routePath = '/createAnAccount';
@@ -33,8 +42,27 @@ class _CreateAnAccountWidgetState extends State<CreateAnAccountWidget> {
     _model.emailTextController ??= TextEditingController();
     _model.emailFocusNode ??= FocusNode();
 
-    _model.phoneTextController ??= TextEditingController();
-    _model.phoneFocusNode ??= FocusNode();
+    // Debug print for email controller initialization
+    print(
+        '👤 [CREATE_ACCOUNT] Email controller initialized: ${_model.emailTextController != null}');
+    print(
+        '👤 [CREATE_ACCOUNT] Email controller text: "${_model.emailTextController?.text}"');
+
+    // Add listener to track email changes
+    _model.emailTextController?.addListener(() {
+      print(
+          '👤 [CREATE_ACCOUNT] Email text changed to: "${_model.emailTextController?.text}"');
+    });
+
+    // Debug print after initialization
+    print(
+        '👤 [CREATE_ACCOUNT] After initialization - Email controller: ${_model.emailTextController}');
+    print(
+        '👤 [CREATE_ACCOUNT] After initialization - Email text: "${_model.emailTextController?.text}"');
+
+    _model.phoneTextController ??= TextEditingController(
+      text: widget.phoneNumber ?? '', // Auto-fill with passed phone number
+    );
 
     _model.passwordTextController ??= TextEditingController();
     _model.passwordFocusNode ??= FocusNode();
@@ -54,6 +82,12 @@ class _CreateAnAccountWidgetState extends State<CreateAnAccountWidget> {
 
   @override
   Widget build(BuildContext context) {
+    // Debug print in build method
+    print(
+        '👤 [CREATE_ACCOUNT] Build method - Email controller: ${_model.emailTextController}');
+    print(
+        '👤 [CREATE_ACCOUNT] Build method - Email text: "${_model.emailTextController?.text}"');
+
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -71,41 +105,41 @@ class _CreateAnAccountWidgetState extends State<CreateAnAccountWidget> {
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(
-                        20.0, 45.0, 0.0, 0.0),
+                  const Padding(
+                    padding:
+                        EdgeInsetsDirectional.fromSTEB(20.0, 45.0, 0.0, 0.0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(8.0),
-                          child: Image.asset(
-                            'assets/images/Asset_4.webp',
-                            width: MediaQuery.sizeOf(context).width * 0.18,
-                            height: MediaQuery.sizeOf(context).height * 0.12,
-                            fit: BoxFit.contain,
-                          ),
-                        ),
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(8.0),
-                          child: Image.asset(
-                            'assets/images/Asset_3.webp',
-                            width: MediaQuery.sizeOf(context).width * 0.48,
-                            height: MediaQuery.sizeOf(context).height * 0.1,
-                            fit: BoxFit.contain,
-                          ),
-                        ),
+                        // ClipRRect(
+                        //   borderRadius: BorderRadius.circular(8.0),
+                        //   child: Image.asset(
+                        //     'assets/images/Asset_4.webp',
+                        //     width: MediaQuery.sizeOf(context).width * 0.18,
+                        //     height: MediaQuery.sizeOf(context).height * 0.12,
+                        //     fit: BoxFit.contain,
+                        //   ),
+                        // ),
+                        // ClipRRect(
+                        //   borderRadius: BorderRadius.circular(8.0),
+                        //   child: Image.asset(
+                        //     'assets/images/Asset_3.webp',
+                        //     width: MediaQuery.sizeOf(context).width * 0.48,
+                        //     height: MediaQuery.sizeOf(context).height * 0.1,
+                        //     fit: BoxFit.contain,
+                        //   ),
+                        // ),
                       ],
                     ),
                   ),
-                  Container(
-                    width: MediaQuery.sizeOf(context).width * 1.0,
-                    height: MediaQuery.sizeOf(context).height * 0.12,
-                    decoration: BoxDecoration(
-                      color: FlutterFlowTheme.of(context).secondaryBackground,
-                    ),
-                  ),
+                  // Container(
+                  //   width: MediaQuery.sizeOf(context).width * 1.0,
+                  //   height: MediaQuery.sizeOf(context).height * 0.12,
+                  //   decoration: BoxDecoration(
+                  //     color: FlutterFlowTheme.of(context).secondaryBackground,
+                  //   ),
+                  // ),
                   Container(
                     decoration: const BoxDecoration(),
                     child: Padding(
@@ -125,7 +159,7 @@ class _CreateAnAccountWidgetState extends State<CreateAnAccountWidget> {
                                     fontFamily: 'Inter',
                                     color: FlutterFlowTheme.of(context)
                                         .primaryText,
-                                    fontSize: 16.0,
+                                    fontSize: 18.0,
                                     letterSpacing: 0.0,
                                     fontWeight: FontWeight.bold,
                                     useGoogleFonts: GoogleFonts.asMap()
@@ -296,8 +330,16 @@ class _CreateAnAccountWidgetState extends State<CreateAnAccountWidget> {
                       child: TextFormField(
                         controller: _model.emailTextController,
                         focusNode: _model.emailFocusNode,
-                        autofocus: true,
+                        autofocus:
+                            false, // Changed from true to false to avoid focus issues
                         obscureText: false,
+                        onChanged: (value) {
+                          print(
+                              '👤 [CREATE_ACCOUNT] Email field onChanged: "$value"');
+                          setState(() {
+                            // Force rebuild to ensure the value is captured
+                          });
+                        },
                         decoration: InputDecoration(
                           labelStyle: FlutterFlowTheme.of(context)
                               .labelMedium
@@ -414,7 +456,7 @@ class _CreateAnAccountWidgetState extends State<CreateAnAccountWidget> {
                                     FlutterFlowTheme.of(context)
                                         .labelMediumFamily),
                               ),
-                          hintText: 'Enter your phone number',
+                          hintText: 'Enter 10-digit phone number',
                           hintStyle: FlutterFlowTheme.of(context)
                               .labelMedium
                               .override(
@@ -738,64 +780,225 @@ class _CreateAnAccountWidgetState extends State<CreateAnAccountWidget> {
                             !_model.formKey.currentState!.validate()) {
                           return;
                         }
-                        final phoneNumberVal =
-                            '+91${_model.phoneTextController.text}';
+                        final phoneNumberVal = _model.phoneTextController.text;
                         if (phoneNumberVal.isEmpty ||
-                            !phoneNumberVal.startsWith('+')) {
+                            phoneNumberVal.length != 10) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
-                              content: Text('Incorrect Phone Number'),
+                              content: Text(
+                                  'Please enter a valid 10-digit phone number'),
                             ),
                           );
                           return;
                         }
+                        // Try JWT authentication first
+                        final jwtAuthManager = JwtAuthManager.instance;
+
+                        // Get Firebase ID token for registration
+                        String? firebaseIdToken = widget.firebaseIdToken;
+
+                        // If no token was passed, try to get from Firebase
+                        if (firebaseIdToken == null ||
+                            firebaseIdToken.isEmpty) {
+                          try {
+                            // First try to get from current Firebase user
+                            final currentUser =
+                                FirebaseAuth.instance.currentUser;
+                            if (currentUser != null) {
+                              firebaseIdToken = await currentUser.getIdToken();
+                              print(
+                                  '👤 [CREATE_ACCOUNT] Firebase ID token obtained from current user: ${firebaseIdToken != null ? 'YES' : 'NO'}');
+                              if (firebaseIdToken != null) {
+                                print(
+                                    '👤 [CREATE_ACCOUNT] Firebase token length: ${firebaseIdToken.length}');
+                                print(
+                                    '👤 [CREATE_ACCOUNT] Firebase token preview: ${firebaseIdToken.substring(0, 50)}...');
+                              }
+                            } else {
+                              print(
+                                  '👤 [CREATE_ACCOUNT] No current Firebase user found, trying to get from auth state...');
+
+                              // Try to get from auth state changes
+                              final authState =
+                                  FirebaseAuth.instance.authStateChanges();
+                              final user = await authState.first;
+                              if (user != null) {
+                                firebaseIdToken = await user.getIdToken();
+                                print(
+                                    '👤 [CREATE_ACCOUNT] Firebase ID token obtained from auth state: ${firebaseIdToken != null ? 'YES' : 'NO'}');
+                              } else {
+                                print(
+                                    '👤 [CREATE_ACCOUNT] No user found in auth state either');
+                              }
+                            }
+                          } catch (e) {
+                            print(
+                                '👤 [CREATE_ACCOUNT] Error getting Firebase ID token: $e');
+
+                            // Try alternative method - force refresh
+                            try {
+                              await FirebaseAuth.instance.currentUser?.reload();
+                              final refreshedUser =
+                                  FirebaseAuth.instance.currentUser;
+                              if (refreshedUser != null) {
+                                firebaseIdToken = await refreshedUser
+                                    .getIdToken(true); // Force refresh
+                                print(
+                                    '👤 [CREATE_ACCOUNT] Firebase ID token obtained after reload: ${firebaseIdToken != null ? 'YES' : 'NO'}');
+                              }
+                            } catch (e2) {
+                              print(
+                                  '👤 [CREATE_ACCOUNT] Alternative method also failed: $e2');
+                            }
+                          }
+                        } else {
+                          print(
+                              '👤 [CREATE_ACCOUNT] Using Firebase token passed from OTP verification');
+                          print(
+                              '👤 [CREATE_ACCOUNT] Firebase token length: ${firebaseIdToken.length}');
+                          print(
+                              '👤 [CREATE_ACCOUNT] Firebase token preview: ${firebaseIdToken.substring(0, 50)}...');
+                        }
+
+                        // Debug prints for form data
+                        print('👤 [CREATE_ACCOUNT] Form data validation:');
+                        print(
+                            '👤 [CREATE_ACCOUNT] Email controller: ${_model.emailTextController}');
+                        print(
+                            '👤 [CREATE_ACCOUNT] Email controller text: "${_model.emailTextController?.text}"');
+                        print(
+                            '👤 [CREATE_ACCOUNT] Email controller hasListeners: ${_model.emailTextController?.hasListeners}');
+                        print(
+                            '👤 [CREATE_ACCOUNT] Email: "${_model.emailTextController.text}"');
+                        print(
+                            '👤 [CREATE_ACCOUNT] Email length: ${_model.emailTextController.text.length}');
+                        print(
+                            '👤 [CREATE_ACCOUNT] Name: "${_model.nameTextController.text}"');
+                        print('👤 [CREATE_ACCOUNT] Phone: "$phoneNumberVal"');
+                        print(
+                            '👤 [CREATE_ACCOUNT] Password: "${_model.passwordTextController.text}"');
+
+                        // Check form validation
+                        print('👤 [CREATE_ACCOUNT] About to validate form...');
+                        print(
+                            '👤 [CREATE_ACCOUNT] Form key: ${_model.formKey.currentState}');
+
+                        if (!_model.formKey.currentState!.validate()) {
+                          print(
+                              '👤 [CREATE_ACCOUNT] ERROR: Form validation failed!');
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text(
+                                  'Please fill all required fields correctly'),
+                            ),
+                          );
+                          return;
+                        }
+
+                        print('👤 [CREATE_ACCOUNT] Form validation passed!');
+
+                        // Validate email before sending
+                        final emailText =
+                            _model.emailTextController.text.trim();
+                        print(
+                            '👤 [CREATE_ACCOUNT] Final email text: "$emailText"');
+
+                        if (emailText.isEmpty) {
+                          print('👤 [CREATE_ACCOUNT] ERROR: Email is empty!');
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content:
+                                  Text('Please enter a valid email address'),
+                            ),
+                          );
+                          return;
+                        }
+
+                        // Validate email format
+                        final emailRegex =
+                            RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+                        if (!emailRegex.hasMatch(emailText)) {
+                          print(
+                              '👤 [CREATE_ACCOUNT] ERROR: Invalid email format!');
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content:
+                                  Text('Please enter a valid email address'),
+                            ),
+                          );
+                          return;
+                        }
+
+                        print(
+                            '👤 [CREATE_ACCOUNT] About to call createUser with email: "$emailText"');
+                        print(
+                            '👤 [CREATE_ACCOUNT] About to call createUser with phone: "+91$phoneNumberVal"');
+
+                        final jwtResult = await jwtAuthManager.createUser(
+                          email: emailText,
+                          password: _model.passwordTextController.text,
+                          displayName: _model.nameTextController.text,
+                          phoneNumber: '+91$phoneNumberVal',
+                          role: 'User',
+                          isCreator: false,
+                          nickName: 'Home',
+                          city: 'update In next step',
+                          state: 'update In next step',
+                          pincode: 560072,
+                          firebaseIdToken: firebaseIdToken,
+                          context: context,
+                        );
+
+                        if (jwtResult != null) {
+                          // JWT registration successful
+                          final user = jwtResult['user'];
+                          final userId = user?['_id'] ?? '';
+
+                          print(
+                              '👤 [CREATE_ACCOUNT] Account created successfully! User ID: $userId');
+                          print(
+                              '👤 [CREATE_ACCOUNT] Setting user ID and marking as profile incomplete');
+
+                          // Set user ID but mark as profile incomplete
+                          FFAppState().userId = userId;
+                          FFAppState().isProfileComplete =
+                              false; // Add this flag to track profile completion
+                          FFAppState().update(() {});
+
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                'Account created successfully! Please complete your profile setup.',
+                                style: TextStyle(
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryText,
+                                ),
+                              ),
+                              duration: const Duration(milliseconds: 4000),
+                              backgroundColor:
+                                  FlutterFlowTheme.of(context).secondary,
+                            ),
+                          );
+
+                          // Navigate to add address page for profile completion
+                          if (context.mounted) {
+                            print(
+                                '👤 [CREATE_ACCOUNT] Navigating to add address page for profile completion');
+                            context.pushNamed('addaddressPage');
+                          }
+                          return;
+                        }
+
+                        // Fallback to Firebase phone auth if JWT fails
                         await authManager.beginPhoneAuth(
                           context: context,
-                          phoneNumber: phoneNumberVal,
+                          phoneNumber: '+91$phoneNumberVal',
                           onCodeSent: (context) async {
-                            context.goNamedAuth(
-                              'Otpscreen',
-                              context.mounted,
-                              queryParameters: {
-                                'email': serializeParam(
-                                  _model.emailTextController.text,
-                                  ParamType.String,
-                                ),
-                                'phoneNumber': serializeParam(
-                                  '+91${_model.phoneTextController.text}',
-                                  ParamType.String,
-                                ),
-                                'displayName': serializeParam(
-                                  _model.nameTextController.text,
-                                  ParamType.String,
-                                ),
-                                'password': serializeParam(
-                                  _model.passwordTextController.text,
-                                  ParamType.String,
-                                ),
-                                'address': serializeParam(
-                                  'update In next step',
-                                  ParamType.String,
-                                ),
-                                'city': serializeParam(
-                                  'update In next step',
-                                  ParamType.String,
-                                ),
-                                'state': serializeParam(
-                                  'update In next step',
-                                  ParamType.String,
-                                ),
-                                'pincode': serializeParam(
-                                  560072,
-                                  ParamType.int,
-                                ),
-                                'iscreator': serializeParam(
-                                  false,
-                                  ParamType.bool,
-                                ),
-                              }.withoutNulls,
-                              ignoreRedirect: true,
-                            );
+                            // For fallback, also navigate to add address page
+                            if (context.mounted) {
+                              context.goNamedAuth(
+                                  'addaddressPage', context.mounted);
+                            }
                           },
                         );
                       },

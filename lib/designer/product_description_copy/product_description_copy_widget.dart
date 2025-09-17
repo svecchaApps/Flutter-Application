@@ -10,7 +10,9 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart'
 
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
+import '/backend/api_requests/recently_viewed_api.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
+import '/utils/recently_viewed_helper.dart';
 import '/flutter_flow/flutter_flow_expanded_image_view.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -44,6 +46,29 @@ class _ProductDescriptionCopyWidgetState
   void initState() {
     super.initState();
     _model = createModel(context, () => ProductDescriptionCopyModel());
+
+    // Add product to recently viewed
+    if (widget.productId != null) {
+      _addToRecentlyViewed();
+    }
+  }
+
+  Future<void> _addToRecentlyViewed() async {
+    try {
+      print(
+          '➕ [PRODUCT_DETAILS_COPY] Adding product to recently viewed: ${widget.productId}');
+      final success =
+          await RecentlyViewedHelper.trackProductView(widget.productId!);
+      if (success) {
+        print(
+            '➕ [PRODUCT_DETAILS_COPY] Successfully added product to recently viewed');
+      } else {
+        print(
+            '➕ [PRODUCT_DETAILS_COPY] Failed to add product to recently viewed');
+      }
+    } catch (e) {
+      print('➕ [PRODUCT_DETAILS_COPY] Error adding to recently viewed: $e');
+    }
   }
 
   @override
@@ -328,13 +353,14 @@ class _ProductDescriptionCopyWidgetState
                               padding: const EdgeInsetsDirectional.fromSTEB(
                                   10, 20, 20, 0),
                               child: Text(
-                                'Select size',
+                                'Size',
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
                                       fontFamily: 'Inter',
-                                      color: const Color(0xFF232323),
-                                      fontSize: 16,
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryText,
+                                      fontSize: 10,
                                       letterSpacing: 0.0,
                                       fontWeight: FontWeight.w600,
                                       useGoogleFonts: GoogleFonts.asMap()
@@ -368,7 +394,7 @@ class _ProductDescriptionCopyWidgetState
                                               const AlignmentDirectional(0, 0),
                                           child: Padding(
                                             padding: const EdgeInsetsDirectional
-                                                .fromSTEB(0, 0, 8, 0),
+                                                .fromSTEB(0, 0, 15, 0),
                                             child: InkWell(
                                               splashColor: Colors.transparent,
                                               focusColor: Colors.transparent,
@@ -387,7 +413,7 @@ class _ProductDescriptionCopyWidgetState
                                                 width:
                                                     MediaQuery.sizeOf(context)
                                                             .width *
-                                                        0.095,
+                                                        0.12,
                                                 height:
                                                     MediaQuery.sizeOf(context)
                                                             .height *
@@ -402,7 +428,7 @@ class _ProductDescriptionCopyWidgetState
                                                               context)
                                                           .accent4,
                                                   borderRadius:
-                                                      BorderRadius.circular(10),
+                                                      BorderRadius.circular(5),
                                                   border: Border.all(
                                                     color: FlutterFlowTheme.of(
                                                             context)
@@ -428,7 +454,7 @@ class _ProductDescriptionCopyWidgetState
                                                                 .bodyMedium
                                                                 .override(
                                                                   fontFamily:
-                                                                      'Inter',
+                                                                      'DM Sans',
                                                                   color: _model
                                                                               .pageindex ==
                                                                           sizesIndex
@@ -437,17 +463,17 @@ class _ProductDescriptionCopyWidgetState
                                                                           .secondaryBackground
                                                                       : FlutterFlowTheme.of(
                                                                               context)
-                                                                          .primaryText,
-                                                                  fontSize: 10,
+                                                                          .secondaryText,
+                                                                  fontSize: 12,
                                                                   letterSpacing:
                                                                       0.0,
                                                                   fontWeight:
                                                                       FontWeight
-                                                                          .w500,
+                                                                          .bold,
                                                                   useGoogleFonts: GoogleFonts
                                                                           .asMap()
                                                                       .containsKey(
-                                                                          'Inter'),
+                                                                          'DM Sans'),
                                                                 ),
                                                       ),
                                                     ),
@@ -478,7 +504,7 @@ class _ProductDescriptionCopyWidgetState
                                                                       : FlutterFlowTheme.of(
                                                                               context)
                                                                           .primaryText,
-                                                                  fontSize: 12,
+                                                                  fontSize: 10,
                                                                   letterSpacing:
                                                                       0.0,
                                                                   useGoogleFonts: GoogleFonts
@@ -940,7 +966,7 @@ class _ProductDescriptionCopyWidgetState
                                             0, 8, 10, 0),
                                     child: FFButtonWidget(
                                       onPressed: () async {
-                                        if (currentPhoneNumber != '') {
+                                        if (isUserAuthenticated) {
                                           _model.apiResultdshcopy =
                                               await BackendAPIGroup
                                                   .createWishListCall
@@ -1006,8 +1032,40 @@ class _ProductDescriptionCopyWidgetState
                                             );
                                           }
                                         } else {
-                                          context
-                                              .pushNamed('LoginMobileScreen');
+                                          // Show login options - user can choose email or phone login
+                                          showDialog(
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              return AlertDialog(
+                                                title: const Text(
+                                                    'Login Required'),
+                                                content: const Text(
+                                                    'Please login to add items to wishlist.'),
+                                                actions: [
+                                                  TextButton(
+                                                    onPressed: () {
+                                                      Navigator.of(context)
+                                                          .pop();
+                                                      context.pushNamed(
+                                                          'Emaillogin');
+                                                    },
+                                                    child: const Text(
+                                                        'Email Login'),
+                                                  ),
+                                                  TextButton(
+                                                    onPressed: () {
+                                                      Navigator.of(context)
+                                                          .pop();
+                                                      context.pushNamed(
+                                                          'LoginMobileScreen');
+                                                    },
+                                                    child: const Text(
+                                                        'Phone Login'),
+                                                  ),
+                                                ],
+                                              );
+                                            },
+                                          );
                                         }
 
                                         safeSetState(() {});
@@ -1060,7 +1118,7 @@ class _ProductDescriptionCopyWidgetState
                                   0, 9, 10, 0),
                               child: FFButtonWidget(
                                 onPressed: () async {
-                                  if (currentPhoneNumber != '') {
+                                  if (isUserAuthenticated) {
                                     HapticFeedback.mediumImpact();
                                     _model.apiResult2t4new = await BackendAPIGroup
                                         .createCartandUpdateCartOneFunctionCall
@@ -1126,7 +1184,59 @@ class _ProductDescriptionCopyWidgetState
                                       // );
                                     }
                                   } else {
-                                    context.pushNamed('LoginMobileScreen');
+                                    // Show login dialog - phone login only
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return AlertDialog(
+                                          title: const Text('Login Required'),
+                                          content: const Text(
+                                              'Please login with your phone number to add items to cart.'),
+                                          actions: [
+                                            TextButton(
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                              },
+                                              child: const Text('Cancel'),
+                                            ),
+                                            ElevatedButton(
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                                context.pushNamed(
+                                                    'LoginMobileScreen');
+                                              },
+                                              style: ElevatedButton.styleFrom(
+                                                backgroundColor:
+                                                    const Color(0xFF3B82F6),
+                                                foregroundColor: Colors.white,
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(8),
+                                                ),
+                                              ),
+                                              child: const Row(
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  Icon(
+                                                    Icons.phone_android,
+                                                    size: 16,
+                                                    color: Colors.white,
+                                                  ),
+                                                  SizedBox(width: 4),
+                                                  Text(
+                                                    'Login with Phone',
+                                                    style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    );
                                   }
 
                                   safeSetState(() {});

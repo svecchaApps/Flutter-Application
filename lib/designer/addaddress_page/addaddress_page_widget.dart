@@ -741,10 +741,40 @@ class _AddaddressPageWidgetState extends State<AddaddressPageWidget> {
 
                             // Check if state is selected
 
+                            // Get user ID - check if user is completing profile setup
+                            String userId = FFAppState().userId;
+
+                            // If no user ID in app state, this might be a new user completing profile
+                            if (userId.isEmpty) {
+                              print(
+                                  '🏠 [ADD_ADDRESS] No user ID in app state, redirecting to login');
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                    'Please log in to complete your profile setup',
+                                    style: TextStyle(
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryBackground,
+                                    ),
+                                  ),
+                                  duration: const Duration(milliseconds: 3000),
+                                  backgroundColor:
+                                      FlutterFlowTheme.of(context).error,
+                                ),
+                              );
+                              if (context.mounted) {
+                                context
+                                    .pushReplacementNamed('LoginMobileScreen');
+                              }
+                              return;
+                            }
+
+                            print('🏠 [ADD_ADDRESS] Using user ID: $userId');
+
                             // Call your update address API
                             _model.addAddress =
                                 await BackendAPIGroup.updateUserrCall.call(
-                              userId: FFAppState().userId,
+                              userId: userId,
                               address: _model.streetTextController.text,
                               city: _model.cityTextController.text,
                               state: _model.stateTextController.text,
@@ -754,10 +784,17 @@ class _AddaddressPageWidgetState extends State<AddaddressPageWidget> {
 
                             // Check response
                             if ((_model.addAddress?.succeeded ?? false)) {
+                              print(
+                                  '🏠 [ADD_ADDRESS] Address added successfully, marking profile as complete');
+
+                              // Mark profile as complete for new users
+                              FFAppState().isProfileComplete = true;
+                              FFAppState().update(() {});
+
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
                                   content: Text(
-                                    'Address added successfully',
+                                    'Profile setup completed successfully!',
                                     style: TextStyle(
                                       color: FlutterFlowTheme.of(context)
                                           .secondaryBackground,

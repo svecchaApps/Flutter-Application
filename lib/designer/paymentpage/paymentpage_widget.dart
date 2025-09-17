@@ -20,6 +20,9 @@ export 'paymentpage_model.dart';
 class PaymentpageWidget extends StatefulWidget {
   const PaymentpageWidget({super.key});
 
+  static String routeName = 'paymentpage';
+  static String routePath = '/paymentpage';
+
   @override
   State<PaymentpageWidget> createState() => _PaymentpageWidgetState();
 }
@@ -951,6 +954,17 @@ class _PaymentpageWidgetState extends State<PaymentpageWidget> {
                               selectedIndex != null)
                           ? () async {
                               if (selectedPaymentMethod == 'Cash on Delivery') {
+                                // Debug prints for order creation
+                                print(
+                                    '💳 [PAYMENT_PAGE] Starting Cash on Delivery order...');
+                                print('💳 [PAYMENT_PAGE] FFAppState values:');
+                                print('  - userId: ${FFAppState().userId}');
+                                print('  - cartId: ${FFAppState().cartId}');
+                                print('  - address: ${FFAppState().address}');
+                                print('  - city: ${FFAppState().city}');
+                                print('  - state: ${FFAppState().state}');
+                                print('  - pincode: ${FFAppState().pincode}');
+
                                 // Cash On Delivery API call
                                 final apiResult =
                                     await BackendAPIGroup.createOrderCall.call(
@@ -966,9 +980,20 @@ class _PaymentpageWidgetState extends State<PaymentpageWidget> {
                                   postalcode: FFAppState().pincode,
                                 );
 
+                                print('💳 [PAYMENT_PAGE] Order API Result:');
+                                print('  - Succeeded: ${apiResult.succeeded}');
+                                print(
+                                    '  - Status Code: ${apiResult.statusCode}');
+                                print(
+                                    '  - Response Body: ${apiResult.jsonBody}');
+
                                 if ((apiResult.succeeded ?? false)) {
+                                  print(
+                                      '💳 [PAYMENT_PAGE] SUCCESS: Order created, navigating to completion page');
                                   context.pushNamed('ordercompletedCopy');
                                 } else {
+                                  print(
+                                      '💳 [PAYMENT_PAGE] ERROR: Order creation failed');
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(
                                       content: Text('Order Failed!'),
@@ -1024,6 +1049,13 @@ class _PaymentpageWidgetState extends State<PaymentpageWidget> {
                                   const SnackBar(
                                     content: Text(
                                         'Please select an address before proceeding.'),
+                                  ),
+                                );
+                              } else if (selectedPaymentMethod == null) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text(
+                                        'Please select a payment method before proceeding.'),
                                   ),
                                 );
                               }

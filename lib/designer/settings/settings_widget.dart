@@ -3,10 +3,12 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 import '/auth/firebase_auth/auth_util.dart';
+import '/auth/jwt_auth_manager.dart';
 import '/backend/api_requests/api_calls.dart';
 import '/designer/deleteaccount/deleteaccount_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/services/auth_service.dart';
 import 'settings_model.dart';
 
 export 'settings_model.dart';
@@ -40,10 +42,17 @@ class _SettingsWidgetState extends State<SettingsWidget> {
   Widget build(BuildContext context) {
     context.watch<FFAppState>();
 
+    // Check if user is authenticated using the proper authentication check
+    if (!isUserAuthenticated) {
+      print('👤 [SETTINGS] User not authenticated, showing guest login UI');
+      return _buildGuestLoginUI();
+    }
+
+    print('👤 [SETTINGS] User is authenticated, showing profile UI');
+
+    // User is logged in, show the main profile UI
     return FutureBuilder<ApiCallResponse>(
-      future: BackendAPIGroup.getUserInfoCall.call(
-        userId: FFAppState().userId,
-      ),
+      future: _getUserInfoFromBackend(),
       builder: (context, snapshot) {
         // Customize what your widget looks like when it's loading.
         if (!snapshot.hasData) {
@@ -115,6 +124,125 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
+                      // User Profile Information Section
+                      Padding(
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(20, 20, 20, 0),
+                        child: Container(
+                          width: MediaQuery.sizeOf(context).width,
+                          decoration: BoxDecoration(
+                            color: FlutterFlowTheme.of(context)
+                                .secondaryBackground,
+                            borderRadius: BorderRadius.circular(20),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.05),
+                                blurRadius: 10,
+                                offset: const Offset(0, 2),
+                              ),
+                            ],
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(20),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                // User Avatar and Name
+                                Row(
+                                  children: [
+                                    Container(
+                                      width: 60,
+                                      height: 60,
+                                      decoration: BoxDecoration(
+                                        color: FlutterFlowTheme.of(context)
+                                            .primary,
+                                        shape: BoxShape.circle,
+                                      ),
+                                      child: Icon(
+                                        Icons.person,
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryBackground,
+                                        size: 30,
+                                      ),
+                                    ),
+                                    const SizedBox(width: 15),
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            BackendAPIGroup.getUserInfoCall
+                                                    .getUserDisplayName(
+                                                        settingscopyGetUserInfoResponse
+                                                            .jsonBody) ??
+                                                'User',
+                                            style: FlutterFlowTheme.of(context)
+                                                .headlineSmall
+                                                .override(
+                                                  fontFamily: 'Inter',
+                                                  color:
+                                                      const Color(0xFF201A25),
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.w600,
+                                                  useGoogleFonts:
+                                                      GoogleFonts.asMap()
+                                                          .containsKey('Inter'),
+                                                ),
+                                          ),
+                                          const SizedBox(height: 4),
+                                          Text(
+                                            'Logged In User',
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Inter',
+                                                  color:
+                                                      const Color(0xFF666666),
+                                                  fontSize: 12,
+                                                  useGoogleFonts:
+                                                      GoogleFonts.asMap()
+                                                          .containsKey('Inter'),
+                                                ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 20),
+                                // User Details
+                                if (BackendAPIGroup.getUserInfoCall
+                                        .getUserPhoneNumber(
+                                            settingscopyGetUserInfoResponse
+                                                .jsonBody) !=
+                                    null)
+                                  _buildUserDetailRow(
+                                    Icons.phone,
+                                    'Phone Number',
+                                    BackendAPIGroup.getUserInfoCall
+                                        .getUserPhoneNumber(
+                                            settingscopyGetUserInfoResponse
+                                                .jsonBody)!,
+                                  ),
+                                if (BackendAPIGroup.getUserInfoCall
+                                        .getUserEmail(
+                                            settingscopyGetUserInfoResponse
+                                                .jsonBody) !=
+                                    null)
+                                  _buildUserDetailRow(
+                                    Icons.email,
+                                    'Email',
+                                    BackendAPIGroup.getUserInfoCall
+                                        .getUserEmail(
+                                            settingscopyGetUserInfoResponse
+                                                .jsonBody)!,
+                                  ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
                       Padding(
                         padding:
                             const EdgeInsetsDirectional.fromSTEB(20, 40, 20, 0),
@@ -1288,7 +1416,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                                           return AlertDialog(
                                             title: const Text('Logout'),
                                             content: const Text(
-                                                'Are you sure,you want to logout ?'),
+                                                'Are you sure you want to logout?'),
                                             actions: [
                                               TextButton(
                                                 onPressed: () => Navigator.pop(
@@ -1306,12 +1434,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                                       ) ??
                                       false;
                               if (confirmDialogResponse) {
-                                GoRouter.of(context).prepareAuthEvent();
-                                await authManager.signOut();
-                                GoRouter.of(context).clearRedirectLocation();
-
-                                context.pushNamedAuth(
-                                    'loginOrGuest', context.mounted);
+                                await AuthService.logout(context);
                               }
                             },
                             child: Container(
@@ -1421,13 +1544,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                                               ) ??
                                               false;
                                       if (confirmDialogResponse) {
-                                        GoRouter.of(context).prepareAuthEvent();
-                                        await authManager.signOut();
-                                        GoRouter.of(context)
-                                            .clearRedirectLocation();
-
-                                        context.pushNamedAuth(
-                                            'loginOrGuest', context.mounted);
+                                        await AuthService.logout(context);
                                       } else {
                                         Navigator.pop(context);
                                       }
@@ -1487,22 +1604,10 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                                     },
                                   );
                                 } else {
-                                  context.pushNamed('LoginMobileScreen');
-
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text(
-                                        'Please Login to Your Profile',
-                                        style: TextStyle(
-                                          color: FlutterFlowTheme.of(context)
-                                              .secondaryBackground,
-                                        ),
-                                      ),
-                                      duration:
-                                          const Duration(milliseconds: 4000),
-                                      backgroundColor:
-                                          FlutterFlowTheme.of(context).primary,
-                                    ),
+                                  context.requireAuth(
+                                    message:
+                                        'Please login to access your profile',
+                                    redirectRoute: 'LoginMobileScreen',
                                   );
                                 }
                               },
@@ -1637,6 +1742,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                             ),
                           ),
                         ),
+                      // Guest Login Section
                     ],
                   ),
                 ),
@@ -1645,6 +1751,256 @@ class _SettingsWidgetState extends State<SettingsWidget> {
           ),
         );
       },
+    );
+  }
+
+  // Build guest login UI
+  Widget _buildGuestLoginUI() {
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
+      child: WillPopScope(
+        onWillPop: () async => false,
+        child: Scaffold(
+          key: scaffoldKey,
+          backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+          appBar: PreferredSize(
+            preferredSize:
+                Size.fromHeight(MediaQuery.sizeOf(context).height * 0.06),
+            child: AppBar(
+              backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+              automaticallyImplyLeading: false,
+              title: Row(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Padding(
+                    padding: const EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
+                    child: Text(
+                      'Profile Page',
+                      style:
+                          FlutterFlowTheme.of(context).headlineMedium.override(
+                                fontFamily: 'Inter',
+                                color: const Color(0xFF232323),
+                                fontSize: 20,
+                                letterSpacing: 0.0,
+                                fontWeight: FontWeight.w600,
+                                useGoogleFonts:
+                                    GoogleFonts.asMap().containsKey('Inter'),
+                              ),
+                    ),
+                  ),
+                ],
+              ),
+              actions: const [],
+              centerTitle: false,
+              elevation: 0,
+            ),
+          ),
+          body: SafeArea(
+            top: true,
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  // User Profile Information Section
+                  Padding(
+                    padding:
+                        const EdgeInsetsDirectional.fromSTEB(20, 40, 20, 20),
+                    child: Container(
+                      width: MediaQuery.sizeOf(context).width,
+                      decoration: BoxDecoration(
+                        color: FlutterFlowTheme.of(context).secondaryBackground,
+                        borderRadius: BorderRadius.circular(20),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.05),
+                            blurRadius: 10,
+                            offset: const Offset(0, 2),
+                          ),
+                        ],
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(30),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            // Guest Icon
+                            Container(
+                              width: 80,
+                              height: 80,
+                              decoration: BoxDecoration(
+                                color: FlutterFlowTheme.of(context)
+                                    .primary
+                                    .withOpacity(0.1),
+                                shape: BoxShape.circle,
+                              ),
+                              child: Icon(
+                                Icons.person_outline,
+                                color: FlutterFlowTheme.of(context).primary,
+                                size: 40,
+                              ),
+                            ),
+                            const SizedBox(height: 20),
+
+                            // Guest Message
+                            Text(
+                              'Please Login to Continue',
+                              style: FlutterFlowTheme.of(context)
+                                  .headlineSmall
+                                  .override(
+                                    fontFamily: 'Inter',
+                                    color: const Color(0xFF201A25),
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w600,
+                                    useGoogleFonts: GoogleFonts.asMap()
+                                        .containsKey('Inter'),
+                                  ),
+                              textAlign: TextAlign.center,
+                            ),
+                            const SizedBox(height: 10),
+
+                            Text(
+                              'Login to access your profile, orders, and personalized features',
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Inter',
+                                    color: const Color(0xFF666666),
+                                    fontSize: 14,
+                                    useGoogleFonts: GoogleFonts.asMap()
+                                        .containsKey('Inter'),
+                                  ),
+                              textAlign: TextAlign.center,
+                            ),
+                            const SizedBox(height: 30),
+
+                            // Login Button
+                            SizedBox(
+                              width: double.infinity,
+                              height: 50,
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  context.pushNamed('LoginMobileScreen');
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor:
+                                      FlutterFlowTheme.of(context).primary,
+                                  foregroundColor: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                  elevation: 0,
+                                ),
+                                child: Text(
+                                  'Login',
+                                  style: FlutterFlowTheme.of(context)
+                                      .titleSmall
+                                      .override(
+                                        fontFamily: 'Inter',
+                                        color: Colors.white,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w600,
+                                        useGoogleFonts: GoogleFonts.asMap()
+                                            .containsKey('Inter'),
+                                      ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  // Get user info from backend using JWT token
+  Future<ApiCallResponse> _getUserInfoFromBackend() async {
+    try {
+      // Get user ID from JWT token
+      final jwtAuthManager = JwtAuthManager.instance;
+      final userId = await jwtAuthManager.getUserId();
+
+      print('👤 [SETTINGS] Getting user info for ID: $userId');
+
+      if (userId == null || userId.isEmpty) {
+        print('⚠️ [SETTINGS] No user ID found in JWT token');
+        // Fallback to FFAppState userId
+        final fallbackUserId = FFAppState().userId;
+        if (fallbackUserId.isNotEmpty) {
+          print('👤 [SETTINGS] Using fallback user ID: $fallbackUserId');
+          return BackendAPIGroup.getUserInfoCall.call(userId: fallbackUserId);
+        }
+        throw Exception('No user ID available');
+      }
+
+      return BackendAPIGroup.getUserInfoCall.call(userId: userId);
+    } catch (e) {
+      print('❌ [SETTINGS] Error getting user info: $e');
+      rethrow;
+    }
+  }
+
+  // Helper method to build user detail rows
+  Widget _buildUserDetailRow(IconData icon, String label, String value) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 12),
+      child: Row(
+        children: [
+          Container(
+            width: 32,
+            height: 32,
+            decoration: BoxDecoration(
+              color: FlutterFlowTheme.of(context).primary.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Icon(
+              icon,
+              color: FlutterFlowTheme.of(context).primary,
+              size: 16,
+            ),
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  label,
+                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                        fontFamily: 'Inter',
+                        color: const Color(0xFF666666),
+                        fontSize: 12,
+                        fontWeight: FontWeight.w500,
+                        useGoogleFonts:
+                            GoogleFonts.asMap().containsKey('Inter'),
+                      ),
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  value,
+                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                        fontFamily: 'Inter',
+                        color: const Color(0xFF201A25),
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                        useGoogleFonts:
+                            GoogleFonts.asMap().containsKey('Inter'),
+                      ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

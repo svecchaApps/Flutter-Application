@@ -52,6 +52,8 @@ class BackendAPIGroup {
   static CreateOrUpdateVideoCall createOrUpdateVideoCall =
       CreateOrUpdateVideoCall();
   static GetallvideosCall getallvideosCall = GetallvideosCall();
+  static GetVideosWithProductsCall getVideosWithProductsCall =
+      GetVideosWithProductsCall();
   static VideosbyvideoIdforuserCall videosbyvideoIdforuserCall =
       VideosbyvideoIdforuserCall();
   static DeleteVideoCall deleteVideoCall = DeleteVideoCall();
@@ -77,6 +79,17 @@ class BackendAPIGroup {
   static StatesApiCall statesApiCall = StatesApiCall();
   static CreateStateCall createStateCall = CreateStateCall();
   static GetaddressCall getaddressCall = GetaddressCall();
+  static ApplyCouponUniversalCall applyCouponUniversalCall =
+      ApplyCouponUniversalCall();
+  static ToggleVideoReactionCall toggleVideoReactionCall =
+      ToggleVideoReactionCall();
+  static GetUserReactionCall getUserReactionCall = GetUserReactionCall();
+  static GetLikedUsersCall getLikedUsersCall = GetLikedUsersCall();
+  static GetDislikedUsersCall getDislikedUsersCall = GetDislikedUsersCall();
+  static AddCommentCall addCommentCall = AddCommentCall();
+  static GetVideoCommentsCall getVideoCommentsCall = GetVideoCommentsCall();
+  static UpdateCommentCall updateCommentCall = UpdateCommentCall();
+  static DeleteCommentCall deleteCommentCall = DeleteCommentCall();
 }
 
 class ProductsApiCall {
@@ -1131,12 +1144,10 @@ class GetCartForUserCall {
         response,
         r'''$.cart.subtotal''',
       ));
-  double? cartTotalAmount(dynamic response) =>
-      double.tryParse(castToType<double>(getJsonField(
-            response,
-            r'''$.cart.total_amount''',
-          ))?.toStringAsFixed(2) ??
-          '');
+  double? cartTotalAmount(dynamic response) => castToType<double>(getJsonField(
+        response,
+        r'''$.cart.total_amount''',
+      ));
   bool? discountApplied(dynamic response) => castToType<bool>(getJsonField(
         response,
         r'''$.cart.discount_applied''',
@@ -1401,6 +1412,38 @@ class GetUserInfoCall {
         response,
         r'''$.user.is_creator''',
       ));
+  
+  // Helper methods to extract user data from API response
+  String? getUserDisplayName(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.user.displayName''',
+      ));
+  
+  String? getUserEmail(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.user.email''',
+      ));
+  
+  String? getUserPhoneNumber(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.user.phoneNumber''',
+      ));
+  
+  String? getUserId(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.user._id''',
+      ));
+  
+  String? getUserRole(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.user.role''',
+      ));
+  
+  List<dynamic>? getUserAddresses(dynamic response) => (getJsonField(
+        response,
+        r'''$.user.address''',
+        true,
+      ) as List?);
 }
 
 class CreateOrderCall {
@@ -1431,7 +1474,24 @@ class CreateOrderCall {
   },
   "notes": "$notes"
 }''';
-    return ApiManager.instance.makeApiCall(
+
+    // Debug prints for order creation
+    print('🛒 [CREATE_ORDER] Starting order creation...');
+    print('🛒 [CREATE_ORDER] Base URL: $baseUrl');
+    print('🛒 [CREATE_ORDER] API URL: $baseUrl/order');
+    print('🛒 [CREATE_ORDER] Request Body:');
+    print(ffApiRequestBody);
+    print('🛒 [CREATE_ORDER] Parameters:');
+    print('  - userId: $userId');
+    print('  - cartId: $cartId');
+    print('  - paymentMethod: $paymentmethod');
+    print('  - address: $address');
+    print('  - city: $city');
+    print('  - state: $state');
+    print('  - postalcode: $postalcode');
+    print('  - notes: $notes');
+
+    final response = await ApiManager.instance.makeApiCall(
       callName: 'createOrder',
       apiUrl: '$baseUrl/order',
       callType: ApiCallType.POST,
@@ -1446,6 +1506,23 @@ class CreateOrderCall {
       isStreamingApi: false,
       alwaysAllowBody: false,
     );
+
+    // Debug prints for response
+    print('🛒 [CREATE_ORDER] API Response:');
+    print('  - Status Code: ${response.statusCode}');
+    print('  - Succeeded: ${response.succeeded}');
+    print('  - Response Body:');
+    print(response.jsonBody ?? 'No response body');
+
+    if (!(response.succeeded ?? false)) {
+      print('🛒 [CREATE_ORDER] ERROR: Order creation failed!');
+      print('  - Status Code: ${response.statusCode}');
+      print('  - Response Body: ${response.jsonBody}');
+    } else {
+      print('🛒 [CREATE_ORDER] SUCCESS: Order created successfully!');
+    }
+
+    return response;
   }
 }
 
@@ -1756,6 +1833,7 @@ class CreateOrUpdateVideoCall {
     String? userId = '',
     String? creatorId = '',
     String? videoUrl = '',
+    String? title = '',
   }) async {
     final baseUrl = BackendAPIGroup.getBaseUrl();
 
@@ -1763,6 +1841,7 @@ class CreateOrUpdateVideoCall {
 {
   "userId": "$userId",
   "creatorId": "$creatorId",
+"title":"$title",
   "videoUrl": "$videoUrl"
 }''';
     return ApiManager.instance.makeApiCall(
@@ -1789,12 +1868,20 @@ class CreateOrUpdateVideoCall {
 }
 
 class GetallvideosCall {
-  Future<ApiCallResponse> call() async {
+  Future<ApiCallResponse> call({
+    String? filter,
+  }) async {
     final baseUrl = BackendAPIGroup.getBaseUrl();
+
+    // Build URL with filter parameter if provided
+    String apiUrl = '$baseUrl/content-video/videos';
+    if (filter != null && filter.isNotEmpty) {
+      apiUrl += '?filter=$filter';
+    }
 
     return ApiManager.instance.makeApiCall(
       callName: 'getallvideos',
-      apiUrl: '$baseUrl/content-video/videos',
+      apiUrl: apiUrl,
       callType: ApiCallType.GET,
       headers: {},
       params: {},
@@ -1961,12 +2048,10 @@ class GetOrderDetailsForParticularUserCall {
         r'''$.order.products''',
         true,
       ) as List?;
-  double? priceOrder(dynamic response) =>
-      double.tryParse(castToType<double>(getJsonField(
-            response,
-            r'''$.order.amount''',
-          ))?.toStringAsFixed(2) ??
-          '');
+  double? priceOrder(dynamic response) => castToType<double>(getJsonField(
+        response,
+        r'''$.order.amount''',
+      ));
   String? mainId(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.order._id''',
@@ -2581,6 +2666,38 @@ class GetaddressCall {
       ) as List?;
 }
 
+class ApplyCouponUniversalCall {
+  Future<ApiCallResponse> call({
+    String? userId = '',
+    String? couponCode = '',
+    String? cartId = '',
+  }) async {
+    final baseUrl = BackendAPIGroup.getBaseUrl();
+
+    final ffApiRequestBody = '''
+{
+  "userId": "${escapeStringForJson(userId)}",
+  "couponCode": "${escapeStringForJson(couponCode)}",
+  "cartId": "${escapeStringForJson(cartId)}"
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'apply coupon universal',
+      apiUrl: '$baseUrl/coupon/applyUniversal',
+      callType: ApiCallType.POST,
+      headers: {},
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
 /// End BackendAPI Group Code
 
 class PhonepeCall {
@@ -2796,6 +2913,94 @@ class AddAdressCall {
   }
 }
 
+class GetVideosWithProductsCall {
+  Future<ApiCallResponse> call() async {
+    final baseUrl = BackendAPIGroup.getBaseUrl();
+
+    return ApiManager.instance.makeApiCall(
+      callName: 'getVideosWithProducts',
+      apiUrl: '$baseUrl/content-video/videos-with-products',
+      callType: ApiCallType.GET,
+      headers: {},
+      params: {},
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  List? videos(dynamic response) => getJsonField(
+        response,
+        r'''$.videos.*''',
+        true,
+      ) as List?;
+
+  String? videoId(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.videos.*._id''',
+      ));
+
+  String? videoUrl(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.videos.*.videoUrl''',
+      ));
+
+  String? videoTitle(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.videos.*.title''',
+      ));
+
+  String? userId(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.videos.*.userId._id''',
+      ));
+
+  String? userDisplayName(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.videos.*.userId.displayName''',
+      ));
+
+  List? productTagged(dynamic response) => getJsonField(
+        response,
+        r'''$.videos.*.products.*''',
+        true,
+      ) as List?;
+
+  String? productId(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.videos.*.products.*.productId._id''',
+      ));
+
+  String? productName(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.videos.*.products.*.productId.productName''',
+      ));
+
+  String? productPrice(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.videos.*.products.*.productId.price''',
+      ));
+
+  String? productImage(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.videos.*.products.*.productId.coverImage''',
+      ));
+
+  String? productDescription(dynamic response) =>
+      castToType<String>(getJsonField(
+        response,
+        r'''$.videos.*.products.*.productId.description''',
+      ));
+
+  String? productSku(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.videos.*.products.*.productId.sku''',
+      ));
+}
+
 class OrdertrackingCall {
   static Future<ApiCallResponse> call({
     String? shippingid = '',
@@ -2876,4 +3081,322 @@ String _serializeJson(dynamic jsonVar, [bool isList = false]) {
     }
     return isList ? '[]' : '{}';
   }
+}
+
+String? escapeStringForJson(String? input) {
+  if (input == null) {
+    return null;
+  }
+  return input
+      .replaceAll('\\', '\\\\')
+      .replaceAll('"', '\\"')
+      .replaceAll('\n', '\\n')
+      .replaceAll('\t', '\\t');
+}
+
+class ToggleVideoReactionCall {
+  Future<ApiCallResponse> call({
+    required String videoId,
+    required String userId,
+    required String reactionType,
+  }) async {
+    final baseUrl = BackendAPIGroup.getBaseUrl();
+
+    return ApiManager.instance.makeApiCall(
+      callName: 'toggleVideoReaction',
+      apiUrl: '$baseUrl/content-video/videos/$videoId/reaction',
+      callType: ApiCallType.POST,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      params: {},
+      body: jsonEncode({
+        'userId': userId,
+        'reactionType': reactionType,
+      }),
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  bool? success(dynamic response) => castToType<bool>(getJsonField(
+        response,
+        r'''$.success''',
+      ));
+
+  String? message(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.message''',
+      ));
+}
+
+class GetUserReactionCall {
+  Future<ApiCallResponse> call({
+    required String videoId,
+    required String userId,
+  }) async {
+    final baseUrl = BackendAPIGroup.getBaseUrl();
+
+    return ApiManager.instance.makeApiCall(
+      callName: 'getUserReaction',
+      apiUrl: '$baseUrl/content-video/videos/$videoId/reaction/$userId',
+      callType: ApiCallType.GET,
+      headers: {},
+      params: {},
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  String? reactionType(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.reactionType''',
+      ));
+
+  bool? hasReaction(dynamic response) => castToType<bool>(getJsonField(
+        response,
+        r'''$.hasReaction''',
+      ));
+}
+
+class GetLikedUsersCall {
+  Future<ApiCallResponse> call({
+    required String videoId,
+  }) async {
+    final baseUrl = BackendAPIGroup.getBaseUrl();
+
+    return ApiManager.instance.makeApiCall(
+      callName: 'getLikedUsers',
+      apiUrl: '$baseUrl/content-video/videos/$videoId/liked-users',
+      callType: ApiCallType.GET,
+      headers: {},
+      params: {},
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  List? likedUsers(dynamic response) => getJsonField(
+        response,
+        r'''$.likedUsers.*''',
+        true,
+      ) as List?;
+
+  int? totalLikes(dynamic response) => castToType<int>(getJsonField(
+        response,
+        r'''$.totalLikes''',
+      ));
+}
+
+class GetDislikedUsersCall {
+  Future<ApiCallResponse> call({
+    required String videoId,
+  }) async {
+    final baseUrl = BackendAPIGroup.getBaseUrl();
+
+    return ApiManager.instance.makeApiCall(
+      callName: 'getDislikedUsers',
+      apiUrl: '$baseUrl/content-video/videos/$videoId/disliked-users',
+      callType: ApiCallType.GET,
+      headers: {},
+      params: {},
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  List? dislikedUsers(dynamic response) => getJsonField(
+        response,
+        r'''$.dislikedUsers.*''',
+        true,
+      ) as List?;
+
+  int? totalDislikes(dynamic response) => castToType<int>(getJsonField(
+        response,
+        r'''$.totalDislikes''',
+      ));
+}
+
+class AddCommentCall {
+  Future<ApiCallResponse> call({
+    required String videoId,
+    required String commentText,
+  }) async {
+    final baseUrl = BackendAPIGroup.getBaseUrl();
+
+    return ApiManager.instance.makeApiCall(
+      callName: 'addComment',
+      apiUrl: '$baseUrl/content-video/videos/$videoId/comments',
+      callType: ApiCallType.POST,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      params: {},
+      body: jsonEncode({
+        'commentText': commentText,
+      }),
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  bool? success(dynamic response) => castToType<bool>(getJsonField(
+        response,
+        r'''$.success''',
+      ));
+
+  String? message(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.message''',
+      ));
+
+  String? commentId(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.comment._id''',
+      ));
+}
+
+class GetVideoCommentsCall {
+  Future<ApiCallResponse> call({
+    required String videoId,
+  }) async {
+    final baseUrl = BackendAPIGroup.getBaseUrl();
+
+    return ApiManager.instance.makeApiCall(
+      callName: 'getVideoComments',
+      apiUrl: '$baseUrl/content-video/videos/$videoId/comments',
+      callType: ApiCallType.GET,
+      headers: {},
+      params: {},
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  List? comments(dynamic response) => getJsonField(
+        response,
+        r'''$.comments.*''',
+        true,
+      ) as List?;
+
+  String? commentId(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.comments.*._id''',
+      ));
+
+  String? commentText(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.comments.*.commentText''',
+      ));
+
+  String? userId(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.comments.*.userId._id''',
+      ));
+
+  String? userDisplayName(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.comments.*.userId.displayName''',
+      ));
+
+  String? createdAt(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.comments.*.createdAt''',
+      ));
+}
+
+class UpdateCommentCall {
+  Future<ApiCallResponse> call({
+    required String videoId,
+    required String commentId,
+    required String commentText,
+  }) async {
+    final baseUrl = BackendAPIGroup.getBaseUrl();
+
+    return ApiManager.instance.makeApiCall(
+      callName: 'updateComment',
+      apiUrl: '$baseUrl/content-video/videos/$videoId/comments/$commentId',
+      callType: ApiCallType.PUT,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      params: {},
+      body: jsonEncode({
+        'commentText': commentText,
+      }),
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  bool? success(dynamic response) => castToType<bool>(getJsonField(
+        response,
+        r'''$.success''',
+      ));
+
+  String? message(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.message''',
+      ));
+}
+
+class DeleteCommentCall {
+  Future<ApiCallResponse> call({
+    required String videoId,
+    required String commentId,
+  }) async {
+    final baseUrl = BackendAPIGroup.getBaseUrl();
+
+    return ApiManager.instance.makeApiCall(
+      callName: 'deleteComment',
+      apiUrl: '$baseUrl/content-video/videos/$videoId/comments/$commentId',
+      callType: ApiCallType.DELETE,
+      headers: {},
+      params: {},
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  bool? success(dynamic response) => castToType<bool>(getJsonField(
+        response,
+        r'''$.success''',
+      ));
+
+  String? message(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.message''',
+      ));
 }

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indigo Rhapsody - Video</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            max-width: 600px;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+        .logo {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        .title {
+            font-size: 1.5em;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+        .description {
+            font-size: 1.1em;
+            margin-bottom: 40px;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+        .button {
+            display: inline-block;
+            padding: 15px 30px;
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .fallback {
+            margin-top: 30px;
+            font-size: 0.9em;
+            opacity: 0.8;
+        }
+        .loading {
+            margin: 20px 0;
+            font-size: 1.1em;
+            opacity: 0.8;
+        }
+        .spinner {
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-top: 3px solid white;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">Indigo Rhapsody</div>
+        <div class="title">Amazing Video Content</div>
+        <div class="description">
+            You're about to watch an incredible video from Indigo Rhapsody. 
+            We're opening the app for you to enjoy the full experience!
+        </div>
+        
+        <div class="loading">
+            <div class="spinner"></div>
+            Opening Indigo Rhapsody app...
+        </div>
+        
+        <a href="#" id="openApp" class="button">Open in App</a>
+        
+        <div class="fallback">
+            If the app doesn't open automatically, tap the button above or 
+            <a href="#" id="downloadApp" style="color: #ff6b6b; text-decoration: underline;">download the app</a>
+        </div>
+    </div>
+
+    <script>
+        // Get video ID from URL
+        function getVideoId() {
+            const path = window.location.pathname;
+            const segments = path.split('/');
+            return segments[segments.length - 1];
+        }
+
+        // Try to open the app
+        function openApp() {
+            const videoId = getVideoId();
+            const appUrl = `indigorhaposy://video/${videoId}`;
+            
+            // Try to open the app
+            window.location.href = appUrl;
+            
+            // Fallback: redirect to app store after a delay
+            setTimeout(() => {
+                // Check if we're still on this page (app didn't open)
+                if (document.hidden || document.webkitHidden) {
+                    return; // App opened successfully
+                }
+                
+                // Redirect to app store
+                const userAgent = navigator.userAgent.toLowerCase();
+                if (userAgent.includes('android')) {
+                    window.location.href = 'https://play.google.com/store/apps/details?id=com.indigorhaposy.app';
+                } else if (userAgent.includes('iphone') || userAgent.includes('ipad')) {
+                    window.location.href = 'https://apps.apple.com/app/indigorhaposy/id123456789';
+                } else {
+                    // Generic fallback
+                    window.location.href = 'https://indigorhaposy.com/download';
+                }
+            }, 2000);
+        }
+
+        // Auto-open app when page loads
+        window.onload = function() {
+            setTimeout(openApp, 1000);
+        };
+
+        // Manual open button
+        document.getElementById('openApp').addEventListener('click', function(e) {
+            e.preventDefault();
+            openApp();
+        });
+
+        // Download app button
+        document.getElementById('downloadApp').addEventListener('click', function(e) {
+            e.preventDefault();
+            const userAgent = navigator.userAgent.toLowerCase();
+            if (userAgent.includes('android')) {
+                window.location.href = 'https://play.google.com/store/apps/details?id=com.indigorhaposy.app';
+            } else if (userAgent.includes('iphone') || userAgent.includes('ipad')) {
+                window.location.href = 'https://apps.apple.com/app/indigorhaposy/id123456789';
+            } else {
+                window.location.href = 'https://indigorhaposy.com/download';
+            }
+        });
+    </script>
+</body>
+</html>

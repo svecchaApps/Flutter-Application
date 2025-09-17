@@ -32,7 +32,11 @@ target 'Runner' do
   use_modular_headers!
 
   flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
-  pod 'FirebaseFirestore', '11.8.0'
+  pod 'FirebaseCore', '11.13.0'
+  pod 'FirebaseFirestore', '11.13.0'
+  pod 'FirebaseAuth', '11.13.0'
+  pod 'FirebaseStorage', '11.13.0'
+  pod 'FirebaseMessaging', '11.13.0'
 end
 
 post_install do |installer|
