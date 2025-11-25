@@ -13,6 +13,8 @@ import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/utils/modern_snackbar.dart';
+import '/config/environment_config.dart';
 import 'paymentpage_model.dart';
 
 export 'paymentpage_model.dart';
@@ -31,8 +33,7 @@ class _PaymentpageWidgetState extends State<PaymentpageWidget> {
   late PaymentpageModel _model;
   int? selectedIndex;
   String? selectedPaymentMethod;
-  String callback =
-      "https://indigo-rhapsody-backend-ten.vercel.app/payment/webhook";
+  String get callback => "${EnvironmentConfig.baseUrl}/payment/webhook";
   String checksum = "";
   bool enableLogs = true;
   Object? result;
@@ -48,7 +49,6 @@ class _PaymentpageWidgetState extends State<PaymentpageWidget> {
   Completer<ApiCallResponse>? _apiRequestCompleter;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
-  @override
   void initPhonePeSdk() {
     PhonePePaymentSdk.init(environmentValue, appId, merchantId, enableLogs)
         .then((isInitialized) {
@@ -89,6 +89,12 @@ class _PaymentpageWidgetState extends State<PaymentpageWidget> {
     }
 
     getChecksum(double amount) {
+      print('💳 [PAYMENT] Creating checksum with:');
+      print('  - merchantId: $merchantId');
+      print('  - merchantTransactionId: ${FFAppState().paymentId}');
+      print('  - merchantUserId: ${FFAppState().userId}');
+      print('  - amount: ${(amount * 100).toInt()}');
+
       final reqdata = {
         "merchantId": merchantId,
         "merchantTransactionId": FFAppState().paymentId,
@@ -98,6 +104,8 @@ class _PaymentpageWidgetState extends State<PaymentpageWidget> {
         "mobileNumber": "9560360744",
         "paymentInstrument": {"type": "PAY_PAGE"}
       };
+
+      print('💳 [PAYMENT] Request data: ${jsonEncode(reqdata)}');
       String base64body = base64.encode(utf8.encode(json.encode(reqdata)));
       checksum =
           '${sha256.convert(utf8.encode(base64body + apiEndPoint + saltKey))}###$saltIndex';
@@ -469,7 +477,7 @@ class _PaymentpageWidgetState extends State<PaymentpageWidget> {
                                                 borderRadius:
                                                     BorderRadius.circular(8.0),
                                               ),
-                                              onTap: () {
+                                              onTap: () async {
                                                 setState(() {
                                                   // Update the selected index
                                                   selectedIndex = newbodyIndex;
@@ -496,6 +504,77 @@ class _PaymentpageWidgetState extends State<PaymentpageWidget> {
                                                     r'''$.pincode''',
                                                   ).toString();
                                                 });
+
+                                                // Update cart address via API
+                                                print(
+                                                    '📍 [ADDRESS] Updating cart address...');
+                                                try {
+                                                  final phoneNumber =
+                                                      getJsonField(
+                                                            newbodyItem,
+                                                            r'''$.phone_number''',
+                                                          )?.toString() ??
+                                                          '';
+
+                                                  final updateResponse =
+                                                      await BackendAPIGroup
+                                                          .updateCartAddressCall
+                                                          .call(
+                                                    userId: FFAppState().userId,
+                                                    street:
+                                                        FFAppState().address,
+                                                    city: FFAppState().city,
+                                                    state: FFAppState().state,
+                                                    pincode:
+                                                        FFAppState().pincode,
+                                                    country: 'India',
+                                                    phoneNumber:
+                                                        phoneNumber.isNotEmpty
+                                                            ? phoneNumber
+                                                            : '+91-0000000000',
+                                                  );
+
+                                                  if (updateResponse
+                                                      .succeeded) {
+                                                    print(
+                                                        '📍 [ADDRESS] Cart address updated successfully');
+                                                    if (context.mounted) {
+                                                      ModernSnackbar.success(
+                                                        context: context,
+                                                        message:
+                                                            'Address Selected',
+                                                        subtitle:
+                                                            'Delivery address has been updated',
+                                                        duration:
+                                                            const Duration(
+                                                                seconds: 2),
+                                                      );
+                                                    }
+                                                  } else {
+                                                    print(
+                                                        '📍 [ADDRESS] Failed to update cart address');
+                                                    if (context.mounted) {
+                                                      ModernSnackbar.error(
+                                                        context: context,
+                                                        message:
+                                                            'Address Update Failed',
+                                                        subtitle:
+                                                            'Please try selecting the address again',
+                                                      );
+                                                    }
+                                                  }
+                                                } catch (e) {
+                                                  print(
+                                                      '📍 [ADDRESS] Error updating cart address: $e');
+                                                  if (context.mounted) {
+                                                    ModernSnackbar.error(
+                                                      context: context,
+                                                      message: 'Error',
+                                                      subtitle:
+                                                          'Failed to update delivery address',
+                                                    );
+                                                  }
+                                                }
                                               },
                                             ),
                                           ),
@@ -562,30 +641,30 @@ class _PaymentpageWidgetState extends State<PaymentpageWidget> {
                                       ),
                                     ],
                                   ),
-                                  const SizedBox(height: 10.0),
-                                  ListTile(
-                                    leading: Icon(
-                                      Icons.monetization_on,
-                                      color: selectedPaymentMethod ==
-                                              "Cash on Delivery"
-                                          ? Colors.blue
-                                          : Colors.grey,
-                                    ),
-                                    title: const Text('Cash on Delivery'),
-                                    tileColor: selectedPaymentMethod ==
-                                            "Cash on Delivery"
-                                        ? Colors.blue.withOpacity(0.1)
-                                        : Colors.white,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(8.0),
-                                    ),
-                                    onTap: () {
-                                      setState(() {
-                                        selectedPaymentMethod =
-                                            "Cash on Delivery";
-                                      });
-                                    },
-                                  ),
+                                  // const SizedBox(height: 10.0),
+                                  // ListTile(
+                                  //   leading: Icon(
+                                  //     Icons.monetization_on,
+                                  //     color: selectedPaymentMethod ==
+                                  //             "Cash on Delivery"
+                                  //         ? Colors.blue
+                                  //         : Colors.grey,
+                                  //   ),
+                                  //   title: const Text('Cash on Delivery'),
+                                  //   tileColor: selectedPaymentMethod ==
+                                  //           "Cash on Delivery"
+                                  //       ? Colors.blue.withOpacity(0.1)
+                                  //       : Colors.white,
+                                  //   shape: RoundedRectangleBorder(
+                                  //     borderRadius: BorderRadius.circular(8.0),
+                                  //   ),
+                                  //   onTap: () {
+                                  //     setState(() {
+                                  //       selectedPaymentMethod =
+                                  //           "Cash on Delivery";
+                                  //     });
+                                  //   },
+                                  // ),
                                   const SizedBox(height: 10.0),
                                   ListTile(
                                     leading: Icon(
@@ -987,7 +1066,7 @@ class _PaymentpageWidgetState extends State<PaymentpageWidget> {
                                 print(
                                     '  - Response Body: ${apiResult.jsonBody}');
 
-                                if ((apiResult.succeeded ?? false)) {
+                                if (apiResult.succeeded) {
                                   print(
                                       '💳 [PAYMENT_PAGE] SUCCESS: Order created, navigating to completion page');
                                   context.pushNamed('ordercompletedCopy');
@@ -1013,32 +1092,65 @@ class _PaymentpageWidgetState extends State<PaymentpageWidget> {
                                   cartId: FFAppState().cartId,
                                   userId: FFAppState().userId,
                                   amount: grandTotal,
-                                  paymentMethod: 'PhonePe',
+                                  paymentMethod: 'phonepe',
                                 );
 
-                                if ((_model.apiResult7gm?.succeeded ?? true)) {
-                                  FFAppState().paymentId = BackendAPIGroup
+                                print(
+                                    '💳 [PAYMENT] Create payment API response: ${_model.apiResult7gm?.jsonBody}');
+
+                                if ((_model.apiResult7gm?.succeeded ?? false)) {
+                                  final extractedTransactionId = BackendAPIGroup
                                       .createPaymentCall
                                       .transactionId(
                                     (_model.apiResult7gm?.jsonBody ?? ''),
-                                  )!;
-                                  safeSetState(() {});
-                                }
-                                // PhonePe API call
+                                  );
 
-                                if (grandTotal != null && grandTotal > 0) {
-                                  // Initialize PhonePe SDK if not already initialized
-                                  if (result == null) {
-                                    initPhonePeSdk();
+                                  print(
+                                      '💳 [PAYMENT] Extracted transactionId: $extractedTransactionId');
+
+                                  if (extractedTransactionId != null &&
+                                      extractedTransactionId.isNotEmpty) {
+                                    FFAppState().paymentId =
+                                        extractedTransactionId;
+                                    print(
+                                        '💳 [PAYMENT] Stored in FFAppState().paymentId: ${FFAppState().paymentId}');
+                                    safeSetState(() {});
+
+                                    // PhonePe API call
+                                    if (grandTotal != null && grandTotal > 0) {
+                                      // Initialize PhonePe SDK if not already initialized
+                                      if (result == null) {
+                                        initPhonePeSdk();
+                                      }
+
+                                      // Start PhonePe transaction with grand total
+                                      print(
+                                          '💳 [PAYMENT] Starting transaction with merchantTransactionId: ${FFAppState().paymentId}');
+                                      startTransaction(grandTotal);
+                                    } else {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        const SnackBar(
+                                            content: Text(
+                                                'Invalid grand total amount.')),
+                                      );
+                                    }
+                                  } else {
+                                    print(
+                                        '💳 [PAYMENT] ERROR: Transaction ID is null or empty!');
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                          content: Text(
+                                              'Failed to get transaction ID from payment API')),
+                                    );
                                   }
-
-                                  // Start PhonePe transaction with grand total
-                                  startTransaction(grandTotal);
                                 } else {
+                                  print(
+                                      '💳 [PAYMENT] ERROR: Create payment API failed');
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(
                                         content: Text(
-                                            'Invalid grand total amount.')),
+                                            'Failed to create payment. Please try again.')),
                                   );
                                 }
                               }

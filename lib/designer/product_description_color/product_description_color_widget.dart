@@ -15,6 +15,8 @@ import '/backend/api_requests/recently_viewed_api.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import '/utils/recently_viewed_helper.dart';
+import '/utils/modern_snackbar.dart';
+import '/utils/toast_examples.dart';
 import '/flutter_flow/flutter_flow_expanded_image_view.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -376,6 +378,28 @@ class _ProductDescriptionColorWidgetState
                                             .containsKey(
                                                 FlutterFlowTheme.of(context)
                                                     .bodyMediumFamily),
+                                      ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    10, 3, 0, 0),
+                                child: Text(
+                                  '* All prices are inclusive of GST charges',
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodySmall
+                                      .override(
+                                        fontFamily: FlutterFlowTheme.of(context)
+                                            .bodySmallFamily,
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryText,
+                                        fontSize: 10,
+                                        letterSpacing: 0.0,
+                                        fontStyle: FontStyle.italic,
+                                        useGoogleFonts: GoogleFonts.asMap()
+                                            .containsKey(
+                                                FlutterFlowTheme.of(context)
+                                                    .bodySmallFamily),
                                       ),
                                 ),
                               ),
@@ -1513,31 +1537,17 @@ class _ProductDescriptionColorWidgetState
                                           'API Result: ${_model.apiResult2t4?.jsonBody}');
 
                                       if ((_model.apiResult2t4?.succeeded ??
-                                          true)) {
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(
-                                          SnackBar(
-                                            content: Text(
-                                              BackendAPIGroup
-                                                  .createCartandUpdateCartOneFunctionCall
-                                                  .message(
-                                                (_model.apiResult2t4
-                                                        ?.jsonBody ??
-                                                    ''),
-                                              )!,
-                                              style: TextStyle(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryText,
-                                              ),
-                                            ),
-                                            duration: const Duration(
-                                                milliseconds: 4000),
-                                            backgroundColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .secondary,
-                                          ),
-                                        );
+                                          false)) {
+                                        final productName = BackendAPIGroup
+                                                .getProductByIdCall
+                                                .productName(
+                                              productDescriptionColorGetProductByIdResponse
+                                                  .jsonBody,
+                                            ) ??
+                                            'Product';
+
+                                        ToastExamples.addToCart(
+                                            context, productName);
 
                                         await currentUserReference!
                                             .update(createUsersRecordData(
@@ -1555,29 +1565,17 @@ class _ProductDescriptionColorWidgetState
                                         )!;
                                         safeSetState(() {});
                                       } else {
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(
-                                          SnackBar(
-                                            content: Text(
-                                              BackendAPIGroup
+                                        ModernSnackbar.error(
+                                          context: context,
+                                          message: 'Failed to Add',
+                                          subtitle: BackendAPIGroup
                                                   .createCartandUpdateCartOneFunctionCall
                                                   .message(
                                                 (_model.apiResult2t4
                                                         ?.jsonBody ??
                                                     ''),
-                                              )!,
-                                              style: TextStyle(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryText,
-                                              ),
-                                            ),
-                                            duration: const Duration(
-                                                milliseconds: 4000),
-                                            backgroundColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .secondary,
-                                          ),
+                                              ) ??
+                                              'Unable to add item to cart',
                                         );
                                       }
                                     } else {

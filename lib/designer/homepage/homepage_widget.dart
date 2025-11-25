@@ -4,6 +4,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/nav/serialization_util.dart';
 import '/index.dart';
+import '/config/environment_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -129,6 +130,21 @@ class _HomepageWidgetState extends State<HomepageWidget>
       return 15.0; // Large screens
     } else {
       return 16.0; // Very large screens/tablets
+    }
+  }
+
+  // Parse hex color string to Color
+  Color _parseColor(String hexColor) {
+    try {
+      final hex = hexColor.replaceAll('#', '');
+      if (hex.length == 6) {
+        return Color(int.parse('FF$hex', radix: 16));
+      } else if (hex.length == 8) {
+        return Color(int.parse(hex, radix: 16));
+      }
+      return Colors.white; // Default color
+    } catch (e) {
+      return Colors.white; // Default color on error
     }
   }
 
@@ -715,16 +731,24 @@ class _HomepageWidgetState extends State<HomepageWidget>
                                         itemCount: banners.length,
                                         itemBuilder: (context, index) {
                                           final banner = banners[index];
-                                          final imageUrl = banner['imageUrl'] ??
-                                              banner['image'] ??
-                                              '';
+                                          final screenWidth =
+                                              MediaQuery.of(context).size.width;
+
+                                          // Get the appropriate image URL
+                                          final imageUrl =
+                                              BannersApi.getBannerImage(
+                                            banner,
+                                            screenWidth,
+                                          );
+
+                                          // Extract banner data
                                           final title = banner['title'] ?? '';
-                                          final description =
-                                              banner['description'] ?? '';
+                                          final subtitle =
+                                              banner['subtitle'] ?? '';
                                           final actionUrl =
-                                              banner['actionUrl'] ??
-                                                  banner['link'] ??
-                                                  '';
+                                              banner['actionUrl'] ?? '';
+                                          final textColor =
+                                              banner['textColor'] ?? '#FFFFFF';
 
                                           return GestureDetector(
                                             onTap: () {
@@ -807,7 +831,7 @@ class _HomepageWidgetState extends State<HomepageWidget>
                                                     ),
                                                     // Banner Content Overlay
                                                     if (title.isNotEmpty ||
-                                                        description.isNotEmpty)
+                                                        subtitle.isNotEmpty)
                                                       Positioned(
                                                         bottom: 0,
                                                         left: 0,
@@ -849,11 +873,11 @@ class _HomepageWidgetState extends State<HomepageWidget>
                                                                 Text(
                                                                   title,
                                                                   style:
-                                                                      const TextStyle(
-                                                                    color: Colors
-                                                                        .white,
+                                                                      TextStyle(
+                                                                    color: _parseColor(
+                                                                        textColor),
                                                                     fontSize:
-                                                                        18,
+                                                                        20,
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .bold,
@@ -863,21 +887,30 @@ class _HomepageWidgetState extends State<HomepageWidget>
                                                                       TextOverflow
                                                                           .ellipsis,
                                                                 ),
-                                                              if (description
+                                                              if (subtitle
                                                                   .isNotEmpty)
-                                                                Text(
-                                                                  description,
-                                                                  style:
-                                                                      const TextStyle(
-                                                                    color: Colors
-                                                                        .white70,
-                                                                    fontSize:
-                                                                        14,
+                                                                Padding(
+                                                                  padding:
+                                                                      const EdgeInsets
+                                                                          .only(
+                                                                    top: 4.0,
                                                                   ),
-                                                                  maxLines: 2,
-                                                                  overflow:
-                                                                      TextOverflow
-                                                                          .ellipsis,
+                                                                  child: Text(
+                                                                    subtitle,
+                                                                    style:
+                                                                        TextStyle(
+                                                                      color: _parseColor(
+                                                                              textColor)
+                                                                          .withOpacity(
+                                                                              0.9),
+                                                                      fontSize:
+                                                                          16,
+                                                                    ),
+                                                                    maxLines: 2,
+                                                                    overflow:
+                                                                        TextOverflow
+                                                                            .ellipsis,
+                                                                  ),
                                                                 ),
                                                             ],
                                                           ),
@@ -958,7 +991,7 @@ class _HomepageWidgetState extends State<HomepageWidget>
                               child: FutureBuilder<http.Response>(
                                 future: http.get(
                                   Uri.parse(
-                                    'https://indigo-rhapsody-backend-ten.vercel.app/category',
+                                    '${EnvironmentConfig.baseUrl}/category',
                                   ),
                                 ),
                                 builder: (context, snapshot) {
@@ -1239,7 +1272,7 @@ class _HomepageWidgetState extends State<HomepageWidget>
                                         child: FutureBuilder<http.Response>(
                                           future: http.get(
                                             Uri.parse(
-                                              'https://indigo-rhapsody-backend-ten.vercel.app/designer/designers',
+                                              '${EnvironmentConfig.baseUrl}/designer/designers',
                                             ),
                                           ),
                                           builder: (context, snapshot) {
@@ -1546,7 +1579,7 @@ class _HomepageWidgetState extends State<HomepageWidget>
                                           child: FutureBuilder<http.Response>(
                                             future: http.get(
                                               Uri.parse(
-                                                'https://indigo-rhapsody-backend-ten.vercel.app/content-video/videos',
+                                                '${EnvironmentConfig.baseUrl}/content-video/videos',
                                               ),
                                             ),
                                             builder: (context, snapshot) {

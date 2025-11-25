@@ -20,6 +20,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_video_player.dart';
 import '/designer/product_description_color/product_description_color_widget.dart';
 import '/designer/hidden_gems/hidden_gems_widget.dart';
+import '/config/environment_config.dart';
 
 import 'video_content_model.dart';
 
@@ -412,7 +413,7 @@ class _VideoContentWidgetState extends State<VideoContentWidget>
 
       // Make direct HTTP request to the correct endpoint
       final url = Uri.parse(
-          'https://indigo-rhapsody-backend-ten.vercel.app/content-video/videos/$videoId/reaction');
+          '${EnvironmentConfig.baseUrl}/content-video/videos/$videoId/reaction');
       final response = await http.post(
         url,
         headers: {
@@ -3068,7 +3069,7 @@ class _CommentBottomSheetState extends State<_CommentBottomSheet> {
 
       // Make direct HTTP request to get comments
       final url = Uri.parse(
-          'https://indigo-rhapsody-backend-ten.vercel.app/content-video/videos/${widget.videoId}/comments');
+          '${EnvironmentConfig.baseUrl}/content-video/videos/${widget.videoId}/comments');
       final response = await http.get(url);
 
       print('🔍 [COMMENTS] GET Response status: ${response.statusCode}');
@@ -3117,7 +3118,7 @@ class _CommentBottomSheetState extends State<_CommentBottomSheet> {
 
       // Make direct HTTP request to add comment
       final url = Uri.parse(
-          'https://indigo-rhapsody-backend-ten.vercel.app/content-video/videos/${widget.videoId}/comments');
+          '${EnvironmentConfig.baseUrl}/content-video/videos/${widget.videoId}/comments');
       final response = await http.post(
         url,
         headers: {
@@ -3171,7 +3172,7 @@ class _CommentBottomSheetState extends State<_CommentBottomSheet> {
 
       // Make direct HTTP request to delete comment
       final url = Uri.parse(
-          'https://indigo-rhapsody-backend-ten.vercel.app/content-video/videos/${widget.videoId}/comments/$commentId');
+          '${EnvironmentConfig.baseUrl}/content-video/videos/${widget.videoId}/comments/$commentId');
       final response = await http.delete(url);
 
       print('🔍 [COMMENTS] DELETE Response status: ${response.statusCode}');

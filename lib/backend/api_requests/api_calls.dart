@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 
 import '/flutter_flow/flutter_flow_util.dart';
+import '/config/environment_config.dart';
 import 'api_manager.dart';
 
 export 'api_manager.dart' show ApiCallResponse;
@@ -12,8 +13,7 @@ const _kPrivateApiFunctionName = 'ffPrivateApiCall';
 /// Start BackendAPI Group Code
 
 class BackendAPIGroup {
-  static String getBaseUrl() =>
-      'https://indigo-rhapsody-backend-ten.vercel.app';
+  static String getBaseUrl() => EnvironmentConfig.baseUrl;
   static Map<String, String> headers = {};
   static ProductsApiCall productsApiCall = ProductsApiCall();
   static GetCategoriesCall getCategoriesCall = GetCategoriesCall();
@@ -90,6 +90,62 @@ class BackendAPIGroup {
   static GetVideoCommentsCall getVideoCommentsCall = GetVideoCommentsCall();
   static UpdateCommentCall updateCommentCall = UpdateCommentCall();
   static DeleteCommentCall deleteCommentCall = DeleteCommentCall();
+  static UpdateCartAddressCall updateCartAddressCall = UpdateCartAddressCall();
+}
+
+class UpdateCartAddressCall {
+  Future<ApiCallResponse> call({
+    String? userId = '',
+    String? street = '',
+    String? city = '',
+    String? state = '',
+    String? pincode = '',
+    String? country = 'India',
+    String? phoneNumber = '',
+  }) async {
+    final baseUrl = BackendAPIGroup.getBaseUrl();
+
+    final ffApiRequestBody = '''
+{
+  "address": {
+    "street": "$street",
+    "city": "$city",
+    "state": "$state",
+    "pincode": "$pincode",
+    "country": "$country",
+    "phoneNumber": "$phoneNumber"
+  }
+}''';
+
+    return ApiManager.instance.makeApiCall(
+      callName: 'updateCartAddress',
+      apiUrl: '$baseUrl/cart/update-address/$userId',
+      callType: ApiCallType.PUT,
+      headers: {},
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  dynamic success(dynamic response) => getJsonField(
+        response,
+        r'''$.success''',
+      );
+  dynamic message(dynamic response) => getJsonField(
+        response,
+        r'''$.message''',
+      );
+  dynamic cart(dynamic response) => getJsonField(
+        response,
+        r'''$.cart''',
+      );
 }
 
 class ProductsApiCall {
@@ -1412,33 +1468,35 @@ class GetUserInfoCall {
         response,
         r'''$.user.is_creator''',
       ));
-  
+
   // Helper methods to extract user data from API response
-  String? getUserDisplayName(dynamic response) => castToType<String>(getJsonField(
+  String? getUserDisplayName(dynamic response) =>
+      castToType<String>(getJsonField(
         response,
         r'''$.user.displayName''',
       ));
-  
+
   String? getUserEmail(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.user.email''',
       ));
-  
-  String? getUserPhoneNumber(dynamic response) => castToType<String>(getJsonField(
+
+  String? getUserPhoneNumber(dynamic response) =>
+      castToType<String>(getJsonField(
         response,
         r'''$.user.phoneNumber''',
       ));
-  
+
   String? getUserId(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.user._id''',
       ));
-  
+
   String? getUserRole(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.user.role''',
       ));
-  
+
   List<dynamic>? getUserAddresses(dynamic response) => (getJsonField(
         response,
         r'''$.user.address''',

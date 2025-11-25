@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:indigo_rhapsody_dupli/designer/product_description_color/product_description_color_widget.dart';
 import 'package:indigo_rhapsody_dupli/flutter_flow/flutter_flow_theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '/config/environment_config.dart';
 
 class SearchpageWidget extends StatefulWidget {
   const SearchpageWidget({
@@ -236,8 +237,7 @@ class _SearchpageWidgetState extends State<SearchpageWidget> {
 }
 
 class ProductService {
-  static const String baseUrl =
-      'https://indigo-rhapsody-backend-ten.vercel.app/products/products';
+  static String get baseUrl => '${EnvironmentConfig.baseUrl}/products/products';
 
   Future<List<dynamic>> searchProducts(String query) async {
     final response = await http.get(

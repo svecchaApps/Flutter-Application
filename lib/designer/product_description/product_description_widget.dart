@@ -17,6 +17,8 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/index.dart';
+import '/utils/modern_snackbar.dart';
+import '/utils/toast_examples.dart';
 import 'product_description_model.dart';
 
 export 'product_description_model.dart';
@@ -405,6 +407,33 @@ class _ProductDescriptionWidgetState extends State<ProductDescriptionWidget> {
                                                             .bodyMediumFamily),
                                               ),
                                         ),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              10, 3, 20, 0),
+                                      child: Text(
+                                        '* All prices are inclusive of GST charges',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodySmall
+                                            .override(
+                                              fontFamily:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodySmallFamily,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondaryText,
+                                              fontSize: 10,
+                                              letterSpacing: 0.0,
+                                              fontStyle: FontStyle.italic,
+                                              useGoogleFonts:
+                                                  GoogleFonts.asMap()
+                                                      .containsKey(
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodySmallFamily),
+                                            ),
                                       ),
                                     ),
                                     Padding(
@@ -979,53 +1008,32 @@ class _ProductDescriptionWidgetState extends State<ProductDescriptionWidget> {
                                   }
 
                                   if ((_model.apiResultdshcopyCopy?.succeeded ??
-                                      true)) {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                        content: Text(
-                                          getJsonField(
-                                            (_model.apiResultdshcopyCopy
-                                                    ?.jsonBody ??
-                                                ''),
-                                            r'''$.message''',
-                                          ).toString(),
-                                          style: TextStyle(
-                                            color: FlutterFlowTheme.of(context)
-                                                .primaryText,
-                                          ),
-                                        ),
-                                        duration:
-                                            const Duration(milliseconds: 4000),
-                                        backgroundColor:
-                                            FlutterFlowTheme.of(context)
-                                                .secondary,
-                                      ),
-                                    );
+                                      false)) {
+                                    final productName = BackendAPIGroup
+                                            .getProductBycolorCall
+                                            .productName(
+                                          productDescriptionGetProductBycolorResponse
+                                              .jsonBody,
+                                        ) ??
+                                        'Product';
+
+                                    ToastExamples.addToWishlist(
+                                        context, productName);
+
                                     safeSetState(() =>
                                         _model.apiRequestCompleter = null);
                                     await _model.waitForApiRequestCompleted();
                                     HapticFeedback.mediumImpact();
                                   } else {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                        content: Text(
-                                          getJsonField(
-                                            (_model.apiResultdshcopyCopy
-                                                    ?.jsonBody ??
-                                                ''),
-                                            r'''$.message''',
-                                          ).toString(),
-                                          style: TextStyle(
-                                            color: FlutterFlowTheme.of(context)
-                                                .primaryText,
-                                          ),
-                                        ),
-                                        duration:
-                                            const Duration(milliseconds: 4000),
-                                        backgroundColor:
-                                            FlutterFlowTheme.of(context)
-                                                .secondary,
-                                      ),
+                                    ModernSnackbar.error(
+                                      context: context,
+                                      message: 'Failed to Add to Wishlist',
+                                      subtitle: getJsonField(
+                                        (_model.apiResultdshcopyCopy
+                                                ?.jsonBody ??
+                                            ''),
+                                        r'''$.message''',
+                                      ).toString(),
                                     );
                                   }
 
@@ -1089,53 +1097,26 @@ class _ProductDescriptionWidgetState extends State<ProductDescriptionWidget> {
                                 );
 
                                 if ((_model.apiResultdshcopyCopy1?.succeeded ??
-                                    true)) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text(
-                                        getJsonField(
-                                          (_model.apiResultdshcopyCopy1
-                                                  ?.jsonBody ??
-                                              ''),
-                                          r'''$.message''',
-                                        ).toString(),
-                                        style: TextStyle(
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryText,
-                                        ),
-                                      ),
-                                      duration:
-                                          const Duration(milliseconds: 4000),
-                                      backgroundColor:
-                                          FlutterFlowTheme.of(context)
-                                              .secondary,
-                                    ),
-                                  );
+                                    false)) {
+                                  final productName =
+                                      widget.productId ?? 'Product';
+
+                                  ToastExamples.removeFromWishlist(
+                                      context, productName);
+
                                   safeSetState(
                                       () => _model.apiRequestCompleter = null);
                                   await _model.waitForApiRequestCompleted();
                                   HapticFeedback.mediumImpact();
                                 } else {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text(
-                                        getJsonField(
-                                          (_model.apiResultdshcopyCopy1
-                                                  ?.jsonBody ??
-                                              ''),
-                                          r'''$.message''',
-                                        ).toString(),
-                                        style: TextStyle(
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryText,
-                                        ),
-                                      ),
-                                      duration:
-                                          const Duration(milliseconds: 4000),
-                                      backgroundColor:
-                                          FlutterFlowTheme.of(context)
-                                              .secondary,
-                                    ),
+                                  ModernSnackbar.error(
+                                    context: context,
+                                    message: 'Failed to Remove',
+                                    subtitle: getJsonField(
+                                      (_model.apiResultdshcopyCopy1?.jsonBody ??
+                                          ''),
+                                      r'''$.message''',
+                                    ).toString(),
                                   );
                                 }
 
@@ -1207,47 +1188,32 @@ class _ProductDescriptionWidgetState extends State<ProductDescriptionWidget> {
                               return;
                             }
 
-                            if ((_model.apiResult2t4new?.succeeded ?? true)) {
+                            if ((_model.apiResult2t4new?.succeeded ?? false)) {
                               FFAppState().cartId = BackendAPIGroup
                                   .createCartandUpdateCartOneFunctionCall
                                   .cartId(
                                 (_model.apiResult2t4new?.jsonBody ?? ''),
                               )!;
                               safeSetState(() {});
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text(
-                                    getJsonField(
-                                      (_model.apiResult2t4new?.jsonBody ?? ''),
-                                      r'''$.message''',
-                                    ).toString(),
-                                    style: TextStyle(
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryText,
-                                    ),
-                                  ),
-                                  duration: const Duration(milliseconds: 4000),
-                                  backgroundColor:
-                                      FlutterFlowTheme.of(context).secondary,
-                                ),
-                              );
+
+                              // Get product name for toast
+                              final productName = BackendAPIGroup
+                                      .getProductBycolorCall
+                                      .productName(
+                                    productDescriptionGetProductBycolorResponse
+                                        .jsonBody,
+                                  ) ??
+                                  'Product';
+
+                              ToastExamples.addToCart(context, productName);
                             } else {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text(
-                                    getJsonField(
-                                      (_model.apiResult2t4new?.jsonBody ?? ''),
-                                      r'''$.message''',
-                                    ).toString(),
-                                    style: TextStyle(
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryText,
-                                    ),
-                                  ),
-                                  duration: const Duration(milliseconds: 4000),
-                                  backgroundColor:
-                                      FlutterFlowTheme.of(context).secondary,
-                                ),
+                              ModernSnackbar.error(
+                                context: context,
+                                message: 'Failed to Add',
+                                subtitle: getJsonField(
+                                  (_model.apiResult2t4new?.jsonBody ?? ''),
+                                  r'''$.message''',
+                                ).toString(),
                               );
                             }
                           } else {

@@ -8,6 +8,7 @@ import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/config/environment_config.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -594,7 +595,7 @@ class _OtpLoginWidgetState extends State<OtpLoginWidget>
                         // Check if user exists in backend
                         final response = await http.post(
                           Uri.parse(
-                              'https://indigo-rhapsody-backend-ten.vercel.app/user/check-user-exists'),
+                              '${EnvironmentConfig.baseUrl}/user/check-user-exists'),
                           headers: {'Content-Type': 'application/json'},
                           body: jsonEncode({'phoneNumber': rawPhoneNumber}),
                         );

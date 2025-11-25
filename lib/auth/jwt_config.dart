@@ -1,23 +1,23 @@
 import 'jwt_auth_manager.dart';
+import '/config/environment_config.dart';
 
 class JwtConfig {
   // API Base URL
-  static const String apiBaseUrl =
-      'https://indigo-rhapsody-backend-ten.vercel.app';
+  static String get apiBaseUrl => EnvironmentConfig.baseUrl;
 
   // JWT Secret (for token validation)
   static const String jwtSecret = 'your-jwt-secret-key-here';
 
   // Authentication endpoints
-  static const String loginUrl = '$apiBaseUrl/auth/login';
-  static const String registerUrl = '$apiBaseUrl/auth/register';
-  static const String refreshUrl = '$apiBaseUrl/auth/refresh';
+  static String get loginUrl => '$apiBaseUrl/auth/login';
+  static String get registerUrl => '$apiBaseUrl/auth/register';
+  static String get refreshUrl => '$apiBaseUrl/auth/refresh';
 
   // Phone authentication endpoints
-  static const String sendOtpUrl = '$apiBaseUrl/auth/send-otp';
-  static const String verifyOtpUrl = '$apiBaseUrl/auth/verify-otp';
-  static const String checkUserExistsUrl = '$apiBaseUrl/auth/check-user-exists';
-  static const String verifyPhoneUrl = '$apiBaseUrl/auth/verify-phone';
+  static String get sendOtpUrl => '$apiBaseUrl/auth/send-otp';
+  static String get verifyOtpUrl => '$apiBaseUrl/auth/verify-otp';
+  static String get checkUserExistsUrl => '$apiBaseUrl/auth/check-user-exists';
+  static String get verifyPhoneUrl => '$apiBaseUrl/auth/verify-phone';
 
   // Token storage keys
   static const String tokenKey = 'jwt_access_token';

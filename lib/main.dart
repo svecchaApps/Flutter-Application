@@ -23,9 +23,14 @@ import 'flutter_flow/flutter_flow_util.dart';
 import 'flutter_flow/internationalization.dart';
 import 'index.dart';
 import 'package:http/http.dart' as http;
+import '/config/environment_config.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // Initialize environment configuration
+  EnvironmentConfig.printEnvironmentInfo();
+
   final prefs = await SharedPreferences.getInstance();
   bool isFirstLaunch = prefs.getBool('firstLaunch') ?? true;
   await initFirebase();
@@ -96,62 +101,197 @@ class _MyAppState extends State<MyApp> {
 
   Future<void> _checkForAndroidUpdate() async {
     try {
+      print('🔄 [UPDATE] Checking for Android updates...');
       final updateInfo = await InAppUpdate.checkForUpdate();
 
+      print(
+          '🔄 [UPDATE] Update availability: ${updateInfo.updateAvailability}');
+
       if (updateInfo.updateAvailability == UpdateAvailability.updateAvailable) {
-        if (updateInfo.immediateUpdateAllowed) {
-          // Perform immediate update
+        print('🔄 [UPDATE] Update available!');
+
+        // Check if update is high priority (staleness days)
+        final int? staleDays = updateInfo.clientVersionStalenessDays;
+        final bool isHighPriority = staleDays != null && staleDays >= 7;
+
+        if (updateInfo.immediateUpdateAllowed && isHighPriority) {
+          // For critical updates, perform immediate update
+          print('🔄 [UPDATE] Performing immediate update (high priority)');
           await InAppUpdate.performImmediateUpdate();
         } else if (updateInfo.flexibleUpdateAllowed) {
-          // Perform flexible update
+          // For regular updates, use flexible update
+          print('🔄 [UPDATE] Starting flexible update');
           await InAppUpdate.startFlexibleUpdate();
-          await InAppUpdate.completeFlexibleUpdate();
+
+          // Listen for update download completion
+          InAppUpdate.completeFlexibleUpdate().then((_) {
+            print('🔄 [UPDATE] Flexible update completed');
+            _showUpdateCompletedSnackbar();
+          }).catchError((error) {
+            print('🔄 [UPDATE] Flexible update error: $error');
+          });
         }
+      } else {
+        print('🔄 [UPDATE] No updates available');
       }
     } catch (e) {
-      print('Android update error: $e');
-      // You might want to show an error message to the user
+      print('🔄 [UPDATE] Android update error: $e');
     }
+  }
+
+  void _showUpdateCompletedSnackbar() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: const Text('Update downloaded. Restart app to apply.'),
+        action: SnackBarAction(
+          label: 'RESTART',
+          onPressed: () {
+            InAppUpdate.completeFlexibleUpdate();
+          },
+        ),
+        duration: const Duration(seconds: 10),
+      ),
+    );
   }
 
   Future<void> _checkForIOSUpdate() async {
     try {
+      print('🔄 [UPDATE] Checking for iOS updates...');
       final packageInfo = await PackageInfo.fromPlatform();
       final bundleId = packageInfo.packageName;
       final currentVersion = packageInfo.version;
-      print('Current iOS version: $currentVersion');
-      print("Bundle ID: $bundleId");
+      print('🔄 [UPDATE] Current iOS version: $currentVersion');
+      print('🔄 [UPDATE] Bundle ID: $bundleId');
 
       final url =
           Uri.parse('https://itunes.apple.com/lookup?bundleId=$bundleId');
       final response = await http.get(url);
+
+      if (response.statusCode != 200) {
+        print(
+            '🔄 [UPDATE] Failed to check for updates: ${response.statusCode}');
+        return;
+      }
+
       final data = json.decode(response.body);
 
       if (data['resultCount'] == 1) {
         final latestVersion = data['results'][0]['version'];
-        if (latestVersion != currentVersion) {
-          _showIOSUpdateDialog(latestVersion);
+        final releaseNotes =
+            data['results'][0]['releaseNotes'] ?? 'Bug fixes and improvements';
+
+        print('🔄 [UPDATE] Latest version: $latestVersion');
+
+        if (_isNewerVersion(currentVersion, latestVersion)) {
+          print('🔄 [UPDATE] Update available!');
+          // Wait a bit before showing dialog to ensure context is ready
+          Future.delayed(const Duration(milliseconds: 500), () {
+            _showIOSUpdateDialog(latestVersion, releaseNotes);
+          });
+        } else {
+          print('🔄 [UPDATE] App is up to date');
         }
+      } else {
+        print('🔄 [UPDATE] App not found in App Store');
       }
     } catch (e) {
-      print('iOS update check error: $e');
+      print('🔄 [UPDATE] iOS update check error: $e');
     }
   }
 
-  void _showIOSUpdateDialog(String latestVersion) {
+  bool _isNewerVersion(String currentVersion, String latestVersion) {
+    try {
+      List<int> current = currentVersion.split('.').map(int.parse).toList();
+      List<int> latest = latestVersion.split('.').map(int.parse).toList();
+
+      // Pad shorter version with zeros
+      while (current.length < latest.length) current.add(0);
+      while (latest.length < current.length) latest.add(0);
+
+      for (int i = 0; i < current.length; i++) {
+        if (latest[i] > current[i]) return true;
+        if (latest[i] < current[i]) return false;
+      }
+      return false;
+    } catch (e) {
+      print('🔄 [UPDATE] Version comparison error: $e');
+      return false;
+    }
+  }
+
+  void _showIOSUpdateDialog(String latestVersion, String releaseNotes) {
     showDialog(
       context: context,
       barrierDismissible: false,
-      builder: (BuildContext context) {
+      builder: (BuildContext dialogContext) {
         return AlertDialog(
-          title: const Text('Update Available'),
-          content: Text(
-              'A new version $latestVersion is available. Please update to continue using the app.'),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
+          title: Row(
+            children: [
+              Icon(
+                Icons.system_update,
+                color: FlutterFlowTheme.of(dialogContext).primary,
+              ),
+              const SizedBox(width: 8),
+              const Text('Update Available'),
+            ],
+          ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Version $latestVersion is now available.',
+                style: const TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 16,
+                ),
+              ),
+              const SizedBox(height: 12),
+              Text(
+                "What's New:",
+                style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  color: FlutterFlowTheme.of(dialogContext).secondaryText,
+                ),
+              ),
+              const SizedBox(height: 4),
+              Text(
+                releaseNotes,
+                style: TextStyle(
+                  color: FlutterFlowTheme.of(dialogContext).secondaryText,
+                  fontSize: 14,
+                ),
+                maxLines: 5,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ],
+          ),
           actions: <Widget>[
             TextButton(
-              child: const Text('Update'),
+              child: Text(
+                'Later',
+                style: TextStyle(
+                  color: FlutterFlowTheme.of(dialogContext).secondaryText,
+                ),
+              ),
               onPressed: () {
-                Navigator.of(context).pop();
+                Navigator.of(dialogContext).pop();
+              },
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: FlutterFlowTheme.of(dialogContext).primary,
+                foregroundColor: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ),
+              child: const Text('Update Now'),
+              onPressed: () {
+                Navigator.of(dialogContext).pop();
                 _launchAppStore();
               },
             ),
@@ -162,18 +302,21 @@ class _MyAppState extends State<MyApp> {
   }
 
   Future<void> _launchAppStore() async {
-    final packageInfo = await PackageInfo.fromPlatform();
-    final bundleId = packageInfo.packageName;
     final url = Uri.parse(
       Platform.isIOS
-          ? 'https://apps.apple.com/app/id6471662460' // Replace with your App ID
-          : 'https://play.google.com/store/apps/details?id=com.mycompany.lsdapp',
+          ? 'https://apps.apple.com/app/id6471662460' // Your iOS App ID
+          : 'https://play.google.com/store/apps/details?id=com.mycompany.lsdapp', // Your Android package ID
     );
 
-    if (await canLaunchUrl(url)) {
-      await launchUrl(url, mode: LaunchMode.externalApplication);
-    } else {
-      throw 'Could not launch $url';
+    try {
+      if (await canLaunchUrl(url)) {
+        await launchUrl(url, mode: LaunchMode.externalApplication);
+        print('🔄 [UPDATE] Launched app store: $url');
+      } else {
+        print('🔄 [UPDATE] Could not launch $url');
+      }
+    } catch (e) {
+      print('🔄 [UPDATE] Error launching app store: $e');
     }
   }
 

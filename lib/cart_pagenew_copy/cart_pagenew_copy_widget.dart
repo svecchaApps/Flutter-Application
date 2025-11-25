@@ -12,6 +12,8 @@ import '/flutter_flow/custom_functions.dart' as functions;
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/utils/modern_snackbar.dart';
+import '/utils/toast_examples.dart';
 import 'cart_pagenew_copy_model.dart';
 
 export 'cart_pagenew_copy_model.dart';
@@ -537,25 +539,18 @@ class _CartPagenewCopyWidgetState extends State<CartPagenewCopyWidget> {
                         ).toString(),
                       );
 
-                      if ((_model.apiResulta4wCopy?.succeeded ?? true)) {
+                      if ((_model.apiResulta4wCopy?.succeeded ?? false)) {
+                        ToastExamples.cartUpdated(context);
                         safeSetState(() => _model.apiRequestCompleter = null);
                         await _model.waitForApiRequestCompleted();
                       } else {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(
-                              getJsonField(
-                                (_model.apiResulta4wCopy?.jsonBody ?? ''),
-                                r'''$.message''',
-                              ).toString(),
-                              style: TextStyle(
-                                color: FlutterFlowTheme.of(context).primaryText,
-                              ),
-                            ),
-                            duration: const Duration(milliseconds: 4000),
-                            backgroundColor:
-                                FlutterFlowTheme.of(context).secondary,
-                          ),
+                        ModernSnackbar.error(
+                          context: context,
+                          message: 'Failed to Update',
+                          subtitle: getJsonField(
+                            (_model.apiResulta4wCopy?.jsonBody ?? ''),
+                            r'''$.message''',
+                          ).toString(),
                         );
                       }
 

@@ -174,132 +174,132 @@ class _ChoosePaymentWidgetState extends State<ChoosePaymentWidget>
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [
-                    Padding(
-                      padding: const EdgeInsetsDirectional.fromSTEB(
-                          20.0, 50.0, 20.0, 0.0),
-                      child: InkWell(
-                        splashColor: Colors.transparent,
-                        focusColor: Colors.transparent,
-                        hoverColor: Colors.transparent,
-                        highlightColor: Colors.transparent,
-                        onTap: () async {
-                          HapticFeedback.vibrate();
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text(
-                                'Processing Order',
-                                style: TextStyle(
-                                  color:
-                                      FlutterFlowTheme.of(context).primaryText,
-                                ),
-                              ),
-                              duration: const Duration(milliseconds: 4000),
-                              backgroundColor:
-                                  FlutterFlowTheme.of(context).secondary,
-                            ),
-                          );
+                    // Padding(
+                    //   padding: const EdgeInsetsDirectional.fromSTEB(
+                    //       20.0, 50.0, 20.0, 0.0),
+                    //   child: InkWell(
+                    //     splashColor: Colors.transparent,
+                    //     focusColor: Colors.transparent,
+                    //     hoverColor: Colors.transparent,
+                    //     highlightColor: Colors.transparent,
+                    //     onTap: () async {
+                    //       HapticFeedback.vibrate();
+                    //       ScaffoldMessenger.of(context).showSnackBar(
+                    //         SnackBar(
+                    //           content: Text(
+                    //             'Processing Order',
+                    //             style: TextStyle(
+                    //               color:
+                    //                   FlutterFlowTheme.of(context).primaryText,
+                    //             ),
+                    //           ),
+                    //           duration: const Duration(milliseconds: 4000),
+                    //           backgroundColor:
+                    //               FlutterFlowTheme.of(context).secondary,
+                    //         ),
+                    //       );
 
-                          // Debug prints for order creation
-                          print(
-                              '💳 [CHOOSE_PAYMENT] Starting Cash on Delivery order...');
-                          print('💳 [CHOOSE_PAYMENT] FFAppState values:');
-                          print('  - userId: ${FFAppState().userId}');
-                          print('  - cartId: ${FFAppState().cartId}');
+                    //       // Debug prints for order creation
+                    //       print(
+                    //           '💳 [CHOOSE_PAYMENT] Starting Cash on Delivery order...');
+                    //       print('💳 [CHOOSE_PAYMENT] FFAppState values:');
+                    //       print('  - userId: ${FFAppState().userId}');
+                    //       print('  - cartId: ${FFAppState().cartId}');
 
-                          _model.apiResultns3 =
-                              await BackendAPIGroup.createOrderCall.call(
-                            userId: FFAppState().userId,
-                            cartId: FFAppState().cartId,
-                            paymentmethod: 'Cash On delivery',
-                            shippingMethod: 'Online',
-                            shippingcost: '10',
-                            notes: 'handle with care',
-                            address: 'sssss',
-                            city: 'Noida',
-                            state: 'uttta',
-                            postalcode: '201304',
-                          );
+                    //       _model.apiResultns3 =
+                    //           await BackendAPIGroup.createOrderCall.call(
+                    //         userId: FFAppState().userId,
+                    //         cartId: FFAppState().cartId,
+                    //         paymentmethod: 'Cash On delivery',
+                    //         shippingMethod: 'Online',
+                    //         shippingcost: '10',
+                    //         notes: 'handle with care',
+                    //         address: 'sssss',
+                    //         city: 'Noida',
+                    //         state: 'uttta',
+                    //         postalcode: '201304',
+                    //       );
 
-                          print('💳 [CHOOSE_PAYMENT] Order API Result:');
-                          print(
-                              '  - Succeeded: ${_model.apiResultns3?.succeeded}');
-                          print(
-                              '  - Status Code: ${_model.apiResultns3?.statusCode}');
-                          print(
-                              '  - Response Body: ${_model.apiResultns3?.jsonBody}');
+                    //       print('💳 [CHOOSE_PAYMENT] Order API Result:');
+                    //       print(
+                    //           '  - Succeeded: ${_model.apiResultns3?.succeeded}');
+                    //       print(
+                    //           '  - Status Code: ${_model.apiResultns3?.statusCode}');
+                    //       print(
+                    //           '  - Response Body: ${_model.apiResultns3?.jsonBody}');
 
-                          if ((_model.apiResultns3?.succeeded ?? true)) {
-                            print(
-                                '💳 [CHOOSE_PAYMENT] SUCCESS: Order created, navigating to completion page');
-                            context.pushNamed('ordercompletedCopy');
-                          } else {
-                            print(
-                                '💳 [CHOOSE_PAYMENT] ERROR: Order creation failed');
-                            // await actions.snackbar(
-                            //   context,
-                            //   getJsonField(
-                            //     choosePaymentGetUserInfoResponse.jsonBody,
-                            //     r'''$.message''',
-                            //   ).toString(),
-                            // );
-                          }
+                    //       if ((_model.apiResultns3?.succeeded ?? true)) {
+                    //         print(
+                    //             '💳 [CHOOSE_PAYMENT] SUCCESS: Order created, navigating to completion page');
+                    //         context.pushNamed('ordercompletedCopy');
+                    //       } else {
+                    //         print(
+                    //             '💳 [CHOOSE_PAYMENT] ERROR: Order creation failed');
+                    //         // await actions.snackbar(
+                    //         //   context,
+                    //         //   getJsonField(
+                    //         //     choosePaymentGetUserInfoResponse.jsonBody,
+                    //         //     r'''$.message''',
+                    //         //   ).toString(),
+                    //         // );
+                    //       }
 
-                          safeSetState(() {});
-                        },
-                        child: Container(
-                          width: MediaQuery.sizeOf(context).width * 1.0,
-                          height: MediaQuery.sizeOf(context).height * 0.08,
-                          decoration: BoxDecoration(
-                            color: FlutterFlowTheme.of(context)
-                                .secondaryBackground,
-                            borderRadius: BorderRadius.circular(20.0),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                10.0, 0.0, 0.0, 0.0),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Container(
-                                  width:
-                                      MediaQuery.sizeOf(context).width * 0.11,
-                                  height:
-                                      MediaQuery.sizeOf(context).width * 0.11,
-                                  decoration: BoxDecoration(
-                                    color: const Color(0xFFECEEF6),
-                                    image: DecorationImage(
-                                      fit: BoxFit.cover,
-                                      image: Image.network(
-                                        'https://cdn-icons-png.flaticon.com/512/9198/9198192.png',
-                                      ).image,
-                                    ),
-                                    shape: BoxShape.circle,
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
-                                      15.0, 0.0, 0.0, 0.0),
-                                  child: Text(
-                                    'Cash On Delivery',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Inter',
-                                          color: const Color(0xFF201A25),
-                                          letterSpacing: 0.0,
-                                          useGoogleFonts: GoogleFonts.asMap()
-                                              .containsKey('Inter'),
-                                        ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ).animateOnActionTrigger(
-                        animationsMap['containerOnActionTriggerAnimation1']!,
-                      ),
-                    ),
+                    //       safeSetState(() {});
+                    //     },
+                    //     child: Container(
+                    //       width: MediaQuery.sizeOf(context).width * 1.0,
+                    //       height: MediaQuery.sizeOf(context).height * 0.08,
+                    //       decoration: BoxDecoration(
+                    //         color: FlutterFlowTheme.of(context)
+                    //             .secondaryBackground,
+                    //         borderRadius: BorderRadius.circular(20.0),
+                    //       ),
+                    //       child: Padding(
+                    //         padding: const EdgeInsetsDirectional.fromSTEB(
+                    //             10.0, 0.0, 0.0, 0.0),
+                    //         child: Row(
+                    //           mainAxisSize: MainAxisSize.max,
+                    //           children: [
+                    //             Container(
+                    //               width:
+                    //                   MediaQuery.sizeOf(context).width * 0.11,
+                    //               height:
+                    //                   MediaQuery.sizeOf(context).width * 0.11,
+                    //               decoration: BoxDecoration(
+                    //                 color: const Color(0xFFECEEF6),
+                    //                 image: DecorationImage(
+                    //                   fit: BoxFit.cover,
+                    //                   image: Image.network(
+                    //                     'https://cdn-icons-png.flaticon.com/512/9198/9198192.png',
+                    //                   ).image,
+                    //                 ),
+                    //                 shape: BoxShape.circle,
+                    //               ),
+                    //             ),
+                    //             Padding(
+                    //               padding: const EdgeInsetsDirectional.fromSTEB(
+                    //                   15.0, 0.0, 0.0, 0.0),
+                    //               child: Text(
+                    //                 'Cash On Delivery',
+                    //                 style: FlutterFlowTheme.of(context)
+                    //                     .bodyMedium
+                    //                     .override(
+                    //                       fontFamily: 'Inter',
+                    //                       color: const Color(0xFF201A25),
+                    //                       letterSpacing: 0.0,
+                    //                       useGoogleFonts: GoogleFonts.asMap()
+                    //                           .containsKey('Inter'),
+                    //                     ),
+                    //               ),
+                    //             ),
+                    //           ],
+                    //         ),
+                    //       ),
+                    //     ),
+                    //   ).animateOnActionTrigger(
+                    //     animationsMap['containerOnActionTriggerAnimation1']!,
+                    //   ),
+                    // ),
                     Padding(
                       padding: const EdgeInsetsDirectional.fromSTEB(
                           20.0, 50.0, 20.0, 0.0),
