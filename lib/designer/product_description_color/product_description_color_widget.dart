@@ -15,6 +15,8 @@ import '/backend/api_requests/recently_viewed_api.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import '/utils/recently_viewed_helper.dart';
+import '/utils/modern_snackbar.dart';
+import '/utils/toast_examples.dart';
 import '/flutter_flow/flutter_flow_expanded_image_view.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -381,6 +383,28 @@ class _ProductDescriptionColorWidgetState
                               ),
                               Padding(
                                 padding: const EdgeInsetsDirectional.fromSTEB(
+                                    10, 3, 0, 0),
+                                child: Text(
+                                  '* All prices are inclusive of GST charges',
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodySmall
+                                      .override(
+                                        fontFamily: FlutterFlowTheme.of(context)
+                                            .bodySmallFamily,
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryText,
+                                        fontSize: 10,
+                                        letterSpacing: 0.0,
+                                        fontStyle: FontStyle.italic,
+                                        useGoogleFonts: GoogleFonts.asMap()
+                                            .containsKey(
+                                                FlutterFlowTheme.of(context)
+                                                    .bodySmallFamily),
+                                      ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     10, 15, 0, 0),
                                 child: Text(
                                   'Colors',
@@ -615,138 +639,159 @@ class _ProductDescriptionColorWidgetState
                                             (detailsIndex) {
                                           final detailsItem =
                                               details[detailsIndex];
-                                          return Align(
-                                            alignment:
-                                                const AlignmentDirectional(
-                                                    0, 0),
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsetsDirectional
-                                                      .fromSTEB(0, 0, 15, 0),
-                                              child: InkWell(
-                                                splashColor: Colors.transparent,
-                                                focusColor: Colors.transparent,
-                                                hoverColor: Colors.transparent,
-                                                highlightColor:
-                                                    Colors.transparent,
-                                                onTap: () async {
-                                                  _model.pageindex =
-                                                      detailsIndex;
-                                                  _model.size = getJsonField(
-                                                    detailsItem,
-                                                    r'''$.size''',
-                                                  ).toString();
-                                                  _model.price = getJsonField(
-                                                    detailsItem,
-                                                    r'''$.price''',
-                                                  ).toString();
-                                                  safeSetState(() {});
-                                                },
-                                                child: Container(
-                                                  width:
-                                                      MediaQuery.sizeOf(context)
-                                                              .width *
-                                                          0.12,
-                                                  height:
-                                                      MediaQuery.sizeOf(context)
-                                                              .height *
-                                                          0.058,
-                                                  decoration: BoxDecoration(
-                                                    color: _model.pageindex ==
-                                                            detailsIndex
+                                          final isSelected =
+                                              _model.pageindex == detailsIndex;
+                                          return Padding(
+                                            padding: const EdgeInsetsDirectional
+                                                .fromSTEB(0, 0, 12, 0),
+                                            child: InkWell(
+                                              splashColor: Colors.transparent,
+                                              focusColor: Colors.transparent,
+                                              hoverColor: Colors.transparent,
+                                              highlightColor:
+                                                  Colors.transparent,
+                                              onTap: () async {
+                                                _model.pageindex = detailsIndex;
+                                                _model.size = getJsonField(
+                                                  detailsItem,
+                                                  r'''$.size''',
+                                                ).toString();
+                                                _model.price = getJsonField(
+                                                  detailsItem,
+                                                  r'''$.price''',
+                                                ).toString();
+                                                safeSetState(() {});
+                                              },
+                                              child: Container(
+                                                constraints:
+                                                    const BoxConstraints(
+                                                  minWidth: 80,
+                                                  maxWidth: 140,
+                                                ),
+                                                decoration: BoxDecoration(
+                                                  color: isSelected
+                                                      ? FlutterFlowTheme.of(
+                                                              context)
+                                                          .primary
+                                                      : FlutterFlowTheme.of(
+                                                              context)
+                                                          .accent4,
+                                                  borderRadius:
+                                                      BorderRadius.circular(12),
+                                                  border: Border.all(
+                                                    color: isSelected
                                                         ? FlutterFlowTheme.of(
                                                                 context)
                                                             .primary
                                                         : FlutterFlowTheme.of(
                                                                 context)
-                                                            .accent4,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            5),
-                                                    border: Border.all(
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primaryText,
-                                                    ),
+                                                            .primaryText
+                                                            .withOpacity(0.3),
+                                                    width: isSelected ? 2 : 1,
                                                   ),
+                                                  boxShadow: isSelected
+                                                      ? [
+                                                          BoxShadow(
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .primary
+                                                                .withOpacity(
+                                                                    0.3),
+                                                            blurRadius: 8,
+                                                            offset:
+                                                                const Offset(
+                                                                    0, 2),
+                                                          ),
+                                                        ]
+                                                      : null,
+                                                ),
+                                                child: Padding(
+                                                  padding: const EdgeInsets
+                                                      .symmetric(
+                                                      horizontal: 16,
+                                                      vertical: 12),
                                                   child: Column(
                                                     mainAxisSize:
-                                                        MainAxisSize.max,
+                                                        MainAxisSize.min,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .center,
                                                     children: [
-                                                      Align(
-                                                        alignment:
-                                                            const AlignmentDirectional(
-                                                                0, 0),
+                                                      Flexible(
                                                         child: Text(
                                                           getJsonField(
                                                             detailsItem,
                                                             r'''$.size''',
                                                           ).toString(),
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          maxLines: 2,
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
                                                           style: FlutterFlowTheme
                                                                   .of(context)
                                                               .bodyMedium
                                                               .override(
                                                                 fontFamily:
-                                                                    'DM Sans',
-                                                                color: _model
-                                                                            .pageindex ==
-                                                                        detailsIndex
+                                                                    'Inter',
+                                                                color: isSelected
                                                                     ? FlutterFlowTheme.of(
                                                                             context)
                                                                         .secondaryBackground
                                                                     : FlutterFlowTheme.of(
                                                                             context)
                                                                         .secondaryText,
-                                                                fontSize: 12,
+                                                                fontSize: 13,
                                                                 letterSpacing:
                                                                     0.0,
                                                                 fontWeight:
                                                                     FontWeight
-                                                                        .bold,
+                                                                        .w600,
                                                                 useGoogleFonts: GoogleFonts
                                                                         .asMap()
                                                                     .containsKey(
-                                                                        'DM Sans'),
+                                                                        'Inter'),
                                                               ),
                                                         ),
                                                       ),
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                0, 5, 0, 0),
-                                                        child: Text(
-                                                          '₹${getJsonField(
-                                                            detailsItem,
-                                                            r'''$.price''',
-                                                          ).toString()}',
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodyMedium
-                                                              .override(
-                                                                fontFamily: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMediumFamily,
-                                                                color: _model
-                                                                            .pageindex ==
-                                                                        detailsIndex
-                                                                    ? FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .secondaryBackground
-                                                                    : FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primaryText,
-                                                                fontSize: 10,
-                                                                letterSpacing:
-                                                                    0.0,
-                                                                useGoogleFonts: GoogleFonts
-                                                                        .asMap()
-                                                                    .containsKey(
-                                                                        FlutterFlowTheme.of(context)
-                                                                            .bodyMediumFamily),
-                                                              ),
-                                                        ),
+                                                      const SizedBox(height: 6),
+                                                      Text(
+                                                        '₹${getJsonField(
+                                                          detailsItem,
+                                                          r'''$.price''',
+                                                        ).toString()}',
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Inter',
+                                                                  color: isSelected
+                                                                      ? FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .secondaryBackground
+                                                                          .withOpacity(
+                                                                              0.9)
+                                                                      : FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .primaryText,
+                                                                  fontSize: 11,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                  useGoogleFonts: GoogleFonts
+                                                                          .asMap()
+                                                                      .containsKey(
+                                                                          'Inter'),
+                                                                ),
                                                       ),
                                                     ],
                                                   ),
@@ -1513,31 +1558,17 @@ class _ProductDescriptionColorWidgetState
                                           'API Result: ${_model.apiResult2t4?.jsonBody}');
 
                                       if ((_model.apiResult2t4?.succeeded ??
-                                          true)) {
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(
-                                          SnackBar(
-                                            content: Text(
-                                              BackendAPIGroup
-                                                  .createCartandUpdateCartOneFunctionCall
-                                                  .message(
-                                                (_model.apiResult2t4
-                                                        ?.jsonBody ??
-                                                    ''),
-                                              )!,
-                                              style: TextStyle(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryText,
-                                              ),
-                                            ),
-                                            duration: const Duration(
-                                                milliseconds: 4000),
-                                            backgroundColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .secondary,
-                                          ),
-                                        );
+                                          false)) {
+                                        final productName = BackendAPIGroup
+                                                .getProductByIdCall
+                                                .productName(
+                                              productDescriptionColorGetProductByIdResponse
+                                                  .jsonBody,
+                                            ) ??
+                                            'Product';
+
+                                        ToastExamples.addToCart(
+                                            context, productName);
 
                                         await currentUserReference!
                                             .update(createUsersRecordData(
@@ -1555,29 +1586,17 @@ class _ProductDescriptionColorWidgetState
                                         )!;
                                         safeSetState(() {});
                                       } else {
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(
-                                          SnackBar(
-                                            content: Text(
-                                              BackendAPIGroup
+                                        ModernSnackbar.error(
+                                          context: context,
+                                          message: 'Failed to Add',
+                                          subtitle: BackendAPIGroup
                                                   .createCartandUpdateCartOneFunctionCall
                                                   .message(
                                                 (_model.apiResult2t4
                                                         ?.jsonBody ??
                                                     ''),
-                                              )!,
-                                              style: TextStyle(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryText,
-                                              ),
-                                            ),
-                                            duration: const Duration(
-                                                milliseconds: 4000),
-                                            backgroundColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .secondary,
-                                          ),
+                                              ) ??
+                                              'Unable to add item to cart',
                                         );
                                       }
                                     } else {

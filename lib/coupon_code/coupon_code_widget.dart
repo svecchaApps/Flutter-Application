@@ -47,7 +47,7 @@ class _CouponCodeWidgetState extends State<CouponCodeWidget> {
     context.watch<FFAppState>();
 
     return FutureBuilder<ApiCallResponse>(
-      future: BackendAPIGroup.getAllCouponsCall.call(),
+      future: BackendAPIGroup.getActiveCouponsCall.call(),
       builder: (context, snapshot) {
         // Customize what your widget looks like when it's loading.
         if (!snapshot.hasData) {
@@ -67,6 +67,19 @@ class _CouponCodeWidgetState extends State<CouponCodeWidget> {
           );
         }
         final couponCodeGetAllCouponsResponse = snapshot.data!;
+        final rawBody = couponCodeGetAllCouponsResponse.jsonBody;
+        final listFromApi = BackendAPIGroup.getActiveCouponsCall.body(rawBody);
+        debugPrint(
+          '[COUPON] Active coupons API: statusCode=${couponCodeGetAllCouponsResponse.statusCode}, '
+          'succeeded=${couponCodeGetAllCouponsResponse.succeeded}, '
+          'jsonBody type=${rawBody?.runtimeType}, '
+          'listFromApi=${listFromApi?.length ?? 0} items',
+        );
+        if (rawBody != null && rawBody is Map && listFromApi == null) {
+          debugPrint(
+            '[COUPON] Response keys: ${rawBody.keys.toList()}, data present: ${rawBody.containsKey('data')}',
+          );
+        }
 
         return GestureDetector(
           onTap: () {
@@ -208,15 +221,112 @@ class _CouponCodeWidgetState extends State<CouponCodeWidget> {
                             const EdgeInsetsDirectional.fromSTEB(20, 20, 20, 0),
                         child: FFButtonWidget(
                           onPressed: () async {
-                            _model.apiResult8p9 = await BackendAPIGroup
-                                .applyCouponUniversalCall
-                                .call(
-                              userId: FFAppState().userId,
-                              couponCode: _model.textController.text,
-                              cartId: FFAppState().cartId,
-                            );
+                            final couponCode =
+                                _model.textController.text.trim();
+                            final userId = FFAppState().userId;
+                            final cartId = FFAppState().cartId;
 
-                            if ((_model.apiResult8p9?.succeeded ?? true)) {
+                            if (couponCode.isEmpty) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                    'Please enter a coupon code',
+                                    style: TextStyle(
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryText,
+                                    ),
+                                  ),
+                                  duration: const Duration(milliseconds: 4000),
+                                  backgroundColor:
+                                      FlutterFlowTheme.of(context).secondary,
+                                ),
+                              );
+                              return;
+                            }
+                            if (userId.isEmpty || cartId.isEmpty) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                    'Cart or session missing. Please try again from the cart.',
+                                    style: TextStyle(
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryText,
+                                    ),
+                                  ),
+                                  duration: const Duration(milliseconds: 4000),
+                                  backgroundColor:
+                                      FlutterFlowTheme.of(context).secondary,
+                                ),
+                              );
+                              return;
+                            }
+
+                            final requestBody =
+                                '{"userId":"$userId","couponCode":"$couponCode","cartId":"$cartId"}';
+                            debugPrint(
+                              '[COUPON] Calling apply coupon API (applyUniversal): '
+                              'userId=$userId, cartId=$cartId, couponCode=$couponCode',
+                            );
+                            debugPrint(
+                                '[COUPON] Request body (applyUniversal): $requestBody');
+                            if (mounted) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                    'Applying coupon...',
+                                    style: TextStyle(
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryText,
+                                    ),
+                                  ),
+                                  duration: const Duration(seconds: 1),
+                                  backgroundColor:
+                                      FlutterFlowTheme.of(context).secondary,
+                                ),
+                              );
+                            }
+
+                            try {
+                              _model.apiResult8p9 = await BackendAPIGroup
+                                  .applyCouponUniversalCall
+                                  .call(
+                                userId: userId,
+                                couponCode: couponCode,
+                                cartId: cartId,
+                              );
+                              final body =
+                                  _model.apiResult8p9?.jsonBody?.toString() ??
+                                      '';
+                              debugPrint(
+                                '[COUPON] API response: statusCode=${_model.apiResult8p9?.statusCode}, '
+                                'succeeded=${_model.apiResult8p9?.succeeded}, '
+                                'body=${body.length > 200 ? '${body.substring(0, 200)}...' : body}',
+                              );
+                            } catch (e, stack) {
+                              debugPrint('[COUPON] API exception: $e');
+                              debugPrint('[COUPON] Stack: $stack');
+                              if (mounted) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                      'Failed to apply coupon. Please try again.',
+                                      style: TextStyle(
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryText,
+                                      ),
+                                    ),
+                                    duration:
+                                        const Duration(milliseconds: 4000),
+                                    backgroundColor:
+                                        FlutterFlowTheme.of(context).secondary,
+                                  ),
+                                );
+                              }
+                              safeSetState(() {});
+                              return;
+                            }
+
+                            if (_model.apiResult8p9?.succeeded ?? false) {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
                                   content: Text(
@@ -236,13 +346,16 @@ class _CouponCodeWidgetState extends State<CouponCodeWidget> {
 
                               context.goNamed(PaymentpageWidget.routeName);
                             } else {
+                              final message = getJsonField(
+                                (_model.apiResult8p9?.jsonBody ?? ''),
+                                r'''$.message''',
+                              ).toString();
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
                                   content: Text(
-                                    getJsonField(
-                                      (_model.apiResult8p9?.jsonBody ?? ''),
-                                      r'''$.message''',
-                                    ).toString(),
+                                    message.isNotEmpty
+                                        ? message
+                                        : 'Coupon could not be applied.',
                                     style: TextStyle(
                                       color: FlutterFlowTheme.of(context)
                                           .primaryText,
@@ -314,13 +427,52 @@ class _CouponCodeWidgetState extends State<CouponCodeWidget> {
                                 Builder(
                                   builder: (context) {
                                     final jsonBody =
-                                        BackendAPIGroup.getAllCouponsCall
-                                                .body(
-                                                  couponCodeGetAllCouponsResponse
-                                                      .jsonBody,
-                                                )
-                                                ?.toList() ??
-                                            [];
+                                        (listFromApi?.toList() ?? []);
+
+                                    if (jsonBody.isEmpty &&
+                                        couponCodeGetAllCouponsResponse
+                                            .succeeded) {
+                                      return Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 16.0),
+                                        child: Text(
+                                          'No active coupons at the moment.',
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodySmall
+                                              .override(
+                                                font:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodySmall,
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondaryText,
+                                                letterSpacing: 0.0,
+                                              ),
+                                        ),
+                                      );
+                                    }
+                                    if (jsonBody.isEmpty &&
+                                        !couponCodeGetAllCouponsResponse
+                                            .succeeded) {
+                                      return Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 16.0),
+                                        child: Text(
+                                          'Could not load coupons. Please try again.',
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodySmall
+                                              .override(
+                                                font:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodySmall,
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .error,
+                                                letterSpacing: 0.0,
+                                              ),
+                                        ),
+                                      );
+                                    }
 
                                     return ListView.separated(
                                       padding: EdgeInsets.zero,
@@ -403,23 +555,106 @@ class _CouponCodeWidgetState extends State<CouponCodeWidget> {
                                                 ),
                                                 FFButtonWidget(
                                                   onPressed: () async {
-                                                    _model.couponApi =
-                                                        await BackendAPIGroup
-                                                            .applyCouponsCall
-                                                            .call(
-                                                      userId:
-                                                          FFAppState().userId,
-                                                      couponCode: getJsonField(
-                                                        jsonBodyItem,
-                                                        r'''$._id''',
-                                                      ).toString(),
-                                                      cartId:
-                                                          FFAppState().cartId,
+                                                    final userId =
+                                                        FFAppState().userId;
+                                                    final cartId =
+                                                        FFAppState().cartId;
+                                                    final couponCodeFromItem =
+                                                        getJsonField(
+                                                      jsonBodyItem,
+                                                      r'''$.couponCode''',
+                                                    ).toString();
+                                                    if (userId.isEmpty ||
+                                                        cartId.isEmpty) {
+                                                      ScaffoldMessenger.of(
+                                                              context)
+                                                          .showSnackBar(
+                                                        SnackBar(
+                                                          content: Text(
+                                                            'Cart or session missing. Please try again from the cart.',
+                                                            style: TextStyle(
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .primaryText,
+                                                            ),
+                                                          ),
+                                                          duration:
+                                                              const Duration(
+                                                                  milliseconds:
+                                                                      4000),
+                                                          backgroundColor:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .secondary,
+                                                        ),
+                                                      );
+                                                      return;
+                                                    }
+                                                    final requestBodyApply =
+                                                        '{"userId":"$userId","couponCode":"$couponCodeFromItem","cartId":"$cartId"}';
+                                                    debugPrint(
+                                                      '[COUPON] Calling apply coupon API (applyUniversal from list): '
+                                                      'userId=$userId, cartId=$cartId, couponCode=$couponCodeFromItem',
                                                     );
+                                                    debugPrint(
+                                                      '[COUPON] Request body (applyUniversal): $requestBodyApply',
+                                                    );
+                                                    try {
+                                                      _model.apiResult8p9 =
+                                                          await BackendAPIGroup
+                                                              .applyCouponUniversalCall
+                                                              .call(
+                                                        userId: userId,
+                                                        couponCode:
+                                                            couponCodeFromItem,
+                                                        cartId: cartId,
+                                                      );
+                                                      final resBody = _model
+                                                              .apiResult8p9
+                                                              ?.jsonBody
+                                                              ?.toString() ??
+                                                          '';
+                                                      debugPrint(
+                                                        '[COUPON] API response (applyUniversal): statusCode=${_model.apiResult8p9?.statusCode}, '
+                                                        'succeeded=${_model.apiResult8p9?.succeeded}, '
+                                                        'body=${resBody.length > 200 ? '${resBody.substring(0, 200)}...' : resBody}',
+                                                      );
+                                                    } catch (e, stack) {
+                                                      debugPrint(
+                                                          '[COUPON] API exception (applyUniversal): $e');
+                                                      debugPrint(
+                                                          '[COUPON] Stack: $stack');
+                                                      if (mounted) {
+                                                        ScaffoldMessenger.of(
+                                                                context)
+                                                            .showSnackBar(
+                                                          SnackBar(
+                                                            content: Text(
+                                                              'Failed to apply coupon. Please try again.',
+                                                              style: TextStyle(
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primaryText,
+                                                              ),
+                                                            ),
+                                                            duration:
+                                                                const Duration(
+                                                                    milliseconds:
+                                                                        4000),
+                                                            backgroundColor:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .secondary,
+                                                          ),
+                                                        );
+                                                      }
+                                                      safeSetState(() {});
+                                                      return;
+                                                    }
 
-                                                    if ((_model.couponApi
+                                                    if (_model.apiResult8p9
                                                             ?.succeeded ??
-                                                        true)) {
+                                                        false) {
                                                       ScaffoldMessenger.of(
                                                               context)
                                                           .showSnackBar(
@@ -450,12 +685,21 @@ class _CouponCodeWidgetState extends State<CouponCodeWidget> {
                                                           PaymentpageWidget
                                                               .routeName);
                                                     } else {
+                                                      final message =
+                                                          getJsonField(
+                                                        (_model.apiResult8p9
+                                                                ?.jsonBody ??
+                                                            ''),
+                                                        r'''$.message''',
+                                                      ).toString();
                                                       ScaffoldMessenger.of(
                                                               context)
                                                           .showSnackBar(
                                                         SnackBar(
                                                           content: Text(
-                                                            'Coupon not applied',
+                                                            message.isNotEmpty
+                                                                ? message
+                                                                : 'Coupon could not be applied.',
                                                             style: TextStyle(
                                                               color: FlutterFlowTheme
                                                                       .of(context)

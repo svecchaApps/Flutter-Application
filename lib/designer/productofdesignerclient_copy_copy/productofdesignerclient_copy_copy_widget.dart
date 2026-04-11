@@ -574,7 +574,7 @@ class _ProductofdesignerclientCopyCopyWidgetState
                     MediaQuery.sizeOf(context).width > 600 ? 20 : 10,
                     15,
                     MediaQuery.sizeOf(context).width > 600 ? 20 : 10,
-                    50,
+                    10,
                   ),
                   child: FutureBuilder<ApiCallResponse>(
                       future: BackendAPIGroup.wishlistCall.call(
@@ -705,7 +705,11 @@ class _ProductofdesignerclientCopyCopyWidgetState
                               RefreshIndicator(
                                 onRefresh: () async {},
                                 child: GridView.builder(
-                                  padding: EdgeInsets.zero,
+                                  padding: EdgeInsets.only(
+                                    bottom:
+                                        MediaQuery.of(context).padding.bottom +
+                                            10,
+                                  ),
                                   gridDelegate:
                                       SliverGridDelegateWithFixedCrossAxisCount(
                                     crossAxisCount: _getCrossAxisCount(context),

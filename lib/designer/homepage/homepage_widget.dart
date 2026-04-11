@@ -4,6 +4,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/nav/serialization_util.dart';
 import '/index.dart';
+import '/config/environment_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -129,6 +130,21 @@ class _HomepageWidgetState extends State<HomepageWidget>
       return 15.0; // Large screens
     } else {
       return 16.0; // Very large screens/tablets
+    }
+  }
+
+  // Parse hex color string to Color
+  Color _parseColor(String hexColor) {
+    try {
+      final hex = hexColor.replaceAll('#', '');
+      if (hex.length == 6) {
+        return Color(int.parse('FF$hex', radix: 16));
+      } else if (hex.length == 8) {
+        return Color(int.parse(hex, radix: 16));
+      }
+      return Colors.white; // Default color
+    } catch (e) {
+      return Colors.white; // Default color on error
     }
   }
 
@@ -715,16 +731,24 @@ class _HomepageWidgetState extends State<HomepageWidget>
                                         itemCount: banners.length,
                                         itemBuilder: (context, index) {
                                           final banner = banners[index];
-                                          final imageUrl = banner['imageUrl'] ??
-                                              banner['image'] ??
-                                              '';
+                                          final screenWidth =
+                                              MediaQuery.of(context).size.width;
+
+                                          // Get the appropriate image URL
+                                          final imageUrl =
+                                              BannersApi.getBannerImage(
+                                            banner,
+                                            screenWidth,
+                                          );
+
+                                          // Extract banner data
                                           final title = banner['title'] ?? '';
-                                          final description =
-                                              banner['description'] ?? '';
+                                          final subtitle =
+                                              banner['subtitle'] ?? '';
                                           final actionUrl =
-                                              banner['actionUrl'] ??
-                                                  banner['link'] ??
-                                                  '';
+                                              banner['actionUrl'] ?? '';
+                                          final textColor =
+                                              banner['textColor'] ?? '#FFFFFF';
 
                                           return GestureDetector(
                                             onTap: () {
@@ -732,8 +756,6 @@ class _HomepageWidgetState extends State<HomepageWidget>
                                                 print(
                                                   '🔍 [BANNERS] Banner tapped: $actionUrl',
                                                 );
-                                                // Handle banner tap - could navigate to specific page or open URL
-                                                // For now, just log the action
                                               }
                                             },
                                             child: Container(
@@ -770,7 +792,7 @@ class _HomepageWidgetState extends State<HomepageWidget>
                                                       imageUrl,
                                                       width: double.infinity,
                                                       height: double.infinity,
-                                                      fit: BoxFit.cover,
+                                                      fit: BoxFit.fill,
                                                       errorBuilder: (
                                                         context,
                                                         error,
@@ -807,7 +829,7 @@ class _HomepageWidgetState extends State<HomepageWidget>
                                                     ),
                                                     // Banner Content Overlay
                                                     if (title.isNotEmpty ||
-                                                        description.isNotEmpty)
+                                                        subtitle.isNotEmpty)
                                                       Positioned(
                                                         bottom: 0,
                                                         left: 0,
@@ -849,11 +871,11 @@ class _HomepageWidgetState extends State<HomepageWidget>
                                                                 Text(
                                                                   title,
                                                                   style:
-                                                                      const TextStyle(
-                                                                    color: Colors
-                                                                        .white,
+                                                                      TextStyle(
+                                                                    color: _parseColor(
+                                                                        textColor),
                                                                     fontSize:
-                                                                        18,
+                                                                        20,
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .bold,
@@ -863,21 +885,30 @@ class _HomepageWidgetState extends State<HomepageWidget>
                                                                       TextOverflow
                                                                           .ellipsis,
                                                                 ),
-                                                              if (description
+                                                              if (subtitle
                                                                   .isNotEmpty)
-                                                                Text(
-                                                                  description,
-                                                                  style:
-                                                                      const TextStyle(
-                                                                    color: Colors
-                                                                        .white70,
-                                                                    fontSize:
-                                                                        14,
+                                                                Padding(
+                                                                  padding:
+                                                                      const EdgeInsets
+                                                                          .only(
+                                                                    top: 4.0,
                                                                   ),
-                                                                  maxLines: 2,
-                                                                  overflow:
-                                                                      TextOverflow
-                                                                          .ellipsis,
+                                                                  child: Text(
+                                                                    subtitle,
+                                                                    style:
+                                                                        TextStyle(
+                                                                      color: _parseColor(
+                                                                              textColor)
+                                                                          .withOpacity(
+                                                                              0.9),
+                                                                      fontSize:
+                                                                          16,
+                                                                    ),
+                                                                    maxLines: 2,
+                                                                    overflow:
+                                                                        TextOverflow
+                                                                            .ellipsis,
+                                                                  ),
                                                                 ),
                                                             ],
                                                           ),
@@ -958,7 +989,7 @@ class _HomepageWidgetState extends State<HomepageWidget>
                               child: FutureBuilder<http.Response>(
                                 future: http.get(
                                   Uri.parse(
-                                    'https://indigo-rhapsody-backend-ten.vercel.app/category',
+                                    '${EnvironmentConfig.baseUrl}/category',
                                   ),
                                 ),
                                 builder: (context, snapshot) {
@@ -1239,7 +1270,7 @@ class _HomepageWidgetState extends State<HomepageWidget>
                                         child: FutureBuilder<http.Response>(
                                           future: http.get(
                                             Uri.parse(
-                                              'https://indigo-rhapsody-backend-ten.vercel.app/designer/designers',
+                                              '${EnvironmentConfig.baseUrl}/designer/designers',
                                             ),
                                           ),
                                           builder: (context, snapshot) {
@@ -1546,7 +1577,7 @@ class _HomepageWidgetState extends State<HomepageWidget>
                                           child: FutureBuilder<http.Response>(
                                             future: http.get(
                                               Uri.parse(
-                                                'https://indigo-rhapsody-backend-ten.vercel.app/content-video/videos',
+                                                '${EnvironmentConfig.baseUrl}/content-video/videos',
                                               ),
                                             ),
                                             builder: (context, snapshot) {
@@ -1851,276 +1882,279 @@ class _HomepageWidgetState extends State<HomepageWidget>
                               decoration: const BoxDecoration(),
                             ),
                           ),
+                          // Padding(
+                          //   padding: const EdgeInsetsDirectional.fromSTEB(
+                          //     0.0,
+                          //     10.0,
+                          //     0.0,
+                          //     0.0,
+                          //   ),
+                          //   child: Container(
+                          //     width: MediaQuery.of(context).size.width,
+                          //     height: MediaQuery.of(context).size.height * 0.15,
+                          //     decoration: BoxDecoration(
+                          //       color: FlutterFlowTheme.of(
+                          //         context,
+                          //       ).secondaryBackground,
+                          //       borderRadius: BorderRadius.circular(0.0),
+                          //     ),
+                          //     child: ClipRRect(
+                          //       borderRadius: BorderRadius.circular(0.0),
+                          //       child: Image.network(
+                          //         'https://i.pinimg.com/originals/24/c7/b6/24c7b6bc82dec49ffce7f23a0822109f.png',
+                          //         width: 200.0,
+                          //         height: 200.0,
+                          //         fit: BoxFit.cover,
+                          //       ),
+                          //     ),
+                          //   ),
+                          // ),
                           Padding(
                             padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0,
-                              10.0,
+                              15.0,
                               0.0,
                               0.0,
                             ),
-                            child: Container(
-                              width: MediaQuery.of(context).size.width,
-                              height: MediaQuery.of(context).size.height * 0.15,
-                              decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(
-                                  context,
-                                ).secondaryBackground,
-                                borderRadius: BorderRadius.circular(0.0),
-                              ),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(0.0),
-                                child: Image.network(
-                                  'https://i.pinimg.com/originals/24/c7/b6/24c7b6bc82dec49ffce7f23a0822109f.png',
-                                  width: 200.0,
-                                  height: 200.0,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ),
-                          ),
-                          Column(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Container(
-                                height:
-                                    MediaQuery.of(context).size.height * 0.38,
-                                decoration: const BoxDecoration(
-                                  image: DecorationImage(
-                                    image: NetworkImage(
-                                      'https://storage.googleapis.com/flutterflow-io-6f20.appspot.com/projects/indigo-rhapsody-dupli-7begfm/assets/6sc684gqifpu/HTEX440230_1.png',
-                                    ),
-                                    fit: BoxFit.cover,
-                                  ),
-                                  gradient: LinearGradient(
-                                    begin: Alignment.topLeft,
-                                    end: Alignment.bottomRight,
-                                    colors: [
-                                      Color(0xFF1E3A8A), // Dark blue
-                                      Color(0xFF3B82F6), // Medium blue
-                                      Color(0xFF60A5FA), // Light blue
-                                    ],
-                                    stops: [0.0, 0.5, 1.0],
-                                  ),
-                                ),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Padding(
-                                      padding:
-                                          const EdgeInsetsDirectional.fromSTEB(
-                                        15.0,
-                                        15.0,
-                                        15.0,
-                                        0.0,
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Container(
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.38,
+                                  decoration: const BoxDecoration(
+                                    image: DecorationImage(
+                                      image: NetworkImage(
+                                        'https://storage.googleapis.com/flutterflow-io-6f20.appspot.com/projects/indigo-rhapsody-dupli-7begfm/assets/6sc684gqifpu/HTEX440230_1.png',
                                       ),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            'TRENDS JUST FOR YOU',
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  font: GoogleFonts.firaMono(
+                                      fit: BoxFit.cover,
+                                    ),
+                                    gradient: LinearGradient(
+                                      begin: Alignment.topLeft,
+                                      end: Alignment.bottomRight,
+                                      colors: [
+                                        Color(0xFF1E3A8A), // Dark blue
+                                        Color(0xFF3B82F6), // Medium blue
+                                        Color(0xFF60A5FA), // Light blue
+                                      ],
+                                      stops: [0.0, 0.5, 1.0],
+                                    ),
+                                  ),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(
+                                          15.0,
+                                          15.0,
+                                          15.0,
+                                          0.0,
+                                        ),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              'TRENDS JUST FOR YOU',
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .bodyMedium
+                                                  .override(
+                                                    font: GoogleFonts.firaMono(
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      fontStyle:
+                                                          FlutterFlowTheme.of(
+                                                        context,
+                                                      ).bodyMedium.fontStyle,
+                                                    ),
+                                                    color: FlutterFlowTheme.of(
+                                                      context,
+                                                    ).secondaryBackground,
+                                                    letterSpacing: 0.0,
                                                     fontWeight: FontWeight.w600,
                                                     fontStyle:
                                                         FlutterFlowTheme.of(
                                                       context,
                                                     ).bodyMedium.fontStyle,
                                                   ),
-                                                  color: FlutterFlowTheme.of(
-                                                    context,
-                                                  ).secondaryBackground,
-                                                  letterSpacing: 0.0,
-                                                  fontWeight: FontWeight.w600,
-                                                  fontStyle:
-                                                      FlutterFlowTheme.of(
-                                                    context,
-                                                  ).bodyMedium.fontStyle,
-                                                ),
-                                          ),
-                                          IconButton(
-                                            onPressed: () {
-                                              setState(() {
-                                                // Trigger refresh of trending products
-                                                print(
-                                                  '🔥 [HOMEPAGE] Manual refresh of trending products triggered',
-                                                );
-                                              });
-                                            },
-                                            icon: Icon(
-                                              Icons.refresh,
-                                              size: 20,
-                                              color: FlutterFlowTheme.of(
-                                                context,
-                                              ).secondaryBackground,
                                             ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding:
-                                          const EdgeInsetsDirectional.fromSTEB(
-                                        0.0,
-                                        5.0,
-                                        0.0,
-                                        0.0,
-                                      ),
-                                      child: Container(
-                                        width: MediaQuery.of(
-                                          context,
-                                        ).size.width,
-                                        height:
-                                            MediaQuery.of(context).size.height *
-                                                0.29,
-                                        decoration: const BoxDecoration(),
-                                        child: FutureBuilder<
-                                            List<Map<String, dynamic>>?>(
-                                          future: () async {
-                                            // Temporarily return empty list to test import
-                                            print(
-                                              '🔥 [HOMEPAGE] Testing trending API import...',
-                                            );
-                                            try {
-                                              // Test if the class exists
-                                              print(
-                                                '🔥 [HOMEPAGE] TrendingProductsApi class test...',
-                                              );
-                                              return await TrendingProductsApi
-                                                  .getTrendingProducts();
-                                            } catch (e) {
-                                              print(
-                                                '🔥 [HOMEPAGE] Error fetching trending products: $e',
-                                              );
-                                              return <Map<String, dynamic>>[];
-                                            }
-                                          }(),
-                                          builder: (context, snapshot) {
-                                            if (snapshot.connectionState ==
-                                                ConnectionState.waiting) {
-                                              return HomepageShimmer
-                                                  .trendingProductsShimmer();
-                                            }
-
-                                            if (snapshot.hasError) {
-                                              return Center(
-                                                child: Text(
-                                                  'Error loading trending products',
-                                                  style: TextStyle(
-                                                    color: Colors.grey[600],
-                                                    fontSize: 14,
-                                                  ),
-                                                ),
-                                              );
-                                            }
-
-                                            final products = snapshot.data;
-                                            if (products == null ||
-                                                products.isEmpty) {
-                                              return const SizedBox
-                                                  .shrink(); // Don't show section if no products
-                                            }
-
-                                            return ListView.separated(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                horizontal: 20.0,
+                                            IconButton(
+                                              onPressed: () {
+                                                setState(() {
+                                                  // Trigger refresh of trending products
+                                                  print(
+                                                    '🔥 [HOMEPAGE] Manual refresh of trending products triggered',
+                                                  );
+                                                });
+                                              },
+                                              icon: Icon(
+                                                Icons.refresh,
+                                                size: 20,
+                                                color: FlutterFlowTheme.of(
+                                                  context,
+                                                ).secondaryBackground,
                                               ),
-                                              scrollDirection: Axis.horizontal,
-                                              itemCount: products.length,
-                                              separatorBuilder: (_, __) =>
-                                                  const SizedBox(width: 15.0),
-                                              itemBuilder: (context, index) {
-                                                final product = products[index];
-                                                return GestureDetector(
-                                                  onTap: () {
-                                                    // Navigate to product details
-                                                    final productId =
-                                                        product['_id'] ??
-                                                            product['id'];
-                                                    final productPrice =
-                                                        product['price']
-                                                                ?.toString() ??
-                                                            '0';
-                                                    if (productId != null) {
-                                                      Navigator.push(
-                                                        context,
-                                                        MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              ProductDescriptionColorWidget(
-                                                            productId: productId
-                                                                .toString(),
-                                                            price: productPrice,
-                                                          ),
-                                                        ),
-                                                      );
-                                                    }
-                                                  },
-                                                  child: Container(
-                                                    width: MediaQuery.of(
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(
+                                          0.0,
+                                          5.0,
+                                          0.0,
+                                          0.0,
+                                        ),
+                                        child: Container(
+                                          width: MediaQuery.of(
+                                            context,
+                                          ).size.width,
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.29,
+                                          decoration: const BoxDecoration(),
+                                          child: FutureBuilder<
+                                              List<Map<String, dynamic>>?>(
+                                            future: () async {
+                                              // Temporarily return empty list to test import
+                                              print(
+                                                '🔥 [HOMEPAGE] Testing trending API import...',
+                                              );
+                                              try {
+                                                // Test if the class exists
+                                                print(
+                                                  '🔥 [HOMEPAGE] TrendingProductsApi class test...',
+                                                );
+                                                return await TrendingProductsApi
+                                                    .getTrendingProducts();
+                                              } catch (e) {
+                                                print(
+                                                  '🔥 [HOMEPAGE] Error fetching trending products: $e',
+                                                );
+                                                return <Map<String, dynamic>>[];
+                                              }
+                                            }(),
+                                            builder: (context, snapshot) {
+                                              if (snapshot.connectionState ==
+                                                  ConnectionState.waiting) {
+                                                return HomepageShimmer
+                                                    .trendingProductsShimmer();
+                                              }
+
+                                              if (snapshot.hasError) {
+                                                return Center(
+                                                  child: Text(
+                                                    'Error loading trending products',
+                                                    style: TextStyle(
+                                                      color: Colors.grey[600],
+                                                      fontSize: 14,
+                                                    ),
+                                                  ),
+                                                );
+                                              }
+
+                                              final products = snapshot.data;
+                                              if (products == null ||
+                                                  products.isEmpty) {
+                                                return const SizedBox
+                                                    .shrink(); // Don't show section if no products
+                                              }
+
+                                              return ListView.separated(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                  horizontal: 20.0,
+                                                ),
+                                                scrollDirection:
+                                                    Axis.horizontal,
+                                                itemCount: products.length,
+                                                separatorBuilder: (_, __) =>
+                                                    const SizedBox(width: 15.0),
+                                                itemBuilder: (context, index) {
+                                                  final product =
+                                                      products[index];
+                                                  return GestureDetector(
+                                                    onTap: () {
+                                                      // Navigate to product details
+                                                      final productId =
+                                                          product['_id'] ??
+                                                              product['id'];
+                                                      final productPrice =
+                                                          product['price']
+                                                                  ?.toString() ??
+                                                              '0';
+                                                      if (productId != null) {
+                                                        Navigator.push(
                                                           context,
-                                                        ).size.width *
-                                                        0.35,
-                                                    margin:
-                                                        const EdgeInsets.only(
-                                                      right: 15.0,
-                                                    ),
-                                                    decoration: BoxDecoration(
-                                                      color: Colors.white,
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                        16.0,
+                                                          MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                ProductDescriptionColorWidget(
+                                                              productId: productId
+                                                                  .toString(),
+                                                              price:
+                                                                  productPrice,
+                                                            ),
+                                                          ),
+                                                        );
+                                                      }
+                                                    },
+                                                    child: Container(
+                                                      width: MediaQuery.of(
+                                                            context,
+                                                          ).size.width *
+                                                          0.35,
+                                                      margin:
+                                                          const EdgeInsets.only(
+                                                        right: 15.0,
                                                       ),
-                                                      boxShadow: [
-                                                        BoxShadow(
-                                                          color: Colors.black
-                                                              .withOpacity(
-                                                            0.08,
-                                                          ),
-                                                          blurRadius: 8,
-                                                          offset: const Offset(
-                                                            0,
-                                                            4,
-                                                          ),
+                                                      decoration: BoxDecoration(
+                                                        color: Colors.white,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(
+                                                          16.0,
                                                         ),
-                                                      ],
-                                                    ),
-                                                    child: Column(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        // Product Image
-                                                        ClipRRect(
-                                                          borderRadius:
-                                                              const BorderRadius
-                                                                  .only(
-                                                            topLeft:
-                                                                Radius.circular(
-                                                              16.0,
+                                                        boxShadow: [
+                                                          BoxShadow(
+                                                            color: Colors.black
+                                                                .withOpacity(
+                                                              0.08,
                                                             ),
-                                                            topRight:
-                                                                Radius.circular(
-                                                              16.0,
+                                                            blurRadius: 8,
+                                                            offset:
+                                                                const Offset(
+                                                              0,
+                                                              4,
                                                             ),
                                                           ),
-                                                          child: SizedBox(
-                                                            width:
-                                                                double.infinity,
-                                                            height: MediaQuery
-                                                                    .of(
-                                                                  context,
-                                                                ).size.height *
-                                                                0.15,
-                                                            child:
-                                                                Image.network(
-                                                              _getProductImage(
-                                                                product,
+                                                        ],
+                                                      ),
+                                                      child: Column(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          // Product Image
+                                                          ClipRRect(
+                                                            borderRadius:
+                                                                const BorderRadius
+                                                                    .only(
+                                                              topLeft: Radius
+                                                                  .circular(
+                                                                16.0,
                                                               ),
+                                                              topRight: Radius
+                                                                  .circular(
+                                                                16.0,
+                                                              ),
+                                                            ),
+                                                            child: SizedBox(
                                                               width: double
                                                                   .infinity,
                                                               height: MediaQuery
@@ -2130,421 +2164,456 @@ class _HomepageWidgetState extends State<HomepageWidget>
                                                                       .size
                                                                       .height *
                                                                   0.15,
-                                                              fit: BoxFit.cover,
-                                                              errorBuilder: (
-                                                                context,
-                                                                error,
-                                                                stackTrace,
-                                                              ) {
-                                                                return Container(
-                                                                  width: double
-                                                                      .infinity,
-                                                                  height: MediaQuery
-                                                                          .of(
-                                                                        context,
-                                                                      ).size.height *
-                                                                      0.15,
-                                                                  decoration:
-                                                                      const BoxDecoration(
-                                                                    image:
-                                                                        DecorationImage(
+                                                              child:
+                                                                  Image.network(
+                                                                _getProductImage(
+                                                                  product,
+                                                                ),
+                                                                width: double
+                                                                    .infinity,
+                                                                height: MediaQuery
+                                                                            .of(
+                                                                      context,
+                                                                    )
+                                                                        .size
+                                                                        .height *
+                                                                    0.15,
+                                                                fit: BoxFit
+                                                                    .cover,
+                                                                errorBuilder: (
+                                                                  context,
+                                                                  error,
+                                                                  stackTrace,
+                                                                ) {
+                                                                  return Container(
+                                                                    width: double
+                                                                        .infinity,
+                                                                    height: MediaQuery
+                                                                            .of(
+                                                                          context,
+                                                                        ).size.height *
+                                                                        0.15,
+                                                                    decoration:
+                                                                        const BoxDecoration(
                                                                       image:
-                                                                          NetworkImage(
-                                                                        'https://storage.googleapis.com/flutterflow-io-6f20.appspot.com/projects/indigo-rhapsody-dupli-7begfm/assets/6sc684gqifpu/HTEX440230_1.png',
+                                                                          DecorationImage(
+                                                                        image:
+                                                                            NetworkImage(
+                                                                          'https://storage.googleapis.com/flutterflow-io-6f20.appspot.com/projects/indigo-rhapsody-dupli-7begfm/assets/6sc684gqifpu/HTEX440230_1.png',
+                                                                        ),
+                                                                        fit: BoxFit
+                                                                            .cover,
                                                                       ),
-                                                                      fit: BoxFit
-                                                                          .cover,
                                                                     ),
-                                                                  ),
-                                                                  child:
-                                                                      const Center(
-                                                                    child: Icon(
-                                                                      Icons
-                                                                          .image,
-                                                                      size: 50,
-                                                                      color: Colors
-                                                                          .white,
+                                                                    child:
+                                                                        const Center(
+                                                                      child:
+                                                                          Icon(
+                                                                        Icons
+                                                                            .image,
+                                                                        size:
+                                                                            50,
+                                                                        color: Colors
+                                                                            .white,
+                                                                      ),
                                                                     ),
-                                                                  ),
-                                                                );
-                                                              },
+                                                                  );
+                                                                },
+                                                              ),
                                                             ),
                                                           ),
-                                                        ),
-                                                        // Product Details
-                                                        Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .all(
-                                                            12.0,
-                                                          ),
-                                                          child: Column(
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .start,
-                                                            children: [
-                                                              Text(
-                                                                _getProductTitle(
-                                                                  product,
-                                                                ),
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMedium
-                                                                    .override(
-                                                                      font: GoogleFonts
-                                                                          .poppins(
-                                                                        fontWeight:
-                                                                            FontWeight.w600,
-                                                                      ),
-                                                                      fontSize:
-                                                                          14.0,
-                                                                      letterSpacing:
-                                                                          0.0,
-                                                                      color: const Color
-                                                                          .fromARGB(
-                                                                        255,
-                                                                        0,
-                                                                        0,
-                                                                        0,
-                                                                      ),
-                                                                    ),
-                                                                maxLines: 2,
-                                                                overflow:
-                                                                    TextOverflow
-                                                                        .ellipsis,
-                                                              ),
-                                                              const SizedBox(
-                                                                height: 4,
-                                                              ),
-                                                              Text(
-                                                                _getProductDescription(
-                                                                  product,
-                                                                ),
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMedium
-                                                                    .override(
-                                                                      font: GoogleFonts
-                                                                          .poppins(
-                                                                        fontWeight:
-                                                                            FontWeight.w400,
-                                                                      ),
-                                                                      fontSize:
-                                                                          12.0,
-                                                                      letterSpacing:
-                                                                          0.0,
-                                                                      color: const Color
-                                                                          .fromARGB(
-                                                                        179,
-                                                                        0,
-                                                                        0,
-                                                                        0,
-                                                                      ),
-                                                                    ),
-                                                                maxLines: 1,
-                                                                overflow:
-                                                                    TextOverflow
-                                                                        .ellipsis,
-                                                              ),
-                                                              const SizedBox(
-                                                                height: 8,
-                                                              ),
-                                                              Row(
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .spaceBetween,
-                                                                children: [
-                                                                  Text(
-                                                                    _getProductPrice(
-                                                                      product,
-                                                                    ),
-                                                                    style: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyMedium
-                                                                        .override(
-                                                                          font:
-                                                                              GoogleFonts.poppins(
-                                                                            fontWeight:
-                                                                                FontWeight.w700,
-                                                                          ),
-                                                                          fontSize:
-                                                                              16.0,
-                                                                          letterSpacing:
-                                                                              0.0,
-                                                                          color:
-                                                                              const Color.fromARGB(
-                                                                            255,
-                                                                            0,
-                                                                            0,
-                                                                            0,
-                                                                          ),
+                                                          // Product Details
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(
+                                                              12.0,
+                                                            ),
+                                                            child: Column(
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .start,
+                                                              children: [
+                                                                Text(
+                                                                  _getProductTitle(
+                                                                    product,
+                                                                  ),
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .override(
+                                                                        font: GoogleFonts
+                                                                            .poppins(
+                                                                          fontWeight:
+                                                                              FontWeight.w600,
                                                                         ),
-                                                                  ),
-                                                                  Container(
-                                                                    padding:
-                                                                        const EdgeInsets
-                                                                            .symmetric(
-                                                                      horizontal:
-                                                                          8,
-                                                                      vertical:
-                                                                          4,
-                                                                    ),
-                                                                    decoration:
-                                                                        BoxDecoration(
-                                                                      color: Colors
-                                                                          .green[50],
-                                                                      borderRadius:
-                                                                          BorderRadius
-                                                                              .circular(
-                                                                        12,
-                                                                      ),
-                                                                      border:
-                                                                          Border
-                                                                              .all(
-                                                                        color: Colors
-                                                                            .green[200]!,
-                                                                      ),
-                                                                    ),
-                                                                    child: Text(
-                                                                      'Trending',
-                                                                      style:
-                                                                          TextStyle(
-                                                                        color: Colors
-                                                                            .green[700],
                                                                         fontSize:
-                                                                            10,
-                                                                        fontWeight:
-                                                                            FontWeight.w600,
+                                                                            14.0,
+                                                                        letterSpacing:
+                                                                            0.0,
+                                                                        color: const Color
+                                                                            .fromARGB(
+                                                                          255,
+                                                                          0,
+                                                                          0,
+                                                                          0,
+                                                                        ),
+                                                                      ),
+                                                                  maxLines: 2,
+                                                                  overflow:
+                                                                      TextOverflow
+                                                                          .ellipsis,
+                                                                ),
+                                                                const SizedBox(
+                                                                  height: 4,
+                                                                ),
+                                                                Text(
+                                                                  _getProductDescription(
+                                                                    product,
+                                                                  ),
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .override(
+                                                                        font: GoogleFonts
+                                                                            .poppins(
+                                                                          fontWeight:
+                                                                              FontWeight.w400,
+                                                                        ),
+                                                                        fontSize:
+                                                                            12.0,
+                                                                        letterSpacing:
+                                                                            0.0,
+                                                                        color: const Color
+                                                                            .fromARGB(
+                                                                          179,
+                                                                          0,
+                                                                          0,
+                                                                          0,
+                                                                        ),
+                                                                      ),
+                                                                  maxLines: 1,
+                                                                  overflow:
+                                                                      TextOverflow
+                                                                          .ellipsis,
+                                                                ),
+                                                                const SizedBox(
+                                                                  height: 8,
+                                                                ),
+                                                                Row(
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .spaceBetween,
+                                                                  children: [
+                                                                    Text(
+                                                                      _getProductPrice(
+                                                                        product,
+                                                                      ),
+                                                                      style: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyMedium
+                                                                          .override(
+                                                                            font:
+                                                                                GoogleFonts.poppins(
+                                                                              fontWeight: FontWeight.w700,
+                                                                            ),
+                                                                            fontSize:
+                                                                                16.0,
+                                                                            letterSpacing:
+                                                                                0.0,
+                                                                            color:
+                                                                                const Color.fromARGB(
+                                                                              255,
+                                                                              0,
+                                                                              0,
+                                                                              0,
+                                                                            ),
+                                                                          ),
+                                                                    ),
+                                                                    Container(
+                                                                      padding:
+                                                                          const EdgeInsets
+                                                                              .symmetric(
+                                                                        horizontal:
+                                                                            8,
+                                                                        vertical:
+                                                                            4,
+                                                                      ),
+                                                                      decoration:
+                                                                          BoxDecoration(
+                                                                        color: Colors
+                                                                            .green[50],
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(
+                                                                          12,
+                                                                        ),
+                                                                        border:
+                                                                            Border.all(
+                                                                          color:
+                                                                              Colors.green[200]!,
+                                                                        ),
+                                                                      ),
+                                                                      child:
+                                                                          Text(
+                                                                        'Trending',
+                                                                        style:
+                                                                            TextStyle(
+                                                                          color:
+                                                                              Colors.green[700],
+                                                                          fontSize:
+                                                                              10,
+                                                                          fontWeight:
+                                                                              FontWeight.w600,
+                                                                        ),
                                                                       ),
                                                                     ),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                            ],
+                                                                  ],
+                                                                ),
+                                                              ],
+                                                            ),
                                                           ),
-                                                        ),
-                                                      ],
+                                                        ],
+                                                      ),
                                                     ),
-                                                  ),
-                                                );
-                                              },
-                                            );
-                                          },
+                                                  );
+                                                },
+                                              );
+                                            },
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
-                                  15.0,
-                                  5.0,
-                                  15.0,
-                                  0.0,
-                                ),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      'Recently Viewed',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            font: GoogleFonts.notoSansJp(
+                                Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                    15.0,
+                                    5.0,
+                                    15.0,
+                                    0.0,
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        'Recently Viewed',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              font: GoogleFonts.notoSansJp(
+                                                fontWeight: FontWeight.w600,
+                                                fontStyle: FlutterFlowTheme.of(
+                                                  context,
+                                                ).bodyMedium.fontStyle,
+                                              ),
+                                              letterSpacing: 0.0,
                                               fontWeight: FontWeight.w600,
                                               fontStyle: FlutterFlowTheme.of(
                                                 context,
                                               ).bodyMedium.fontStyle,
                                             ),
-                                            letterSpacing: 0.0,
-                                            fontWeight: FontWeight.w600,
-                                            fontStyle: FlutterFlowTheme.of(
-                                              context,
-                                            ).bodyMedium.fontStyle,
-                                          ),
-                                    ),
-                                    IconButton(
-                                      onPressed: () {
-                                        setState(() {
-                                          // Trigger refresh of recently viewed by rebuilding the widget
-                                          print(
-                                            '🔄 [HOMEPAGE] Manual refresh of recently viewed triggered',
-                                          );
-                                        });
-                                      },
-                                      icon: const Icon(
-                                        Icons.refresh,
-                                        size: 20,
-                                        color: Color(0xFF263F96),
                                       ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                width: MediaQuery.sizeOf(context).width * 1.0,
-                                height:
-                                    MediaQuery.sizeOf(context).height * 0.25,
-                                decoration: const BoxDecoration(),
-                                child:
-                                    FutureBuilder<List<Map<String, dynamic>>?>(
-                                  future: RecentlyViewedHelper
-                                      .getRecentlyViewedProducts(),
-                                  builder: (context, snapshot) {
-                                    if (snapshot.connectionState ==
-                                        ConnectionState.waiting) {
-                                      return HomepageShimmer
-                                          .recentlyViewedShimmer();
-                                    }
-
-                                    if (snapshot.hasError) {
-                                      return Center(
-                                        child: Text(
-                                          'Error loading recently viewed',
-                                          style: TextStyle(
-                                            color: Colors.grey[600],
-                                            fontSize: 14,
-                                          ),
+                                      IconButton(
+                                        onPressed: () {
+                                          setState(() {
+                                            // Trigger refresh of recently viewed by rebuilding the widget
+                                            print(
+                                              '🔄 [HOMEPAGE] Manual refresh of recently viewed triggered',
+                                            );
+                                          });
+                                        },
+                                        icon: const Icon(
+                                          Icons.refresh,
+                                          size: 20,
+                                          color: Color(0xFF263F96),
                                         ),
-                                      );
-                                    }
-
-                                    final products = snapshot.data;
-                                    if (products == null || products.isEmpty) {
-                                      return const SizedBox
-                                          .shrink(); // Don't show section if no products
-                                    }
-
-                                    return ListView.separated(
-                                      padding: const EdgeInsets.symmetric(
-                                        horizontal: 18.0,
                                       ),
-                                      scrollDirection: Axis.horizontal,
-                                      itemCount: products.length,
-                                      separatorBuilder: (_, __) =>
-                                          const SizedBox(width: 18.0),
-                                      itemBuilder: (context, index) {
-                                        final product = products[index];
-                                        return Padding(
-                                          padding: const EdgeInsetsDirectional
-                                              .fromSTEB(
-                                            0.0,
-                                            10.0,
-                                            0.0,
-                                            10.0,
+                                    ],
+                                  ),
+                                ),
+                                Container(
+                                  width: MediaQuery.sizeOf(context).width * 1.0,
+                                  height:
+                                      MediaQuery.sizeOf(context).height * 0.25,
+                                  decoration: const BoxDecoration(),
+                                  child: FutureBuilder<
+                                      List<Map<String, dynamic>>?>(
+                                    future: RecentlyViewedHelper
+                                        .getRecentlyViewedProducts(),
+                                    builder: (context, snapshot) {
+                                      if (snapshot.connectionState ==
+                                          ConnectionState.waiting) {
+                                        return HomepageShimmer
+                                            .recentlyViewedShimmer();
+                                      }
+
+                                      if (snapshot.hasError) {
+                                        return Center(
+                                          child: Text(
+                                            'Error loading recently viewed',
+                                            style: TextStyle(
+                                              color: Colors.grey[600],
+                                              fontSize: 14,
+                                            ),
                                           ),
-                                          child: GestureDetector(
-                                            onTap: () {
-                                              // Navigate to product details
-                                              final productId =
-                                                  product['_id'] ??
-                                                      product['id'];
-                                              final productPrice =
-                                                  product['price']
-                                                          ?.toString() ??
-                                                      '0';
-                                              if (productId != null) {
-                                                Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        ProductDescriptionColorWidget(
-                                                      productId:
-                                                          productId.toString(),
-                                                      price: productPrice,
-                                                    ),
-                                                  ),
-                                                );
-                                              }
-                                            },
-                                            child: Container(
-                                              width: MediaQuery.sizeOf(
+                                        );
+                                      }
+
+                                      final products = snapshot.data;
+                                      if (products == null ||
+                                          products.isEmpty) {
+                                        return const SizedBox
+                                            .shrink(); // Don't show section if no products
+                                      }
+
+                                      return ListView.separated(
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 18.0,
+                                        ),
+                                        scrollDirection: Axis.horizontal,
+                                        itemCount: products.length,
+                                        separatorBuilder: (_, __) =>
+                                            const SizedBox(width: 18.0),
+                                        itemBuilder: (context, index) {
+                                          final product = products[index];
+                                          return Padding(
+                                            padding: const EdgeInsetsDirectional
+                                                .fromSTEB(
+                                              0.0,
+                                              10.0,
+                                              0.0,
+                                              10.0,
+                                            ),
+                                            child: GestureDetector(
+                                              onTap: () {
+                                                // Navigate to product details
+                                                final productId =
+                                                    product['_id'] ??
+                                                        product['id'];
+                                                final productPrice =
+                                                    product['price']
+                                                            ?.toString() ??
+                                                        '0';
+                                                if (productId != null) {
+                                                  Navigator.push(
                                                     context,
-                                                  ).width *
-                                                  0.273,
-                                              decoration: BoxDecoration(
-                                                color: FlutterFlowTheme.of(
-                                                  context,
-                                                ).secondaryBackground,
-                                                borderRadius:
-                                                    BorderRadius.circular(8),
-                                                boxShadow: [
-                                                  BoxShadow(
-                                                    color: Colors.black
-                                                        .withOpacity(0.1),
-                                                    blurRadius: 4,
-                                                    offset: const Offset(0, 2),
-                                                  ),
-                                                ],
-                                              ),
-                                              child: Column(
-                                                mainAxisSize: MainAxisSize.max,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  ClipRRect(
-                                                    borderRadius:
-                                                        const BorderRadius
-                                                            .vertical(
-                                                      top: Radius.circular(
-                                                        8,
+                                                    MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          ProductDescriptionColorWidget(
+                                                        productId: productId
+                                                            .toString(),
+                                                        price: productPrice,
                                                       ),
                                                     ),
-                                                    child: Image.network(
-                                                      _getProductImage(product),
-                                                      width: 200.0,
-                                                      height: MediaQuery.sizeOf(
-                                                            context,
-                                                          ).height *
-                                                          0.15,
-                                                      fit: BoxFit.cover,
-                                                      errorBuilder: (
-                                                        context,
-                                                        error,
-                                                        stackTrace,
-                                                      ) {
-                                                        return Container(
-                                                          width: 200.0,
-                                                          height:
-                                                              MediaQuery.sizeOf(
-                                                                    context,
-                                                                  ).height *
-                                                                  0.15,
-                                                          color:
-                                                              Colors.grey[200],
-                                                          child: const Icon(
-                                                            Icons
-                                                                .image_not_supported,
-                                                            color: Colors.grey,
-                                                          ),
-                                                        );
-                                                      },
+                                                  );
+                                                }
+                                              },
+                                              child: Container(
+                                                width: MediaQuery.sizeOf(
+                                                      context,
+                                                    ).width *
+                                                    0.273,
+                                                decoration: BoxDecoration(
+                                                  color: FlutterFlowTheme.of(
+                                                    context,
+                                                  ).secondaryBackground,
+                                                  borderRadius:
+                                                      BorderRadius.circular(8),
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                      color: Colors.black
+                                                          .withOpacity(0.1),
+                                                      blurRadius: 4,
+                                                      offset:
+                                                          const Offset(0, 2),
                                                     ),
-                                                  ),
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsetsDirectional
-                                                            .fromSTEB(
-                                                      8.0,
-                                                      5.0,
-                                                      8.0,
-                                                      0.0,
+                                                  ],
+                                                ),
+                                                child: Column(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    ClipRRect(
+                                                      borderRadius:
+                                                          const BorderRadius
+                                                              .vertical(
+                                                        top: Radius.circular(
+                                                          8,
+                                                        ),
+                                                      ),
+                                                      child: Image.network(
+                                                        _getProductImage(
+                                                            product),
+                                                        width: 200.0,
+                                                        height:
+                                                            MediaQuery.sizeOf(
+                                                                  context,
+                                                                ).height *
+                                                                0.15,
+                                                        fit: BoxFit.cover,
+                                                        errorBuilder: (
+                                                          context,
+                                                          error,
+                                                          stackTrace,
+                                                        ) {
+                                                          return Container(
+                                                            width: 200.0,
+                                                            height: MediaQuery
+                                                                    .sizeOf(
+                                                                  context,
+                                                                ).height *
+                                                                0.15,
+                                                            color: Colors
+                                                                .grey[200],
+                                                            child: const Icon(
+                                                              Icons
+                                                                  .image_not_supported,
+                                                              color:
+                                                                  Colors.grey,
+                                                            ),
+                                                          );
+                                                        },
+                                                      ),
                                                     ),
-                                                    child: Text(
-                                                      _getProductTitle(product),
-                                                      style:
-                                                          FlutterFlowTheme.of(
-                                                        context,
-                                                      ).bodyMedium.override(
-                                                                font: GoogleFonts
-                                                                    .encodeSans(
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                        8.0,
+                                                        5.0,
+                                                        8.0,
+                                                        0.0,
+                                                      ),
+                                                      child: Text(
+                                                        _getProductTitle(
+                                                            product),
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                          context,
+                                                        ).bodyMedium.override(
+                                                                  font: GoogleFonts
+                                                                      .encodeSans(
+                                                                    fontWeight:
+                                                                        FlutterFlowTheme
+                                                                            .of(
+                                                                      context,
+                                                                    ).bodyMedium.fontWeight,
+                                                                    fontStyle:
+                                                                        FlutterFlowTheme
+                                                                            .of(
+                                                                      context,
+                                                                    ).bodyMedium.fontStyle,
+                                                                  ),
+                                                                  fontSize:
+                                                                      12.0,
+                                                                  letterSpacing:
+                                                                      0.0,
                                                                   fontWeight:
-                                                                      FlutterFlowTheme
-                                                                          .of(
-                                                                    context,
-                                                                  ).bodyMedium.fontWeight,
+                                                                      FontWeight
+                                                                          .w600,
                                                                   fontStyle: FlutterFlowTheme
                                                                           .of(
                                                                     context,
@@ -2552,184 +2621,112 @@ class _HomepageWidgetState extends State<HomepageWidget>
                                                                       .bodyMedium
                                                                       .fontStyle,
                                                                 ),
-                                                                fontSize: 12.0,
-                                                                letterSpacing:
-                                                                    0.0,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w600,
-                                                                fontStyle:
-                                                                    FlutterFlowTheme
-                                                                            .of(
-                                                                  context,
-                                                                )
-                                                                        .bodyMedium
-                                                                        .fontStyle,
-                                                              ),
-                                                      maxLines: 2,
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
+                                                        maxLines: 2,
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                      ),
                                                     ),
-                                                  ),
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsetsDirectional
-                                                            .fromSTEB(
-                                                      8.0,
-                                                      5.0,
-                                                      8.0,
-                                                      8.0,
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                        8.0,
+                                                        5.0,
+                                                        8.0,
+                                                        8.0,
+                                                      ),
+                                                      child: Text(
+                                                        _getProductPrice(
+                                                            product),
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                          context,
+                                                        ).bodyMedium.override(
+                                                                  fontFamily:
+                                                                      FlutterFlowTheme
+                                                                          .of(
+                                                                    context,
+                                                                  ).bodyMediumFamily,
+                                                                  fontSize:
+                                                                      14.0,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w700,
+                                                                  color:
+                                                                      const Color(
+                                                                    0xFF263F96,
+                                                                  ),
+                                                                  useGoogleFonts:
+                                                                      !FlutterFlowTheme
+                                                                          .of(
+                                                                    context,
+                                                                  ).bodyMediumIsCustom,
+                                                                ),
+                                                      ),
                                                     ),
-                                                    child: Text(
-                                                      _getProductPrice(product),
-                                                      style: FlutterFlowTheme
-                                                              .of(
-                                                        context,
-                                                      ).bodyMedium.override(
-                                                            fontFamily:
-                                                                FlutterFlowTheme
-                                                                    .of(
-                                                              context,
-                                                            ).bodyMediumFamily,
-                                                            fontSize: 14.0,
-                                                            letterSpacing: 0.0,
-                                                            fontWeight:
-                                                                FontWeight.w700,
-                                                            color: const Color(
-                                                              0xFF263F96,
-                                                            ),
-                                                            useGoogleFonts:
-                                                                !FlutterFlowTheme
-                                                                    .of(
-                                                              context,
-                                                            ).bodyMediumIsCustom,
-                                                          ),
-                                                    ),
-                                                  ),
-                                                ],
+                                                  ],
+                                                ),
                                               ),
                                             ),
-                                          ),
-                                        );
-                                      },
-                                    );
-                                  },
-                                ),
-                              ),
-                              Container(
-                                decoration: const BoxDecoration(),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      '\"I Don\'t design clothes i design dreams\"',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            font: GoogleFonts.eduSaBeginner(
-                                              fontWeight: FlutterFlowTheme.of(
-                                                context,
-                                              ).bodyMedium.fontWeight,
-                                              fontStyle: FlutterFlowTheme.of(
-                                                context,
-                                              ).bodyMedium.fontStyle,
-                                            ),
-                                            color: FlutterFlowTheme.of(
-                                              context,
-                                            ).secondaryText,
-                                            letterSpacing: 0.0,
-                                            fontWeight: FlutterFlowTheme.of(
-                                              context,
-                                            ).bodyMedium.fontWeight,
-                                            fontStyle: FlutterFlowTheme.of(
-                                              context,
-                                            ).bodyMedium.fontStyle,
-                                          ),
-                                    ),
-                                    Text(
-                                      '-Ralph lauren',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            font: GoogleFonts.eduSaBeginner(
-                                              fontWeight: FlutterFlowTheme.of(
-                                                context,
-                                              ).bodyMedium.fontWeight,
-                                              fontStyle: FlutterFlowTheme.of(
-                                                context,
-                                              ).bodyMedium.fontStyle,
-                                            ),
-                                            color: FlutterFlowTheme.of(
-                                              context,
-                                            ).secondaryText,
-                                            letterSpacing: 0.0,
-                                            fontWeight: FlutterFlowTheme.of(
-                                              context,
-                                            ).bodyMedium.fontWeight,
-                                            fontStyle: FlutterFlowTheme.of(
-                                              context,
-                                            ).bodyMedium.fontStyle,
-                                          ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                width: MediaQuery.sizeOf(context).width * 1.0,
-                                height: 100.0,
-                                decoration: BoxDecoration(
-                                  color: FlutterFlowTheme.of(
-                                    context,
-                                  ).primaryBackground,
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
-                                    10.0,
-                                    10.0,
-                                    0.0,
-                                    0.0,
+                                          );
+                                        },
+                                      );
+                                    },
                                   ),
+                                ),
+                                Container(
+                                  decoration: const BoxDecoration(),
                                   child: Column(
                                     mainAxisSize: MainAxisSize.max,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Text(
-                                        'INDIGO RHAPSODY',
+                                        '\"I Don\'t design clothes i design dreams\"',
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(
-                                              font: GoogleFonts.encodeSans(
-                                                fontWeight: FontWeight.bold,
+                                              font: GoogleFonts.eduSaBeginner(
+                                                fontWeight: FlutterFlowTheme.of(
+                                                  context,
+                                                ).bodyMedium.fontWeight,
                                                 fontStyle: FlutterFlowTheme.of(
                                                   context,
                                                 ).bodyMedium.fontStyle,
                                               ),
-                                              color: const Color(0xFF787878),
-                                              fontSize: 15.0,
+                                              color: FlutterFlowTheme.of(
+                                                context,
+                                              ).secondaryText,
                                               letterSpacing: 0.0,
-                                              fontWeight: FontWeight.bold,
+                                              fontWeight: FlutterFlowTheme.of(
+                                                context,
+                                              ).bodyMedium.fontWeight,
                                               fontStyle: FlutterFlowTheme.of(
                                                 context,
                                               ).bodyMedium.fontStyle,
                                             ),
                                       ),
                                       Text(
-                                        'Made In 🇮🇳',
+                                        '-Ralph lauren',
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(
-                                              font: GoogleFonts.encodeSans(
-                                                fontWeight: FontWeight.bold,
+                                              font: GoogleFonts.eduSaBeginner(
+                                                fontWeight: FlutterFlowTheme.of(
+                                                  context,
+                                                ).bodyMedium.fontWeight,
                                                 fontStyle: FlutterFlowTheme.of(
                                                   context,
                                                 ).bodyMedium.fontStyle,
                                               ),
-                                              color: const Color(0xFFBDBDBD),
-                                              fontSize: 12.0,
+                                              color: FlutterFlowTheme.of(
+                                                context,
+                                              ).secondaryText,
                                               letterSpacing: 0.0,
-                                              fontWeight: FontWeight.bold,
+                                              fontWeight: FlutterFlowTheme.of(
+                                                context,
+                                              ).bodyMedium.fontWeight,
                                               fontStyle: FlutterFlowTheme.of(
                                                 context,
                                               ).bodyMedium.fontStyle,
@@ -2738,8 +2735,75 @@ class _HomepageWidgetState extends State<HomepageWidget>
                                     ],
                                   ),
                                 ),
-                              ),
-                            ],
+                                Container(
+                                  width: MediaQuery.sizeOf(context).width * 1.0,
+                                  height: 100.0,
+                                  decoration: BoxDecoration(
+                                    color: FlutterFlowTheme.of(
+                                      context,
+                                    ).primaryBackground,
+                                  ),
+                                  child: Padding(
+                                    padding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                      10.0,
+                                      10.0,
+                                      0.0,
+                                      0.0,
+                                    ),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'INDIGO RHAPSODY',
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                font: GoogleFonts.encodeSans(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                    context,
+                                                  ).bodyMedium.fontStyle,
+                                                ),
+                                                color: const Color(0xFF787878),
+                                                fontSize: 15.0,
+                                                letterSpacing: 0.0,
+                                                fontWeight: FontWeight.bold,
+                                                fontStyle: FlutterFlowTheme.of(
+                                                  context,
+                                                ).bodyMedium.fontStyle,
+                                              ),
+                                        ),
+                                        Text(
+                                          'Made In 🇮🇳',
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                font: GoogleFonts.encodeSans(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                    context,
+                                                  ).bodyMedium.fontStyle,
+                                                ),
+                                                color: const Color(0xFFBDBDBD),
+                                                fontSize: 12.0,
+                                                letterSpacing: 0.0,
+                                                fontWeight: FontWeight.bold,
+                                                fontStyle: FlutterFlowTheme.of(
+                                                  context,
+                                                ).bodyMedium.fontStyle,
+                                              ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
 
                           // Recently Viewed Section

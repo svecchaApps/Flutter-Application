@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import '/auth/jwt_auth_manager.dart';
+import '/config/environment_config.dart';
 
 class RecentlyViewedApi {
-  static const String _baseUrl =
-      'https://indigo-rhapsody-backend-ten.vercel.app';
+  static String get _baseUrl => EnvironmentConfig.baseUrl;
 
   // Get recently viewed products
   static Future<List<Map<String, dynamic>>?> getRecentlyViewedProducts() async {

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 
 import '/flutter_flow/flutter_flow_util.dart';
+import '/config/environment_config.dart';
 import 'api_manager.dart';
 
 export 'api_manager.dart' show ApiCallResponse;
@@ -12,8 +13,7 @@ const _kPrivateApiFunctionName = 'ffPrivateApiCall';
 /// Start BackendAPI Group Code
 
 class BackendAPIGroup {
-  static String getBaseUrl() =>
-      'https://indigo-rhapsody-backend-ten.vercel.app';
+  static String getBaseUrl() => EnvironmentConfig.baseUrl;
   static Map<String, String> headers = {};
   static ProductsApiCall productsApiCall = ProductsApiCall();
   static GetCategoriesCall getCategoriesCall = GetCategoriesCall();
@@ -64,6 +64,7 @@ class BackendAPIGroup {
       createCartandUpdateCartOneFunctionCall =
       CreateCartandUpdateCartOneFunctionCall();
   static GetAllCouponsCall getAllCouponsCall = GetAllCouponsCall();
+  static GetActiveCouponsCall getActiveCouponsCall = GetActiveCouponsCall();
   static ApplyCouponsCall applyCouponsCall = ApplyCouponsCall();
   static CreateReturnRequestCall createReturnRequestCall =
       CreateReturnRequestCall();
@@ -90,6 +91,62 @@ class BackendAPIGroup {
   static GetVideoCommentsCall getVideoCommentsCall = GetVideoCommentsCall();
   static UpdateCommentCall updateCommentCall = UpdateCommentCall();
   static DeleteCommentCall deleteCommentCall = DeleteCommentCall();
+  static UpdateCartAddressCall updateCartAddressCall = UpdateCartAddressCall();
+}
+
+class UpdateCartAddressCall {
+  Future<ApiCallResponse> call({
+    String? userId = '',
+    String? street = '',
+    String? city = '',
+    String? state = '',
+    String? pincode = '',
+    String? country = 'India',
+    String? phoneNumber = '',
+  }) async {
+    final baseUrl = BackendAPIGroup.getBaseUrl();
+
+    final ffApiRequestBody = '''
+{
+  "address": {
+    "street": "$street",
+    "city": "$city",
+    "state": "$state",
+    "pincode": "$pincode",
+    "country": "$country",
+    "phoneNumber": "$phoneNumber"
+  }
+}''';
+
+    return ApiManager.instance.makeApiCall(
+      callName: 'updateCartAddress',
+      apiUrl: '$baseUrl/cart/update-address/$userId',
+      callType: ApiCallType.PUT,
+      headers: {},
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  dynamic success(dynamic response) => getJsonField(
+        response,
+        r'''$.success''',
+      );
+  dynamic message(dynamic response) => getJsonField(
+        response,
+        r'''$.message''',
+      );
+  dynamic cart(dynamic response) => getJsonField(
+        response,
+        r'''$.cart''',
+      );
 }
 
 class ProductsApiCall {
@@ -1412,33 +1469,35 @@ class GetUserInfoCall {
         response,
         r'''$.user.is_creator''',
       ));
-  
+
   // Helper methods to extract user data from API response
-  String? getUserDisplayName(dynamic response) => castToType<String>(getJsonField(
+  String? getUserDisplayName(dynamic response) =>
+      castToType<String>(getJsonField(
         response,
         r'''$.user.displayName''',
       ));
-  
+
   String? getUserEmail(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.user.email''',
       ));
-  
-  String? getUserPhoneNumber(dynamic response) => castToType<String>(getJsonField(
+
+  String? getUserPhoneNumber(dynamic response) =>
+      castToType<String>(getJsonField(
         response,
         r'''$.user.phoneNumber''',
       ));
-  
+
   String? getUserId(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.user._id''',
       ));
-  
+
   String? getUserRole(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.user.role''',
       ));
-  
+
   List<dynamic>? getUserAddresses(dynamic response) => (getJsonField(
         response,
         r'''$.user.address''',
@@ -1627,7 +1686,7 @@ class GetDesignerProductsCall {
 
     return ApiManager.instance.makeApiCall(
       callName: 'getDesignerProducts',
-      apiUrl: '$baseUrl/products//getProductsByDesigner/$designerId',
+      apiUrl: '$baseUrl/products/getProductsByDesigner/$designerId',
       callType: ApiCallType.GET,
       headers: {},
       params: {
@@ -2196,6 +2255,108 @@ class GetAllCouponsCall {
   List? body(dynamic response) => getJsonField(
         response,
         r'''$.data.*''',
+        true,
+      ) as List?;
+}
+
+/// Fetches active coupons from GET /api/coupons/active.
+/// Expected response body:
+/// {
+///   "success": true,
+///   "message": "Active coupons fetched successfully",
+///   "data": [
+///     { "_id", "couponCode", "couponAmount", "expiryDate", "is_active", "usedBy", ... },
+///     ...
+///   ],
+///   "count": 2
+/// }
+class GetActiveCouponsCall {
+  Future<ApiCallResponse> call() async {
+    final baseUrl = BackendAPIGroup.getBaseUrl();
+
+    return ApiManager.instance.makeApiCall(
+      callName: 'getActiveCoupons',
+      apiUrl: '$baseUrl/coupon/active',
+      callType: ApiCallType.GET,
+      headers: {},
+      params: {},
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  /// Returns the list of coupon objects from response.data.
+  /// Handles: { "success": true, "message": "...", "data": [...], "count": 2 }
+  /// Each item has: _id, couponCode, couponAmount, expiryDate, is_active, usedBy, etc.
+  List? body(dynamic response) {
+    if (response == null) return null;
+    // Direct map access (most reliable for known structure)
+    if (response is Map &&
+        response['data'] != null &&
+        response['data'] is List) {
+      return response['data'] as List;
+    }
+    // Fallback: JSON path
+    final fromData = getJsonField(response, r'''$.data''', true);
+    if (fromData is List) return fromData;
+    if (fromData != null && fromData is Iterable && fromData is! String) {
+      return fromData is List ? fromData : fromData.toList();
+    }
+    return null;
+  }
+
+  List<String>? couponId(dynamic response) => (getJsonField(
+        response,
+        r'''$.data[:]._id''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  List<String>? couponCode(dynamic response) => (getJsonField(
+        response,
+        r'''$.data[:].couponCode''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  List<int>? couponAmount(dynamic response) => (getJsonField(
+        response,
+        r'''$.data[:].couponAmount''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<int>(x))
+          .withoutNulls
+          .toList();
+  List<String>? expiryDate(dynamic response) => (getJsonField(
+        response,
+        r'''$.data[:].expiryDate''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  List<bool>? isActive(dynamic response) => (getJsonField(
+        response,
+        r'''$.data[:].is_active''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<bool>(x))
+          .withoutNulls
+          .toList();
+  List? usedBy(dynamic response) => getJsonField(
+        response,
+        r'''$.data[:].usedBy''',
         true,
       ) as List?;
 }
